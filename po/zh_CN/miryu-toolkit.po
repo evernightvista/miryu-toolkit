@@ -1,0 +1,321 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: miryu-toolkit 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-12 00:00+0800\n"
+"PO-Revision-Date: 2026-08-12 00:00+0800\n"
+"Last-Translator: Miryu Team <packager@miryu.local>\n"
+"Language-Team: Simplified Chinese\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Miryu Toolkit"
+msgstr "Miryu 工具箱"
+
+msgid "Miryu system utility toolkit"
+msgstr "Miryu 系统工具箱"
+
+msgid "(c) 2026 Miryu"
+msgstr "(c) 2026 Miryu"
+
+msgid "Manage Miryu components, maintenance tasks and system-wide environment variables in one place."
+msgstr "集中管理 Miryu 组件、维护任务和系统范围环境变量。"
+
+msgid "Maintenance"
+msgstr "维护"
+
+msgid "Miscellaneous"
+msgstr "杂项"
+
+msgid "System-wide environment variables"
+msgstr "系统范围环境变量"
+
+msgid "Ready"
+msgstr "准备完成"
+
+msgid "Refresh status"
+msgstr "刷新状态"
+
+msgid "Install Wine"
+msgstr "安装 Wine"
+
+msgid "Install Wine, DXVK, Winetricks and WineASIO for running Windows programs and some audio workflows."
+msgstr "安装 Wine、DXVK、Winetricks 和 WineASIO，用于运行 Windows 程序和部分音频工作流。"
+
+msgid "Install Steam"
+msgstr "安装 Steam"
+
+msgid "Install the Steam client. Steam will download update files on first launch."
+msgstr "安装 Steam 客户端。首次启动时 Steam 会下载更新文件。"
+
+msgid "Install MIDI playback support"
+msgstr "安装 MIDI 播放支持"
+
+msgid "Install the FluidSynth GStreamer plugin to enable MIDI file playback support."
+msgstr "安装 FluidSynth GStreamer 插件，以启用 MIDI 文件播放支持。"
+
+msgid "Install additional fonts"
+msgstr "安装补充字体"
+
+msgid "Install Noto Sans, Noto Serif, monospace and CJK supplemental fonts to improve multilingual display."
+msgstr "安装 Noto Sans、Noto Serif、等宽和 CJK 补充字体，以改善多语言显示。"
+
+msgid "%1 software repository"
+msgstr "%1 软件仓库"
+
+msgid "Enabled"
+msgstr "有效"
+
+msgid "Jilin University"
+msgstr "吉林大学"
+
+msgid "Default mirror"
+msgstr "默认镜像"
+
+msgid "Automatic selection"
+msgstr "自动选择"
+
+msgid "Speed test"
+msgstr "速度测试"
+
+msgid "Maintenance tasks"
+msgstr "维护操作"
+
+msgid "Repository cache refresh and default configuration restore actions can be added here."
+msgstr "这里可以添加仓库缓存刷新和恢复默认配置等操作。"
+
+msgid "Update DNF cache"
+msgstr "更新 DNF 缓存"
+
+msgid "Additional components"
+msgstr "额外组件"
+
+msgid "Status: checking"
+msgstr "状态：检查中"
+
+msgid "Packages: %1"
+msgstr "软件包：%1"
+
+msgid "Install"
+msgstr "安装"
+
+msgid "Uninstall"
+msgstr "卸载"
+
+msgid "Environment variables"
+msgstr "环境变量"
+
+msgid "Set system-wide environment variables using the NAME=VALUE format. Changes are written to /etc/environment and take effect after logging in again."
+msgstr "使用 NAME=VALUE 格式设置系统范围环境变量。修改会写入 /etc/environment，并在重新登录后生效。"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Reload"
+msgstr "重新读取"
+
+msgid "Apply"
+msgstr "应用"
+
+msgid "Log out and log back in for changes to take effect."
+msgstr "注销并重新登录后更改生效。"
+
+msgid "Status: installed"
+msgstr "状态：已安装"
+
+msgid "Status: partially installed (%1/%2)"
+msgstr "状态：部分安装（%1/%2）"
+
+msgid "Status: not installed"
+msgstr "状态：未安装"
+
+msgid "Do you want to %1 “%2”?\n\nThe package helper will run: dnf %3 -y %4"
+msgstr "确定要%1“%2”吗？\n\n软件包 helper 将运行：dnf %3 -y %4"
+
+msgid "Confirm %1"
+msgstr "确认%1"
+
+msgid "%1 completed."
+msgstr "%1完成。"
+
+msgid "Operation completed"
+msgstr "操作完成"
+
+msgid "%1 “%2” failed.\n\n%3"
+msgstr "%1“%2”失败。\n\n%3"
+
+msgid "Operation failed"
+msgstr "操作失败"
+
+msgid "Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."
+msgstr "无法启动 pkexec。请确认系统已安装 polkit，并从图形会话运行本程序。"
+
+msgid "%1 failed"
+msgstr "%1失败"
+
+msgid "Unable to read /etc/environment. You can add variables and apply them later."
+msgstr "无法读取 /etc/environment。可以添加变量后再应用。"
+
+msgid "/etc/environment has been loaded. Log out and log back in for changes to take effect."
+msgstr "已读取 /etc/environment。注销并重新登录后更改生效。"
+
+msgid "Add environment variable"
+msgstr "添加环境变量"
+
+msgid "Variable (NAME=VALUE):"
+msgstr "变量（NAME=VALUE）："
+
+msgid "Invalid format"
+msgstr "格式错误"
+
+msgid "Select an environment variable first."
+msgstr "请先选择一个环境变量。"
+
+msgid "No item selected"
+msgstr "未选择条目"
+
+msgid "Edit environment variable"
+msgstr "编辑环境变量"
+
+msgid "Unable to create a temporary file."
+msgstr "无法创建临时文件。"
+
+msgid "Apply failed"
+msgstr "应用失败"
+
+msgid "Saved to /etc/environment. Log out and log back in for changes to take effect."
+msgstr "已保存到 /etc/environment。注销并重新登录后更改生效。"
+
+msgid "System-wide environment variables have been saved. Log out and log back in for changes to take effect."
+msgstr "系统范围环境变量已保存。注销并重新登录后更改生效。"
+
+msgid "Apply completed"
+msgstr "应用完成"
+
+msgid "Writing /etc/environment failed.\n\n%1"
+msgstr "写入 /etc/environment 失败。\n\n%1"
+
+msgid "Environment variables must use the NAME=VALUE format. NAME may only contain letters, digits and underscores, and must not start with a digit."
+msgstr "环境变量必须使用 NAME=VALUE 格式。NAME 只能包含字母、数字和下划线，且不能以数字开头。"
+
+msgid "A single environment variable must not contain line breaks."
+msgstr "单个环境变量不能包含换行符。"
+
+msgid "Restore defaults"
+msgstr "恢复默认"
+
+msgid "DNF5 details: %1"
+msgstr "DNF5 详细信息：%1"
+
+msgid "Detailed dnf5 installation log:"
+msgstr "dnf5 安装详细日志："
+
+msgid "Starting privileged package helper..."
+msgstr "正在启动提权软件包 helper..."
+
+msgid "%1 “%2” failed."
+msgstr "%1“%2”失败。"
+
+msgid "Do you want to %1 “%2”?\n\nThe package helper will run: dnf5 %3 -y %4"
+msgstr "确定要%1“%2”吗？\n\n软件包 helper 将运行：dnf5 %3 -y %4"
+
+msgid "Restore the default system-wide environment variables?"
+msgstr "要恢复默认系统范围环境变量吗？"
+
+msgid "Default system-wide environment variables have been restored. Log out and log back in for changes to take effect."
+msgstr "默认系统范围环境变量已恢复。注销并重新登录后更改生效。"
+
+msgid "Defaults restored"
+msgstr "已恢复默认"
+
+msgid "Restoring default system-wide environment variables failed.\n\n%1"
+msgstr "恢复默认系统范围环境变量失败。\n\n%1"
+
+msgid "Restore failed"
+msgstr "恢复失败"
+
+msgid "Collect system logs"
+msgstr "收集系统日志"
+
+msgid "Collecting system logs..."
+msgstr "正在收集系统日志..."
+
+msgid "Collecting system logs"
+msgstr "收集系统日志"
+
+msgid "Collecting system information and logs. This may take a moment..."
+msgstr "正在收集系统信息和日志。这可能需要一些时间..."
+
+msgid "Starting privileged log collection helper..."
+msgstr "正在启动提权日志收集 helper..."
+
+msgid "System logs collected: %1"
+msgstr "系统日志已收集：%1"
+
+msgid "Collection completed. Archive saved to: %1"
+msgstr "收集完成。归档已保存到：%1"
+
+msgid "System logs have been collected and saved to:\n%1"
+msgstr "系统日志已收集并保存到：\n%1"
+
+msgid "Collection completed"
+msgstr "收集完成"
+
+msgid "Log collection failed."
+msgstr "日志收集失败。"
+
+msgid "Failed to collect system logs. See the log window for details."
+msgstr "收集系统日志失败。详情请查看日志窗口。"
+
+msgid "Collection failed"
+msgstr "收集失败"
+
+msgid "About"
+msgstr "关于"
+
+msgid "Project links"
+msgstr "项目链接"
+
+msgid "Miryu Toolkit (Project Repository)"
+msgstr "Miryu Toolkit（项目仓库）"
+
+msgid "Clean up previous kernel"
+msgstr "清理上一版本内核"
+
+msgid "Remove previous kernel versions? This will run: dnf-3 remove --oldinstallonly"
+msgstr "移除上一版本内核？将运行：dnf-3 remove --oldinstallonly"
+
+msgid "Clean up"
+msgstr "清理"
+
+msgid "Cleaning up previous kernel..."
+msgstr "正在清理上一版本内核..."
+
+msgid "Kernel cleanup log"
+msgstr "内核清理日志"
+
+msgid "Removing previous kernel versions via dnf-3..."
+msgstr "正在通过 dnf-3 移除上一版本内核..."
+
+msgid "Starting privileged kernel cleanup helper..."
+msgstr "正在启动提权内核清理 helper..."
+
+msgid "Kernel cleanup completed."
+msgstr "内核清理完成。"
+
+msgid "Previous kernel versions have been cleaned up."
+msgstr "上一版本内核已清理。"
+
+msgid "Cleanup completed"
+msgstr "清理完成"
+
+msgid "Kernel cleanup failed."
+msgstr "内核清理失败。"
+
+msgid "Failed to clean up previous kernel versions. See the log window for details."
+msgstr "清理上一版本内核失败。详情请查看日志窗口。"
+
+msgid "Cleanup failed"
+msgstr "清理失败"

@@ -1,0 +1,321 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: miryu-toolkit 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-12 00:00+0800\n"
+"PO-Revision-Date: 2026-08-12 00:00+0800\n"
+"Last-Translator: Miryu Team <packager@miryu.local>\n"
+"Language-Team: Korean\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Miryu Toolkit"
+msgstr "Miryu 도구 상자"
+
+msgid "Miryu system utility toolkit"
+msgstr "Miryu 시스템 유틸리티 도구 상자"
+
+msgid "(c) 2026 Miryu"
+msgstr "(c) 2026 Miryu"
+
+msgid "Manage Miryu components, maintenance tasks and system-wide environment variables in one place."
+msgstr "Miryu 구성 요소, 유지 관리 작업, 시스템 전체 환경 변수를 한곳에서 관리합니다."
+
+msgid "Maintenance"
+msgstr "유지 관리"
+
+msgid "Miscellaneous"
+msgstr "기타"
+
+msgid "System-wide environment variables"
+msgstr "시스템 전체 환경 변수"
+
+msgid "Ready"
+msgstr "준비됨"
+
+msgid "Refresh status"
+msgstr "상태 새로 고침"
+
+msgid "Install Wine"
+msgstr "Wine 설치"
+
+msgid "Install Wine, DXVK, Winetricks and WineASIO for running Windows programs and some audio workflows."
+msgstr "Windows 프로그램과 일부 오디오 작업 흐름을 실행하기 위해 Wine, DXVK, Winetricks 및 WineASIO를 설치합니다."
+
+msgid "Install Steam"
+msgstr "Steam 설치"
+
+msgid "Install the Steam client. Steam will download update files on first launch."
+msgstr "Steam 클라이언트를 설치합니다. 처음 실행할 때 Steam이 업데이트 파일을 다운로드합니다."
+
+msgid "Install MIDI playback support"
+msgstr "MIDI 재생 지원 설치"
+
+msgid "Install the FluidSynth GStreamer plugin to enable MIDI file playback support."
+msgstr "MIDI 파일 재생 지원을 사용하려면 FluidSynth GStreamer 플러그인을 설치합니다."
+
+msgid "Install additional fonts"
+msgstr "추가 글꼴 설치"
+
+msgid "Install Noto Sans, Noto Serif, monospace and CJK supplemental fonts to improve multilingual display."
+msgstr "다국어 표시를 개선하기 위해 Noto Sans, Noto Serif, 고정폭 및 CJK 보조 글꼴을 설치합니다."
+
+msgid "%1 software repository"
+msgstr "%1 소프트웨어 저장소"
+
+msgid "Enabled"
+msgstr "사용"
+
+msgid "Jilin University"
+msgstr "지린 대학교"
+
+msgid "Default mirror"
+msgstr "기본 미러"
+
+msgid "Automatic selection"
+msgstr "자동 선택"
+
+msgid "Speed test"
+msgstr "속도 테스트"
+
+msgid "Maintenance tasks"
+msgstr "유지 관리 작업"
+
+msgid "Repository cache refresh and default configuration restore actions can be added here."
+msgstr "여기에 저장소 캐시 새로 고침 및 기본 구성 복원 작업을 추가할 수 있습니다."
+
+msgid "Update DNF cache"
+msgstr "DNF 캐시 업데이트"
+
+msgid "Additional components"
+msgstr "추가 구성 요소"
+
+msgid "Status: checking"
+msgstr "상태: 확인 중"
+
+msgid "Packages: %1"
+msgstr "패키지: %1"
+
+msgid "Install"
+msgstr "설치"
+
+msgid "Uninstall"
+msgstr "제거"
+
+msgid "Environment variables"
+msgstr "환경 변수"
+
+msgid "Set system-wide environment variables using the NAME=VALUE format. Changes are written to /etc/environment and take effect after logging in again."
+msgstr "NAME=VALUE 형식으로 시스템 전체 환경 변수를 설정합니다. 변경 사항은 /etc/environment에 기록되며 다시 로그인한 후 적용됩니다."
+
+msgid "Edit"
+msgstr "편집"
+
+msgid "Reload"
+msgstr "다시 불러오기"
+
+msgid "Apply"
+msgstr "적용"
+
+msgid "Log out and log back in for changes to take effect."
+msgstr "변경 사항을 적용하려면 로그아웃한 뒤 다시 로그인하세요."
+
+msgid "Status: installed"
+msgstr "상태: 설치됨"
+
+msgid "Status: partially installed (%1/%2)"
+msgstr "상태: 일부 설치됨(%1/%2)"
+
+msgid "Status: not installed"
+msgstr "상태: 설치되지 않음"
+
+msgid "Do you want to %1 “%2”?\n\nThe package helper will run: dnf %3 -y %4"
+msgstr "“%2”을(를) %1하시겠습니까?\n\n패키지 도우미가 다음을 실행합니다: dnf %3 -y %4"
+
+msgid "Confirm %1"
+msgstr "%1 확인"
+
+msgid "%1 completed."
+msgstr "%1 완료."
+
+msgid "Operation completed"
+msgstr "작업 완료"
+
+msgid "%1 “%2” failed.\n\n%3"
+msgstr "%1 “%2” 실패.\n\n%3"
+
+msgid "Operation failed"
+msgstr "작업 실패"
+
+msgid "Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."
+msgstr "pkexec를 시작할 수 없습니다. polkit이 설치되어 있는지 확인하고 그래픽 세션에서 이 프로그램을 실행하세요."
+
+msgid "%1 failed"
+msgstr "%1 실패"
+
+msgid "Unable to read /etc/environment. You can add variables and apply them later."
+msgstr "/etc/environment를 읽을 수 없습니다. 변수를 추가한 뒤 나중에 적용할 수 있습니다."
+
+msgid "/etc/environment has been loaded. Log out and log back in for changes to take effect."
+msgstr "/etc/environment를 불러왔습니다. 변경 사항을 적용하려면 로그아웃한 뒤 다시 로그인하세요."
+
+msgid "Add environment variable"
+msgstr "환경 변수 추가"
+
+msgid "Variable (NAME=VALUE):"
+msgstr "변수(NAME=VALUE):"
+
+msgid "Invalid format"
+msgstr "잘못된 형식"
+
+msgid "Select an environment variable first."
+msgstr "먼저 환경 변수를 선택하세요."
+
+msgid "No item selected"
+msgstr "선택된 항목 없음"
+
+msgid "Edit environment variable"
+msgstr "환경 변수 편집"
+
+msgid "Unable to create a temporary file."
+msgstr "임시 파일을 만들 수 없습니다."
+
+msgid "Apply failed"
+msgstr "적용 실패"
+
+msgid "Saved to /etc/environment. Log out and log back in for changes to take effect."
+msgstr "/etc/environment에 저장되었습니다. 변경 사항을 적용하려면 로그아웃한 뒤 다시 로그인하세요."
+
+msgid "System-wide environment variables have been saved. Log out and log back in for changes to take effect."
+msgstr "시스템 전체 환경 변수가 저장되었습니다. 변경 사항을 적용하려면 로그아웃한 뒤 다시 로그인하세요."
+
+msgid "Apply completed"
+msgstr "적용 완료"
+
+msgid "Writing /etc/environment failed.\n\n%1"
+msgstr "/etc/environment 쓰기 실패.\n\n%1"
+
+msgid "Environment variables must use the NAME=VALUE format. NAME may only contain letters, digits and underscores, and must not start with a digit."
+msgstr "환경 변수는 NAME=VALUE 형식을 사용해야 합니다. NAME에는 문자, 숫자, 밑줄만 사용할 수 있으며 숫자로 시작할 수 없습니다."
+
+msgid "A single environment variable must not contain line breaks."
+msgstr "단일 환경 변수에는 줄 바꿈을 포함할 수 없습니다."
+
+msgid "Restore defaults"
+msgstr "기본값 복원"
+
+msgid "DNF5 details: %1"
+msgstr "DNF5 세부 정보: %1"
+
+msgid "Detailed dnf5 installation log:"
+msgstr "dnf5 설치 상세 로그:"
+
+msgid "Starting privileged package helper..."
+msgstr "권한 있는 패키지 도우미를 시작하는 중..."
+
+msgid "%1 “%2” failed."
+msgstr "%1 “%2” 실패."
+
+msgid "Do you want to %1 “%2”?\n\nThe package helper will run: dnf5 %3 -y %4"
+msgstr "“%2”을(를) %1하시겠습니까?\n\n패키지 도우미가 다음을 실행합니다: dnf5 %3 -y %4"
+
+msgid "Restore the default system-wide environment variables?"
+msgstr "기본 시스템 전체 환경 변수를 복원하시겠습니까?"
+
+msgid "Default system-wide environment variables have been restored. Log out and log back in for changes to take effect."
+msgstr "기본 시스템 전체 환경 변수가 복원되었습니다. 변경 사항을 적용하려면 로그아웃한 뒤 다시 로그인하세요."
+
+msgid "Defaults restored"
+msgstr "기본값 복원됨"
+
+msgid "Restoring default system-wide environment variables failed.\n\n%1"
+msgstr "기본 시스템 전체 환경 변수 복원 실패.\n\n%1"
+
+msgid "Restore failed"
+msgstr "복원 실패"
+
+msgid "Collect system logs"
+msgstr "시스템 로그 수집"
+
+msgid "Collecting system logs..."
+msgstr "시스템 로그를 수집하는 중..."
+
+msgid "Collecting system logs"
+msgstr "시스템 로그 수집"
+
+msgid "Collecting system information and logs. This may take a moment..."
+msgstr "시스템 정보와 로그를 수집하는 중입니다. 잠시만 기다려 주세요..."
+
+msgid "Starting privileged log collection helper..."
+msgstr "권한 상승 로그 수집 helper를 시작하는 중..."
+
+msgid "System logs collected: %1"
+msgstr "시스템 로그가 수집되었습니다: %1"
+
+msgid "Collection completed. Archive saved to: %1"
+msgstr "수집이 완료되었습니다. 아카이브가 %1에 저장되었습니다"
+
+msgid "System logs have been collected and saved to:\n%1"
+msgstr "시스템 로그가 수집되어 다음에 저장되었습니다:\n%1"
+
+msgid "Collection completed"
+msgstr "수집 완료"
+
+msgid "Log collection failed."
+msgstr "로그 수집에 실패했습니다."
+
+msgid "Failed to collect system logs. See the log window for details."
+msgstr "시스템 로그 수집에 실패했습니다. 자세한 내용은 로그 창을 확인하세요."
+
+msgid "Collection failed"
+msgstr "수집 실패"
+
+msgid "About"
+msgstr "정보"
+
+msgid "Project links"
+msgstr "프로젝트 링크"
+
+msgid "Miryu Toolkit (Project Repository)"
+msgstr "Miryu Toolkit (프로젝트 저장소)"
+
+msgid "Clean up previous kernel"
+msgstr "이전 커널 정리"
+
+msgid "Remove previous kernel versions? This will run: dnf-3 remove --oldinstallonly"
+msgstr "이전 커널 버전을 제거하시겠습니까? 다음을 실행합니다: dnf-3 remove --oldinstallonly"
+
+msgid "Clean up"
+msgstr "정리"
+
+msgid "Cleaning up previous kernel..."
+msgstr "이전 커널을 정리하는 중..."
+
+msgid "Kernel cleanup log"
+msgstr "커널 정리 로그"
+
+msgid "Removing previous kernel versions via dnf-3..."
+msgstr "dnf-3로 이전 커널 버전을 제거하는 중..."
+
+msgid "Starting privileged kernel cleanup helper..."
+msgstr "권한 상승 커널 정리 helper를 시작하는 중..."
+
+msgid "Kernel cleanup completed."
+msgstr "커널 정리가 완료되었습니다."
+
+msgid "Previous kernel versions have been cleaned up."
+msgstr "이전 커널 버전이 정리되었습니다."
+
+msgid "Cleanup completed"
+msgstr "정리 완료"
+
+msgid "Kernel cleanup failed."
+msgstr "커널 정리에 실패했습니다."
+
+msgid "Failed to clean up previous kernel versions. See the log window for details."
+msgstr "이전 커널 버전 정리에 실패했습니다. 자세한 내용은 로그 창을 확인하세요."
+
+msgid "Cleanup failed"
+msgstr "정리 실패"

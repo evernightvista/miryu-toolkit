@@ -1,0 +1,17 @@
+[Desktop Entry]
+Type=Service
+X-KDE-ServiceTypes=KonqPopupMenu/Plugin,inode/directory,inode/directory-locked
+MimeType=inode/directory;inode/directory-locked;
+Actions=RootKDE6;
+Icon=file-manager-root
+
+[Desktop Action RootKDE6]
+Exec=if [ "$XDG_SESSION_TYPE" = "wayland" ]; then xhost +si:localuser:root && pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY KDE_SESSION_VERSION=6 KDE_FULL_SESSION=true dolphin %U && xhost -si:localuser:root ; else pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY KDE_SESSION_VERSION=6 KDE_FULL_SESSION=true dolphin %U; fi;
+Icon=file-manager-root
+Name=Open as Root
+Name[zh_CN]=以 root 权限打开
+Name[zh_TW]=以 root 權限開啟
+Name[ja]=root 権限で開く
+Name[de]=Als Root öffnen
+Name[ko]=root 권한으로 열기
+Name[fr]=Ouvrir en tant que root

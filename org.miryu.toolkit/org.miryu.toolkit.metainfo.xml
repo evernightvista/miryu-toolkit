@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>org.miryu.toolkit</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <name>Miryu Toolkit</name>
+  <summary>Manage Miryu components and system-wide environment variables</summary>
+  <description>
+    <p>
+      Miryu Toolkit provides package helpers for optional components such as Wine,
+      Steam, MIDI playback support and additional fonts, plus a system-wide environment
+      variable editor for /etc/environment.
+    </p>
+    <p>
+      It also includes a system log collection tool that gathers system information,
+      dnf5 logs and Anaconda installer logs into a compressed archive.
+    </p>
+  </description>
+  <launchable type="desktop-id">miryu-toolkit.desktop</launchable>
+  <releases>
+    <release version="45.0.0" date="2026-08-13"/>
+  </releases>
+</component>

@@ -1,0 +1,36 @@
+[Desktop Entry]
+Type=Application
+Name=File Manager as Root
+Name[zh_CN]=以 root 身份运行文件管理器
+Name[zh_TW]=以 root 身分執行檔案管理員
+Name[ja]=root 権限でファイルマネージャーを実行
+Name[de]=Dateiverwaltung als Root ausführen
+Name[ko]=root 권한으로 파일 관리자 실행
+Name[fr]=Gestionnaire de fichiers en tant que root
+GenericName=Run a file manager with root privileges
+GenericName[zh_CN]=使用 root（根账户）打开文件管理器
+GenericName[zh_TW]=使用 root（根帳號）開啟檔案管理員
+GenericName[ja]=root 権限でファイルマネージャーを開く
+GenericName[de]=Eine Dateiverwaltung mit Root-Rechten öffnen
+GenericName[ko]=root 권한으로 파일 관리자 열기
+GenericName[fr]=Ouvrir un gestionnaire de fichiers avec les privilèges root
+Comment=Open Dolphin through polkit with root privileges
+Comment[zh_CN]=通过 polkit 以 root 权限打开 Dolphin
+Comment[zh_TW]=透過 polkit 以 root 權限開啟 Dolphin
+Comment[ja]=polkit を使用して root 権限で Dolphin を開きます
+Comment[de]=Dolphin über polkit mit Root-Rechten öffnen
+Comment[ko]=polkit을 통해 root 권한으로 Dolphin을 엽니다
+Comment[fr]=Ouvrir Dolphin avec les privilèges root via polkit
+Exec=pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY dolphin
+Icon=file-manager-root
+Categories=Qt;KDE;System;FileManager;
+Keywords=file;manager;root;dolphin;administrator;
+Keywords[zh_CN]=file;manager;root;dolphin;administrator;文件;管理器;根账户;管理员;
+Keywords[zh_TW]=file;manager;root;dolphin;administrator;檔案;管理員;根帳號;系統管理員;
+Keywords[ja]=file;manager;root;dolphin;administrator;ファイル;管理者;
+Keywords[de]=datei;verwaltung;root;dolphin;administrator;
+Keywords[ko]=file;manager;root;dolphin;administrator;파일;관리자;
+Keywords[fr]=fichier;gestionnaire;root;dolphin;administrateur;
+Terminal=false
+StartupNotify=true
+NoDisplay=false

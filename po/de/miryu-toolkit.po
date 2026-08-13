@@ -1,0 +1,321 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: miryu-toolkit 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-12 00:00+0800\n"
+"PO-Revision-Date: 2026-08-12 00:00+0800\n"
+"Last-Translator: Miryu Team <packager@miryu.local>\n"
+"Language-Team: German\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Miryu Toolkit"
+msgstr "Miryu Werkzeugkasten"
+
+msgid "Miryu system utility toolkit"
+msgstr "Miryu Systemwerkzeugkasten"
+
+msgid "(c) 2026 Miryu"
+msgstr "(c) 2026 Miryu"
+
+msgid "Manage Miryu components, maintenance tasks and system-wide environment variables in one place."
+msgstr "Miryu-Komponenten, Wartungsaufgaben und systemweite Umgebungsvariablen an einem Ort verwalten。"
+
+msgid "Maintenance"
+msgstr "Wartung"
+
+msgid "Miscellaneous"
+msgstr "Verschiedenes"
+
+msgid "System-wide environment variables"
+msgstr "Systemweite Umgebungsvariablen"
+
+msgid "Ready"
+msgstr "Bereit"
+
+msgid "Refresh status"
+msgstr "Status aktualisieren"
+
+msgid "Install Wine"
+msgstr "Wine installieren"
+
+msgid "Install Wine, DXVK, Winetricks and WineASIO for running Windows programs and some audio workflows."
+msgstr "Wine, DXVK, Winetricks und WineASIO zum Ausführen von Windows-Programmen und einigen Audio-Arbeitsabläufen installieren."
+
+msgid "Install Steam"
+msgstr "Steam installieren"
+
+msgid "Install the Steam client. Steam will download update files on first launch."
+msgstr "Den Steam-Client installieren. Steam lädt beim ersten Start Aktualisierungsdateien herunter."
+
+msgid "Install MIDI playback support"
+msgstr "MIDI-Wiedergabeunterstützung installieren"
+
+msgid "Install the FluidSynth GStreamer plugin to enable MIDI file playback support."
+msgstr "Das FluidSynth-GStreamer-Plugin installieren, um die Wiedergabe von MIDI-Dateien zu ermöglichen."
+
+msgid "Install additional fonts"
+msgstr "Zusätzliche Schriften installieren"
+
+msgid "Install Noto Sans, Noto Serif, monospace and CJK supplemental fonts to improve multilingual display."
+msgstr "Noto Sans, Noto Serif, Monospace- und CJK-Zusatzschriften installieren, um die mehrsprachige Darstellung zu verbessern."
+
+msgid "%1 software repository"
+msgstr "%1-Softwarequelle"
+
+msgid "Enabled"
+msgstr "Aktiviert"
+
+msgid "Jilin University"
+msgstr "Jilin-Universität"
+
+msgid "Default mirror"
+msgstr "Standardspiegelserver"
+
+msgid "Automatic selection"
+msgstr "Automatische Auswahl"
+
+msgid "Speed test"
+msgstr "Geschwindigkeitstest"
+
+msgid "Maintenance tasks"
+msgstr "Wartungsaufgaben"
+
+msgid "Repository cache refresh and default configuration restore actions can be added here."
+msgstr "Hier können Aktionen zum Aktualisieren des Repository-Caches und zum Wiederherstellen der Standardkonfiguration hinzugefügt werden."
+
+msgid "Update DNF cache"
+msgstr "DNF-Zwischenspeicher aktualisieren"
+
+msgid "Additional components"
+msgstr "Zusätzliche Komponenten"
+
+msgid "Status: checking"
+msgstr "Status: wird geprüft"
+
+msgid "Packages: %1"
+msgstr "Pakete: %1"
+
+msgid "Install"
+msgstr "Installieren"
+
+msgid "Uninstall"
+msgstr "Deinstallieren"
+
+msgid "Environment variables"
+msgstr "Umgebungsvariablen"
+
+msgid "Set system-wide environment variables using the NAME=VALUE format. Changes are written to /etc/environment and take effect after logging in again."
+msgstr "Systemweite Umgebungsvariablen im Format NAME=WERT festlegen. Änderungen werden nach /etc/environment geschrieben und nach erneuter Anmeldung wirksam."
+
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgid "Reload"
+msgstr "Neu laden"
+
+msgid "Apply"
+msgstr "Anwenden"
+
+msgid "Log out and log back in for changes to take effect."
+msgstr "Melden Sie sich ab und wieder an, damit die Änderungen wirksam werden."
+
+msgid "Status: installed"
+msgstr "Status: installiert"
+
+msgid "Status: partially installed (%1/%2)"
+msgstr "Status: teilweise installiert (%1/%2)"
+
+msgid "Status: not installed"
+msgstr "Status: nicht installiert"
+
+msgid "Do you want to %1 “%2”?\n\nThe package helper will run: dnf %3 -y %4"
+msgstr "Möchten Sie „%2“ %1?\n\nDer Paket-Helfer führt aus: dnf %3 -y %4"
+
+msgid "Confirm %1"
+msgstr "%1 bestätigen"
+
+msgid "%1 completed."
+msgstr "%1 abgeschlossen."
+
+msgid "Operation completed"
+msgstr "Vorgang abgeschlossen"
+
+msgid "%1 “%2” failed.\n\n%3"
+msgstr "%1 „%2“ ist fehlgeschlagen.\n\n%3"
+
+msgid "Operation failed"
+msgstr "Vorgang fehlgeschlagen"
+
+msgid "Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."
+msgstr "pkexec kann nicht gestartet werden. Stellen Sie sicher, dass polkit installiert ist, und starten Sie dieses Programm aus einer grafischen Sitzung."
+
+msgid "%1 failed"
+msgstr "%1 fehlgeschlagen"
+
+msgid "Unable to read /etc/environment. You can add variables and apply them later."
+msgstr "/etc/environment kann nicht gelesen werden. Sie können Variablen hinzufügen und später anwenden."
+
+msgid "/etc/environment has been loaded. Log out and log back in for changes to take effect."
+msgstr "/etc/environment wurde geladen. Melden Sie sich ab und wieder an, damit Änderungen wirksam werden."
+
+msgid "Add environment variable"
+msgstr "Umgebungsvariable hinzufügen"
+
+msgid "Variable (NAME=VALUE):"
+msgstr "Variable (NAME=WERT):"
+
+msgid "Invalid format"
+msgstr "Ungültiges Format"
+
+msgid "Select an environment variable first."
+msgstr "Wählen Sie zuerst eine Umgebungsvariable aus."
+
+msgid "No item selected"
+msgstr "Kein Eintrag ausgewählt"
+
+msgid "Edit environment variable"
+msgstr "Umgebungsvariable bearbeiten"
+
+msgid "Unable to create a temporary file."
+msgstr "Eine temporäre Datei kann nicht erstellt werden."
+
+msgid "Apply failed"
+msgstr "Anwenden fehlgeschlagen"
+
+msgid "Saved to /etc/environment. Log out and log back in for changes to take effect."
+msgstr "In /etc/environment gespeichert. Melden Sie sich ab und wieder an, damit Änderungen wirksam werden."
+
+msgid "System-wide environment variables have been saved. Log out and log back in for changes to take effect."
+msgstr "Systemweite Umgebungsvariablen wurden gespeichert. Melden Sie sich ab und wieder an, damit Änderungen wirksam werden."
+
+msgid "Apply completed"
+msgstr "Anwenden abgeschlossen"
+
+msgid "Writing /etc/environment failed.\n\n%1"
+msgstr "Schreiben nach /etc/environment fehlgeschlagen.\n\n%1"
+
+msgid "Environment variables must use the NAME=VALUE format. NAME may only contain letters, digits and underscores, and must not start with a digit."
+msgstr "Umgebungsvariablen müssen das Format NAME=WERT verwenden. NAME darf nur Buchstaben, Ziffern und Unterstriche enthalten und nicht mit einer Ziffer beginnen."
+
+msgid "A single environment variable must not contain line breaks."
+msgstr "Eine einzelne Umgebungsvariable darf keine Zeilenumbrüche enthalten."
+
+msgid "Restore defaults"
+msgstr "Standardwerte wiederherstellen"
+
+msgid "DNF5 details: %1"
+msgstr "DNF5-Details: %1"
+
+msgid "Detailed dnf5 installation log:"
+msgstr "Detailliertes dnf5-Installationsprotokoll:"
+
+msgid "Starting privileged package helper..."
+msgstr "Privilegierten Paket-Helfer starten..."
+
+msgid "%1 “%2” failed."
+msgstr "%1 „%2“ ist fehlgeschlagen."
+
+msgid "Do you want to %1 “%2”?\n\nThe package helper will run: dnf5 %3 -y %4"
+msgstr "Möchten Sie „%2“ %1?\n\nDer Paket-Helfer führt aus: dnf5 %3 -y %4"
+
+msgid "Restore the default system-wide environment variables?"
+msgstr "Die Standardwerte der systemweiten Umgebungsvariablen wiederherstellen?"
+
+msgid "Default system-wide environment variables have been restored. Log out and log back in for changes to take effect."
+msgstr "Die Standardwerte der systemweiten Umgebungsvariablen wurden wiederhergestellt. Melden Sie sich ab und wieder an, damit Änderungen wirksam werden."
+
+msgid "Defaults restored"
+msgstr "Standardwerte wiederhergestellt"
+
+msgid "Restoring default system-wide environment variables failed.\n\n%1"
+msgstr "Wiederherstellen der Standardwerte der systemweiten Umgebungsvariablen fehlgeschlagen.\n\n%1"
+
+msgid "Restore failed"
+msgstr "Wiederherstellen fehlgeschlagen"
+
+msgid "Collect system logs"
+msgstr "Systemprotokolle sammeln"
+
+msgid "Collecting system logs..."
+msgstr "Systemprotokolle werden gesammelt..."
+
+msgid "Collecting system logs"
+msgstr "Systemprotokolle sammeln"
+
+msgid "Collecting system information and logs. This may take a moment..."
+msgstr "Systeminformationen und -protokolle werden gesammelt. Einen Moment bitte..."
+
+msgid "Starting privileged log collection helper..."
+msgstr "Privilegierter Protokollsammel-Helper wird gestartet..."
+
+msgid "System logs collected: %1"
+msgstr "Systemprotokolle gesammelt: %1"
+
+msgid "Collection completed. Archive saved to: %1"
+msgstr "Sammlung abgeschlossen. Archiv gespeichert in: %1"
+
+msgid "System logs have been collected and saved to:\n%1"
+msgstr "Systemprotokolle wurden gesammelt und gespeichert in:\n%1"
+
+msgid "Collection completed"
+msgstr "Sammlung abgeschlossen"
+
+msgid "Log collection failed."
+msgstr "Protokollsammlung fehlgeschlagen."
+
+msgid "Failed to collect system logs. See the log window for details."
+msgstr "Sammlung der Systemprotokolle fehlgeschlagen. Details im Protokollfenster."
+
+msgid "Collection failed"
+msgstr "Sammlung fehlgeschlagen"
+
+msgid "About"
+msgstr "Über"
+
+msgid "Project links"
+msgstr "Projektlinks"
+
+msgid "Miryu Toolkit (Project Repository)"
+msgstr "Miryu Toolkit (Projekt-Repository)"
+
+msgid "Clean up previous kernel"
+msgstr "Vorherige Kernel-Version bereinigen"
+
+msgid "Remove previous kernel versions? This will run: dnf-3 remove --oldinstallonly"
+msgstr "Vorherige Kernel-Versionen entfernen? Dies führt aus: dnf-3 remove --oldinstallonly"
+
+msgid "Clean up"
+msgstr "Bereinigen"
+
+msgid "Cleaning up previous kernel..."
+msgstr "Vorherige Kernel-Version wird bereinigt..."
+
+msgid "Kernel cleanup log"
+msgstr "Kernel-Bereinigungsprotokoll"
+
+msgid "Removing previous kernel versions via dnf-3..."
+msgstr "Vorherige Kernel-Versionen werden über dnf-3 entfernt..."
+
+msgid "Starting privileged kernel cleanup helper..."
+msgstr "Privilegierter Kernel-Bereinigungs-Helper wird gestartet..."
+
+msgid "Kernel cleanup completed."
+msgstr "Kernel-Bereinigung abgeschlossen."
+
+msgid "Previous kernel versions have been cleaned up."
+msgstr "Vorherige Kernel-Versionen wurden bereinigt."
+
+msgid "Cleanup completed"
+msgstr "Bereinigung abgeschlossen"
+
+msgid "Kernel cleanup failed."
+msgstr "Kernel-Bereinigung fehlgeschlagen."
+
+msgid "Failed to clean up previous kernel versions. See the log window for details."
+msgstr "Bereinigung vorheriger Kernel-Versionen fehlgeschlagen. Details im Protokollfenster."
+
+msgid "Cleanup failed"
+msgstr "Bereinigung fehlgeschlagen"

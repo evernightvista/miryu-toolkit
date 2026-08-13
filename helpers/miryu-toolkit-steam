@@ -1,0 +1,18 @@
+#!/usr/bin/sh
+set -eu
+
+if command -v /usr/bin/dnf5 >/dev/null 2>&1; then
+    DNF=/usr/bin/dnf5
+else
+    DNF=/usr/bin/dnf
+fi
+
+case "${1:-}" in
+    install)
+        exec "$DNF" install -y steam
+        ;;
+    *)
+        echo "Usage: $0 install" >&2
+        exit 2
+        ;;
+esac

@@ -1,0 +1,321 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: miryu-toolkit 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-12 00:00+0800\n"
+"PO-Revision-Date: 2026-08-12 00:00+0800\n"
+"Last-Translator: Miryu Team <packager@miryu.local>\n"
+"Language-Team: Japanese\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Miryu Toolkit"
+msgstr "Miryu ツールキット"
+
+msgid "Miryu system utility toolkit"
+msgstr "Miryu システムユーティリティツールキット"
+
+msgid "(c) 2026 Miryu"
+msgstr "(c) 2026 Miryu"
+
+msgid "Manage Miryu components, maintenance tasks and system-wide environment variables in one place."
+msgstr "Miryu コンポーネント、保守作業、システム全体の環境変数をまとめて管理します。"
+
+msgid "Maintenance"
+msgstr "メンテナンス"
+
+msgid "Miscellaneous"
+msgstr "その他"
+
+msgid "System-wide environment variables"
+msgstr "システム全体の環境変数"
+
+msgid "Ready"
+msgstr "準備完了"
+
+msgid "Refresh status"
+msgstr "状態を更新"
+
+msgid "Install Wine"
+msgstr "Wine をインストール"
+
+msgid "Install Wine, DXVK, Winetricks and WineASIO for running Windows programs and some audio workflows."
+msgstr "Windows プログラムや一部の音声ワークフローを実行するために Wine、DXVK、Winetricks、WineASIO をインストールします。"
+
+msgid "Install Steam"
+msgstr "Steam をインストール"
+
+msgid "Install the Steam client. Steam will download update files on first launch."
+msgstr "Steam クライアントをインストールします。初回起動時に Steam が更新ファイルをダウンロードします。"
+
+msgid "Install MIDI playback support"
+msgstr "MIDI 再生サポートをインストール"
+
+msgid "Install the FluidSynth GStreamer plugin to enable MIDI file playback support."
+msgstr "MIDI ファイル再生サポートを有効にするために FluidSynth GStreamer プラグインをインストールします。"
+
+msgid "Install additional fonts"
+msgstr "追加フォントをインストール"
+
+msgid "Install Noto Sans, Noto Serif, monospace and CJK supplemental fonts to improve multilingual display."
+msgstr "多言語表示を改善するために Noto Sans、Noto Serif、等幅、CJK 追加フォントをインストールします。"
+
+msgid "%1 software repository"
+msgstr "%1 ソフトウェアリポジトリ"
+
+msgid "Enabled"
+msgstr "有効"
+
+msgid "Jilin University"
+msgstr "吉林大学"
+
+msgid "Default mirror"
+msgstr "既定のミラー"
+
+msgid "Automatic selection"
+msgstr "自動選択"
+
+msgid "Speed test"
+msgstr "速度テスト"
+
+msgid "Maintenance tasks"
+msgstr "メンテナンス作業"
+
+msgid "Repository cache refresh and default configuration restore actions can be added here."
+msgstr "ここにはリポジトリキャッシュ更新や既定設定の復元操作を追加できます。"
+
+msgid "Update DNF cache"
+msgstr "DNF キャッシュを更新"
+
+msgid "Additional components"
+msgstr "追加コンポーネント"
+
+msgid "Status: checking"
+msgstr "状態: 確認中"
+
+msgid "Packages: %1"
+msgstr "パッケージ: %1"
+
+msgid "Install"
+msgstr "インストール"
+
+msgid "Uninstall"
+msgstr "アンインストール"
+
+msgid "Environment variables"
+msgstr "環境変数"
+
+msgid "Set system-wide environment variables using the NAME=VALUE format. Changes are written to /etc/environment and take effect after logging in again."
+msgstr "NAME=VALUE 形式でシステム全体の環境変数を設定します。変更は /etc/environment に書き込まれ、再ログイン後に有効になります。"
+
+msgid "Edit"
+msgstr "編集"
+
+msgid "Reload"
+msgstr "再読み込み"
+
+msgid "Apply"
+msgstr "適用"
+
+msgid "Log out and log back in for changes to take effect."
+msgstr "変更を有効にするにはログアウトして再度ログインしてください。"
+
+msgid "Status: installed"
+msgstr "状態: インストール済み"
+
+msgid "Status: partially installed (%1/%2)"
+msgstr "状態: 一部インストール済み (%1/%2)"
+
+msgid "Status: not installed"
+msgstr "状態: 未インストール"
+
+msgid "Do you want to %1 “%2”?\n\nThe package helper will run: dnf %3 -y %4"
+msgstr "「%2」を%1しますか？\n\nパッケージヘルパーは次を実行します: dnf %3 -y %4"
+
+msgid "Confirm %1"
+msgstr "%1の確認"
+
+msgid "%1 completed."
+msgstr "%1が完了しました。"
+
+msgid "Operation completed"
+msgstr "操作が完了しました"
+
+msgid "%1 “%2” failed.\n\n%3"
+msgstr "%1「%2」に失敗しました。\n\n%3"
+
+msgid "Operation failed"
+msgstr "操作に失敗しました"
+
+msgid "Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."
+msgstr "pkexec を起動できません。polkit がインストールされていることを確認し、グラフィカルセッションからこのプログラムを実行してください。"
+
+msgid "%1 failed"
+msgstr "%1に失敗しました"
+
+msgid "Unable to read /etc/environment. You can add variables and apply them later."
+msgstr "/etc/environment を読み取れません。変数を追加して後で適用できます。"
+
+msgid "/etc/environment has been loaded. Log out and log back in for changes to take effect."
+msgstr "/etc/environment を読み込みました。変更を有効にするにはログアウトして再度ログインしてください。"
+
+msgid "Add environment variable"
+msgstr "環境変数を追加"
+
+msgid "Variable (NAME=VALUE):"
+msgstr "変数 (NAME=VALUE):"
+
+msgid "Invalid format"
+msgstr "形式が無効です"
+
+msgid "Select an environment variable first."
+msgstr "先に環境変数を選択してください。"
+
+msgid "No item selected"
+msgstr "項目が選択されていません"
+
+msgid "Edit environment variable"
+msgstr "環境変数を編集"
+
+msgid "Unable to create a temporary file."
+msgstr "一時ファイルを作成できません。"
+
+msgid "Apply failed"
+msgstr "適用に失敗しました"
+
+msgid "Saved to /etc/environment. Log out and log back in for changes to take effect."
+msgstr "/etc/environment に保存しました。変更を有効にするにはログアウトして再度ログインしてください。"
+
+msgid "System-wide environment variables have been saved. Log out and log back in for changes to take effect."
+msgstr "システム全体の環境変数を保存しました。変更を有効にするにはログアウトして再度ログインしてください。"
+
+msgid "Apply completed"
+msgstr "適用が完了しました"
+
+msgid "Writing /etc/environment failed.\n\n%1"
+msgstr "/etc/environment への書き込みに失敗しました。\n\n%1"
+
+msgid "Environment variables must use the NAME=VALUE format. NAME may only contain letters, digits and underscores, and must not start with a digit."
+msgstr "環境変数は NAME=VALUE 形式でなければなりません。NAME には英字、数字、アンダースコアのみ使用でき、数字で始めることはできません。"
+
+msgid "A single environment variable must not contain line breaks."
+msgstr "1 つの環境変数に改行を含めることはできません。"
+
+msgid "Restore defaults"
+msgstr "既定値に戻す"
+
+msgid "DNF5 details: %1"
+msgstr "DNF5 の詳細: %1"
+
+msgid "Detailed dnf5 installation log:"
+msgstr "dnf5 インストール詳細ログ:"
+
+msgid "Starting privileged package helper..."
+msgstr "権限付きパッケージヘルパーを起動しています..."
+
+msgid "%1 “%2” failed."
+msgstr "%1「%2」に失敗しました。"
+
+msgid "Do you want to %1 “%2”?\n\nThe package helper will run: dnf5 %3 -y %4"
+msgstr "「%2」を%1しますか？\n\nパッケージヘルパーは次を実行します: dnf5 %3 -y %4"
+
+msgid "Restore the default system-wide environment variables?"
+msgstr "既定のシステム全体の環境変数を復元しますか？"
+
+msgid "Default system-wide environment variables have been restored. Log out and log back in for changes to take effect."
+msgstr "既定のシステム全体の環境変数を復元しました。変更を有効にするにはログアウトして再度ログインしてください。"
+
+msgid "Defaults restored"
+msgstr "既定値を復元しました"
+
+msgid "Restoring default system-wide environment variables failed.\n\n%1"
+msgstr "既定のシステム全体の環境変数の復元に失敗しました。\n\n%1"
+
+msgid "Restore failed"
+msgstr "復元に失敗しました"
+
+msgid "Collect system logs"
+msgstr "システムログを収集"
+
+msgid "Collecting system logs..."
+msgstr "システムログを収集中..."
+
+msgid "Collecting system logs"
+msgstr "システムログの収集"
+
+msgid "Collecting system information and logs. This may take a moment..."
+msgstr "システム情報とログを収集中です。しばらくお待ちください..."
+
+msgid "Starting privileged log collection helper..."
+msgstr "特権ログ収集 helper を起動中..."
+
+msgid "System logs collected: %1"
+msgstr "システムログを収集しました：%1"
+
+msgid "Collection completed. Archive saved to: %1"
+msgstr "収集が完了しました。アーカイブは %1 に保存されました"
+
+msgid "System logs have been collected and saved to:\n%1"
+msgstr "システムログを収集し、以下に保存しました：\n%1"
+
+msgid "Collection completed"
+msgstr "収集完了"
+
+msgid "Log collection failed."
+msgstr "ログの収集に失敗しました。"
+
+msgid "Failed to collect system logs. See the log window for details."
+msgstr "システムログの収集に失敗しました。詳細はログウィンドウを参照してください。"
+
+msgid "Collection failed"
+msgstr "収集失敗"
+
+msgid "About"
+msgstr "情報"
+
+msgid "Project links"
+msgstr "プロジェクトリンク"
+
+msgid "Miryu Toolkit (Project Repository)"
+msgstr "Miryu Toolkit（プロジェクトリポジトリ）"
+
+msgid "Clean up previous kernel"
+msgstr "以前のカーネルをクリーンアップ"
+
+msgid "Remove previous kernel versions? This will run: dnf-3 remove --oldinstallonly"
+msgstr "以前のカーネルバージョンを削除しますか？次を実行します：dnf-3 remove --oldinstallonly"
+
+msgid "Clean up"
+msgstr "クリーンアップ"
+
+msgid "Cleaning up previous kernel..."
+msgstr "以前のカーネルをクリーンアップ中..."
+
+msgid "Kernel cleanup log"
+msgstr "カーネルクリーンアップログ"
+
+msgid "Removing previous kernel versions via dnf-3..."
+msgstr "dnf-3 で以前のカーネルバージョンを削除中..."
+
+msgid "Starting privileged kernel cleanup helper..."
+msgstr "特権カーネルクリーンアップ helper を起動中..."
+
+msgid "Kernel cleanup completed."
+msgstr "カーネルのクリーンアップが完了しました。"
+
+msgid "Previous kernel versions have been cleaned up."
+msgstr "以前のカーネルバージョンがクリーンアップされました。"
+
+msgid "Cleanup completed"
+msgstr "クリーンアップ完了"
+
+msgid "Kernel cleanup failed."
+msgstr "カーネルのクリーンアップに失敗しました。"
+
+msgid "Failed to clean up previous kernel versions. See the log window for details."
+msgstr "以前のカーネルバージョンのクリーンアップに失敗しました。詳細はログウィンドウを参照してください。"
+
+msgid "Cleanup failed"
+msgstr "クリーンアップ失敗"

@@ -1,0 +1,23 @@
+#!/usr/bin/sh
+set -eu
+
+if command -v /usr/bin/dnf5 >/dev/null 2>&1; then
+    DNF=/usr/bin/dnf5
+else
+    DNF=/usr/bin/dnf
+fi
+
+case "${1:-}" in
+    remove)
+        exec "$DNF" remove -y \
+            google-noto-sans-fonts.noarch \
+            google-noto-sans-mono-fonts.noarch \
+            google-noto-serif-fonts.noarch \
+            google-noto-serif-cjk-vf-fonts \
+            google-noto-sans-mono-cjk-vf-fonts
+        ;;
+    *)
+        echo "Usage: $0 remove" >&2
+        exit 2
+        ;;
+esac

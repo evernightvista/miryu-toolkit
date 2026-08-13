@@ -1,0 +1,10 @@
+#!/usr/bin/sh
+set -eu
+
+source_file="${1:-}"
+if [ -z "$source_file" ] || [ ! -f "$source_file" ]; then
+    echo "Usage: $0 <environment-file>" >&2
+    exit 2
+fi
+
+install -m 0644 "$source_file" /etc/environment

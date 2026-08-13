@@ -1,0 +1,18 @@
+#!/usr/bin/sh
+set -eu
+
+if command -v /usr/bin/dnf5 >/dev/null 2>&1; then
+    DNF=/usr/bin/dnf5
+else
+    DNF=/usr/bin/dnf
+fi
+
+case "${1:-}" in
+    remove)
+        exec "$DNF" remove -y gstreamer1-plugins-bad-free-fluidsynth
+        ;;
+    *)
+        echo "Usage: $0 remove" >&2
+        exit 2
+        ;;
+esac

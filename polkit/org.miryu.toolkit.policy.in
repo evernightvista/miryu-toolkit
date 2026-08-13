@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE policyconfig PUBLIC
+ "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
+ "http://www.freedesktop.org/standards/PolicyKit/1/policyconfig.dtd">
+<policyconfig>
+  <vendor>Evernight Vista Team</vendor>
+  <vendor_url>https://github.com/evernightvista</vendor_url>
+
+  <action id="org.miryu.toolkit.install-wine">
+    <description>Manage Wine support packages</description>
+    <description xml:lang="zh_CN">管理 Wine 支持软件包</description>
+    <description xml:lang="zh_TW">管理 Wine 支援軟體包</description>
+    <description xml:lang="ja">Wine サポートパッケージを管理</description>
+    <description xml:lang="de">Wine-Unterstützungspakete verwalten</description>
+    <description xml:lang="ko">Wine 지원 패키지 관리</description>
+    <description xml:lang="fr">Gérer les paquets de prise en charge de Wine</description>
+    <message>安装Wine需要认证</message>
+    <message xml:lang="zh_CN">安装Wine需要认证</message>
+    <message xml:lang="zh_TW">安裝 Wine 需要認證</message>
+    <message xml:lang="ja">Wine のインストールには認証が必要です</message>
+    <message xml:lang="de">Für die Installation von Wine ist eine Authentifizierung erforderlich</message>
+    <message xml:lang="ko">Wine 설치에는 인증이 필요합니다</message>
+    <message xml:lang="fr">L'installation de Wine nécessite une authentification</message>
+    <icon_name>preferences-system</icon_name>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">@CMAKE_INSTALL_FULL_LIBEXECDIR@/miryu-toolkit/miryu-toolkit-wine</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
+  </action>
+
+  <action id="org.miryu.toolkit.install-steam">
+    <description>Manage Steam package</description>
+    <description xml:lang="zh_CN">管理 Steam 软件包</description>
+    <description xml:lang="zh_TW">管理 Steam 軟體包</description>
+    <description xml:lang="ja">Steam パッケージを管理</description>
+    <description xml:lang="de">Steam-Paket verwalten</description>
+    <description xml:lang="ko">Steam 패키지 관리</description>
+    <description xml:lang="fr">Gérer le paquet Steam</description>
+    <message>安装Steam需要认证</message>
+    <message xml:lang="zh_CN">安装Steam需要认证</message>
+    <message xml:lang="zh_TW">安裝 Steam 需要認證</message>
+    <message xml:lang="ja">Steam のインストールには認証が必要です</message>
+    <message xml:lang="de">Für die Installation von Steam ist eine Authentifizierung erforderlich</message>
+    <message xml:lang="ko">Steam 설치에는 인증이 필요합니다</message>
+    <message xml:lang="fr">L'installation de Steam nécessite une authentification</message>
+    <icon_name>preferences-system</icon_name>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">@CMAKE_INSTALL_FULL_LIBEXECDIR@/miryu-toolkit/miryu-toolkit-steam</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
+  </action>
+
+  <action id="org.miryu.toolkit.install-midi">
+    <description>Manage MIDI playback support package</description>
+    <description xml:lang="zh_CN">管理 MIDI 播放支持软件包</description>
+    <description xml:lang="zh_TW">管理 MIDI 播放支援軟體包</description>
+    <description xml:lang="ja">MIDI 再生サポートパッケージを管理</description>
+    <description xml:lang="de">Paket für MIDI-Wiedergabeunterstützung verwalten</description>
+    <description xml:lang="ko">MIDI 재생 지원 패키지 관리</description>
+    <description xml:lang="fr">Gérer le paquet de prise en charge de la lecture MIDI</description>
+    <message>安装MIDI播放需要认证</message>
+    <message xml:lang="zh_CN">安装MIDI播放需要认证</message>
+    <message xml:lang="zh_TW">安裝 MIDI 播放需要認證</message>
+    <message xml:lang="ja">MIDI 再生サポートのインストールには認証が必要です</message>
+    <message xml:lang="de">Für die Installation der MIDI-Wiedergabeunterstützung ist eine Authentifizierung erforderlich</message>
+    <message xml:lang="ko">MIDI 재생 지원 설치에는 인증이 필요합니다</message>
+    <message xml:lang="fr">L'installation de la prise en charge de la lecture MIDI nécessite une authentification</message>
+    <icon_name>preferences-system</icon_name>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">@CMAKE_INSTALL_FULL_LIBEXECDIR@/miryu-toolkit/miryu-toolkit-midi</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
+  </action>
+
+  <action id="org.miryu.toolkit.install-extra-fonts">
+    <description>Manage additional font packages</description>
+    <description xml:lang="zh_CN">管理补充字体软件包</description>
+    <description xml:lang="zh_TW">管理補充字型軟體包</description>
+    <description xml:lang="ja">追加フォントパッケージを管理</description>
+    <description xml:lang="de">Zusätzliche Schriftpakete verwalten</description>
+    <description xml:lang="ko">추가 글꼴 패키지 관리</description>
+    <description xml:lang="fr">Gérer les paquets de polices supplémentaires</description>
+    <message>安装补充字体需要认证</message>
+    <message xml:lang="zh_CN">安装补充字体需要认证</message>
+    <message xml:lang="zh_TW">安裝補充字型需要認證</message>
+    <message xml:lang="ja">追加フォントのインストールには認証が必要です</message>
+    <message xml:lang="de">Für die Installation zusätzlicher Schriften ist eine Authentifizierung erforderlich</message>
+    <message xml:lang="ko">추가 글꼴 설치에는 인증이 필요합니다</message>
+    <message xml:lang="fr">L'installation des polices supplémentaires nécessite une authentification</message>
+    <icon_name>preferences-system</icon_name>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">@CMAKE_INSTALL_FULL_LIBEXECDIR@/miryu-toolkit/miryu-toolkit-extra-fonts</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
+  </action>
+
+  <action id="org.miryu.toolkit.remove-wine">
+    <description>Remove Wine support packages</description>
+    <description xml:lang="zh_CN">卸载 Wine 支持软件包</description>
+    <description xml:lang="zh_TW">卸載 Wine 支援軟體包</description>
+    <description xml:lang="ja">Wine サポートパッケージを削除</description>
+    <description xml:lang="de">Wine-Unterstützungspakete entfernen</description>
+    <description xml:lang="ko">Wine 지원 패키지 제거</description>
+    <description xml:lang="fr">Supprimer les paquets de prise en charge de Wine</description>
+    <message>卸载Wine需要认证</message>
+    <message xml:lang="zh_CN">卸载Wine需要认证</message>
+    <message xml:lang="zh_TW">卸載 Wine 需要認證</message>
+    <message xml:lang="ja">Wine のアンインストールには認証が必要です</message>
+    <message xml:lang="de">Für die Deinstallation von Wine ist eine Authentifizierung erforderlich</message>
+    <message xml:lang="ko">Wine 제거에는 인증이 필요합니다</message>
+    <message xml:lang="fr">La désinstallation de Wine nécessite une authentification</message>
+    <icon_name>preferences-system</icon_name>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">@CMAKE_INSTALL_FULL_LIBEXECDIR@/miryu-toolkit/miryu-toolkit-remove-wine</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
+  </action>
+
+  <action id="org.miryu.toolkit.remove-steam">
+    <description>Remove Steam package</description>
+    <description xml:lang="zh_CN">卸载 Steam 软件包</description>
+    <description xml:lang="zh_TW">卸載 Steam 軟體包</description>
+    <description xml:lang="ja">Steam パッケージを削除</description>
+    <description xml:lang="de">Steam-Paket entfernen</description>
+    <description xml:lang="ko">Steam 패키지 제거</description>
+    <description xml:lang="fr">Supprimer le paquet Steam</description>
+    <message>卸载Steam需要认证</message>
+    <message xml:lang="zh_CN">卸载Steam需要认证</message>
+    <message xml:lang="zh_TW">卸載 Steam 需要認證</message>
+    <message xml:lang="ja">Steam のアンインストールには認証が必要です</message>
+    <message xml:lang="de">Für die Deinstallation von Steam ist eine Authentifizierung erforderlich</message>
+    <message xml:lang="ko">Steam 제거에는 인증이 필요합니다</message>
+    <message xml:lang="fr">La désinstallation de Steam nécessite une authentification</message>
+    <icon_name>preferences-system</icon_name>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">@CMAKE_INSTALL_FULL_LIBEXECDIR@/miryu-toolkit/miryu-toolkit-remove-steam</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
+  </action>
+
+  <action id="org.miryu.toolkit.remove-midi">
+    <description>Remove MIDI playback support package</description>
+    <description xml:lang="zh_CN">卸载 MIDI 播放支持软件包</description>
+    <description xml:lang="zh_TW">卸載 MIDI 播放支援軟體包</description>
+    <description xml:lang="ja">MIDI 再生サポートパッケージを削除</description>
+    <description xml:lang="de">Paket für MIDI-Wiedergabeunterstützung entfernen</description>
+    <description xml:lang="ko">MIDI 재생 지원 패키지 제거</description>
+    <description xml:lang="fr">Supprimer le paquet de prise en charge de la lecture MIDI</description>
+    <message>卸载MIDI播放需要认证</message>
+    <message xml:lang="zh_CN">卸载MIDI播放需要认证</message>
+    <message xml:lang="zh_TW">卸載 MIDI 播放需要認證</message>
+    <message xml:lang="ja">MIDI 再生サポートのアンインストールには認証が必要です</message>
+    <message xml:lang="de">Für die Deinstallation der MIDI-Wiedergabeunterstützung ist eine Authentifizierung erforderlich</message>
+    <message xml:lang="ko">MIDI 재생 지원 제거에는 인증이 필요합니다</message>
+    <message xml:lang="fr">La désinstallation de la prise en charge de la lecture MIDI nécessite une authentification</message>
+    <icon_name>preferences-system</icon_name>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">@CMAKE_INSTALL_FULL_LIBEXECDIR@/miryu-toolkit/miryu-toolkit-remove-midi</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
+  </action>
+
+  <action id="org.miryu.toolkit.remove-extra-fonts">
+    <description>Remove additional font packages</description>
+    <description xml:lang="zh_CN">卸载补充字体软件包</description>
+    <description xml:lang="zh_TW">卸載補充字型軟體包</description>
+    <description xml:lang="ja">追加フォントパッケージを削除</description>
+    <description xml:lang="de">Zusätzliche Schriftpakete entfernen</description>
+    <description xml:lang="ko">추가 글꼴 패키지 제거</description>
+    <description xml:lang="fr">Supprimer les paquets de polices supplémentaires</description>
+    <message>卸载补充字体需要认证</message>
+    <message xml:lang="zh_CN">卸载补充字体需要认证</message>
+    <message xml:lang="zh_TW">卸載補充字型需要認證</message>
+    <message xml:lang="ja">追加フォントのアンインストールには認証が必要です</message>
+    <message xml:lang="de">Für die Deinstallation zusätzlicher Schriften ist eine Authentifizierung erforderlich</message>
+    <message xml:lang="ko">추가 글꼴 제거에는 인증이 필요합니다</message>
+    <message xml:lang="fr">La désinstallation des polices supplémentaires nécessite une authentification</message>
+    <icon_name>preferences-system</icon_name>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">@CMAKE_INSTALL_FULL_LIBEXECDIR@/miryu-toolkit/miryu-toolkit-remove-extra-fonts</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
+  </action>
+
+  <action id="org.miryu.toolkit.apply-environment">
+    <description>Apply system-wide environment variables</description>
+    <description xml:lang="zh_CN">应用系统范围环境变量</description>
+    <description xml:lang="zh_TW">套用系統範圍環境變數</description>
+    <description xml:lang="ja">システム全体の環境変数を適用</description>
+    <description xml:lang="de">Systemweite Umgebungsvariablen anwenden</description>
+    <description xml:lang="ko">시스템 전체 환경 변수 적용</description>
+    <description xml:lang="fr">Appliquer les variables d'environnement système</description>
+    <message>应用系统范围环境变量需要认证</message>
+    <message xml:lang="zh_CN">应用系统范围环境变量需要认证</message>
+    <message xml:lang="zh_TW">套用系統範圍環境變數需要認證</message>
+    <message xml:lang="ja">システム全体の環境変数の適用には認証が必要です</message>
+    <message xml:lang="de">Zum Anwenden systemweiter Umgebungsvariablen ist eine Authentifizierung erforderlich</message>
+    <message xml:lang="ko">시스템 전체 환경 변수를 적용하려면 인증이 필요합니다</message>
+    <message xml:lang="fr">L'application des variables d'environnement système nécessite une authentification</message>
+    <icon_name>preferences-system</icon_name>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">@CMAKE_INSTALL_FULL_LIBEXECDIR@/miryu-toolkit/miryu-toolkit-apply-environment</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
+  </action>
+
+  <action id="org.miryu.toolkit.restore-environment">
+    <description>Restore default system-wide environment variables</description>
+    <description xml:lang="zh_CN">恢复默认系统范围环境变量</description>
+    <description xml:lang="zh_TW">恢復預設系統範圍環境變數</description>
+    <description xml:lang="ja">既定のシステム全体の環境変数を復元</description>
+    <description xml:lang="de">Standardwerte der systemweiten Umgebungsvariablen wiederherstellen</description>
+    <description xml:lang="ko">기본 시스템 전체 환경 변수 복원</description>
+    <description xml:lang="fr">Restaurer les variables d'environnement système par défaut</description>
+    <message>恢复默认系统范围环境变量需要认证</message>
+    <message xml:lang="zh_CN">恢复默认系统范围环境变量需要认证</message>
+    <message xml:lang="zh_TW">恢復預設系統範圍環境變數需要認證</message>
+    <message xml:lang="ja">既定のシステム全体の環境変数の復元には認証が必要です</message>
+    <message xml:lang="de">Zum Wiederherstellen der Standardwerte der systemweiten Umgebungsvariablen ist eine Authentifizierung erforderlich</message>
+    <message xml:lang="ko">기본 시스템 전체 환경 변수를 복원하려면 인증이 필요합니다</message>
+    <message xml:lang="fr">La restauration des variables d'environnement système par défaut nécessite une authentification</message>
+    <icon_name>preferences-system</icon_name>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">@CMAKE_INSTALL_FULL_LIBEXECDIR@/miryu-toolkit/miryu-toolkit-restore-environment</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
+  </action>
+
+  <action id="org.miryu.toolkit.cleanup-kernel">
+    <description>Remove previous kernel versions</description>
+    <description xml:lang="zh_CN">移除上一版本内核</description>
+    <description xml:lang="zh_TW">移除上一版本核心</description>
+    <description xml:lang="ja">以前のカーネルバージョンを削除</description>
+    <description xml:lang="de">Vorherige Kernel-Versionen entfernen</description>
+    <description xml:lang="ko">이전 커널 버전 제거</description>
+    <description xml:lang="fr">Supprimer les versions précédentes du noyau</description>
+    <message>清理上一版本内核需要认证</message>
+    <message xml:lang="zh_CN">清理上一版本内核需要认证</message>
+    <message xml:lang="zh_TW">清理上一版本核心需要認證</message>
+    <message xml:lang="ja">以前のカーネルバージョンのクリーンアップには認証が必要です</message>
+    <message xml:lang="de">Für das Bereinigen vorheriger Kernel-Versionen ist eine Authentifizierung erforderlich</message>
+    <message xml:lang="ko">이전 커널 버전 정리에는 인증이 필요합니다</message>
+    <message xml:lang="fr">Le nettoyage des versions précédentes du noyau nécessite une authentification</message>
+    <icon_name>preferences-system</icon_name>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">@CMAKE_INSTALL_FULL_LIBEXECDIR@/miryu-toolkit/miryu-toolkit-cleanup-kernel</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
+  </action>
+
+  <action id="org.miryu.toolkit.collect-logs">
+    <description>Collect system logs</description>
+    <description xml:lang="zh_CN">收集系统日志</description>
+    <description xml:lang="zh_TW">收集系統日誌</description>
+    <description xml:lang="ja">システムログを収集</description>
+    <description xml:lang="de">Systemprotokolle sammeln</description>
+    <description xml:lang="ko">시스템 로그 수집</description>
+    <description xml:lang="fr">Collecter les journaux système</description>
+    <message>需要认证以收集系统日志</message>
+    <message xml:lang="zh_CN">需要认证以收集系统日志</message>
+    <message xml:lang="zh_TW">需要認證以收集系統日誌</message>
+    <message xml:lang="ja">システムログの収集には認証が必要です</message>
+    <message xml:lang="de">Für das Sammeln von Systemprotokollen ist eine Authentifizierung erforderlich</message>
+    <message xml:lang="ko">시스템 로그를 수집하려면 인증이 필요합니다</message>
+    <message xml:lang="fr">Une authentification est nécessaire pour collecter les journaux système</message>
+    <icon_name>preferences-system</icon_name>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">@CMAKE_INSTALL_FULL_LIBEXECDIR@/miryu-toolkit/miryu-toolkit-collect-logs</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
+  </action>
+</policyconfig>

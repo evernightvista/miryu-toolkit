@@ -1,0 +1,27 @@
+[Desktop Entry]
+Type=Application
+Name=Miryu Toolkit
+Name[zh_CN]=Miryu 工具箱
+Name[zh_TW]=Miryu 工具箱
+Name[ja]=Miryu ツールキット
+Name[de]=Miryu Werkzeugkasten
+Name[ko]=Miryu 도구 상자
+Name[fr]=Boîte à outils Miryu
+GenericName=System Toolkit
+GenericName[zh_CN]=系统工具箱
+GenericName[zh_TW]=系統工具箱
+GenericName[ja]=システムツールキット
+GenericName[de]=Systemwerkzeugkasten
+GenericName[ko]=시스템 도구 상자
+GenericName[fr]=Boîte à outils système
+Comment=Manage Miryu components and system-wide environment variables
+Comment[zh_CN]=管理 Miryu 组件和系统范围环境变量
+Comment[zh_TW]=管理 Miryu 元件和系統範圍環境變數
+Comment[ja]=Miryu コンポーネントとシステム全体の環境変数を管理します
+Comment[de]=Miryu-Komponenten und systemweite Umgebungsvariablen verwalten
+Comment[ko]=Miryu 구성 요소와 시스템 전체 환경 변수를 관리합니다
+Comment[fr]=Gérer les composants Miryu et les variables d'environnement système
+Exec=miryu-toolkit
+Icon=deepin-repair-tools
+Terminal=false
+Categories=Qt;KDE;System;Settings;
