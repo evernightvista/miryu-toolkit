@@ -1,10 +1,10 @@
 Name:           miryu-toolkit
-Version:        0.1.0
+Version:        45.0.0
 Release:        1%{?dist}
-Summary:        Miryu system utility toolkit
+Summary:        Miryu Toolkit
 
 License:        GPL-3.0-or-later
-URL:            https://miryu.local/
+URL:            https://github.com/evernightvista/miryu-toolkit
 Source0:        %{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
@@ -16,12 +16,12 @@ BuildRequires:  kf6-kcoreaddons-devel
 BuildRequires:  kf6-ki18n-devel
 BuildRequires:  kf6-kwidgetsaddons-devel
 
-Requires:       (dnf5 or dnf)
-Requires:       dnf
+Requires:       dnf5
+Requires:       /usr/bin/dnf-3
 Requires:       polkit
 Requires:       rpm
 Requires:       tar
-Requires:       (zstd or gzip)
+Requires:       zstd
 
 %description
 Miryu Toolkit is a Qt6 and KDE Frameworks 6 application for managing
@@ -66,14 +66,5 @@ additional fonts, plus a system log collection tool.
 %{_libexecdir}/miryu-toolkit/miryu-toolkit-collect-logs
 
 %changelog
-* Thu Aug 14 2026 Miryu <packager@miryu.local> - 0.1.0-4
-- Add kernel cleanup button (dnf-3 remove --oldinstallonly) with polkit.
-
-* Thu Aug 14 2026 Miryu <packager@miryu.local> - 0.1.0-3
-- Fix collect-logs compilation, add segfault and LiveCD detection, add About tab.
-
-* Wed Aug 13 2026 Miryu <packager@miryu.local> - 0.1.0-2
-- Rename to Miryu Toolkit, add system log collection feature.
-
-* Wed Aug 12 2026 Miryu <packager@miryu.local> - 0.1.0-1
-- Initial package with Qt6/KF6 UI, polkit helpers and environment variable editor.
+* Thu Aug 13 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-1
+- Initial Alpha
