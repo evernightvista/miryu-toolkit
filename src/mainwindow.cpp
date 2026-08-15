@@ -28,6 +28,8 @@
 #include <QTextStream>
 #include <QVBoxLayout>
 
+#include <memory>
+
 #ifndef TOOLKIT_LIBEXEC_DIR
 #define TOOLKIT_LIBEXEC_DIR "/usr/libexec/miryu-toolkit"
 #endif
@@ -903,6 +905,12 @@ void MainWindow::collectSystemLogs()
     connect(closeButtons, &QDialogButtonBox::rejected, logDialog, &QDialog::close);
     logLayout->addWidget(closeButtons);
 
+    // Accumulate stdout separately so the archive path can be extracted
+    // reliably in the finished handler. The readyReadStandardOutput signal
+    // consumes stdout data as it arrives, so readAllStandardOutput() in
+    // the finished callback would otherwise return an empty buffer.
+    auto stdoutAccum = std::make_shared<QByteArray>();
+
     auto appendOutput = [logView](const QByteArray &data) {
         if (data.isEmpty()) {
             return;
@@ -911,22 +919,25 @@ void MainWindow::collectSystemLogs()
         logView->verticalScrollBar()->setValue(logView->verticalScrollBar()->maximum());
     };
 
-    connect(process, &QProcess::readyReadStandardOutput, this, [process, appendOutput]() {
-        appendOutput(process->readAllStandardOutput());
+    connect(process, &QProcess::readyReadStandardOutput, this, [process, appendOutput, stdoutAccum]() {
+        QByteArray data = process->readAllStandardOutput();
+        stdoutAccum->append(data);
+        appendOutput(data);
     });
     connect(process, &QProcess::readyReadStandardError, this, [process, appendOutput]() {
         appendOutput(process->readAllStandardError());
     });
 
-    connect(process, &QProcess::finished, this, [this, process, logView, closeButtons](int exitCode, QProcess::ExitStatus exitStatus) {
-        const QString output = QString::fromLocal8Bit(process->readAllStandardOutput())
-            + QString::fromLocal8Bit(process->readAllStandardError());
-        if (!output.trimmed().isEmpty()) {
-            logView->appendPlainText(output.trimmed());
+    connect(process, &QProcess::finished, this, [this, process, logView, closeButtons, stdoutAccum](int exitCode, QProcess::ExitStatus exitStatus) {
+        // Drain any remaining output
+        stdoutAccum->append(process->readAllStandardOutput());
+        const QByteArray stderrRemainder = process->readAllStandardError();
+        if (!stderrRemainder.trimmed().isEmpty()) {
+            logView->appendPlainText(QString::fromLocal8Bit(stderrRemainder).trimmed());
         }
 
         // The helper prints the archive path on the last line of stdout
-        QString archivePath = output.trimmed().section(QLatin1Char('\n'), -1).trimmed();
+        QString archivePath = QString::fromLocal8Bit(*stdoutAccum).trimmed().section(QLatin1Char('\n'), -1).trimmed();
 
         process->deleteLater();
         m_runningProcess = nullptr;
