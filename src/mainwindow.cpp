@@ -272,7 +272,7 @@ QWidget *MainWindow::buildAboutTab()
     auto *iconFrame = new QFrame(page);
     iconFrame->setFixedSize(96, 96);
     iconFrame->setStyleSheet(QStringLiteral(
-        "QFrame { background-color: #793faf; border-radius: 12px; }"));
+        "QFrame { background-color: #92e796; border-radius: 12px; }"));
     auto *iconLabel = new QLabel(iconFrame);
     iconLabel->setFixedSize(96, 96);
     iconLabel->setAlignment(Qt::AlignCenter);
