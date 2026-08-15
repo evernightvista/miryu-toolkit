@@ -22,6 +22,8 @@ Requires:       polkit
 Requires:       rpm
 Requires:       tar
 Requires:       zstd
+Requires:       inxi
+Requires:       lshw
 
 %description
 Miryu Toolkit is a Qt6 and KDE Frameworks 6 application for managing
