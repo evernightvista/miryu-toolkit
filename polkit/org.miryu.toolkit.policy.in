@@ -281,6 +281,31 @@
     <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
   </action>
 
+  <action id="org.miryu.toolkit.update-system">
+    <description>Update the operating system</description>
+    <description xml:lang="zh_CN">更新操作系统</description>
+    <description xml:lang="zh_TW">更新作業系統</description>
+    <description xml:lang="ja">オペレーティングシステムを更新</description>
+    <description xml:lang="de">Betriebssystem aktualisieren</description>
+    <description xml:lang="ko">운영 체제 업데이트</description>
+    <description xml:lang="fr">Mettre à jour le système d'exploitation</description>
+    <message>更新操作系统需要认证</message>
+    <message xml:lang="zh_CN">更新操作系统需要认证</message>
+    <message xml:lang="zh_TW">更新作業系統需要認證</message>
+    <message xml:lang="ja">オペレーティングシステムの更新には認証が必要です</message>
+    <message xml:lang="de">Für die Aktualisierung des Betriebssystems ist eine Authentifizierung erforderlich</message>
+    <message xml:lang="ko">운영 체제 업데이트에는 인증이 필요합니다</message>
+    <message xml:lang="fr">La mise à jour du système d'exploitation nécessite une authentification</message>
+    <icon_name>preferences-system</icon_name>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">@CMAKE_INSTALL_FULL_LIBEXECDIR@/miryu-toolkit/miryu-toolkit-update-system</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
+  </action>
+
   <action id="org.miryu.toolkit.collect-logs">
     <description>Collect system logs</description>
     <description xml:lang="zh_CN">收集系统日志</description>

@@ -319,3 +319,84 @@ msgstr "Bereinigung vorheriger Kernel-Versionen fehlgeschlagen. Details im Proto
 
 msgid "Cleanup failed"
 msgstr "Bereinigung fehlgeschlagen"
+
+msgid "Update system"
+msgstr "System aktualisieren"
+
+msgid "Checking for available updates..."
+msgstr "Verfügbare Updates werden geprüft..."
+
+msgid "System update"
+msgstr "Systemaktualisierung"
+
+msgid "Checking for available updates with dnf5. This may take a moment..."
+msgstr "Verfügbare Updates werden mit dnf5 geprüft. Einen Moment bitte..."
+
+msgid "Running: dnf5 check-update --refresh"
+msgstr "Ausführung: dnf5 check-update --refresh"
+
+msgid "Authentication was canceled."
+msgstr "Authentifizierung wurde abgebrochen."
+
+msgid "Available updates detected."
+msgstr "Verfügbare Updates wurden erkannt."
+
+msgid "Updates are available."
+msgstr "Updates sind verfügbar."
+
+msgid "dnf5 detected available updates. Do you want to update the system now?"
+msgstr "dnf5 hat verfügbare Updates erkannt. Möchten Sie das System jetzt aktualisieren?"
+
+msgid "Update"
+msgstr "Aktualisieren"
+
+msgid "Update cancelled."
+msgstr "Aktualisierung abgebrochen."
+
+msgid "Your system is already up to date."
+msgstr "Ihr System ist bereits auf dem neuesten Stand."
+
+msgid "No updates"
+msgstr "Keine Updates"
+
+msgid "Failed to check for updates."
+msgstr "Prüfung auf Updates fehlgeschlagen."
+
+msgid "Update check failed."
+msgstr "Update-Prüfung fehlgeschlagen."
+
+msgid "Failed to check for available updates. See the log window for details."
+msgstr "Prüfung auf verfügbare Updates fehlgeschlagen. Details im Protokollfenster."
+
+msgid "Check failed"
+msgstr "Prüfung fehlgeschlagen"
+
+msgid "Unable to start dnf5. Make sure dnf5 is installed."
+msgstr "dnf5 kann nicht gestartet werden. Stellen Sie sicher, dass dnf5 installiert ist."
+
+msgid "Updating the system with dnf5. Please wait..."
+msgstr "Das System wird mit dnf5 aktualisiert. Bitte warten..."
+
+msgid "Starting privileged system update helper..."
+msgstr "Privilegierter Systemaktualisierungs-Helper wird gestartet..."
+
+msgid "Running: dnf5 update --refresh"
+msgstr "Ausführung: dnf5 update --refresh"
+
+msgid "System update completed."
+msgstr "Systemaktualisierung abgeschlossen."
+
+msgid "The system has been updated successfully."
+msgstr "Das System wurde erfolgreich aktualisiert."
+
+msgid "Update completed"
+msgstr "Aktualisierung abgeschlossen"
+
+msgid "System update failed."
+msgstr "Systemaktualisierung fehlgeschlagen."
+
+msgid "Failed to update the system. See the log window for details."
+msgstr "Aktualisierung des Systems fehlgeschlagen. Details im Protokollfenster."
+
+msgid "Update failed"
+msgstr "Aktualisierung fehlgeschlagen"

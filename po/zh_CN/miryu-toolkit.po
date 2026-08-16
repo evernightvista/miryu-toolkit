@@ -319,3 +319,84 @@ msgstr "清理上一版本内核失败。详情请查看日志窗口。"
 
 msgid "Cleanup failed"
 msgstr "清理失败"
+
+msgid "Update system"
+msgstr "更新系统"
+
+msgid "Checking for available updates..."
+msgstr "正在检查可用更新..."
+
+msgid "System update"
+msgstr "系统更新"
+
+msgid "Checking for available updates with dnf5. This may take a moment..."
+msgstr "正在使用 dnf5 检查可用更新。这可能需要一些时间..."
+
+msgid "Running: dnf5 check-update --refresh"
+msgstr "运行：dnf5 check-update --refresh"
+
+msgid "Authentication was canceled."
+msgstr "认证已取消。"
+
+msgid "Available updates detected."
+msgstr "检测到可用更新。"
+
+msgid "Updates are available."
+msgstr "有可用更新。"
+
+msgid "dnf5 detected available updates. Do you want to update the system now?"
+msgstr "dnf5 检测到可用更新。是否要现在更新系统？"
+
+msgid "Update"
+msgstr "更新"
+
+msgid "Update cancelled."
+msgstr "已取消更新。"
+
+msgid "Your system is already up to date."
+msgstr "您的系统已是最新版本。"
+
+msgid "No updates"
+msgstr "无可用更新"
+
+msgid "Failed to check for updates."
+msgstr "检查更新失败。"
+
+msgid "Update check failed."
+msgstr "更新检查失败。"
+
+msgid "Failed to check for available updates. See the log window for details."
+msgstr "检查可用更新失败。详情请查看日志窗口。"
+
+msgid "Check failed"
+msgstr "检查失败"
+
+msgid "Unable to start dnf5. Make sure dnf5 is installed."
+msgstr "无法启动 dnf5。请确认系统已安装 dnf5。"
+
+msgid "Updating the system with dnf5. Please wait..."
+msgstr "正在使用 dnf5 更新系统。请稍候..."
+
+msgid "Starting privileged system update helper..."
+msgstr "正在启动提权系统更新 helper..."
+
+msgid "Running: dnf5 update --refresh"
+msgstr "运行：dnf5 update --refresh"
+
+msgid "System update completed."
+msgstr "系统更新完成。"
+
+msgid "The system has been updated successfully."
+msgstr "系统已成功更新。"
+
+msgid "Update completed"
+msgstr "更新完成"
+
+msgid "System update failed."
+msgstr "系统更新失败。"
+
+msgid "Failed to update the system. See the log window for details."
+msgstr "更新系统失败。详情请查看日志窗口。"
+
+msgid "Update failed"
+msgstr "更新失败"

@@ -319,3 +319,84 @@ msgstr "이전 커널 버전 정리에 실패했습니다. 자세한 내용은 �
 
 msgid "Cleanup failed"
 msgstr "정리 실패"
+
+msgid "Update system"
+msgstr "시스템 업데이트"
+
+msgid "Checking for available updates..."
+msgstr "사용 가능한 업데이트를 확인하는 중..."
+
+msgid "System update"
+msgstr "시스템 업데이트"
+
+msgid "Checking for available updates with dnf5. This may take a moment..."
+msgstr "dnf5로 사용 가능한 업데이트를 확인하는 중입니다. 잠시만 기다려 주세요..."
+
+msgid "Running: dnf5 check-update --refresh"
+msgstr "실행: dnf5 check-update --refresh"
+
+msgid "Authentication was canceled."
+msgstr "인증이 취소되었습니다."
+
+msgid "Available updates detected."
+msgstr "사용 가능한 업데이트가 감지되었습니다."
+
+msgid "Updates are available."
+msgstr "사용 가능한 업데이트가 있습니다."
+
+msgid "dnf5 detected available updates. Do you want to update the system now?"
+msgstr "dnf5가 사용 가능한 업데이트를 감지했습니다. 지금 시스템을 업데이트하시겠습니까?"
+
+msgid "Update"
+msgstr "업데이트"
+
+msgid "Update cancelled."
+msgstr "업데이트가 취소되었습니다."
+
+msgid "Your system is already up to date."
+msgstr "시스템이 이미 최신 버전입니다."
+
+msgid "No updates"
+msgstr "업데이트 없음"
+
+msgid "Failed to check for updates."
+msgstr "업데이트 확인에 실패했습니다."
+
+msgid "Update check failed."
+msgstr "업데이트 확인 실패."
+
+msgid "Failed to check for available updates. See the log window for details."
+msgstr "사용 가능한 업데이트 확인에 실패했습니다. 자세한 내용은 로그 창을 확인하세요."
+
+msgid "Check failed"
+msgstr "확인 실패"
+
+msgid "Unable to start dnf5. Make sure dnf5 is installed."
+msgstr "dnf5를 시작할 수 없습니다. dnf5가 설치되어 있는지 확인하세요."
+
+msgid "Updating the system with dnf5. Please wait..."
+msgstr "dnf5로 시스템을 업데이트하는 중입니다. 잠시만 기다려 주세요..."
+
+msgid "Starting privileged system update helper..."
+msgstr "권한 상승 시스템 업데이트 helper를 시작하는 중..."
+
+msgid "Running: dnf5 update --refresh"
+msgstr "실행: dnf5 update --refresh"
+
+msgid "System update completed."
+msgstr "시스템 업데이트가 완료되었습니다."
+
+msgid "The system has been updated successfully."
+msgstr "시스템이 성공적으로 업데이트되었습니다."
+
+msgid "Update completed"
+msgstr "업데이트 완료"
+
+msgid "System update failed."
+msgstr "시스템 업데이트에 실패했습니다."
+
+msgid "Failed to update the system. See the log window for details."
+msgstr "시스템 업데이트에 실패했습니다. 자세한 내용은 로그 창을 확인하세요."
+
+msgid "Update failed"
+msgstr "업데이트 실패"

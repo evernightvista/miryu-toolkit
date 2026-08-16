@@ -1,0 +1,41 @@
+#!/usr/bin/sh
+set -eu
+
+# System update helper for Miryu Toolkit, invoked via pkexec.
+#
+# Arguments:
+#   check  – run "dnf5 check-update --refresh" (force-refresh metadata, report available updates)
+#   update – run "dnf5 update --refresh --assumeyes" (apply all available updates)
+#
+# Exit codes (check mode):
+#   0   – no updates available
+#   100 – updates are available
+#   1   – error
+#
+# The --assumeyes flag in update mode is required because pkexec does not
+# provide a controlling terminal, so dnf5 cannot prompt for confirmation.
+# The user has already confirmed the update through the GUI.
+
+if command -v /usr/bin/dnf5 >/dev/null 2>&1; then
+    DNF=/usr/bin/dnf5
+elif command -v dnf5 >/dev/null 2>&1; then
+    DNF=dnf5
+else
+    echo "Error: dnf5 is not installed. Please install dnf5 to use this feature." >&2
+    exit 1
+fi
+
+mode="${1:-update}"
+
+case "$mode" in
+    check)
+        exec "$DNF" check-update --refresh
+        ;;
+    update)
+        exec "$DNF" update --refresh --assumeyes
+        ;;
+    *)
+        echo "Usage: $0 {check|update}" >&2
+        exit 1
+        ;;
+esac

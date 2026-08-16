@@ -75,6 +75,7 @@ install(PROGRAMS
         helpers/miryu-toolkit-apply-environment
         helpers/miryu-toolkit-restore-environment
         helpers/miryu-toolkit-cleanup-kernel
+        helpers/miryu-toolkit-update-system
         DESTINATION ${CMAKE_INSTALL_LIBEXECDIR}/miryu-toolkit)
 install(FILES org.miryu.toolkit/miryu-toolkit.desktop
         DESTINATION ${KDE_INSTALL_APPDIR})

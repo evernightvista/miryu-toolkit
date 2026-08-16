@@ -70,6 +70,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(cleanupKernelButton, &QPushButton::clicked, this, &MainWindow::cleanupOldKernel);
     bottomLayout->addWidget(cleanupKernelButton);
 
+    auto *updateSystemButton = new QPushButton(i18n("Update system"), central);
+    connect(updateSystemButton, &QPushButton::clicked, this, &MainWindow::updateSystem);
+    bottomLayout->addWidget(updateSystemButton);
+
     auto *collectLogsButton = new QPushButton(i18n("Collect system logs"), central);
     connect(collectLogsButton, &QPushButton::clicked, this, &MainWindow::collectSystemLogs);
     bottomLayout->addWidget(collectLogsButton);
@@ -984,4 +988,221 @@ void MainWindow::collectSystemLogs()
 
     process->start(QStringLiteral("pkexec"), args);
     logDialog->show();
+}
+
+void MainWindow::updateSystem()
+{
+    if (m_runningProcess) {
+        return;
+    }
+
+    // Immediately invoke the privileged helper via pkexec. This triggers
+    // polkit authentication (title: "更新操作系统需要认证") right away.
+    // The helper runs "dnf5 check-update --refresh" as root, which exits with:
+    //   100 – updates are available
+    //   0   – system is already up to date
+    //   1   – error
+    //   127 – polkit authentication was canceled or failed
+    auto *checkProcess = new QProcess(this);
+    m_runningProcess = checkProcess;
+    setComponentsBusy(true);
+
+    if (m_bottomStatus) {
+        m_bottomStatus->setText(i18n("Checking for available updates..."));
+    }
+
+    auto *logDialog = new QDialog(this);
+    logDialog->setAttribute(Qt::WA_DeleteOnClose);
+    logDialog->setWindowTitle(i18n("System update"));
+    logDialog->resize(760, 480);
+
+    auto *logLayout = new QVBoxLayout(logDialog);
+    auto *logHint = new QLabel(i18n("Checking for available updates with dnf5. This may take a moment..."), logDialog);
+    logHint->setWordWrap(true);
+    logLayout->addWidget(logHint);
+
+    auto *logView = new QPlainTextEdit(logDialog);
+    logView->setReadOnly(true);
+    logView->setLineWrapMode(QPlainTextEdit::NoWrap);
+    logView->appendPlainText(i18n("Running: dnf5 check-update --refresh"));
+    logLayout->addWidget(logView, 1);
+
+    auto *closeButtons = new QDialogButtonBox(QDialogButtonBox::Close, logDialog);
+    closeButtons->button(QDialogButtonBox::Close)->setEnabled(false);
+    connect(closeButtons, &QDialogButtonBox::rejected, logDialog, &QDialog::close);
+    logLayout->addWidget(closeButtons);
+
+    auto appendOutput = [logView](const QByteArray &data) {
+        if (data.isEmpty()) {
+            return;
+        }
+        logView->appendPlainText(QString::fromLocal8Bit(data).trimmed());
+        logView->verticalScrollBar()->setValue(logView->verticalScrollBar()->maximum());
+    };
+
+    connect(checkProcess, &QProcess::readyReadStandardOutput, this, [checkProcess, appendOutput]() {
+        appendOutput(checkProcess->readAllStandardOutput());
+    });
+    connect(checkProcess, &QProcess::readyReadStandardError, this, [checkProcess, appendOutput]() {
+        appendOutput(checkProcess->readAllStandardError());
+    });
+
+    connect(checkProcess, &QProcess::finished, this, [this, checkProcess, logDialog, logView, logHint, closeButtons](int exitCode, QProcess::ExitStatus exitStatus) {
+        const QByteArray stdoutRemainder = checkProcess->readAllStandardOutput();
+        if (!stdoutRemainder.trimmed().isEmpty()) {
+            logView->appendPlainText(QString::fromLocal8Bit(stdoutRemainder).trimmed());
+        }
+        const QByteArray stderrRemainder = checkProcess->readAllStandardError();
+        if (!stderrRemainder.trimmed().isEmpty()) {
+            logView->appendPlainText(QString::fromLocal8Bit(stderrRemainder).trimmed());
+        }
+
+        checkProcess->deleteLater();
+        m_runningProcess = nullptr;
+        refreshComponentStates();
+
+        const bool updatesAvailable = (exitStatus == QProcess::NormalExit && exitCode == 100);
+        const bool noUpdates = (exitStatus == QProcess::NormalExit && exitCode == 0);
+        const bool authCanceled = (exitStatus == QProcess::NormalExit && exitCode == 127);
+
+        if (updatesAvailable) {
+            logView->appendPlainText(i18n("Available updates detected."));
+            if (m_bottomStatus) {
+                m_bottomStatus->setText(i18n("Updates are available."));
+            }
+            if (KMessageBox::questionTwoActions(logDialog,
+                                                i18n("dnf5 detected available updates. Do you want to update the system now?"),
+                                                i18n("Update system"),
+                                                KGuiItem(i18n("Update")),
+                                                KStandardGuiItem::cancel())
+                == KMessageBox::PrimaryAction) {
+                logHint->setText(i18n("Updating the system with dnf5. Please wait..."));
+                startPrivilegedSystemUpdate(logDialog, logView, closeButtons);
+            } else {
+                logView->appendPlainText(i18n("Update cancelled."));
+                if (m_bottomStatus) {
+                    m_bottomStatus->setText(i18n("Update cancelled."));
+                }
+                closeButtons->button(QDialogButtonBox::Close)->setEnabled(true);
+            }
+        } else if (noUpdates) {
+            logView->appendPlainText(i18n("Your system is already up to date."));
+            if (m_bottomStatus) {
+                m_bottomStatus->setText(i18n("Your system is already up to date."));
+            }
+            KMessageBox::information(logDialog,
+                                     i18n("Your system is already up to date."),
+                                     i18n("No updates"));
+            closeButtons->button(QDialogButtonBox::Close)->setEnabled(true);
+        } else if (authCanceled) {
+            logView->appendPlainText(i18n("Authentication was canceled."));
+            if (m_bottomStatus) {
+                m_bottomStatus->setText(i18n("Authentication was canceled."));
+            }
+            closeButtons->button(QDialogButtonBox::Close)->setEnabled(true);
+        } else {
+            logView->appendPlainText(i18n("Failed to check for updates."));
+            if (m_bottomStatus) {
+                m_bottomStatus->setText(i18n("Update check failed."));
+            }
+            KMessageBox::error(logDialog,
+                               i18n("Failed to check for available updates. See the log window for details."),
+                               i18n("Check failed"));
+            closeButtons->button(QDialogButtonBox::Close)->setEnabled(true);
+        }
+    });
+
+    connect(checkProcess, &QProcess::errorOccurred, this, [this, checkProcess, logView, closeButtons](QProcess::ProcessError error) {
+        if (error == QProcess::FailedToStart) {
+            checkProcess->deleteLater();
+            m_runningProcess = nullptr;
+            refreshComponentStates();
+            if (m_bottomStatus) {
+                m_bottomStatus->setText(i18n("Update check failed."));
+            }
+            logView->appendPlainText(i18n("Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."));
+            closeButtons->button(QDialogButtonBox::Close)->setEnabled(true);
+        }
+    });
+
+    QStringList checkArgs;
+    checkArgs << QStringLiteral(TOOLKIT_LIBEXEC_DIR) + QStringLiteral("/miryu-toolkit-update-system")
+               << QStringLiteral("check");
+    checkProcess->start(QStringLiteral("pkexec"), checkArgs);
+    logDialog->show();
+}
+
+void MainWindow::startPrivilegedSystemUpdate(QDialog *logDialog, QPlainTextEdit *logView,
+                                             QDialogButtonBox *closeButtons)
+{
+    auto *process = new QProcess(this);
+    m_runningProcess = process;
+    setComponentsBusy(true);
+
+    logView->appendPlainText(i18n("Starting privileged system update helper..."));
+    logView->appendPlainText(i18n("Running: dnf5 update --refresh"));
+
+    auto appendOutput = [logView](const QByteArray &data) {
+        if (data.isEmpty()) {
+            return;
+        }
+        logView->appendPlainText(QString::fromLocal8Bit(data).trimmed());
+        logView->verticalScrollBar()->setValue(logView->verticalScrollBar()->maximum());
+    };
+
+    connect(process, &QProcess::readyReadStandardOutput, this, [process, appendOutput]() {
+        appendOutput(process->readAllStandardOutput());
+    });
+    connect(process, &QProcess::readyReadStandardError, this, [process, appendOutput]() {
+        appendOutput(process->readAllStandardError());
+    });
+
+    connect(process, &QProcess::finished, this, [this, process, logDialog, logView, closeButtons](int exitCode, QProcess::ExitStatus exitStatus) {
+        const QString output = QString::fromLocal8Bit(process->readAllStandardOutput())
+            + QString::fromLocal8Bit(process->readAllStandardError());
+        if (!output.trimmed().isEmpty()) {
+            logView->appendPlainText(output.trimmed());
+        }
+
+        process->deleteLater();
+        m_runningProcess = nullptr;
+        refreshComponentStates();
+
+        if (exitStatus == QProcess::NormalExit && exitCode == 0) {
+            logView->appendPlainText(i18n("System update completed."));
+            if (m_bottomStatus) {
+                m_bottomStatus->setText(i18n("System update completed."));
+            }
+            KMessageBox::information(logDialog,
+                                     i18n("The system has been updated successfully."),
+                                     i18n("Update completed"));
+        } else {
+            logView->appendPlainText(i18n("System update failed."));
+            if (m_bottomStatus) {
+                m_bottomStatus->setText(i18n("System update failed."));
+            }
+            KMessageBox::error(logDialog,
+                               i18n("Failed to update the system. See the log window for details."),
+                               i18n("Update failed"));
+        }
+        closeButtons->button(QDialogButtonBox::Close)->setEnabled(true);
+    });
+
+    connect(process, &QProcess::errorOccurred, this, [this, process, logView, closeButtons](QProcess::ProcessError error) {
+        if (error == QProcess::FailedToStart) {
+            process->deleteLater();
+            m_runningProcess = nullptr;
+            refreshComponentStates();
+            if (m_bottomStatus) {
+                m_bottomStatus->setText(i18n("System update failed."));
+            }
+            logView->appendPlainText(i18n("Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."));
+            closeButtons->button(QDialogButtonBox::Close)->setEnabled(true);
+        }
+    });
+
+    QStringList args;
+    args << QStringLiteral(TOOLKIT_LIBEXEC_DIR) + QStringLiteral("/miryu-toolkit-update-system")
+         << QStringLiteral("update");
+    process->start(QStringLiteral("pkexec"), args);
 }

@@ -1,6 +1,6 @@
 Name:           miryu-toolkit
 Version:        45.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Miryu Toolkit
 
 License:        GPL-3.0-or-later
@@ -24,6 +24,7 @@ Requires:       tar
 Requires:       zstd
 Requires:       inxi
 Requires:       lshw
+Obsoletes:      evernight-vista-tools
 
 %description
 Miryu Toolkit is a Qt6 and KDE Frameworks 6 application for managing
@@ -65,8 +66,12 @@ additional fonts, plus a system log collection tool.
 %{_libexecdir}/miryu-toolkit/miryu-toolkit-apply-environment
 %{_libexecdir}/miryu-toolkit/miryu-toolkit-restore-environment
 %{_libexecdir}/miryu-toolkit/miryu-toolkit-cleanup-kernel
+%{_libexecdir}/miryu-toolkit/miryu-toolkit-update-system
 %{_libexecdir}/miryu-toolkit/miryu-toolkit-collect-logs
 
 %changelog
+* Mon Aug 17 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-2
+- Add Update System Button
+
 * Thu Aug 13 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-1
 - Initial Alpha

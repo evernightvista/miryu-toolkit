@@ -10,6 +10,10 @@
 #include <QTabWidget>
 #include <QVector>
 
+class QDialog;
+class QDialogButtonBox;
+class QPlainTextEdit;
+
 struct ExtraComponent
 {
     QString id;
@@ -58,6 +62,9 @@ private:
 
     void collectSystemLogs();
     void cleanupOldKernel();
+    void updateSystem();
+    void startPrivilegedSystemUpdate(QDialog *logDialog, QPlainTextEdit *logView,
+                                     QDialogButtonBox *closeButtons);
     static QString currentUserName();
 
     QTabWidget *m_tabs = nullptr;

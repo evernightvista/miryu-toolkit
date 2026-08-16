@@ -319,3 +319,84 @@ msgstr "以前のカーネルバージョンのクリーンアップに失敗し
 
 msgid "Cleanup failed"
 msgstr "クリーンアップ失敗"
+
+msgid "Update system"
+msgstr "システムを更新"
+
+msgid "Checking for available updates..."
+msgstr "利用可能な更新を確認中..."
+
+msgid "System update"
+msgstr "システム更新"
+
+msgid "Checking for available updates with dnf5. This may take a moment..."
+msgstr "dnf5 で利用可能な更新を確認しています。しばらくお待ちください..."
+
+msgid "Running: dnf5 check-update --refresh"
+msgstr "実行: dnf5 check-update --refresh"
+
+msgid "Authentication was canceled."
+msgstr "認証がキャンセルされました。"
+
+msgid "Available updates detected."
+msgstr "利用可能な更新が検出されました。"
+
+msgid "Updates are available."
+msgstr "利用可能な更新があります。"
+
+msgid "dnf5 detected available updates. Do you want to update the system now?"
+msgstr "dnf5 が利用可能な更新を検出しました。今すぐシステムを更新しますか？"
+
+msgid "Update"
+msgstr "更新"
+
+msgid "Update cancelled."
+msgstr "更新がキャンセルされました。"
+
+msgid "Your system is already up to date."
+msgstr "システムは既に最新です。"
+
+msgid "No updates"
+msgstr "更新なし"
+
+msgid "Failed to check for updates."
+msgstr "更新の確認に失敗しました。"
+
+msgid "Update check failed."
+msgstr "更新確認に失敗しました。"
+
+msgid "Failed to check for available updates. See the log window for details."
+msgstr "利用可能な更新の確認に失敗しました。詳細はログウィンドウを参照してください。"
+
+msgid "Check failed"
+msgstr "確認失敗"
+
+msgid "Unable to start dnf5. Make sure dnf5 is installed."
+msgstr "dnf5 を起動できません。dnf5 がインストールされていることを確認してください。"
+
+msgid "Updating the system with dnf5. Please wait..."
+msgstr "dnf5 でシステムを更新しています。お待ちください..."
+
+msgid "Starting privileged system update helper..."
+msgstr "特権システム更新 helper を起動中..."
+
+msgid "Running: dnf5 update --refresh"
+msgstr "実行: dnf5 update --refresh"
+
+msgid "System update completed."
+msgstr "システム更新が完了しました。"
+
+msgid "The system has been updated successfully."
+msgstr "システムは正常に更新されました。"
+
+msgid "Update completed"
+msgstr "更新完了"
+
+msgid "System update failed."
+msgstr "システム更新に失敗しました。"
+
+msgid "Failed to update the system. See the log window for details."
+msgstr "システムの更新に失敗しました。詳細はログウィンドウを参照してください。"
+
+msgid "Update failed"
+msgstr "更新失敗"

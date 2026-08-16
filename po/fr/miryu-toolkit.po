@@ -319,3 +319,84 @@ msgstr "Le nettoyage des versions précédentes du noyau a échoué. Consultez l
 
 msgid "Cleanup failed"
 msgstr "Échec du nettoyage"
+
+msgid "Update system"
+msgstr "Mettre à jour le système"
+
+msgid "Checking for available updates..."
+msgstr "Vérification des mises à jour disponibles..."
+
+msgid "System update"
+msgstr "Mise à jour du système"
+
+msgid "Checking for available updates with dnf5. This may take a moment..."
+msgstr "Vérification des mises à jour disponibles avec dnf5. Cela peut prendre un moment..."
+
+msgid "Running: dnf5 check-update --refresh"
+msgstr "Exécution : dnf5 check-update --refresh"
+
+msgid "Authentication was canceled."
+msgstr "L'authentification a été annulée."
+
+msgid "Available updates detected."
+msgstr "Des mises à jour disponibles ont été détectées."
+
+msgid "Updates are available."
+msgstr "Des mises à jour sont disponibles."
+
+msgid "dnf5 detected available updates. Do you want to update the system now?"
+msgstr "dnf5 a détecté des mises à jour disponibles. Voulez-vous mettre à jour le système maintenant ?"
+
+msgid "Update"
+msgstr "Mettre à jour"
+
+msgid "Update cancelled."
+msgstr "Mise à jour annulée."
+
+msgid "Your system is already up to date."
+msgstr "Votre système est déjà à jour."
+
+msgid "No updates"
+msgstr "Aucune mise à jour"
+
+msgid "Failed to check for updates."
+msgstr "Échec de la vérification des mises à jour."
+
+msgid "Update check failed."
+msgstr "Échec de la vérification des mises à jour."
+
+msgid "Failed to check for available updates. See the log window for details."
+msgstr "Échec de la vérification des mises à jour disponibles. Consultez la fenêtre de journal pour plus de détails."
+
+msgid "Check failed"
+msgstr "Échec de la vérification"
+
+msgid "Unable to start dnf5. Make sure dnf5 is installed."
+msgstr "Impossible de démarrer dnf5. Assurez-vous que dnf5 est installé."
+
+msgid "Updating the system with dnf5. Please wait..."
+msgstr "Mise à jour du système avec dnf5. Veuillez patienter..."
+
+msgid "Starting privileged system update helper..."
+msgstr "Démarrage de l'assistant de mise à jour système privilégié..."
+
+msgid "Running: dnf5 update --refresh"
+msgstr "Exécution : dnf5 update --refresh"
+
+msgid "System update completed."
+msgstr "Mise à jour du système terminée."
+
+msgid "The system has been updated successfully."
+msgstr "Le système a été mis à jour avec succès."
+
+msgid "Update completed"
+msgstr "Mise à jour terminée"
+
+msgid "System update failed."
+msgstr "Échec de la mise à jour du système."
+
+msgid "Failed to update the system. See the log window for details."
+msgstr "Échec de la mise à jour du système. Consultez la fenêtre de journal pour plus de détails."
+
+msgid "Update failed"
+msgstr "Échec de la mise à jour"
