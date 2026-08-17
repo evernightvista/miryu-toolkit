@@ -1,6 +1,6 @@
 Name:           miryu-toolkit
 Version:        45.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Miryu Toolkit
 
 License:        GPL-3.0-or-later
@@ -70,8 +70,15 @@ additional fonts, plus a system log collection tool.
 %{_libexecdir}/miryu-toolkit/miryu-toolkit-unlock-rpm
 %{_libexecdir}/miryu-toolkit/miryu-toolkit-autoremove
 %{_libexecdir}/miryu-toolkit/miryu-toolkit-collect-logs
+%{_libexecdir}/miryu-toolkit/miryu-toolkit-view-crash
 
 %changelog
+* Mon Aug 17 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-4
+- Fix crash info viewer to run dmesg as root via pkexec so segfault
+  entries are visible, matching "sudo dmesg | grep segfault"
+- Add miryu-toolkit-view-crash polkit helper
+- Update Desktop Metadata
+
 * Mon Aug 17 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-3
 - Add Miryu System Assistant tab with systemd, RPM, dnf5 and crash info tools
 - Rename Miscellaneous tab to Install Additional Components

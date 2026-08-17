@@ -517,3 +517,6 @@ msgstr "명령이 완료되었습니다 (종료 코드 %1)."
 
 msgid "Unable to run dmesg."
 msgstr "dmesg를 실행할 수 없습니다."
+
+msgid "No segfault entries found in the kernel log (dmesg)."
+msgstr "커널 로그(dmesg)에서 segfault 항목을 찾을 수 없습니다."

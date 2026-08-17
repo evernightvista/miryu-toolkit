@@ -1,0 +1,24 @@
+#!/usr/bin/sh
+set -eu
+
+# View software crash information as root.
+#
+# This helper is invoked via pkexec. It mirrors exactly what
+#   sudo dmesg | grep segfault
+# shows in a terminal.
+#
+# Reading the kernel ring buffer requires root on systems where
+# kernel.dmesg_restrict=1 (the default on Fedora and many other distros),
+# so running "dmesg | grep segfault" as a normal GUI user shows nothing.
+# Running as root here makes the segfault entries visible, just like the
+# terminal command.
+#
+# grep exits 1 when there are no matches, which under "set -e" would abort
+# the script; the if/else keeps the helper exiting 0 and prints a clear
+# message when no segfault entries are present.
+
+if dmesg 2>&1 | grep -i segfault; then
+    :
+else
+    echo "No segfault entries found in the kernel log (dmesg)."
+fi

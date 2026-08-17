@@ -1544,12 +1544,18 @@ void MainWindow::viewCrashInfo()
 
     connect(process, &QProcess::errorOccurred, this, [logView, closeButtons](QProcess::ProcessError error) {
         if (error == QProcess::FailedToStart) {
-            logView->appendPlainText(i18n("Unable to run dmesg."));
+            logView->appendPlainText(i18n("Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."));
             closeButtons->button(QDialogButtonBox::Close)->setEnabled(true);
         }
     });
 
-    process->start(QStringLiteral("sh"), {QStringLiteral("-c"),
-                 QStringLiteral("dmesg 2>&1 | grep -i segfault || true")});
+    // dmesg requires root to read the kernel ring buffer on systems where
+    // kernel.dmesg_restrict=1 (the default on Fedora and many distros), so
+    // running "dmesg | grep segfault" as a normal GUI user shows nothing.
+    // Run the crash-info helper as root via pkexec so the segfault entries
+    // are visible, exactly like "sudo dmesg | grep segfault" in a terminal.
+    QStringList args;
+    args << QStringLiteral(TOOLKIT_LIBEXEC_DIR) + QStringLiteral("/miryu-toolkit-view-crash");
+    process->start(QStringLiteral("pkexec"), args);
     logDialog->show();
 }

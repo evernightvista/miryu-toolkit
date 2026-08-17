@@ -517,3 +517,6 @@ msgstr "コマンドが完了しました（終了コード %1）。"
 
 msgid "Unable to run dmesg."
 msgstr "dmesg を実行できません。"
+
+msgid "No segfault entries found in the kernel log (dmesg)."
+msgstr "カーネルログ（dmesg）に segfault エントリは見つかりませんでした。"

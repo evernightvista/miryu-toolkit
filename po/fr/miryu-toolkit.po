@@ -517,3 +517,6 @@ msgstr "Commande terminée (code de sortie %1)."
 
 msgid "Unable to run dmesg."
 msgstr "Impossible d'exécuter dmesg."
+
+msgid "No segfault entries found in the kernel log (dmesg)."
+msgstr "Aucune entrée de segfault trouvée dans le journal du noyau (dmesg)."

@@ -380,4 +380,29 @@
     <annotate key="org.freedesktop.policykit.exec.path">@CMAKE_INSTALL_FULL_LIBEXECDIR@/miryu-toolkit/miryu-toolkit-autoremove</annotate>
     <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
   </action>
+
+  <action id="org.miryu.toolkit.view-crash">
+    <description>View software crash information</description>
+    <description xml:lang="zh_CN">查看软件崩溃信息</description>
+    <description xml:lang="zh_TW">檢視軟體崩潰資訊</description>
+    <description xml:lang="ja">ソフトウェアのクラッシュ情報を表示</description>
+    <description xml:lang="de">Absturzinformationen anzeigen</description>
+    <description xml:lang="ko">소프트웨어 충돌 정보 보기</description>
+    <description xml:lang="fr">Afficher les informations de plantage</description>
+    <message>查看软件崩溃信息</message>
+    <message xml:lang="zh_CN">查看软件崩溃信息</message>
+    <message xml:lang="zh_TW">檢視軟體崩潰資訊</message>
+    <message xml:lang="ja">ソフトウェアのクラッシュ情報を表示</message>
+    <message xml:lang="de">Absturzinformationen anzeigen</message>
+    <message xml:lang="ko">소프트웨어 충돌 정보 보기</message>
+    <message xml:lang="fr">Afficher les informations de plantage</message>
+    <icon_name>preferences-system</icon_name>
+    <defaults>
+      <allow_any>yes</allow_any>
+      <allow_inactive>yes</allow_inactive>
+      <allow_active>yes</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">@CMAKE_INSTALL_FULL_LIBEXECDIR@/miryu-toolkit/miryu-toolkit-view-crash</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
+  </action>
 </policyconfig>

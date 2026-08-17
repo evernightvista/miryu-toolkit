@@ -78,6 +78,7 @@ install(PROGRAMS
         helpers/miryu-toolkit-update-system
         helpers/miryu-toolkit-unlock-rpm
         helpers/miryu-toolkit-autoremove
+        helpers/miryu-toolkit-view-crash
         DESTINATION ${CMAKE_INSTALL_LIBEXECDIR}/miryu-toolkit)
 install(FILES org.miryu.toolkit/miryu-toolkit.desktop
         DESTINATION ${KDE_INSTALL_APPDIR})

@@ -517,3 +517,6 @@ msgstr "指令已完成（退出碼 %1）。"
 
 msgid "Unable to run dmesg."
 msgstr "無法執行 dmesg。"
+
+msgid "No segfault entries found in the kernel log (dmesg)."
+msgstr "核心日誌（dmesg）中未發現 segfault（段錯誤）記錄。"
