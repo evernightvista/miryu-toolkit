@@ -400,3 +400,120 @@ msgstr "시스템 업데이트에 실패했습니다. 자세한 내용은 로그
 
 msgid "Update failed"
 msgstr "업데이트 실패"
+
+msgid "Miryu System Assistant"
+msgstr "Miryu 시스템 어시스턴트"
+
+msgid "Install additional components"
+msgstr "추가 구성 요소 설치"
+
+msgid "List failed systemd service units"
+msgstr "실패한 systemd 서비스 유닛 나열"
+
+msgid "Unlock RPM database"
+msgstr "RPM 데이터베이스 잠금 해제"
+
+msgid "View dnf5 log"
+msgstr "dnf5 로그 보기"
+
+msgid "Clean unused packages (dnf5 autoremove)"
+msgstr "불필요한 패키지 정리 (dnf5 autoremove)"
+
+msgid "View software crash information"
+msgstr "소프트웨어 충돌 정보 보기"
+
+msgid "Failed systemd service units"
+msgstr "실패한 systemd 서비스 유닛"
+
+msgid "Listing failed systemd service units..."
+msgstr "실패한 systemd 서비스 유닛을 나열하는 중..."
+
+msgid "Running: systemctl --failed --no-pager"
+msgstr "실행: systemctl --failed --no-pager"
+
+msgid "Command completed."
+msgstr "명령이 완료되었습니다."
+
+msgid "Command failed (exit code %1)."
+msgstr "명령이 실패했습니다 (종료 코드 %1)."
+
+msgid "Unable to start systemctl."
+msgstr "systemctl을 시작할 수 없습니다."
+
+msgid "Before unlocking the RPM database, please check whether dnf5 and dnf5daemon-server have completed their transactions.\n\nAre you sure you want to unlock the RPM database?"
+msgstr "RPM 데이터베이스 잠금을 해제하기 전에 dnf5와 dnf5daemon-server의 트랜잭션이 완료되었는지 확인하십시오.\n\nRPM 데이터베이스의 잠금을 해제하시겠습니까?"
+
+msgid "Unlock"
+msgstr "잠금 해제"
+
+msgid "Unlocking RPM database..."
+msgstr "RPM 데이터베이스 잠금을 해제하는 중..."
+
+msgid "RPM database has been unlocked."
+msgstr "RPM 데이터베이스 잠금이 해제되었습니다."
+
+msgid "Unlock completed"
+msgstr "잠금 해제 완료"
+
+msgid "Failed to unlock RPM database."
+msgstr "RPM 데이터베이스 잠금 해제에 실패했습니다."
+
+msgid "Failed to unlock the RPM database."
+msgstr "RPM 데이터베이스 잠금 해제에 실패했습니다."
+
+msgid "Unlock failed"
+msgstr "잠금 해제 실패"
+
+msgid "The dnf5 log file does not exist at %1."
+msgstr "dnf5 로그 파일이 %1에 존재하지 않습니다."
+
+msgid "File not found"
+msgstr "파일을 찾을 수 없음"
+
+msgid "Clean unused packages"
+msgstr "불필요한 패키지 정리"
+
+msgid "Removing unused dependency packages with dnf5 autoremove..."
+msgstr "dnf5 autoremove로 불필요한 의존성 패키지를 제거하는 중..."
+
+msgid "Starting privileged dnf5 autoremove helper..."
+msgstr "提권 dnf5 autoremove helper를 시작하는 중..."
+
+msgid "Running: dnf5 autoremove --assumeyes"
+msgstr "실행: dnf5 autoremove --assumeyes"
+
+msgid "Cleanup completed."
+msgstr "정리가 완료되었습니다."
+
+msgid "Unused packages cleanup completed."
+msgstr "불필요한 패키지 정리가 완료되었습니다."
+
+msgid "Unused packages have been cleaned up."
+msgstr "불필요한 패키지가 정리되었습니다."
+
+msgid "Cleanup failed."
+msgstr "정리에 실패했습니다."
+
+msgid "Unused packages cleanup failed."
+msgstr "불필요한 패키지 정리에 실패했습니다."
+
+msgid "Failed to clean up unused packages. See the log window for details."
+msgstr "불필요한 패키지 정리에 실패했습니다. 자세한 내용은 로그 창을 참조하십시오."
+
+msgid "Cleaning unused packages..."
+msgstr "불필요한 패키지를 정리하는 중..."
+
+msgid "Software crash information"
+msgstr "소프트웨어 충돌 정보"
+
+msgid "Showing software crash information (dmesg | grep segfault)..."
+msgstr "소프트웨어 충돌 정보를 표시하는 중 (dmesg | grep segfault)..."
+
+msgid "Running: dmesg 2>&1 | grep -i segfault"
+msgstr "실행: dmesg 2>&1 | grep -i segfault"
+
+msgid "Command completed (exit code %1)."
+msgstr "명령이 완료되었습니다 (종료 코드 %1)."
+
+msgid "Unable to run dmesg."
+msgstr "dmesg를 실행할 수 없습니다."

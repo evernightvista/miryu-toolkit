@@ -39,6 +39,7 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
 
 private:
+    QWidget *buildSystemAssistantTab();
     QWidget *buildExtrasTab();
     QWidget *buildEnvironmentTab();
     QWidget *buildAboutTab();
@@ -65,6 +66,11 @@ private:
     void updateSystem();
     void startPrivilegedSystemUpdate(QDialog *logDialog, QPlainTextEdit *logView,
                                      QDialogButtonBox *closeButtons);
+    void listFailedServices();
+    void unlockRpmDatabase();
+    void viewDnf5Log();
+    void cleanupUnusedPackages();
+    void viewCrashInfo();
     static QString currentUserName();
 
     QTabWidget *m_tabs = nullptr;

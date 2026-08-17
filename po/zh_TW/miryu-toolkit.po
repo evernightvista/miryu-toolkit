@@ -400,3 +400,120 @@ msgstr "更新系統失敗。詳情請查看日誌視窗。"
 
 msgid "Update failed"
 msgstr "更新失敗"
+
+msgid "Miryu System Assistant"
+msgstr "Miryu 系統助手"
+
+msgid "Install additional components"
+msgstr "安裝額外元件"
+
+msgid "List failed systemd service units"
+msgstr "列出 systemd 失敗的服務單元"
+
+msgid "Unlock RPM database"
+msgstr "解鎖 RPM 資料庫"
+
+msgid "View dnf5 log"
+msgstr "檢視 dnf5 日誌"
+
+msgid "Clean unused packages (dnf5 autoremove)"
+msgstr "清理無用的軟體包（dnf5 autoremove）"
+
+msgid "View software crash information"
+msgstr "檢視軟體崩潰資訊"
+
+msgid "Failed systemd service units"
+msgstr "systemd 失敗的服務單元"
+
+msgid "Listing failed systemd service units..."
+msgstr "正在列出 systemd 失敗的服務單元..."
+
+msgid "Running: systemctl --failed --no-pager"
+msgstr "執行：systemctl --failed --no-pager"
+
+msgid "Command completed."
+msgstr "指令已完成。"
+
+msgid "Command failed (exit code %1)."
+msgstr "指令失敗（退出碼 %1）。"
+
+msgid "Unable to start systemctl."
+msgstr "無法啟動 systemctl。"
+
+msgid "Before unlocking the RPM database, please check whether dnf5 and dnf5daemon-server have completed their transactions.\n\nAre you sure you want to unlock the RPM database?"
+msgstr "在解鎖 RPM 資料庫前，請檢查 dnf5 和 dnf5daemon-server 是否已完成交易。\n\n你確定要解鎖 RPM 資料庫嗎？"
+
+msgid "Unlock"
+msgstr "解鎖"
+
+msgid "Unlocking RPM database..."
+msgstr "正在解鎖 RPM 資料庫..."
+
+msgid "RPM database has been unlocked."
+msgstr "RPM 資料庫已解鎖。"
+
+msgid "Unlock completed"
+msgstr "解鎖完成"
+
+msgid "Failed to unlock RPM database."
+msgstr "解鎖 RPM 資料庫失敗。"
+
+msgid "Failed to unlock the RPM database."
+msgstr "解鎖 RPM 資料庫失敗。"
+
+msgid "Unlock failed"
+msgstr "解鎖失敗"
+
+msgid "The dnf5 log file does not exist at %1."
+msgstr "dnf5 日誌檔案不存在於 %1。"
+
+msgid "File not found"
+msgstr "檔案未找到"
+
+msgid "Clean unused packages"
+msgstr "清理無用的軟體包"
+
+msgid "Removing unused dependency packages with dnf5 autoremove..."
+msgstr "正在使用 dnf5 autoremove 移除無用的依賴軟體包..."
+
+msgid "Starting privileged dnf5 autoremove helper..."
+msgstr "正在啟動提權 dnf5 autoremove helper..."
+
+msgid "Running: dnf5 autoremove --assumeyes"
+msgstr "執行：dnf5 autoremove --assumeyes"
+
+msgid "Cleanup completed."
+msgstr "清理完成。"
+
+msgid "Unused packages cleanup completed."
+msgstr "無用軟體包清理完成。"
+
+msgid "Unused packages have been cleaned up."
+msgstr "無用軟體包已清理。"
+
+msgid "Cleanup failed."
+msgstr "清理失敗。"
+
+msgid "Unused packages cleanup failed."
+msgstr "無用軟體包清理失敗。"
+
+msgid "Failed to clean up unused packages. See the log window for details."
+msgstr "清理無用軟體包失敗。詳情請查看日誌視窗。"
+
+msgid "Cleaning unused packages..."
+msgstr "正在清理無用的軟體包..."
+
+msgid "Software crash information"
+msgstr "軟體崩潰資訊"
+
+msgid "Showing software crash information (dmesg | grep segfault)..."
+msgstr "正在顯示軟體崩潰資訊（dmesg | grep segfault）..."
+
+msgid "Running: dmesg 2>&1 | grep -i segfault"
+msgstr "執行：dmesg 2>&1 | grep -i segfault"
+
+msgid "Command completed (exit code %1)."
+msgstr "指令已完成（退出碼 %1）。"
+
+msgid "Unable to run dmesg."
+msgstr "無法執行 dmesg。"

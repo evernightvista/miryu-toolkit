@@ -400,3 +400,120 @@ msgstr "システムの更新に失敗しました。詳細はログウィンド
 
 msgid "Update failed"
 msgstr "更新失敗"
+
+msgid "Miryu System Assistant"
+msgstr "Miryu システムアシスタント"
+
+msgid "Install additional components"
+msgstr "追加コンポーネントのインストール"
+
+msgid "List failed systemd service units"
+msgstr "失敗した systemd サービスユニットを一覧表示"
+
+msgid "Unlock RPM database"
+msgstr "RPM データベースのロックを解除"
+
+msgid "View dnf5 log"
+msgstr "dnf5 ログを表示"
+
+msgid "Clean unused packages (dnf5 autoremove)"
+msgstr "不要なパッケージをクリーンアップ（dnf5 autoremove）"
+
+msgid "View software crash information"
+msgstr "ソフトウェアクラッシュ情報を表示"
+
+msgid "Failed systemd service units"
+msgstr "失敗した systemd サービスユニット"
+
+msgid "Listing failed systemd service units..."
+msgstr "失敗した systemd サービスユニットを一覧表示しています..."
+
+msgid "Running: systemctl --failed --no-pager"
+msgstr "実行：systemctl --failed --no-pager"
+
+msgid "Command completed."
+msgstr "コマンドが完了しました。"
+
+msgid "Command failed (exit code %1)."
+msgstr "コマンドが失敗しました（終了コード %1）。"
+
+msgid "Unable to start systemctl."
+msgstr "systemctl を起動できません。"
+
+msgid "Before unlocking the RPM database, please check whether dnf5 and dnf5daemon-server have completed their transactions.\n\nAre you sure you want to unlock the RPM database?"
+msgstr "RPM データベースのロックを解除する前に、dnf5 と dnf5daemon-server のトランザクションが完了しているか確認してください。\n\nRPM データベースのロックを解除しますか？"
+
+msgid "Unlock"
+msgstr "ロック解除"
+
+msgid "Unlocking RPM database..."
+msgstr "RPM データベースのロックを解除しています..."
+
+msgid "RPM database has been unlocked."
+msgstr "RPM データベースのロックが解除されました。"
+
+msgid "Unlock completed"
+msgstr "ロック解除完了"
+
+msgid "Failed to unlock RPM database."
+msgstr "RPM データベースのロック解除に失敗しました。"
+
+msgid "Failed to unlock the RPM database."
+msgstr "RPM データベースのロック解除に失敗しました。"
+
+msgid "Unlock failed"
+msgstr "ロック解除失敗"
+
+msgid "The dnf5 log file does not exist at %1."
+msgstr "dnf5 ログファイルが %1 に存在しません。"
+
+msgid "File not found"
+msgstr "ファイルが見つかりません"
+
+msgid "Clean unused packages"
+msgstr "不要なパッケージのクリーンアップ"
+
+msgid "Removing unused dependency packages with dnf5 autoremove..."
+msgstr "dnf5 autoremove で不要な依存パッケージを削除しています..."
+
+msgid "Starting privileged dnf5 autoremove helper..."
+msgstr "提権 dnf5 autoremove helper を起動しています..."
+
+msgid "Running: dnf5 autoremove --assumeyes"
+msgstr "実行：dnf5 autoremove --assumeyes"
+
+msgid "Cleanup completed."
+msgstr "クリーンアップが完了しました。"
+
+msgid "Unused packages cleanup completed."
+msgstr "不要パッケージのクリーンアップが完了しました。"
+
+msgid "Unused packages have been cleaned up."
+msgstr "不要なパッケージがクリーンアップされました。"
+
+msgid "Cleanup failed."
+msgstr "クリーンアップに失敗しました。"
+
+msgid "Unused packages cleanup failed."
+msgstr "不要パッケージのクリーンアップに失敗しました。"
+
+msgid "Failed to clean up unused packages. See the log window for details."
+msgstr "不要なパッケージのクリーンアップに失敗しました。詳細はログウィンドウを参照してください。"
+
+msgid "Cleaning unused packages..."
+msgstr "不要なパッケージをクリーンアップしています..."
+
+msgid "Software crash information"
+msgstr "ソフトウェアクラッシュ情報"
+
+msgid "Showing software crash information (dmesg | grep segfault)..."
+msgstr "ソフトウェアクラッシュ情報を表示しています（dmesg | grep segfault）..."
+
+msgid "Running: dmesg 2>&1 | grep -i segfault"
+msgstr "実行：dmesg 2>&1 | grep -i segfault"
+
+msgid "Command completed (exit code %1)."
+msgstr "コマンドが完了しました（終了コード %1）。"
+
+msgid "Unable to run dmesg."
+msgstr "dmesg を実行できません。"

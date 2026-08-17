@@ -1,0 +1,34 @@
+#!/usr/bin/sh
+set -eu
+
+# Unlock the RPM database by removing stale lock files.
+#
+# This helper is invoked via pkexec when the user confirms the unlock
+# operation. It removes the following lock files if they exist:
+#   /var/lib/rpm/.rpm.lock
+#   /var/lib/rpm/.dbenv.lock
+#
+# Before running this helper, the GUI shows a warning dialog asking the
+# user to verify that dnf5 and dnf5daemon-server are not running any
+# transactions.
+
+RPM_DIR="/var/lib/rpm"
+removed=0
+
+if [ -f "$RPM_DIR/.rpm.lock" ]; then
+    rm -f "$RPM_DIR/.rpm.lock"
+    echo "Removed $RPM_DIR/.rpm.lock"
+    removed=1
+fi
+
+if [ -f "$RPM_DIR/.dbenv.lock" ]; then
+    rm -f "$RPM_DIR/.dbenv.lock"
+    echo "Removed $RPM_DIR/.dbenv.lock"
+    removed=1
+fi
+
+if [ "$removed" -eq 0 ]; then
+    echo "No RPM lock files found. The RPM database was not locked."
+fi
+
+echo "RPM database unlocked."

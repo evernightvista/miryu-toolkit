@@ -1,0 +1,22 @@
+#!/usr/bin/sh
+set -eu
+
+# Clean up unused packages using dnf5 autoremove.
+#
+# This helper is invoked via pkexec. It runs "dnf5 autoremove --assumeyes"
+# to remove leaf packages that were installed as dependencies but are no
+# longer required by any explicitly installed package.
+#
+# The --assumeyes flag is required because pkexec does not provide a
+# controlling terminal, so dnf5 cannot prompt for confirmation.
+
+if command -v /usr/bin/dnf5 >/dev/null 2>&1; then
+    DNF=/usr/bin/dnf5
+elif command -v dnf5 >/dev/null 2>&1; then
+    DNF=dnf5
+else
+    echo "Error: dnf5 is not installed. Please install dnf5 to use this feature." >&2
+    exit 1
+fi
+
+exec "$DNF" autoremove --assumeyes

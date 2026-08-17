@@ -400,3 +400,120 @@ msgstr "Aktualisierung des Systems fehlgeschlagen. Details im Protokollfenster."
 
 msgid "Update failed"
 msgstr "Aktualisierung fehlgeschlagen"
+
+msgid "Miryu System Assistant"
+msgstr "Miryu System-Assistent"
+
+msgid "Install additional components"
+msgstr "Zusätzliche Komponenten installieren"
+
+msgid "List failed systemd service units"
+msgstr "Fehlgeschlagene systemd-Service-Units auflisten"
+
+msgid "Unlock RPM database"
+msgstr "RPM-Datenbank entsperren"
+
+msgid "View dnf5 log"
+msgstr "dnf5-Protokoll anzeigen"
+
+msgid "Clean unused packages (dnf5 autoremove)"
+msgstr "Nicht verwendete Pakete bereinigen (dnf5 autoremove)"
+
+msgid "View software crash information"
+msgstr "Software-Absturzinformationen anzeigen"
+
+msgid "Failed systemd service units"
+msgstr "Fehlgeschlagene systemd-Service-Units"
+
+msgid "Listing failed systemd service units..."
+msgstr "Fehlgeschlagene systemd-Service-Units werden aufgelistet..."
+
+msgid "Running: systemctl --failed --no-pager"
+msgstr "Ausführung: systemctl --failed --no-pager"
+
+msgid "Command completed."
+msgstr "Befehl abgeschlossen."
+
+msgid "Command failed (exit code %1)."
+msgstr "Befehl fehlgeschlagen (Exit-Code %1)."
+
+msgid "Unable to start systemctl."
+msgstr "systemctl konnte nicht gestartet werden."
+
+msgid "Before unlocking the RPM database, please check whether dnf5 and dnf5daemon-server have completed their transactions.\n\nAre you sure you want to unlock the RPM database?"
+msgstr "Bevor Sie die RPM-Datenbank entsperren, überprüfen Sie bitte, ob dnf5 und dnf5daemon-server ihre Transaktionen abgeschlossen haben.\n\nMöchten Sie die RPM-Datenbank wirklich entsperren?"
+
+msgid "Unlock"
+msgstr "Entsperren"
+
+msgid "Unlocking RPM database..."
+msgstr "RPM-Datenbank wird entsperrt..."
+
+msgid "RPM database has been unlocked."
+msgstr "RPM-Datenbank wurde entsperrt."
+
+msgid "Unlock completed"
+msgstr "Entsperren abgeschlossen"
+
+msgid "Failed to unlock RPM database."
+msgstr "Entsperren der RPM-Datenbank fehlgeschlagen."
+
+msgid "Failed to unlock the RPM database."
+msgstr "Entsperren der RPM-Datenbank fehlgeschlagen."
+
+msgid "Unlock failed"
+msgstr "Entsperren fehlgeschlagen"
+
+msgid "The dnf5 log file does not exist at %1."
+msgstr "Die dnf5-Protokolldatei existiert nicht unter %1."
+
+msgid "File not found"
+msgstr "Datei nicht gefunden"
+
+msgid "Clean unused packages"
+msgstr "Nicht verwendete Pakete bereinigen"
+
+msgid "Removing unused dependency packages with dnf5 autoremove..."
+msgstr "Nicht verwendete Abhängigkeitspakete werden mit dnf5 autoremove entfernt..."
+
+msgid "Starting privileged dnf5 autoremove helper..."
+msgstr "Privilegierter dnf5 autoremove-Helper wird gestartet..."
+
+msgid "Running: dnf5 autoremove --assumeyes"
+msgstr "Ausführung: dnf5 autoremove --assumeyes"
+
+msgid "Cleanup completed."
+msgstr "Bereinigung abgeschlossen."
+
+msgid "Unused packages cleanup completed."
+msgstr "Bereinigung nicht verwendeter Pakete abgeschlossen."
+
+msgid "Unused packages have been cleaned up."
+msgstr "Nicht verwendete Pakete wurden bereinigt."
+
+msgid "Cleanup failed."
+msgstr "Bereinigung fehlgeschlagen."
+
+msgid "Unused packages cleanup failed."
+msgstr "Bereinigung nicht verwendeter Pakete fehlgeschlagen."
+
+msgid "Failed to clean up unused packages. See the log window for details."
+msgstr "Bereinigung nicht verwendeter Pakete fehlgeschlagen. Details siehe Protokollfenster."
+
+msgid "Cleaning unused packages..."
+msgstr "Nicht verwendete Pakete werden bereinigt..."
+
+msgid "Software crash information"
+msgstr "Software-Absturzinformationen"
+
+msgid "Showing software crash information (dmesg | grep segfault)..."
+msgstr "Software-Absturzinformationen werden angezeigt (dmesg | grep segfault)..."
+
+msgid "Running: dmesg 2>&1 | grep -i segfault"
+msgstr "Ausführung: dmesg 2>&1 | grep -i segfault"
+
+msgid "Command completed (exit code %1)."
+msgstr "Befehl abgeschlossen (Exit-Code %1)."
+
+msgid "Unable to run dmesg."
+msgstr "dmesg konnte nicht ausgeführt werden."

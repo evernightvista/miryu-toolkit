@@ -7,6 +7,7 @@
 
 #include <QAbstractItemView>
 #include <QApplication>
+#include <QDesktopServices>
 #include <QDialog>
 #include <QDialogButtonBox>
 #include <QDir>
@@ -26,6 +27,7 @@
 #include <QStandardPaths>
 #include <QTemporaryFile>
 #include <QTextStream>
+#include <QUrl>
 #include <QVBoxLayout>
 
 #include <memory>
@@ -56,8 +58,9 @@ MainWindow::MainWindow(QWidget *parent)
     rootLayout->addWidget(subtitle);
 
     m_tabs = new QTabWidget(central);
-    m_tabs->addTab(buildExtrasTab(), i18n("Miscellaneous"));
+    m_tabs->addTab(buildSystemAssistantTab(), i18n("Miryu System Assistant"));
     m_tabs->addTab(buildEnvironmentTab(), i18n("System-wide environment variables"));
+    m_tabs->addTab(buildExtrasTab(), i18n("Install additional components"));
     m_tabs->addTab(buildAboutTab(), i18n("About"));
     rootLayout->addWidget(m_tabs, 1);
 
@@ -65,22 +68,6 @@ MainWindow::MainWindow(QWidget *parent)
     m_bottomStatus = new QLabel(i18n("Ready"), central);
     bottomLayout->addWidget(m_bottomStatus);
     bottomLayout->addStretch();
-
-    auto *cleanupKernelButton = new QPushButton(i18n("Clean up previous kernel"), central);
-    connect(cleanupKernelButton, &QPushButton::clicked, this, &MainWindow::cleanupOldKernel);
-    bottomLayout->addWidget(cleanupKernelButton);
-
-    auto *updateSystemButton = new QPushButton(i18n("Update system"), central);
-    connect(updateSystemButton, &QPushButton::clicked, this, &MainWindow::updateSystem);
-    bottomLayout->addWidget(updateSystemButton);
-
-    auto *collectLogsButton = new QPushButton(i18n("Collect system logs"), central);
-    connect(collectLogsButton, &QPushButton::clicked, this, &MainWindow::collectSystemLogs);
-    bottomLayout->addWidget(collectLogsButton);
-
-    auto *refreshButton = new QPushButton(i18n("Refresh status"), central);
-    connect(refreshButton, &QPushButton::clicked, this, &MainWindow::refreshComponentStates);
-    bottomLayout->addWidget(refreshButton);
     rootLayout->addLayout(bottomLayout);
 
     setCentralWidget(central);
@@ -141,6 +128,62 @@ void MainWindow::setupComponents()
     };
 }
 
+QWidget *MainWindow::buildSystemAssistantTab()
+{
+    auto *page = new QWidget;
+    auto *layout = new QVBoxLayout(page);
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->setSpacing(10);
+
+    auto *group = new QGroupBox(i18n("Miryu System Assistant"), page);
+    auto *groupLayout = new QVBoxLayout(group);
+    groupLayout->setSpacing(10);
+
+    auto *cleanupKernelButton = new QPushButton(i18n("Clean up previous kernel"), group);
+    cleanupKernelButton->setMinimumWidth(320);
+    connect(cleanupKernelButton, &QPushButton::clicked, this, &MainWindow::cleanupOldKernel);
+    groupLayout->addWidget(cleanupKernelButton);
+
+    auto *updateSystemButton = new QPushButton(i18n("Update system"), group);
+    updateSystemButton->setMinimumWidth(320);
+    connect(updateSystemButton, &QPushButton::clicked, this, &MainWindow::updateSystem);
+    groupLayout->addWidget(updateSystemButton);
+
+    auto *listFailedButton = new QPushButton(i18n("List failed systemd service units"), group);
+    listFailedButton->setMinimumWidth(320);
+    connect(listFailedButton, &QPushButton::clicked, this, &MainWindow::listFailedServices);
+    groupLayout->addWidget(listFailedButton);
+
+    auto *unlockRpmButton = new QPushButton(i18n("Unlock RPM database"), group);
+    unlockRpmButton->setMinimumWidth(320);
+    connect(unlockRpmButton, &QPushButton::clicked, this, &MainWindow::unlockRpmDatabase);
+    groupLayout->addWidget(unlockRpmButton);
+
+    auto *viewDnf5LogButton = new QPushButton(i18n("View dnf5 log"), group);
+    viewDnf5LogButton->setMinimumWidth(320);
+    connect(viewDnf5LogButton, &QPushButton::clicked, this, &MainWindow::viewDnf5Log);
+    groupLayout->addWidget(viewDnf5LogButton);
+
+    auto *autoremoveButton = new QPushButton(i18n("Clean unused packages (dnf5 autoremove)"), group);
+    autoremoveButton->setMinimumWidth(320);
+    connect(autoremoveButton, &QPushButton::clicked, this, &MainWindow::cleanupUnusedPackages);
+    groupLayout->addWidget(autoremoveButton);
+
+    auto *viewCrashButton = new QPushButton(i18n("View software crash information"), group);
+    viewCrashButton->setMinimumWidth(320);
+    connect(viewCrashButton, &QPushButton::clicked, this, &MainWindow::viewCrashInfo);
+    groupLayout->addWidget(viewCrashButton);
+
+    auto *collectLogsButton = new QPushButton(i18n("Collect system logs"), group);
+    collectLogsButton->setMinimumWidth(320);
+    connect(collectLogsButton, &QPushButton::clicked, this, &MainWindow::collectSystemLogs);
+    groupLayout->addWidget(collectLogsButton);
+
+    layout->addWidget(group);
+    layout->addStretch();
+    return page;
+}
+
 QWidget *MainWindow::buildExtrasTab()
 {
     auto *page = new QWidget;
@@ -155,6 +198,10 @@ QWidget *MainWindow::buildExtrasTab()
     for (const ExtraComponent &component : std::as_const(m_components)) {
         groupLayout->addWidget(createComponentCard(component));
     }
+
+    auto *refreshButton = new QPushButton(i18n("Refresh status"), group);
+    connect(refreshButton, &QPushButton::clicked, this, &MainWindow::refreshComponentStates);
+    groupLayout->addWidget(refreshButton);
 
     layout->addWidget(group);
     layout->addStretch();
@@ -1205,4 +1252,304 @@ void MainWindow::startPrivilegedSystemUpdate(QDialog *logDialog, QPlainTextEdit 
     args << QStringLiteral(TOOLKIT_LIBEXEC_DIR) + QStringLiteral("/miryu-toolkit-update-system")
          << QStringLiteral("update");
     process->start(QStringLiteral("pkexec"), args);
+}
+
+void MainWindow::listFailedServices()
+{
+    auto *process = new QProcess(this);
+
+    auto *logDialog = new QDialog(this);
+    logDialog->setAttribute(Qt::WA_DeleteOnClose);
+    logDialog->setWindowTitle(i18n("Failed systemd service units"));
+    logDialog->resize(760, 460);
+
+    auto *logLayout = new QVBoxLayout(logDialog);
+    auto *logHint = new QLabel(i18n("Listing failed systemd service units..."), logDialog);
+    logHint->setWordWrap(true);
+    logLayout->addWidget(logHint);
+
+    auto *logView = new QPlainTextEdit(logDialog);
+    logView->setReadOnly(true);
+    logView->setLineWrapMode(QPlainTextEdit::NoWrap);
+    logView->appendPlainText(i18n("Running: systemctl --failed --no-pager"));
+    logLayout->addWidget(logView, 1);
+
+    auto *closeButtons = new QDialogButtonBox(QDialogButtonBox::Close, logDialog);
+    closeButtons->button(QDialogButtonBox::Close)->setEnabled(false);
+    connect(closeButtons, &QDialogButtonBox::rejected, logDialog, &QDialog::close);
+    logLayout->addWidget(closeButtons);
+
+    auto appendOutput = [logView](const QByteArray &data) {
+        if (data.isEmpty()) {
+            return;
+        }
+        logView->appendPlainText(QString::fromLocal8Bit(data).trimmed());
+        logView->verticalScrollBar()->setValue(logView->verticalScrollBar()->maximum());
+    };
+
+    connect(process, &QProcess::readyReadStandardOutput, this, [process, appendOutput]() {
+        appendOutput(process->readAllStandardOutput());
+    });
+    connect(process, &QProcess::readyReadStandardError, this, [process, appendOutput]() {
+        appendOutput(process->readAllStandardError());
+    });
+
+    connect(process, &QProcess::finished, this, [logView, closeButtons](int exitCode, QProcess::ExitStatus exitStatus) {
+        if (exitStatus == QProcess::NormalExit && exitCode == 0) {
+            logView->appendPlainText(i18n("Command completed."));
+        } else {
+            logView->appendPlainText(i18n("Command failed (exit code %1).", exitCode));
+        }
+        closeButtons->button(QDialogButtonBox::Close)->setEnabled(true);
+    });
+
+    connect(process, &QProcess::errorOccurred, this, [logView, closeButtons](QProcess::ProcessError error) {
+        if (error == QProcess::FailedToStart) {
+            logView->appendPlainText(i18n("Unable to start systemctl."));
+            closeButtons->button(QDialogButtonBox::Close)->setEnabled(true);
+        }
+    });
+
+    process->start(QStringLiteral("systemctl"), {QStringLiteral("--failed"), QStringLiteral("--no-pager")});
+    logDialog->show();
+}
+
+void MainWindow::unlockRpmDatabase()
+{
+    if (m_runningProcess) {
+        return;
+    }
+
+    if (KMessageBox::questionTwoActions(this,
+                                        i18n("Before unlocking the RPM database, please check whether dnf5 and dnf5daemon-server have completed their transactions.\n\nAre you sure you want to unlock the RPM database?"),
+                                        i18n("Unlock RPM database"),
+                                        KGuiItem(i18n("Unlock")),
+                                        KStandardGuiItem::cancel())
+        != KMessageBox::PrimaryAction) {
+        return;
+    }
+
+    auto *process = new QProcess(this);
+    m_runningProcess = process;
+    setComponentsBusy(true);
+
+    if (m_bottomStatus) {
+        m_bottomStatus->setText(i18n("Unlocking RPM database..."));
+    }
+
+    connect(process, &QProcess::finished, this, [this, process](int exitCode, QProcess::ExitStatus exitStatus) {
+        process->deleteLater();
+        m_runningProcess = nullptr;
+        refreshComponentStates();
+
+        if (exitStatus == QProcess::NormalExit && exitCode == 0) {
+            if (m_bottomStatus) {
+                m_bottomStatus->setText(i18n("RPM database has been unlocked."));
+            }
+            KMessageBox::information(this,
+                                     i18n("RPM database has been unlocked."),
+                                     i18n("Unlock completed"));
+        } else {
+            if (m_bottomStatus) {
+                m_bottomStatus->setText(i18n("Failed to unlock RPM database."));
+            }
+            KMessageBox::error(this,
+                               i18n("Failed to unlock the RPM database."),
+                               i18n("Unlock failed"));
+        }
+    });
+
+    connect(process, &QProcess::errorOccurred, this, [this, process](QProcess::ProcessError error) {
+        if (error == QProcess::FailedToStart) {
+            process->deleteLater();
+            m_runningProcess = nullptr;
+            refreshComponentStates();
+            if (m_bottomStatus) {
+                m_bottomStatus->setText(i18n("Failed to unlock RPM database."));
+            }
+            KMessageBox::error(this,
+                               i18n("Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."),
+                               i18n("Unlock failed"));
+        }
+    });
+
+    QStringList args;
+    args << QStringLiteral(TOOLKIT_LIBEXEC_DIR) + QStringLiteral("/miryu-toolkit-unlock-rpm");
+    process->start(QStringLiteral("pkexec"), args);
+}
+
+void MainWindow::viewDnf5Log()
+{
+    const QString logPath = QStringLiteral("/var/log/dnf5.log");
+
+    if (!QFile::exists(logPath)) {
+        KMessageBox::information(this,
+                                 i18n("The dnf5 log file does not exist at %1.", logPath),
+                                 i18n("File not found"));
+        return;
+    }
+
+    QDesktopServices::openUrl(QUrl::fromLocalFile(logPath));
+}
+
+void MainWindow::cleanupUnusedPackages()
+{
+    if (m_runningProcess) {
+        return;
+    }
+
+    auto *process = new QProcess(this);
+    m_runningProcess = process;
+    setComponentsBusy(true);
+
+    if (m_bottomStatus) {
+        m_bottomStatus->setText(i18n("Cleaning unused packages..."));
+    }
+
+    auto *logDialog = new QDialog(this);
+    logDialog->setAttribute(Qt::WA_DeleteOnClose);
+    logDialog->setWindowTitle(i18n("Clean unused packages"));
+    logDialog->resize(760, 460);
+
+    auto *logLayout = new QVBoxLayout(logDialog);
+    auto *logHint = new QLabel(i18n("Removing unused dependency packages with dnf5 autoremove..."), logDialog);
+    logHint->setWordWrap(true);
+    logLayout->addWidget(logHint);
+
+    auto *logView = new QPlainTextEdit(logDialog);
+    logView->setReadOnly(true);
+    logView->setLineWrapMode(QPlainTextEdit::NoWrap);
+    logView->appendPlainText(i18n("Starting privileged dnf5 autoremove helper..."));
+    logView->appendPlainText(i18n("Running: dnf5 autoremove --assumeyes"));
+    logLayout->addWidget(logView, 1);
+
+    auto *closeButtons = new QDialogButtonBox(QDialogButtonBox::Close, logDialog);
+    closeButtons->button(QDialogButtonBox::Close)->setEnabled(false);
+    connect(closeButtons, &QDialogButtonBox::rejected, logDialog, &QDialog::close);
+    logLayout->addWidget(closeButtons);
+
+    auto appendOutput = [logView](const QByteArray &data) {
+        if (data.isEmpty()) {
+            return;
+        }
+        logView->appendPlainText(QString::fromLocal8Bit(data).trimmed());
+        logView->verticalScrollBar()->setValue(logView->verticalScrollBar()->maximum());
+    };
+
+    connect(process, &QProcess::readyReadStandardOutput, this, [process, appendOutput]() {
+        appendOutput(process->readAllStandardOutput());
+    });
+    connect(process, &QProcess::readyReadStandardError, this, [process, appendOutput]() {
+        appendOutput(process->readAllStandardError());
+    });
+
+    connect(process, &QProcess::finished, this, [this, process, logView, closeButtons](int exitCode, QProcess::ExitStatus exitStatus) {
+        const QString output = QString::fromLocal8Bit(process->readAllStandardOutput())
+            + QString::fromLocal8Bit(process->readAllStandardError());
+        if (!output.trimmed().isEmpty()) {
+            logView->appendPlainText(output.trimmed());
+        }
+
+        process->deleteLater();
+        m_runningProcess = nullptr;
+        refreshComponentStates();
+
+        if (exitStatus == QProcess::NormalExit && exitCode == 0) {
+            logView->appendPlainText(i18n("Cleanup completed."));
+            if (m_bottomStatus) {
+                m_bottomStatus->setText(i18n("Unused packages cleanup completed."));
+            }
+            KMessageBox::information(this,
+                                     i18n("Unused packages have been cleaned up."),
+                                     i18n("Cleanup completed"));
+        } else {
+            logView->appendPlainText(i18n("Cleanup failed."));
+            if (m_bottomStatus) {
+                m_bottomStatus->setText(i18n("Unused packages cleanup failed."));
+            }
+            KMessageBox::error(this,
+                               i18n("Failed to clean up unused packages. See the log window for details."),
+                               i18n("Cleanup failed"));
+        }
+        closeButtons->button(QDialogButtonBox::Close)->setEnabled(true);
+    });
+
+    connect(process, &QProcess::errorOccurred, this, [this, process, logView, closeButtons](QProcess::ProcessError error) {
+        if (error == QProcess::FailedToStart) {
+            process->deleteLater();
+            m_runningProcess = nullptr;
+            refreshComponentStates();
+            if (m_bottomStatus) {
+                m_bottomStatus->setText(i18n("Unused packages cleanup failed."));
+            }
+            logView->appendPlainText(i18n("Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."));
+            closeButtons->button(QDialogButtonBox::Close)->setEnabled(true);
+        }
+    });
+
+    QStringList args;
+    args << QStringLiteral(TOOLKIT_LIBEXEC_DIR) + QStringLiteral("/miryu-toolkit-autoremove");
+    process->start(QStringLiteral("pkexec"), args);
+    logDialog->show();
+}
+
+void MainWindow::viewCrashInfo()
+{
+    auto *process = new QProcess(this);
+
+    auto *logDialog = new QDialog(this);
+    logDialog->setAttribute(Qt::WA_DeleteOnClose);
+    logDialog->setWindowTitle(i18n("Software crash information"));
+    logDialog->resize(760, 460);
+
+    auto *logLayout = new QVBoxLayout(logDialog);
+    auto *logHint = new QLabel(i18n("Showing software crash information (dmesg | grep segfault)..."), logDialog);
+    logHint->setWordWrap(true);
+    logLayout->addWidget(logHint);
+
+    auto *logView = new QPlainTextEdit(logDialog);
+    logView->setReadOnly(true);
+    logView->setLineWrapMode(QPlainTextEdit::NoWrap);
+    logView->appendPlainText(i18n("Running: dmesg 2>&1 | grep -i segfault"));
+    logLayout->addWidget(logView, 1);
+
+    auto *closeButtons = new QDialogButtonBox(QDialogButtonBox::Close, logDialog);
+    closeButtons->button(QDialogButtonBox::Close)->setEnabled(false);
+    connect(closeButtons, &QDialogButtonBox::rejected, logDialog, &QDialog::close);
+    logLayout->addWidget(closeButtons);
+
+    auto appendOutput = [logView](const QByteArray &data) {
+        if (data.isEmpty()) {
+            return;
+        }
+        logView->appendPlainText(QString::fromLocal8Bit(data).trimmed());
+        logView->verticalScrollBar()->setValue(logView->verticalScrollBar()->maximum());
+    };
+
+    connect(process, &QProcess::readyReadStandardOutput, this, [process, appendOutput]() {
+        appendOutput(process->readAllStandardOutput());
+    });
+    connect(process, &QProcess::readyReadStandardError, this, [process, appendOutput]() {
+        appendOutput(process->readAllStandardError());
+    });
+
+    connect(process, &QProcess::finished, this, [logView, closeButtons](int exitCode, QProcess::ExitStatus exitStatus) {
+        if (exitStatus == QProcess::NormalExit && exitCode == 0) {
+            logView->appendPlainText(i18n("Command completed."));
+        } else {
+            logView->appendPlainText(i18n("Command completed (exit code %1).", exitCode));
+        }
+        closeButtons->button(QDialogButtonBox::Close)->setEnabled(true);
+    });
+
+    connect(process, &QProcess::errorOccurred, this, [logView, closeButtons](QProcess::ProcessError error) {
+        if (error == QProcess::FailedToStart) {
+            logView->appendPlainText(i18n("Unable to run dmesg."));
+            closeButtons->button(QDialogButtonBox::Close)->setEnabled(true);
+        }
+    });
+
+    process->start(QStringLiteral("sh"), {QStringLiteral("-c"),
+                 QStringLiteral("dmesg 2>&1 | grep -i segfault || true")});
+    logDialog->show();
 }

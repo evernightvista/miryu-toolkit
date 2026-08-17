@@ -330,4 +330,54 @@
     <annotate key="org.freedesktop.policykit.exec.path">@CMAKE_INSTALL_FULL_LIBEXECDIR@/miryu-toolkit/miryu-toolkit-collect-logs</annotate>
     <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
   </action>
+
+  <action id="org.miryu.toolkit.unlock-rpm">
+    <description>Unlock the RPM database</description>
+    <description xml:lang="zh_CN">解锁 RPM 数据库</description>
+    <description xml:lang="zh_TW">解鎖 RPM 資料庫</description>
+    <description xml:lang="ja">RPM データベースのロックを解除</description>
+    <description xml:lang="de">RPM-Datenbank entsperren</description>
+    <description xml:lang="ko">RPM 데이터베이스 잠금 해제</description>
+    <description xml:lang="fr">Déverrouiller la base de données RPM</description>
+    <message>解锁rpm数据库需要认证</message>
+    <message xml:lang="zh_CN">解锁rpm数据库需要认证</message>
+    <message xml:lang="zh_TW">解鎖 RPM 資料庫需要認證</message>
+    <message xml:lang="ja">RPM データベースのロック解除には認証が必要です</message>
+    <message xml:lang="de">Für das Entsperren der RPM-Datenbank ist eine Authentifizierung erforderlich</message>
+    <message xml:lang="ko">RPM 데이터베이스 잠금 해제에는 인증이 필요합니다</message>
+    <message xml:lang="fr">Le déverrouillage de la base de données RPM nécessite une authentification</message>
+    <icon_name>preferences-system</icon_name>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">@CMAKE_INSTALL_FULL_LIBEXECDIR@/miryu-toolkit/miryu-toolkit-unlock-rpm</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
+  </action>
+
+  <action id="org.miryu.toolkit.autoremove">
+    <description>Clean up unused packages with dnf5 autoremove</description>
+    <description xml:lang="zh_CN">使用 dnf5 autoremove 清理无用软件包</description>
+    <description xml:lang="zh_TW">使用 dnf5 autoremove 清理無用軟體包</description>
+    <description xml:lang="ja">dnf5 autoremove で不要なパッケージを削除</description>
+    <description xml:lang="de">Nicht verwendete Pakete mit dnf5 autoremove bereinigen</description>
+    <description xml:lang="ko">dnf5 autoremove로 불필요한 패키지 정리</description>
+    <description xml:lang="fr">Nettoyer les paquets inutilisés avec dnf5 autoremove</description>
+    <message>清理dnf5无用的软件包需要认证</message>
+    <message xml:lang="zh_CN">清理dnf5无用的软件包需要认证</message>
+    <message xml:lang="zh_TW">清理 dnf5 無用的軟體包需要認證</message>
+    <message xml:lang="ja">dnf5 の不要なパッケージのクリーンアップには認証が必要です</message>
+    <message xml:lang="de">Für das Bereinigen ungenutzter dnf5-Pakete ist eine Authentifizierung erforderlich</message>
+    <message xml:lang="ko">dnf5 불필요한 패키지 정리에는 인증이 필요합니다</message>
+    <message xml:lang="fr">Le nettoyage des paquets inutilisés dnf5 nécessite une authentification</message>
+    <icon_name>preferences-system</icon_name>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">@CMAKE_INSTALL_FULL_LIBEXECDIR@/miryu-toolkit/miryu-toolkit-autoremove</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
+  </action>
 </policyconfig>

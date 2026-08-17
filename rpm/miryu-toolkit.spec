@@ -1,6 +1,6 @@
 Name:           miryu-toolkit
 Version:        45.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Miryu Toolkit
 
 License:        GPL-3.0-or-later
@@ -67,9 +67,16 @@ additional fonts, plus a system log collection tool.
 %{_libexecdir}/miryu-toolkit/miryu-toolkit-restore-environment
 %{_libexecdir}/miryu-toolkit/miryu-toolkit-cleanup-kernel
 %{_libexecdir}/miryu-toolkit/miryu-toolkit-update-system
+%{_libexecdir}/miryu-toolkit/miryu-toolkit-unlock-rpm
+%{_libexecdir}/miryu-toolkit/miryu-toolkit-autoremove
 %{_libexecdir}/miryu-toolkit/miryu-toolkit-collect-logs
 
 %changelog
+* Mon Aug 17 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-3
+- Add Miryu System Assistant tab with systemd, RPM, dnf5 and crash info tools
+- Rename Miscellaneous tab to Install Additional Components
+- Add unlock RPM database and dnf5 autoremove helpers
+
 * Mon Aug 17 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-2
 - Add Update System Button
 
