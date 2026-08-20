@@ -30,6 +30,7 @@ add_executable(miryu-toolkit
     src/main.cpp
     src/mainwindow.cpp
     src/mainwindow.h
+    resources.qrc
 )
 
 target_compile_definitions(miryu-toolkit PRIVATE

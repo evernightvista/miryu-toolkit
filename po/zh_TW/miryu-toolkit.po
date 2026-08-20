@@ -520,3 +520,39 @@ msgstr "無法執行 dmesg。"
 
 msgid "No segfault entries found in the kernel log (dmesg)."
 msgstr "核心日誌（dmesg）中未發現 segfault（段錯誤）記錄。"
+
+msgid "Personalization"
+msgstr "個人化設定"
+
+msgid "Interface transparency"
+msgstr "介面通透"
+
+msgid "Transparent"
+msgstr "通透"
+
+msgid "Default"
+msgstr "預設"
+
+msgid "Frosted"
+msgstr "磨砂"
+
+msgid "Glass-like texture, clear and delicate"
+msgstr "玻璃質感，通透細膩"
+
+msgid "Balances readability and transparency"
+msgstr "平衡可讀性和透明性"
+
+msgid "Prioritizes readability with slight transparency"
+msgstr "追求可讀性，少量透明"
+
+msgid "Choose an interface transparency level. Click Apply to make changes take effect immediately."
+msgstr "選擇介面通透等級。點擊「套用」後立即生效。"
+
+msgid "Transparency level applied. Changes take effect immediately."
+msgstr "透明度等級已套用。變更立即生效。"
+
+msgid "Interface transparency level has been applied. Changes take effect immediately."
+msgstr "介面通透等級已套用。變更立即生效。"
+
+msgid "Failed to write kwinrc configuration file."
+msgstr "寫入 kwinrc 設定檔失敗。"

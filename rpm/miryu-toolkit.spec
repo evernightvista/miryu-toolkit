@@ -1,6 +1,6 @@
 Name:           miryu-toolkit
 Version:        45.0.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Miryu Toolkit
 
 License:        GPL-3.0-or-later
@@ -73,11 +73,21 @@ additional fonts, plus a system log collection tool.
 %{_libexecdir}/miryu-toolkit/miryu-toolkit-view-crash
 
 %changelog
+* Thu Aug 20 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-6
+- Add Personalization tab with Interface Transparency section
+- Three transparency levels: Transparent, Default, Frosted
+- Click-to-select image cards with hover descriptions
+- Apply changes to kwinrc [Effect-blur] and reload KWin in real-time
+
+* Mon Aug 17 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-5
+- Add desktop search keywords (Miryu, Toolkit, gongjuxiang, miryu)
+- Change desktop Categories from System to Utility
+- Make view-crash polkit action require no authentication (allow=yes)
+
 * Mon Aug 17 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-4
 - Fix crash info viewer to run dmesg as root via pkexec so segfault
   entries are visible, matching "sudo dmesg | grep segfault"
 - Add miryu-toolkit-view-crash polkit helper
-- Update Desktop Metadata
 
 * Mon Aug 17 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-3
 - Add Miryu System Assistant tab with systemd, RPM, dnf5 and crash info tools
