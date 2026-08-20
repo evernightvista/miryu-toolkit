@@ -23,12 +23,6 @@ msgstr "(c) 2026 Miryu"
 msgid "Manage Miryu components, maintenance tasks and system-wide environment variables in one place."
 msgstr "集中管理 Miryu 元件、維護工作和系統範圍環境變數。"
 
-msgid "Maintenance"
-msgstr "維護"
-
-msgid "Miscellaneous"
-msgstr "雜項"
-
 msgid "System-wide environment variables"
 msgstr "系統範圍環境變數"
 
@@ -62,32 +56,8 @@ msgstr "安裝補充字型"
 msgid "Install Noto Sans, Noto Serif, monospace and CJK supplemental fonts to improve multilingual display."
 msgstr "安裝 Noto Sans、Noto Serif、等寬和 CJK 補充字型，以改善多語言顯示。"
 
-msgid "%1 software repository"
-msgstr "%1 軟體倉庫"
-
 msgid "Enabled"
 msgstr "啟用"
-
-msgid "Jilin University"
-msgstr "吉林大學"
-
-msgid "Default mirror"
-msgstr "預設鏡像"
-
-msgid "Automatic selection"
-msgstr "自動選擇"
-
-msgid "Speed test"
-msgstr "速度測試"
-
-msgid "Maintenance tasks"
-msgstr "維護操作"
-
-msgid "Repository cache refresh and default configuration restore actions can be added here."
-msgstr "這裡可以新增倉庫快取重新整理和還原預設設定等操作。"
-
-msgid "Update DNF cache"
-msgstr "更新 DNF 快取"
 
 msgid "Additional components"
 msgstr "額外元件"
@@ -130,9 +100,6 @@ msgstr "狀態：部分安裝（%1/%2）"
 
 msgid "Status: not installed"
 msgstr "狀態：未安裝"
-
-msgid "Do you want to %1 “%2”?\n\nThe package helper will run: dnf %3 -y %4"
-msgstr "確定要%1「%2」嗎？\n\n軟體包 helper 將執行：dnf %3 -y %4"
 
 msgid "Confirm %1"
 msgstr "確認%1"
@@ -515,9 +482,6 @@ msgstr "執行：dmesg 2>&1 | grep -i segfault"
 msgid "Command completed (exit code %1)."
 msgstr "指令已完成（退出碼 %1）。"
 
-msgid "Unable to run dmesg."
-msgstr "無法執行 dmesg。"
-
 msgid "No segfault entries found in the kernel log (dmesg)."
 msgstr "核心日誌（dmesg）中未發現 segfault（段錯誤）記錄。"
 
@@ -527,32 +491,32 @@ msgstr "個人化設定"
 msgid "Interface transparency"
 msgstr "介面通透"
 
-msgid "Transparent"
-msgstr "通透"
+msgid "Real"
+msgstr "真實"
 
 msgid "Default"
 msgstr "預設"
 
-msgid "Frosted"
-msgstr "磨砂"
+msgid "Soft"
+msgstr "柔和"
 
 msgid "Glass-like texture, clear and delicate"
 msgstr "玻璃質感，通透細膩"
 
-msgid "Balances readability and transparency"
-msgstr "平衡可讀性和透明性"
+msgid "Retains transparency, comfortable balance"
+msgstr "保留透明，舒適平衡"
 
-msgid "Prioritizes readability with slight transparency"
-msgstr "追求可讀性，少量透明"
+msgid "Blur texture, clear and easy to read"
+msgstr "模糊質感，清晰易讀"
 
-msgid "Choose an interface transparency level. Click Apply to make changes take effect immediately."
-msgstr "選擇介面通透等級。點擊「套用」後立即生效。"
+msgid "Choose an interface transparency level. After clicking Apply, it is recommended to log out and log back in for the changes to take effect."
+msgstr "選擇介面通透等級。點擊應用後，推薦登出以應用反映變更。"
 
-msgid "Transparency level applied. Changes take effect immediately."
-msgstr "透明度等級已套用。變更立即生效。"
+msgid "Transparency level applied. It is recommended to log out and log back in for the changes to take effect."
+msgstr "通透等級已套用。推薦登出以應用反映變更。"
 
-msgid "Interface transparency level has been applied. Changes take effect immediately."
-msgstr "介面通透等級已套用。變更立即生效。"
+msgid "Interface transparency level has been applied. It is recommended to log out and log back in for the changes to take effect."
+msgstr "介面通透等級已套用。推薦登出以應用反映變更。"
 
 msgid "Failed to write kwinrc configuration file."
 msgstr "寫入 kwinrc 設定檔失敗。"

@@ -23,12 +23,6 @@ msgstr "(c) 2026 Miryu"
 msgid "Manage Miryu components, maintenance tasks and system-wide environment variables in one place."
 msgstr "Miryu-Komponenten, Wartungsaufgaben und systemweite Umgebungsvariablen an einem Ort verwalten。"
 
-msgid "Maintenance"
-msgstr "Wartung"
-
-msgid "Miscellaneous"
-msgstr "Verschiedenes"
-
 msgid "System-wide environment variables"
 msgstr "Systemweite Umgebungsvariablen"
 
@@ -62,32 +56,8 @@ msgstr "Zusätzliche Schriften installieren"
 msgid "Install Noto Sans, Noto Serif, monospace and CJK supplemental fonts to improve multilingual display."
 msgstr "Noto Sans, Noto Serif, Monospace- und CJK-Zusatzschriften installieren, um die mehrsprachige Darstellung zu verbessern."
 
-msgid "%1 software repository"
-msgstr "%1-Softwarequelle"
-
 msgid "Enabled"
 msgstr "Aktiviert"
-
-msgid "Jilin University"
-msgstr "Jilin-Universität"
-
-msgid "Default mirror"
-msgstr "Standardspiegelserver"
-
-msgid "Automatic selection"
-msgstr "Automatische Auswahl"
-
-msgid "Speed test"
-msgstr "Geschwindigkeitstest"
-
-msgid "Maintenance tasks"
-msgstr "Wartungsaufgaben"
-
-msgid "Repository cache refresh and default configuration restore actions can be added here."
-msgstr "Hier können Aktionen zum Aktualisieren des Repository-Caches und zum Wiederherstellen der Standardkonfiguration hinzugefügt werden."
-
-msgid "Update DNF cache"
-msgstr "DNF-Zwischenspeicher aktualisieren"
 
 msgid "Additional components"
 msgstr "Zusätzliche Komponenten"
@@ -130,9 +100,6 @@ msgstr "Status: teilweise installiert (%1/%2)"
 
 msgid "Status: not installed"
 msgstr "Status: nicht installiert"
-
-msgid "Do you want to %1 “%2”?\n\nThe package helper will run: dnf %3 -y %4"
-msgstr "Möchten Sie „%2“ %1?\n\nDer Paket-Helfer führt aus: dnf %3 -y %4"
 
 msgid "Confirm %1"
 msgstr "%1 bestätigen"
@@ -515,8 +482,41 @@ msgstr "Ausführung: dmesg 2>&1 | grep -i segfault"
 msgid "Command completed (exit code %1)."
 msgstr "Befehl abgeschlossen (Exit-Code %1)."
 
-msgid "Unable to run dmesg."
-msgstr "dmesg konnte nicht ausgeführt werden."
-
 msgid "No segfault entries found in the kernel log (dmesg)."
 msgstr "Keine Segfault-Einträge im Kernel-Protokoll (dmesg) gefunden."
+
+msgid "Personalization"
+msgstr "Personalisierung"
+
+msgid "Interface transparency"
+msgstr "Oberflächentransparenz"
+
+msgid "Real"
+msgstr "Real"
+
+msgid "Default"
+msgstr "Standard"
+
+msgid "Soft"
+msgstr "Weich"
+
+msgid "Glass-like texture, clear and delicate"
+msgstr "Glasartige Textur, klar und fein"
+
+msgid "Retains transparency, comfortable balance"
+msgstr "Behält Transparenz, komfortable Balance"
+
+msgid "Blur texture, clear and easy to read"
+msgstr "Verschwommene Textur, klar und gut lesbar"
+
+msgid "Choose an interface transparency level. After clicking Apply, it is recommended to log out and log back in for the changes to take effect."
+msgstr "Wählen Sie eine Transparenzstufe der Oberfläche. Nach dem Klicken auf Anwenden wird empfohlen, sich ab- und wieder anzumelden, damit die Änderungen wirksam werden."
+
+msgid "Transparency level applied. It is recommended to log out and log back in for the changes to take effect."
+msgstr "Transparenzstufe angewendet. Es wird empfohlen, sich ab- und wieder anzumelden, damit die Änderungen wirksam werden."
+
+msgid "Interface transparency level has been applied. It is recommended to log out and log back in for the changes to take effect."
+msgstr "Die Oberflächentransparenzstufe wurde angewendet. Es wird empfohlen, sich ab- und wieder anzumelden, damit die Änderungen wirksam werden."
+
+msgid "Failed to write kwinrc configuration file."
+msgstr "Fehler beim Schreiben der kwinrc-Konfigurationsdatei."

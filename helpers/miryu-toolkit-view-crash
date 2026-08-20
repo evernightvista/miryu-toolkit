@@ -15,10 +15,13 @@ set -eu
 #
 # grep exits 1 when there are no matches, which under "set -e" would abort
 # the script; the if/else keeps the helper exiting 0 and prints a clear
-# message when no segfault entries are present.
+# machine-readable marker when no segfault entries are present.
+#
+# The GUI (mainwindow.cpp) recognizes __NO_SEGFAULT_FOUND__ and replaces
+# it with a properly localized i18n() string.
 
 if dmesg 2>&1 | grep -i segfault; then
     :
 else
-    echo "No segfault entries found in the kernel log (dmesg)."
+    echo "__NO_SEGFAULT_FOUND__"
 fi

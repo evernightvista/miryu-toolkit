@@ -1,6 +1,6 @@
 Name:           miryu-toolkit
 Version:        45.0.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Miryu Toolkit
 
 License:        GPL-3.0-or-later
@@ -24,6 +24,8 @@ Requires:       tar
 Requires:       zstd
 Requires:       inxi
 Requires:       lshw
+Requires:       /usr/bin/kwriteconfig6
+Requires:       /usr/bin/qdbus-qt6
 Obsoletes:      evernight-vista-tools
 
 %description
@@ -74,6 +76,24 @@ additional fonts, plus a system log collection tool.
 
 %changelog
 * Thu Aug 20 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-6
+- Fix __NO_SEGFAULT_FOUND__ marker replacement in correct viewCrashInfo lambda
+- Fix blur apply timing: add delays after kwriteconfig6 and between
+  unload/load to ensure KWin reads fresh config values
+- Remove 12 unused translation entries from all 6 .po files
+- Change qdbus6 to qdbus-qt6 for blur effect unload/load
+- Fix "No segfault entries found" not localized: helper outputs marker
+  __NO_SEGFAULT_FOUND__, GUI replaces with i18n() string
+- Fix unload/load blur effect: run as two separate sequential QProcess
+  calls instead of sh -c with && operator
+- Add personalization translations for de, fr, ja, ko
+- Rename levels: Transparent→Real, Frosted→Soft
+- Update descriptions for Default and Soft levels
+- Fix blur not applying: unload+load effect instead of reconfigureEffect
+- Update zh_CN and zh_TW translations
+- Fix blur effect not applying: use kwriteconfig6 (KConfig) instead of
+  direct QFile writes so KWin's config cache is properly notified
+- Use reconfigureEffect D-Bus call to reload blur effect in real-time
+- Add Requires for kwriteconfig6 and qdbus6
 - Add Personalization tab with Interface Transparency section
 - Three transparency levels: Transparent, Default, Frosted
 - Click-to-select image cards with hover descriptions

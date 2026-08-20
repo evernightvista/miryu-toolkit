@@ -7,10 +7,14 @@
 
 #include <QAbstractItemView>
 #include <QApplication>
+#include <QCoreApplication>
+#include <QDBusConnection>
+#include <QDBusMessage>
 #include <QDesktopServices>
 #include <QDialog>
 #include <QDialogButtonBox>
 #include <QDir>
+#include <QEventLoop>
 #include <QFile>
 #include <QFont>
 #include <QFormLayout>
@@ -26,6 +30,7 @@
 #include <QSaveFile>
 #include <QScrollBar>
 #include <QStandardPaths>
+#include <QThread>
 #include <QTemporaryFile>
 #include <QTextStream>
 #include <QUrl>
@@ -490,7 +495,10 @@ void MainWindow::runPackageOperation(const ExtraComponent &component, const QStr
         if (data.isEmpty()) {
             return;
         }
-        logView->appendPlainText(QString::fromLocal8Bit(data).trimmed());
+        QString text = QString::fromLocal8Bit(data).trimmed();
+        text.replace(QStringLiteral("__NO_SEGFAULT_FOUND__"),
+                    i18n("No segfault entries found in the kernel log (dmesg)."));
+        logView->appendPlainText(text);
         logView->verticalScrollBar()->setValue(logView->verticalScrollBar()->maximum());
     };
 
@@ -849,7 +857,10 @@ void MainWindow::cleanupOldKernel()
         if (data.isEmpty()) {
             return;
         }
-        logView->appendPlainText(QString::fromLocal8Bit(data).trimmed());
+        QString text = QString::fromLocal8Bit(data).trimmed();
+        text.replace(QStringLiteral("__NO_SEGFAULT_FOUND__"),
+                    i18n("No segfault entries found in the kernel log (dmesg)."));
+        logView->appendPlainText(text);
         logView->verticalScrollBar()->setValue(logView->verticalScrollBar()->maximum());
     };
 
@@ -1196,7 +1207,10 @@ void MainWindow::startPrivilegedSystemUpdate(QDialog *logDialog, QPlainTextEdit 
         if (data.isEmpty()) {
             return;
         }
-        logView->appendPlainText(QString::fromLocal8Bit(data).trimmed());
+        QString text = QString::fromLocal8Bit(data).trimmed();
+        text.replace(QStringLiteral("__NO_SEGFAULT_FOUND__"),
+                    i18n("No segfault entries found in the kernel log (dmesg)."));
+        logView->appendPlainText(text);
         logView->verticalScrollBar()->setValue(logView->verticalScrollBar()->maximum());
     };
 
@@ -1525,7 +1539,10 @@ void MainWindow::viewCrashInfo()
         if (data.isEmpty()) {
             return;
         }
-        logView->appendPlainText(QString::fromLocal8Bit(data).trimmed());
+        QString text = QString::fromLocal8Bit(data).trimmed();
+        text.replace(QStringLiteral("__NO_SEGFAULT_FOUND__"),
+                    i18n("No segfault entries found in the kernel log (dmesg)."));
+        logView->appendPlainText(text);
         logView->verticalScrollBar()->setValue(logView->verticalScrollBar()->maximum());
     };
 
@@ -1644,7 +1661,7 @@ void MainWindow::setupTransparencyLevels()
     m_transparencyLevels = {
         {
             QStringLiteral("tongtou"),
-            i18n("Transparent"),
+            i18n("Real"),
             i18n("Glass-like texture, clear and delicate"),
             3,
             14,
@@ -1653,15 +1670,15 @@ void MainWindow::setupTransparencyLevels()
         {
             QStringLiteral("default"),
             i18n("Default"),
-            i18n("Balances readability and transparency"),
+            i18n("Retains transparency, comfortable balance"),
             7,
             14,
             QStringLiteral(":/personalization/data/images/default.png"),
         },
         {
             QStringLiteral("mosha"),
-            i18n("Frosted"),
-            i18n("Prioritizes readability with slight transparency"),
+            i18n("Soft"),
+            i18n("Blur texture, clear and easy to read"),
             13,
             14,
             QStringLiteral(":/personalization/data/images/mosha.png"),
@@ -1680,7 +1697,7 @@ QWidget *MainWindow::buildPersonalizationTab()
     auto *groupLayout = new QVBoxLayout(group);
     groupLayout->setSpacing(16);
 
-    auto *hint = new QLabel(i18n("Choose an interface transparency level. Click Apply to make changes take effect immediately."), group);
+    auto *hint = new QLabel(i18n("Choose an interface transparency level. After clicking Apply, it is recommended to log out and log back in for the changes to take effect."), group);
     hint->setWordWrap(true);
     groupLayout->addWidget(hint);
 
@@ -1800,13 +1817,12 @@ void MainWindow::applyTransparencyLevel()
 
     const TransparencyLevel &level = m_transparencyLevels[m_selectedTransparencyIndex];
 
-    // Write config through kwriteconfig6 (which uses KConfig internally).
-    // KConfig::sync() emits org.kde.kconfig.notify.ConfigChanged so that
-    // KWin's in-memory config cache is invalidated. Writing the file directly
-    // with QFile does NOT trigger this notification, so reconfigureEffect
-    // would still read stale cached values.
+    // Write only BlurStrength through kwriteconfig6 (which uses KConfig
+    // internally). kwriteconfig6 writes to disk and calls KConfig::sync(),
+    // but the D-Bus ConfigChanged notification it emits may not be properly
+    // received by KWin in time. We manually emit the signal below to ensure
+    // KWin's in-memory KConfig cache is invalidated before we reload blur.
     const QString blurVal = QString::number(level.blurStrength);
-    const QString noiseVal = QString::number(level.noiseStrength);
 
     QProcess kwriteConfig;
     kwriteConfig.start(QStringLiteral("kwriteconfig6"),
@@ -1816,37 +1832,52 @@ void MainWindow::applyTransparencyLevel()
                         blurVal});
     kwriteConfig.waitForFinished(5000);
 
-    QProcess kwriteConfig2;
-    kwriteConfig2.start(QStringLiteral("kwriteconfig6"),
-                        {QStringLiteral("--file"), QStringLiteral("kwinrc"),
-                         QStringLiteral("--group"), QStringLiteral("Effect-blur"),
-                         QStringLiteral("--key"), QStringLiteral("NoiseStrength"),
-                         noiseVal});
-    kwriteConfig2.waitForFinished(5000);
+    // Manually emit the KConfig D-Bus ConfigChanged signal so that KWin
+    // immediately invalidates its in-memory KConfig cache for the
+    // [Effect-blur] group. Without this, kwriteconfig6's own notification
+    // may not reach KWin in time, causing the blur effect to read stale
+    // cached values when reloaded (requiring a second Apply click).
+    QDBusMessage configChangedMsg = QDBusMessage::createSignal(
+        QStringLiteral("/kwinrc"),
+        QStringLiteral("org.kde.kconfig.notify"),
+        QStringLiteral("ConfigChanged"));
+    configChangedMsg << QStringList{QStringLiteral("Effect-blur")};
+    QDBusConnection::sessionBus().send(configChangedMsg);
 
-    // Reload the blur effect so changes take effect immediately.
-    // This is the exact same D-Bus call that KCM's blur config module
-    // makes after saving via KConfig.
-    QProcess reloadProcess;
-    reloadProcess.start(QStringLiteral("qdbus6"),
-                        {QStringLiteral("org.kde.KWin"), QStringLiteral("/Effects"),
-                         QStringLiteral("org.kde.kwin.Effects.reconfigureEffect"),
-                         QStringLiteral("blur")});
-    reloadProcess.waitForFinished(5000);
+    // Process pending D-Bus events so the ConfigChanged signal is actually
+    // dispatched on the wire before we proceed.
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 200);
 
-    if (reloadProcess.exitCode() != 0) {
-        QProcess fallback;
-        fallback.start(QStringLiteral("qdbus"),
-                       {QStringLiteral("org.kde.KWin"), QStringLiteral("/Effects"),
-                        QStringLiteral("org.kde.kwin.Effects.reconfigureEffect"),
-                        QStringLiteral("blur")});
-        fallback.waitForFinished(5000);
-    }
+    // Unload and reload the blur effect to attempt immediate application.
+    // The two commands must run sequentially: first unload, wait for it to
+    // finish, then load.
+    const QString dbusBin = QStandardPaths::findExecutable(QStringLiteral("qdbus-qt6"));
+    const QString dbusToUse = dbusBin.isEmpty() ? QStringLiteral("qdbus") : dbusBin;
+
+    // Step 1: unload the blur effect
+    QProcess unloadProcess;
+    unloadProcess.start(dbusToUse, {
+        QStringLiteral("org.kde.KWin"), QStringLiteral("/Effects"),
+        QStringLiteral("org.kde.kwin.Effects.unloadEffect"), QStringLiteral("blur")
+    });
+    unloadProcess.waitForFinished(5000);
+
+    // Small delay between unload and load to ensure the effect is fully
+    // unloaded before reloading.
+    QThread::msleep(500);
+
+    // Step 2: load the blur effect back
+    QProcess loadProcess;
+    loadProcess.start(dbusToUse, {
+        QStringLiteral("org.kde.KWin"), QStringLiteral("/Effects"),
+        QStringLiteral("org.kde.kwin.Effects.loadEffect"), QStringLiteral("blur")
+    });
+    loadProcess.waitForFinished(5000);
 
     if (m_bottomStatus) {
-        m_bottomStatus->setText(i18n("Transparency level applied. Changes take effect immediately."));
+        m_bottomStatus->setText(i18n("Transparency level applied. It is recommended to log out and log back in for the changes to take effect."));
     }
     KMessageBox::information(this,
-                             i18n("Interface transparency level has been applied. Changes take effect immediately."),
+                             i18n("Interface transparency level has been applied. It is recommended to log out and log back in for the changes to take effect."),
                              i18n("Apply completed"));
 }

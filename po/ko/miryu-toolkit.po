@@ -23,12 +23,6 @@ msgstr "(c) 2026 Miryu"
 msgid "Manage Miryu components, maintenance tasks and system-wide environment variables in one place."
 msgstr "Miryu 구성 요소, 유지 관리 작업, 시스템 전체 환경 변수를 한곳에서 관리합니다."
 
-msgid "Maintenance"
-msgstr "유지 관리"
-
-msgid "Miscellaneous"
-msgstr "기타"
-
 msgid "System-wide environment variables"
 msgstr "시스템 전체 환경 변수"
 
@@ -62,32 +56,8 @@ msgstr "추가 글꼴 설치"
 msgid "Install Noto Sans, Noto Serif, monospace and CJK supplemental fonts to improve multilingual display."
 msgstr "다국어 표시를 개선하기 위해 Noto Sans, Noto Serif, 고정폭 및 CJK 보조 글꼴을 설치합니다."
 
-msgid "%1 software repository"
-msgstr "%1 소프트웨어 저장소"
-
 msgid "Enabled"
 msgstr "사용"
-
-msgid "Jilin University"
-msgstr "지린 대학교"
-
-msgid "Default mirror"
-msgstr "기본 미러"
-
-msgid "Automatic selection"
-msgstr "자동 선택"
-
-msgid "Speed test"
-msgstr "속도 테스트"
-
-msgid "Maintenance tasks"
-msgstr "유지 관리 작업"
-
-msgid "Repository cache refresh and default configuration restore actions can be added here."
-msgstr "여기에 저장소 캐시 새로 고침 및 기본 구성 복원 작업을 추가할 수 있습니다."
-
-msgid "Update DNF cache"
-msgstr "DNF 캐시 업데이트"
 
 msgid "Additional components"
 msgstr "추가 구성 요소"
@@ -130,9 +100,6 @@ msgstr "상태: 일부 설치됨(%1/%2)"
 
 msgid "Status: not installed"
 msgstr "상태: 설치되지 않음"
-
-msgid "Do you want to %1 “%2”?\n\nThe package helper will run: dnf %3 -y %4"
-msgstr "“%2”을(를) %1하시겠습니까?\n\n패키지 도우미가 다음을 실행합니다: dnf %3 -y %4"
 
 msgid "Confirm %1"
 msgstr "%1 확인"
@@ -515,8 +482,41 @@ msgstr "실행: dmesg 2>&1 | grep -i segfault"
 msgid "Command completed (exit code %1)."
 msgstr "명령이 완료되었습니다 (종료 코드 %1)."
 
-msgid "Unable to run dmesg."
-msgstr "dmesg를 실행할 수 없습니다."
-
 msgid "No segfault entries found in the kernel log (dmesg)."
 msgstr "커널 로그(dmesg)에서 segfault 항목을 찾을 수 없습니다."
+
+msgid "Personalization"
+msgstr "개인화 설정"
+
+msgid "Interface transparency"
+msgstr "인터페이스 투명도"
+
+msgid "Real"
+msgstr "리얼"
+
+msgid "Default"
+msgstr "기본"
+
+msgid "Soft"
+msgstr "소프트"
+
+msgid "Glass-like texture, clear and delicate"
+msgstr "유리 질감, 투명하고 섬세함"
+
+msgid "Retains transparency, comfortable balance"
+msgstr "투명성을 유지하며 편안한 균형"
+
+msgid "Blur texture, clear and easy to read"
+msgstr "흐릿한 질감, 선명하고 읽기 쉬움"
+
+msgid "Choose an interface transparency level. After clicking Apply, it is recommended to log out and log back in for the changes to take effect."
+msgstr "인터페이스 투명도 수준을 선택하세요. 적용을 클릭한 후, 변경 사항을 적용하려면 로그아웃 후 다시 로그인하는 것을 권장합니다."
+
+msgid "Transparency level applied. It is recommended to log out and log back in for the changes to take effect."
+msgstr "투명도 수준이 적용되었습니다. 변경 사항을 적용하려면 로그아웃 후 다시 로그인하는 것을 권장합니다."
+
+msgid "Interface transparency level has been applied. It is recommended to log out and log back in for the changes to take effect."
+msgstr "인터페이스 투명도 수준이 적용되었습니다. 변경 사항을 적용하려면 로그아웃 후 다시 로그인하는 것을 권장합니다."
+
+msgid "Failed to write kwinrc configuration file."
+msgstr "kwinrc 설정 파일 쓰기에 실패했습니다."
