@@ -29,6 +29,6 @@ Keywords[de]=Miryu;Werkzeugkasten;gongjuxiang;miryu;Toolbox;
 Keywords[ko]=Miryu;도구상자;gongjuxiang;miryu;툴박스;
 Keywords[fr]=Miryu;Boîte à outils;gongjuxiang;miryu;boîte à outils;
 Exec=miryu-toolkit
-Icon=deepin-repair-tools
+Icon=miryu-toolkit
 Terminal=false
 Categories=Qt;KDE;Utility;Settings;

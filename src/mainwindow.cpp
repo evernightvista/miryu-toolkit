@@ -335,7 +335,7 @@ QWidget *MainWindow::buildAboutTab()
     auto *iconLabel = new QLabel(iconFrame);
     iconLabel->setFixedSize(96, 96);
     iconLabel->setAlignment(Qt::AlignCenter);
-    iconLabel->setPixmap(QIcon::fromTheme(QStringLiteral("deepin-repair-tools")).pixmap(48, 48));
+    iconLabel->setPixmap(QIcon::fromTheme(QStringLiteral("miryu-toolkit")).pixmap(48, 48));
     contentLayout->addWidget(iconFrame, 0, Qt::AlignTop);
 
     // Text area (right column)

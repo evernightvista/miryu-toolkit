@@ -1,6 +1,6 @@
 Name:           miryu-toolkit
 Version:        45.0.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Miryu Toolkit
 
 License:        GPL-3.0-or-later
@@ -75,6 +75,9 @@ additional fonts, plus a system log collection tool.
 %{_libexecdir}/miryu-toolkit/miryu-toolkit-view-crash
 
 %changelog
+* Sun Aug 23 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-7
+- Update Icon
+
 * Thu Aug 20 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-6
 - Fix __NO_SEGFAULT_FOUND__ marker replacement in correct viewCrashInfo lambda
 - Fix blur apply timing: add delays after kwriteconfig6 and between
