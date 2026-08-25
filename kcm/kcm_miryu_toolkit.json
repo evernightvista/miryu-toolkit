@@ -1,0 +1,31 @@
+{
+    "KPlugin": {
+        "Id": "kcm_miryu_toolkit",
+        "Name": "Miryu Toolkit",
+        "Name[zh_CN]": "Miryu 工具箱",
+        "Name[zh_TW]": "Miryu 工具箱",
+        "Name[ja]": "Miryu ツールキット",
+        "Name[de]": "Miryu Werkzeugkasten",
+        "Name[ko]": "Miryu 도구 상자",
+        "Name[fr]": "Boîte à outils Miryu",
+        "Description": "Launch the Miryu Toolkit application",
+        "Description[zh_CN]": "启动 Miryu 工具箱应用程序",
+        "Description[zh_TW]": "啟動 Miryu 工具箱應用程式",
+        "Description[ja]": "Miryu ツールキットを起動",
+        "Description[de]": "Miryu-Werkzeugkasten-Anwendung starten",
+        "Description[ko]": "Miryu 도구 상자 프로그램 실행",
+        "Description[fr]": "Lancer l'application Miryu Toolkit",
+        "Icon": "miryu-toolkit",
+        "Authors": [
+            { "Name": "Evernight Vista Team", "Email": "13278297951@sina.cn" }
+        ],
+        "License": "GPL-3.0-or-later",
+        "Website": "https://github.com/evernightvista/miryu-toolkit",
+        "EnabledByDefault": true
+    },
+    "Categories": "Qt;KDE;",
+    "X-KDE-Keywords": "miryu,toolkit,launcher",
+    "X-KDE-Keywords[zh_CN]": "miryu,工具箱,启动器",
+    "X-KDE-System-Settings-Parent-Category": "system-administration",
+    "X-KDE-Weight": 60
+}

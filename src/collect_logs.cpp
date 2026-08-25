@@ -204,7 +204,7 @@ int main(int argc, char *argv[])
 
     // --- Package information (dnf5 instead of pacman) ---
     tryCmd(tmp, QStringLiteral("dnf5-history.txt"),
-           {QStringLiteral("dnf5"), QStringLiteral("history"), QStringLiteral("--reverse")});
+           {QStringLiteral("dnf5"), QStringLiteral("history"), QStringLiteral("list"), QStringLiteral("--reverse")});
     tryCmd(tmp, QStringLiteral("dnf5-history-userinstalled.txt"),
            {QStringLiteral("dnf5"), QStringLiteral("repoquery"), QStringLiteral("--userinstalled")});
     tryCmd(tmp, QStringLiteral("rpm-qa.txt"), {QStringLiteral("rpm"), QStringLiteral("-qa"), QStringLiteral("--last")});

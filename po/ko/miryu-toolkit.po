@@ -520,3 +520,15 @@ msgstr "인터페이스 투명도 수준이 적용되었습니다. 변경 사항
 
 msgid "Failed to write kwinrc configuration file."
 msgstr "kwinrc 설정 파일 쓰기에 실패했습니다."
+
+msgid "Miryu Toolkit manages optional Miryu components (Wine, Steam, MIDI playback, extra fonts), system-wide environment variables, and collects system logs."
+msgstr "Miryu Toolkit은 선택적 Miryu 구성 요소(Wine, Steam, MIDI 재생, 추가 글꼴)와 시스템 전체 환경 변수를 관리하고 시스템 로그를 수집합니다."
+
+msgid "Relaunch Miryu Toolkit"
+msgstr "Miryu Toolkit 다시 시작"
+
+msgid "Miryu Toolkit is an external application and has been automatically launched."
+msgstr "Miryu Toolkit은 외부 프로그램이며 자동으로 실행되었습니다."
+
+msgid "Could not launch Miryu Toolkit. Make sure it is installed."
+msgstr "Miryu Toolkit을 실행할 수 없습니다. 설치되어 있는지 확인하세요."

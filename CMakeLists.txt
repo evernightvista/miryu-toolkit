@@ -23,6 +23,7 @@ find_package(Qt6 ${QT_MIN_VERSION} REQUIRED COMPONENTS Core Gui Widgets DBus)
 find_package(KF6 ${KF_MIN_VERSION} REQUIRED COMPONENTS
     CoreAddons
     I18n
+    KCMUtils
     WidgetsAddons
 )
 
@@ -54,6 +55,23 @@ configure_file(
 )
 
 install(TARGETS miryu-toolkit ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
+
+# KCM (KDE System Settings module) that launches the external Miryu Toolkit GUI.
+# Widgets-based KCMs install into the plasma/kcms/systemsettings_qwidgets plugin
+# namespace so System Settings discovers them; the JSON metadata registers the
+# module under the "System" section (X-KDE-System-Settings-Parent-Category).
+kcoreaddons_add_plugin(kcm_miryu_toolkit
+    SOURCES kcm/kcm_miryu_toolkit.cpp
+    INSTALL_NAMESPACE "plasma/kcms/systemsettings_qwidgets"
+)
+target_link_libraries(kcm_miryu_toolkit
+    Qt6::Core
+    Qt6::Gui
+    Qt6::Widgets
+    KF6::CoreAddons
+    KF6::I18n
+    KF6::KCMUtils
+)
 
 # Collect-logs helper (C++ binary, runs as root via pkexec)
 add_executable(miryu-toolkit-collect-logs

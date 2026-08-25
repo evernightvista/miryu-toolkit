@@ -520,3 +520,15 @@ msgstr "界面通透等级已应用。推荐退出登录以应用反映更改。
 
 msgid "Failed to write kwinrc configuration file."
 msgstr "写入 kwinrc 配置文件失败。"
+
+msgid "Miryu Toolkit manages optional Miryu components (Wine, Steam, MIDI playback, extra fonts), system-wide environment variables, and collects system logs."
+msgstr "Miryu 工具箱管理可选的 Miryu 组件（Wine、Steam、MIDI 播放、补充字体）和系统范围环境变量，并收集系统日志。"
+
+msgid "Relaunch Miryu Toolkit"
+msgstr "重新启动 Miryu 工具箱"
+
+msgid "Miryu Toolkit is an external application and has been automatically launched."
+msgstr "Miryu 工具箱是一个外部应用程序，已自动启动。"
+
+msgid "Could not launch Miryu Toolkit. Make sure it is installed."
+msgstr "无法启动 Miryu 工具箱。请确认已安装。"

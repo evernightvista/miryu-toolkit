@@ -520,3 +520,15 @@ msgstr "インターフェース透過レベルが適用されました。変更
 
 msgid "Failed to write kwinrc configuration file."
 msgstr "kwinrc 設定ファイルの書き込みに失敗しました。"
+
+msgid "Miryu Toolkit manages optional Miryu components (Wine, Steam, MIDI playback, extra fonts), system-wide environment variables, and collects system logs."
+msgstr "Miryu Toolkit はオプションの Miryu コンポーネント（Wine、Steam、MIDI 再生、追加フォント）とシステム全体の環境変数を管理し、システムログを収集します。"
+
+msgid "Relaunch Miryu Toolkit"
+msgstr "Miryu Toolkit を再起動"
+
+msgid "Miryu Toolkit is an external application and has been automatically launched."
+msgstr "Miryu Toolkit は外部アプリケーションであり、自動的に起動されました。"
+
+msgid "Could not launch Miryu Toolkit. Make sure it is installed."
+msgstr "Miryu Toolkit を起動できません。インストールされていることを確認してください。"

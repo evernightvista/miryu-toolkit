@@ -520,3 +520,15 @@ msgstr "Le niveau de transparence de l'interface a été appliqué. Il est recom
 
 msgid "Failed to write kwinrc configuration file."
 msgstr "Échec de l'écriture du fichier de configuration kwinrc."
+
+msgid "Miryu Toolkit manages optional Miryu components (Wine, Steam, MIDI playback, extra fonts), system-wide environment variables, and collects system logs."
+msgstr "Miryu Toolkit gère les composants Miryu optionnels (Wine, Steam, lecture MIDI, polices supplémentaires), les variables d’environnement système et collecte les journaux système."
+
+msgid "Relaunch Miryu Toolkit"
+msgstr "Relancer Miryu Toolkit"
+
+msgid "Miryu Toolkit is an external application and has been automatically launched."
+msgstr "Miryu Toolkit est une application externe et a été lancée automatiquement."
+
+msgid "Could not launch Miryu Toolkit. Make sure it is installed."
+msgstr "Impossible de lancer Miryu Toolkit. Assurez-vous qu'il est installé."
