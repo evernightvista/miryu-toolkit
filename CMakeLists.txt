@@ -19,7 +19,7 @@ include(KDEInstallDirs)
 include(KDECompilerSettings NO_POLICY_SCOPE)
 include(KDECMakeSettings)
 
-find_package(Qt6 ${QT_MIN_VERSION} REQUIRED COMPONENTS Core Gui Widgets DBus)
+find_package(Qt6 ${QT_MIN_VERSION} REQUIRED COMPONENTS Core Gui Widgets DBus Network)
 find_package(KF6 ${KF_MIN_VERSION} REQUIRED COMPONENTS
     CoreAddons
     I18n
@@ -43,6 +43,7 @@ target_link_libraries(miryu-toolkit
     Qt6::Gui
     Qt6::Widgets
     Qt6::DBus
+    Qt6::Network
     KF6::CoreAddons
     KF6::I18n
     KF6::WidgetsAddons
