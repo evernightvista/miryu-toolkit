@@ -15,6 +15,7 @@ BuildRequires:  qt6-qtbase-devel
 BuildRequires:  kf6-kcoreaddons-devel
 BuildRequires:  kf6-ki18n-devel
 BuildRequires:  kf6-kwidgetsaddons-devel
+BuildRequires:  kf6-kcmutils-devel
 
 Requires:       dnf5
 Requires:       /usr/bin/dnf-3
