@@ -1,6 +1,6 @@
 Name:           miryu-toolkit
 Version:        45.0.0
-Release:        8%{?dist}
+Release:        13%{?dist}
 Summary:        Miryu Toolkit
 
 License:        GPL-3.0-or-later
@@ -14,8 +14,8 @@ BuildRequires:  gettext
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  kf6-kcoreaddons-devel
 BuildRequires:  kf6-ki18n-devel
-BuildRequires:  kf6-kwidgetsaddons-devel
 BuildRequires:  kf6-kcmutils-devel
+BuildRequires:  kf6-kwidgetsaddons-devel
 
 Requires:       dnf5
 Requires:       /usr/bin/dnf-3
@@ -27,7 +27,7 @@ Requires:       inxi
 Requires:       lshw
 Requires:       /usr/bin/kwriteconfig6
 Requires:       /usr/bin/qdbus-qt6
-Obsoletes:      evernight-vista-tools
+Obsoletes:      evernight-vista-tools < %{version}-%{release}
 
 %description
 Miryu Toolkit is a Qt6 and KDE Frameworks 6 application for managing
@@ -76,16 +76,35 @@ additional fonts, plus a system log collection tool.
 %{_libexecdir}/miryu-toolkit/miryu-toolkit-view-crash
 %{_qt6_plugindir}/plasma/kcms/systemsettings_qwidgets/kcm_miryu_toolkit.so
 
-
 %changelog
-* Tue Aug 25 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-8
-- Integrated with KDE System Settings
-- Fix collect dnf5 history error
+* Mon Aug 25 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-13
+- Fix dnf5 history collection error: add missing "list" subcommand
+  (dnf5 history --reverse → dnf5 history list --reverse)
 
-* Sun Aug 23 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-7
+* Mon Aug 25 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-12
+- Auto-launch Miryu Toolkit when KCM is opened in System Settings
+  (like openSUSE YaST ExternalAppModule behavior)
+- KCM now automatically starts the external app on first show via
+  event filter + QTimer::singleShot
+- Change button label from "Open" to "Relaunch Miryu Toolkit"
+- Update status message to indicate external app auto-launch
+- Update all 6 translations (zh_CN, zh_TW, ja, de, fr, ko)
+
+* Mon Aug 24 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-11
+- Hide Default/Reset/Apply buttons in the KCM via setButtons(NoAdditionalButton)
+
+* Mon Aug 24 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-10
+- Complete KCM i18n for 6 languages (zh_CN, zh_TW, ja, de, fr, ko) and
+  teach Messages.sh to extract i18nd strings from kcm/*.cpp
+
+* Mon Aug 24 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-9
+- Add KCM module to KDE System Settings under the "System" section that
+  launches the external Miryu Toolkit application
+
+* Sun Aug 23 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-8
 - Update Icon
 
-* Thu Aug 20 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-6
+* Thu Aug 20 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-7
 - Fix __NO_SEGFAULT_FOUND__ marker replacement in correct viewCrashInfo lambda
 - Fix blur apply timing: add delays after kwriteconfig6 and between
   unload/load to ensure KWin reads fresh config values
@@ -109,23 +128,23 @@ additional fonts, plus a system log collection tool.
 - Click-to-select image cards with hover descriptions
 - Apply changes to kwinrc [Effect-blur] and reload KWin in real-time
 
-* Mon Aug 17 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-5
+* Mon Aug 17 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-6
 - Add desktop search keywords (Miryu, Toolkit, gongjuxiang, miryu)
 - Change desktop Categories from System to Utility
 - Make view-crash polkit action require no authentication (allow=yes)
 
-* Mon Aug 17 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-4
+* Mon Aug 17 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-5
 - Fix crash info viewer to run dmesg as root via pkexec so segfault
   entries are visible, matching "sudo dmesg | grep segfault"
 - Add miryu-toolkit-view-crash polkit helper
 
-* Mon Aug 17 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-3
+* Mon Aug 17 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-4
 - Add Miryu System Assistant tab with systemd, RPM, dnf5 and crash info tools
 - Rename Miscellaneous tab to Install Additional Components
 - Add unlock RPM database and dnf5 autoremove helpers
 
-* Mon Aug 17 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-2
+* Mon Aug 17 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-3
 - Add Update System Button
 
-* Thu Aug 13 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-1
+* Thu Aug 13 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-2
 - Initial Alpha

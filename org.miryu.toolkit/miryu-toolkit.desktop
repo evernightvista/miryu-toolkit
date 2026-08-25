@@ -32,3 +32,4 @@ Exec=miryu-toolkit
 Icon=miryu-toolkit
 Terminal=false
 Categories=Qt;KDE;Utility;Settings;
+NoDisplay=true
