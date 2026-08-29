@@ -7,14 +7,10 @@
 
 #include <QAbstractItemView>
 #include <QApplication>
-#include <QCoreApplication>
-#include <QDBusConnection>
-#include <QDBusMessage>
 #include <QDesktopServices>
 #include <QDialog>
 #include <QDialogButtonBox>
 #include <QDir>
-#include <QEventLoop>
 #include <QFile>
 #include <QFont>
 #include <QFormLayout>
@@ -24,13 +20,10 @@
 #include <QIcon>
 #include <QInputDialog>
 #include <QLineEdit>
-#include <QPixmap>
 #include <QPlainTextEdit>
 #include <QRegularExpression>
 #include <QSaveFile>
 #include <QScrollBar>
-#include <QStandardPaths>
-#include <QThread>
 #include <QTemporaryFile>
 #include <QTextStream>
 #include <QUrl>
@@ -46,7 +39,6 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
     setupComponents();
-    setupTransparencyLevels();
 
     auto *central = new QWidget(this);
     auto *rootLayout = new QVBoxLayout(central);
@@ -68,7 +60,6 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabs->addTab(buildSystemAssistantTab(), i18n("Miryu System Assistant"));
     m_tabs->addTab(buildEnvironmentTab(), i18n("System-wide environment variables"));
     m_tabs->addTab(buildExtrasTab(), i18n("Install additional components"));
-    m_tabs->addTab(buildPersonalizationTab(), i18n("Personalization"));
     m_tabs->addTab(buildAboutTab(), i18n("About"));
     rootLayout->addWidget(m_tabs, 1);
 
@@ -1580,304 +1571,3 @@ void MainWindow::viewCrashInfo()
     logDialog->show();
 }
 
-// --- SelectableImageCard ---
-
-SelectableImageCard::SelectableImageCard(const QString &imagePath, const QString &title,
-                                         const QString &description, QWidget *parent)
-    : QFrame(parent)
-{
-    auto *layout = new QVBoxLayout(this);
-    layout->setContentsMargins(8, 8, 8, 8);
-    layout->setSpacing(6);
-    layout->setAlignment(Qt::AlignCenter);
-
-    m_imageLabel = new QLabel(this);
-    QPixmap pixmap(imagePath);
-    if (!pixmap.isNull()) {
-        m_imageLabel->setPixmap(pixmap.scaled(240, 140, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-    }
-    m_imageLabel->setAlignment(Qt::AlignCenter);
-    m_imageLabel->setMinimumSize(240, 140);
-    layout->addWidget(m_imageLabel);
-
-    m_titleLabel = new QLabel(title, this);
-    m_titleLabel->setAlignment(Qt::AlignCenter);
-    QFont titleFont = m_titleLabel->font();
-    titleFont.setBold(true);
-    titleFont.setPointSize(titleFont.pointSize() + 1);
-    m_titleLabel->setFont(titleFont);
-    layout->addWidget(m_titleLabel);
-
-    setToolTip(description);
-    setFixedSize(270, 200);
-    setCursor(Qt::PointingHandCursor);
-    updateStyle();
-}
-
-void SelectableImageCard::setSelected(bool selected)
-{
-    if (m_selected == selected) {
-        return;
-    }
-    m_selected = selected;
-    updateStyle();
-}
-
-void SelectableImageCard::updateStyle()
-{
-    if (m_selected) {
-        setStyleSheet(QStringLiteral(
-            "SelectableImageCard { border: 3px solid #3daee9; border-radius: 8px; }"));
-    } else {
-        setStyleSheet(QStringLiteral(
-            "SelectableImageCard { border: 1px solid #c0c0c0; border-radius: 8px; }"));
-    }
-}
-
-void SelectableImageCard::mousePressEvent(QMouseEvent *event)
-{
-    if (event->button() == Qt::LeftButton) {
-        Q_EMIT clicked();
-    }
-    QFrame::mousePressEvent(event);
-}
-
-void SelectableImageCard::enterEvent(QEnterEvent *event)
-{
-    QFrame::enterEvent(event);
-    Q_EMIT hovered();
-}
-
-void SelectableImageCard::leaveEvent(QEvent *event)
-{
-    QFrame::leaveEvent(event);
-    Q_EMIT unhovered();
-}
-
-// --- Personalization tab ---
-
-void MainWindow::setupTransparencyLevels()
-{
-    m_transparencyLevels = {
-        {
-            QStringLiteral("tongtou"),
-            i18n("Real"),
-            i18n("Glass-like texture, clear and delicate"),
-            3,
-            14,
-            QStringLiteral(":/personalization/data/images/tongtou.png"),
-        },
-        {
-            QStringLiteral("default"),
-            i18n("Default"),
-            i18n("Retains transparency, comfortable balance"),
-            7,
-            14,
-            QStringLiteral(":/personalization/data/images/default.png"),
-        },
-        {
-            QStringLiteral("mosha"),
-            i18n("Soft"),
-            i18n("Blur texture, clear and easy to read"),
-            13,
-            14,
-            QStringLiteral(":/personalization/data/images/mosha.png"),
-        },
-    };
-}
-
-QWidget *MainWindow::buildPersonalizationTab()
-{
-    auto *page = new QWidget;
-    auto *layout = new QVBoxLayout(page);
-    layout->setContentsMargins(0, 0, 0, 0);
-    layout->setSpacing(10);
-
-    auto *group = new QGroupBox(i18n("Interface transparency"), page);
-    auto *groupLayout = new QVBoxLayout(group);
-    groupLayout->setSpacing(16);
-
-    auto *hint = new QLabel(i18n("Choose an interface transparency level. After clicking Apply, it is recommended to log out and log back in for the changes to take effect."), group);
-    hint->setWordWrap(true);
-    groupLayout->addWidget(hint);
-
-    auto *cardsLayout = new QHBoxLayout;
-    cardsLayout->setSpacing(20);
-    cardsLayout->setAlignment(Qt::AlignCenter);
-
-    for (int i = 0; i < m_transparencyLevels.size(); ++i) {
-        const TransparencyLevel &level = m_transparencyLevels[i];
-        auto *card = new SelectableImageCard(level.imageResource, level.name, level.description, group);
-
-        const int index = i;
-        connect(card, &SelectableImageCard::clicked, this, [this, index]() {
-            selectTransparencyCard(index);
-        });
-        connect(card, &SelectableImageCard::hovered, this, [this, index]() {
-            if (m_transparencyDescription) {
-                m_transparencyDescription->setText(m_transparencyLevels[index].description);
-            }
-        });
-        connect(card, &SelectableImageCard::unhovered, this, [this]() {
-            if (m_transparencyDescription && m_selectedTransparencyIndex >= 0
-                && m_selectedTransparencyIndex < m_transparencyLevels.size()) {
-                m_transparencyDescription->setText(m_transparencyLevels[m_selectedTransparencyIndex].description);
-            }
-        });
-
-        m_transparencyCards.append(card);
-        cardsLayout->addWidget(card);
-    }
-
-    groupLayout->addLayout(cardsLayout);
-
-    m_transparencyDescription = new QLabel(group);
-    m_transparencyDescription->setAlignment(Qt::AlignCenter);
-    m_transparencyDescription->setWordWrap(true);
-    m_transparencyDescription->setMinimumHeight(36);
-    QFont descFont = m_transparencyDescription->font();
-    descFont.setPointSize(descFont.pointSize() - 1);
-    m_transparencyDescription->setFont(descFont);
-    groupLayout->addWidget(m_transparencyDescription);
-
-    auto *buttonLayout = new QHBoxLayout;
-    buttonLayout->addStretch();
-    auto *applyButton = new QPushButton(i18n("Apply"), group);
-    applyButton->setMinimumWidth(120);
-    connect(applyButton, &QPushButton::clicked, this, &MainWindow::applyTransparencyLevel);
-    buttonLayout->addWidget(applyButton);
-    buttonLayout->addStretch();
-    groupLayout->addLayout(buttonLayout);
-
-    layout->addWidget(group);
-    layout->addStretch();
-
-    m_selectedTransparencyIndex = detectCurrentTransparencyLevel();
-    selectTransparencyCard(m_selectedTransparencyIndex);
-
-    return page;
-}
-
-void MainWindow::selectTransparencyCard(int index)
-{
-    if (index < 0 || index >= m_transparencyLevels.size()) {
-        return;
-    }
-
-    m_selectedTransparencyIndex = index;
-
-    for (int i = 0; i < m_transparencyCards.size(); ++i) {
-        if (m_transparencyCards[i]) {
-            m_transparencyCards[i]->setSelected(i == index);
-        }
-    }
-
-    if (m_transparencyDescription) {
-        m_transparencyDescription->setText(m_transparencyLevels[index].description);
-    }
-}
-
-int MainWindow::detectCurrentTransparencyLevel() const
-{
-    const QString kwinrcPath = QDir::homePath() + QStringLiteral("/.config/kwinrc");
-    QFile file(kwinrcPath);
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        return 1;
-    }
-
-    bool inBlurSection = false;
-    int blurStrength = -1;
-
-    QTextStream in(&file);
-    while (!in.atEnd()) {
-        const QString line = in.readLine().trimmed();
-        if (line.startsWith(QLatin1Char('[')) && line.endsWith(QLatin1Char(']'))) {
-            inBlurSection = (line.compare(QStringLiteral("[Effect-blur]"), Qt::CaseInsensitive) == 0);
-            continue;
-        }
-        if (inBlurSection && line.startsWith(QStringLiteral("BlurStrength="), Qt::CaseInsensitive)) {
-            blurStrength = line.section(QLatin1Char('='), 1).trimmed().toInt();
-        }
-    }
-    file.close();
-
-    for (int i = 0; i < m_transparencyLevels.size(); ++i) {
-        if (m_transparencyLevels[i].blurStrength == blurStrength) {
-            return i;
-        }
-    }
-    return 1;
-}
-
-void MainWindow::applyTransparencyLevel()
-{
-    if (m_selectedTransparencyIndex < 0 || m_selectedTransparencyIndex >= m_transparencyLevels.size()) {
-        return;
-    }
-
-    const TransparencyLevel &level = m_transparencyLevels[m_selectedTransparencyIndex];
-
-    // Write only BlurStrength through kwriteconfig6 (which uses KConfig
-    // internally). kwriteconfig6 writes to disk and calls KConfig::sync(),
-    // but the D-Bus ConfigChanged notification it emits may not be properly
-    // received by KWin in time. We manually emit the signal below to ensure
-    // KWin's in-memory KConfig cache is invalidated before we reload blur.
-    const QString blurVal = QString::number(level.blurStrength);
-
-    QProcess kwriteConfig;
-    kwriteConfig.start(QStringLiteral("kwriteconfig6"),
-                       {QStringLiteral("--file"), QStringLiteral("kwinrc"),
-                        QStringLiteral("--group"), QStringLiteral("Effect-blur"),
-                        QStringLiteral("--key"), QStringLiteral("BlurStrength"),
-                        blurVal});
-    kwriteConfig.waitForFinished(5000);
-
-    // Manually emit the KConfig D-Bus ConfigChanged signal so that KWin
-    // immediately invalidates its in-memory KConfig cache for the
-    // [Effect-blur] group. Without this, kwriteconfig6's own notification
-    // may not reach KWin in time, causing the blur effect to read stale
-    // cached values when reloaded (requiring a second Apply click).
-    QDBusMessage configChangedMsg = QDBusMessage::createSignal(
-        QStringLiteral("/kwinrc"),
-        QStringLiteral("org.kde.kconfig.notify"),
-        QStringLiteral("ConfigChanged"));
-    configChangedMsg << QStringList{QStringLiteral("Effect-blur")};
-    QDBusConnection::sessionBus().send(configChangedMsg);
-
-    // Process pending D-Bus events so the ConfigChanged signal is actually
-    // dispatched on the wire before we proceed.
-    QCoreApplication::processEvents(QEventLoop::AllEvents, 200);
-
-    // Unload and reload the blur effect to attempt immediate application.
-    // The two commands must run sequentially: first unload, wait for it to
-    // finish, then load.
-    const QString dbusBin = QStandardPaths::findExecutable(QStringLiteral("qdbus-qt6"));
-    const QString dbusToUse = dbusBin.isEmpty() ? QStringLiteral("qdbus") : dbusBin;
-
-    // Step 1: unload the blur effect
-    QProcess unloadProcess;
-    unloadProcess.start(dbusToUse, {
-        QStringLiteral("org.kde.KWin"), QStringLiteral("/Effects"),
-        QStringLiteral("org.kde.kwin.Effects.unloadEffect"), QStringLiteral("blur")
-    });
-    unloadProcess.waitForFinished(5000);
-
-    // Small delay between unload and load to ensure the effect is fully
-    // unloaded before reloading.
-    QThread::msleep(500);
-
-    // Step 2: load the blur effect back
-    QProcess loadProcess;
-    loadProcess.start(dbusToUse, {
-        QStringLiteral("org.kde.KWin"), QStringLiteral("/Effects"),
-        QStringLiteral("org.kde.kwin.Effects.loadEffect"), QStringLiteral("blur")
-    });
-    loadProcess.waitForFinished(5000);
-
-    if (m_bottomStatus) {
-        m_bottomStatus->setText(i18n("Transparency level applied. It is recommended to log out and log back in for the changes to take effect."));
-    }
-    KMessageBox::information(this,
-                             i18n("Interface transparency level has been applied. It is recommended to log out and log back in for the changes to take effect."),
-                             i18n("Apply completed"));
-}

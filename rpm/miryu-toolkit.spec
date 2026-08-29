@@ -1,6 +1,6 @@
 Name:           miryu-toolkit
 Version:        45.0.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Miryu Toolkit
 
 License:        GPL-3.0-or-later
@@ -25,8 +25,6 @@ Requires:       tar
 Requires:       zstd
 Requires:       inxi
 Requires:       lshw
-Requires:       /usr/bin/kwriteconfig6
-Requires:       /usr/bin/qdbus-qt6
 Obsoletes:      evernight-vista-tools < %{version}-%{release}
 
 %description
@@ -77,6 +75,12 @@ additional fonts, plus a system log collection tool.
 %{_qt6_plugindir}/plasma/kcms/systemsettings_qwidgets/kcm_miryu_toolkit.so
 
 %changelog
+* Sat Aug 29 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-14
+- Remove Personalization tab and interface transparency (KWin blur) feature
+- Remove 17 unused translation entries from all 6 .po files
+- Drop kwriteconfig6 and qdbus-qt6 requirements, only used by the blur feature
+- Remove personalization image resources and resources.qrc
+
 * Mon Aug 25 2026 Evernight Vista Team <13278297951@sina.cn> - 45.0.0-13
 - Fix dnf5 history collection error: add missing "list" subcommand
   (dnf5 history --reverse → dnf5 history list --reverse)

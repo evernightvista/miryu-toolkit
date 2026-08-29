@@ -56,9 +56,6 @@ msgstr "安裝補充字型"
 msgid "Install Noto Sans, Noto Serif, monospace and CJK supplemental fonts to improve multilingual display."
 msgstr "安裝 Noto Sans、Noto Serif、等寬和 CJK 補充字型，以改善多語言顯示。"
 
-msgid "Enabled"
-msgstr "啟用"
-
 msgid "Additional components"
 msgstr "額外元件"
 
@@ -106,15 +103,6 @@ msgstr "確認%1"
 
 msgid "%1 completed."
 msgstr "%1完成。"
-
-msgid "Operation completed"
-msgstr "操作完成"
-
-msgid "%1 “%2” failed.\n\n%3"
-msgstr "%1「%2」失敗。\n\n%3"
-
-msgid "Operation failed"
-msgstr "操作失敗"
 
 msgid "Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."
 msgstr "無法啟動 pkexec。請確認系統已安裝 polkit，並從圖形工作階段執行本程式。"
@@ -338,9 +326,6 @@ msgstr "檢查可用更新失敗。詳情請查看日誌視窗。"
 msgid "Check failed"
 msgstr "檢查失敗"
 
-msgid "Unable to start dnf5. Make sure dnf5 is installed."
-msgstr "無法啟動 dnf5。請確認系統已安裝 dnf5。"
-
 msgid "Updating the system with dnf5. Please wait..."
 msgstr "正在使用 dnf5 更新系統。請稍候..."
 
@@ -484,42 +469,6 @@ msgstr "指令已完成（退出碼 %1）。"
 
 msgid "No segfault entries found in the kernel log (dmesg)."
 msgstr "核心日誌（dmesg）中未發現 segfault（段錯誤）記錄。"
-
-msgid "Personalization"
-msgstr "個人化設定"
-
-msgid "Interface transparency"
-msgstr "介面通透"
-
-msgid "Real"
-msgstr "真實"
-
-msgid "Default"
-msgstr "預設"
-
-msgid "Soft"
-msgstr "柔和"
-
-msgid "Glass-like texture, clear and delicate"
-msgstr "玻璃質感，通透細膩"
-
-msgid "Retains transparency, comfortable balance"
-msgstr "保留透明，舒適平衡"
-
-msgid "Blur texture, clear and easy to read"
-msgstr "模糊質感，清晰易讀"
-
-msgid "Choose an interface transparency level. After clicking Apply, it is recommended to log out and log back in for the changes to take effect."
-msgstr "選擇介面通透等級。點擊應用後，推薦登出以應用反映變更。"
-
-msgid "Transparency level applied. It is recommended to log out and log back in for the changes to take effect."
-msgstr "通透等級已套用。推薦登出以應用反映變更。"
-
-msgid "Interface transparency level has been applied. It is recommended to log out and log back in for the changes to take effect."
-msgstr "介面通透等級已套用。推薦登出以應用反映變更。"
-
-msgid "Failed to write kwinrc configuration file."
-msgstr "寫入 kwinrc 設定檔失敗。"
 
 msgid "Miryu Toolkit manages optional Miryu components (Wine, Steam, MIDI playback, extra fonts), system-wide environment variables, and collects system logs."
 msgstr "Miryu 工具箱管理可選的 Miryu 元件（Wine、Steam、MIDI 播放、補充字型）和系統範圍環境變數，並收集系統日誌。"

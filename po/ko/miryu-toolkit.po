@@ -56,9 +56,6 @@ msgstr "추가 글꼴 설치"
 msgid "Install Noto Sans, Noto Serif, monospace and CJK supplemental fonts to improve multilingual display."
 msgstr "다국어 표시를 개선하기 위해 Noto Sans, Noto Serif, 고정폭 및 CJK 보조 글꼴을 설치합니다."
 
-msgid "Enabled"
-msgstr "사용"
-
 msgid "Additional components"
 msgstr "추가 구성 요소"
 
@@ -106,15 +103,6 @@ msgstr "%1 확인"
 
 msgid "%1 completed."
 msgstr "%1 완료."
-
-msgid "Operation completed"
-msgstr "작업 완료"
-
-msgid "%1 “%2” failed.\n\n%3"
-msgstr "%1 “%2” 실패.\n\n%3"
-
-msgid "Operation failed"
-msgstr "작업 실패"
 
 msgid "Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."
 msgstr "pkexec를 시작할 수 없습니다. polkit이 설치되어 있는지 확인하고 그래픽 세션에서 이 프로그램을 실행하세요."
@@ -338,9 +326,6 @@ msgstr "사용 가능한 업데이트 확인에 실패했습니다. 자세한 �
 msgid "Check failed"
 msgstr "확인 실패"
 
-msgid "Unable to start dnf5. Make sure dnf5 is installed."
-msgstr "dnf5를 시작할 수 없습니다. dnf5가 설치되어 있는지 확인하세요."
-
 msgid "Updating the system with dnf5. Please wait..."
 msgstr "dnf5로 시스템을 업데이트하는 중입니다. 잠시만 기다려 주세요..."
 
@@ -484,42 +469,6 @@ msgstr "명령이 완료되었습니다 (종료 코드 %1)."
 
 msgid "No segfault entries found in the kernel log (dmesg)."
 msgstr "커널 로그(dmesg)에서 segfault 항목을 찾을 수 없습니다."
-
-msgid "Personalization"
-msgstr "개인화 설정"
-
-msgid "Interface transparency"
-msgstr "인터페이스 투명도"
-
-msgid "Real"
-msgstr "리얼"
-
-msgid "Default"
-msgstr "기본"
-
-msgid "Soft"
-msgstr "소프트"
-
-msgid "Glass-like texture, clear and delicate"
-msgstr "유리 질감, 투명하고 섬세함"
-
-msgid "Retains transparency, comfortable balance"
-msgstr "투명성을 유지하며 편안한 균형"
-
-msgid "Blur texture, clear and easy to read"
-msgstr "흐릿한 질감, 선명하고 읽기 쉬움"
-
-msgid "Choose an interface transparency level. After clicking Apply, it is recommended to log out and log back in for the changes to take effect."
-msgstr "인터페이스 투명도 수준을 선택하세요. 적용을 클릭한 후, 변경 사항을 적용하려면 로그아웃 후 다시 로그인하는 것을 권장합니다."
-
-msgid "Transparency level applied. It is recommended to log out and log back in for the changes to take effect."
-msgstr "투명도 수준이 적용되었습니다. 변경 사항을 적용하려면 로그아웃 후 다시 로그인하는 것을 권장합니다."
-
-msgid "Interface transparency level has been applied. It is recommended to log out and log back in for the changes to take effect."
-msgstr "인터페이스 투명도 수준이 적용되었습니다. 변경 사항을 적용하려면 로그아웃 후 다시 로그인하는 것을 권장합니다."
-
-msgid "Failed to write kwinrc configuration file."
-msgstr "kwinrc 설정 파일 쓰기에 실패했습니다."
 
 msgid "Miryu Toolkit manages optional Miryu components (Wine, Steam, MIDI playback, extra fonts), system-wide environment variables, and collects system logs."
 msgstr "Miryu Toolkit은 선택적 Miryu 구성 요소(Wine, Steam, MIDI 재생, 추가 글꼴)와 시스템 전체 환경 변수를 관리하고 시스템 로그를 수집합니다."

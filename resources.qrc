@@ -1,7 +1,0 @@
-<RCC>
-    <qresource prefix="/personalization">
-        <file>data/images/tongtou.png</file>
-        <file>data/images/default.png</file>
-        <file>data/images/mosha.png</file>
-    </qresource>
-</RCC>

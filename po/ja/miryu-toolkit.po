@@ -56,9 +56,6 @@ msgstr "追加フォントをインストール"
 msgid "Install Noto Sans, Noto Serif, monospace and CJK supplemental fonts to improve multilingual display."
 msgstr "多言語表示を改善するために Noto Sans、Noto Serif、等幅、CJK 追加フォントをインストールします。"
 
-msgid "Enabled"
-msgstr "有効"
-
 msgid "Additional components"
 msgstr "追加コンポーネント"
 
@@ -106,15 +103,6 @@ msgstr "%1の確認"
 
 msgid "%1 completed."
 msgstr "%1が完了しました。"
-
-msgid "Operation completed"
-msgstr "操作が完了しました"
-
-msgid "%1 “%2” failed.\n\n%3"
-msgstr "%1「%2」に失敗しました。\n\n%3"
-
-msgid "Operation failed"
-msgstr "操作に失敗しました"
 
 msgid "Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."
 msgstr "pkexec を起動できません。polkit がインストールされていることを確認し、グラフィカルセッションからこのプログラムを実行してください。"
@@ -338,9 +326,6 @@ msgstr "利用可能な更新の確認に失敗しました。詳細はログウ
 msgid "Check failed"
 msgstr "確認失敗"
 
-msgid "Unable to start dnf5. Make sure dnf5 is installed."
-msgstr "dnf5 を起動できません。dnf5 がインストールされていることを確認してください。"
-
 msgid "Updating the system with dnf5. Please wait..."
 msgstr "dnf5 でシステムを更新しています。お待ちください..."
 
@@ -484,42 +469,6 @@ msgstr "コマンドが完了しました（終了コード %1）。"
 
 msgid "No segfault entries found in the kernel log (dmesg)."
 msgstr "カーネルログ（dmesg）に segfault エントリは見つかりませんでした。"
-
-msgid "Personalization"
-msgstr "パーソナライズ設定"
-
-msgid "Interface transparency"
-msgstr "インターフェース透過"
-
-msgid "Real"
-msgstr "リアル"
-
-msgid "Default"
-msgstr "デフォルト"
-
-msgid "Soft"
-msgstr "ソフト"
-
-msgid "Glass-like texture, clear and delicate"
-msgstr "ガラス質感、透明で繊細"
-
-msgid "Retains transparency, comfortable balance"
-msgstr "透明性を保ち、快適なバランス"
-
-msgid "Blur texture, clear and easy to read"
-msgstr "ぼかし質感、明瞭で読みやすい"
-
-msgid "Choose an interface transparency level. After clicking Apply, it is recommended to log out and log back in for the changes to take effect."
-msgstr "インターフェース透過レベルを選択してください。「適用」をクリックした後、変更を反映するためにログアウトして再ログインすることをお勧めします。"
-
-msgid "Transparency level applied. It is recommended to log out and log back in for the changes to take effect."
-msgstr "透過レベルが適用されました。変更を反映するためにログアウトして再ログインすることをお勧めします。"
-
-msgid "Interface transparency level has been applied. It is recommended to log out and log back in for the changes to take effect."
-msgstr "インターフェース透過レベルが適用されました。変更を反映するためにログアウトして再ログインすることをお勧めします。"
-
-msgid "Failed to write kwinrc configuration file."
-msgstr "kwinrc 設定ファイルの書き込みに失敗しました。"
 
 msgid "Miryu Toolkit manages optional Miryu components (Wine, Steam, MIDI playback, extra fonts), system-wide environment variables, and collects system logs."
 msgstr "Miryu Toolkit はオプションの Miryu コンポーネント（Wine、Steam、MIDI 再生、追加フォント）とシステム全体の環境変数を管理し、システムログを収集します。"

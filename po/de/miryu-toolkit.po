@@ -56,9 +56,6 @@ msgstr "Zusätzliche Schriften installieren"
 msgid "Install Noto Sans, Noto Serif, monospace and CJK supplemental fonts to improve multilingual display."
 msgstr "Noto Sans, Noto Serif, Monospace- und CJK-Zusatzschriften installieren, um die mehrsprachige Darstellung zu verbessern."
 
-msgid "Enabled"
-msgstr "Aktiviert"
-
 msgid "Additional components"
 msgstr "Zusätzliche Komponenten"
 
@@ -106,15 +103,6 @@ msgstr "%1 bestätigen"
 
 msgid "%1 completed."
 msgstr "%1 abgeschlossen."
-
-msgid "Operation completed"
-msgstr "Vorgang abgeschlossen"
-
-msgid "%1 “%2” failed.\n\n%3"
-msgstr "%1 „%2“ ist fehlgeschlagen.\n\n%3"
-
-msgid "Operation failed"
-msgstr "Vorgang fehlgeschlagen"
 
 msgid "Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."
 msgstr "pkexec kann nicht gestartet werden. Stellen Sie sicher, dass polkit installiert ist, und starten Sie dieses Programm aus einer grafischen Sitzung."
@@ -338,9 +326,6 @@ msgstr "Prüfung auf verfügbare Updates fehlgeschlagen. Details im Protokollfen
 msgid "Check failed"
 msgstr "Prüfung fehlgeschlagen"
 
-msgid "Unable to start dnf5. Make sure dnf5 is installed."
-msgstr "dnf5 kann nicht gestartet werden. Stellen Sie sicher, dass dnf5 installiert ist."
-
 msgid "Updating the system with dnf5. Please wait..."
 msgstr "Das System wird mit dnf5 aktualisiert. Bitte warten..."
 
@@ -484,42 +469,6 @@ msgstr "Befehl abgeschlossen (Exit-Code %1)."
 
 msgid "No segfault entries found in the kernel log (dmesg)."
 msgstr "Keine Segfault-Einträge im Kernel-Protokoll (dmesg) gefunden."
-
-msgid "Personalization"
-msgstr "Personalisierung"
-
-msgid "Interface transparency"
-msgstr "Oberflächentransparenz"
-
-msgid "Real"
-msgstr "Real"
-
-msgid "Default"
-msgstr "Standard"
-
-msgid "Soft"
-msgstr "Weich"
-
-msgid "Glass-like texture, clear and delicate"
-msgstr "Glasartige Textur, klar und fein"
-
-msgid "Retains transparency, comfortable balance"
-msgstr "Behält Transparenz, komfortable Balance"
-
-msgid "Blur texture, clear and easy to read"
-msgstr "Verschwommene Textur, klar und gut lesbar"
-
-msgid "Choose an interface transparency level. After clicking Apply, it is recommended to log out and log back in for the changes to take effect."
-msgstr "Wählen Sie eine Transparenzstufe der Oberfläche. Nach dem Klicken auf Anwenden wird empfohlen, sich ab- und wieder anzumelden, damit die Änderungen wirksam werden."
-
-msgid "Transparency level applied. It is recommended to log out and log back in for the changes to take effect."
-msgstr "Transparenzstufe angewendet. Es wird empfohlen, sich ab- und wieder anzumelden, damit die Änderungen wirksam werden."
-
-msgid "Interface transparency level has been applied. It is recommended to log out and log back in for the changes to take effect."
-msgstr "Die Oberflächentransparenzstufe wurde angewendet. Es wird empfohlen, sich ab- und wieder anzumelden, damit die Änderungen wirksam werden."
-
-msgid "Failed to write kwinrc configuration file."
-msgstr "Fehler beim Schreiben der kwinrc-Konfigurationsdatei."
 
 msgid "Miryu Toolkit manages optional Miryu components (Wine, Steam, MIDI playback, extra fonts), system-wide environment variables, and collects system logs."
 msgstr "Miryu Toolkit verwaltet optionale Miryu-Komponenten (Wine, Steam, MIDI-Wiedergabe, zusätzliche Schriften), systemweite Umgebungsvariablen und sammelt Systemprotokolle."
