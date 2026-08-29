@@ -25,8 +25,6 @@ Requires:       tar
 Requires:       zstd
 Requires:       inxi
 Requires:       lshw
-Requires:       /usr/bin/kwriteconfig6
-Requires:       /usr/bin/qdbus-qt6
 Obsoletes:      evernight-vista-tools
 
 %description
