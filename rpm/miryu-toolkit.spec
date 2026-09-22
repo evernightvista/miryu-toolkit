@@ -1,6 +1,6 @@
 Name:           miryu-toolkit
 Version:        45.0.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Miryu Toolkit
 
 License:        GPL-3.0-or-later
@@ -81,6 +81,9 @@ boot menu configuration tool with kernel parameter management.
 
 
 %changelog
+* Tue Sep 22 2026 KairikiFedora <13278297951@sina.cn> - 45.0.0-12
+- Fix KCM not translate
+
 * Tue Sep 22 2026 KairikiFedora <13278297951@sina.cn> - 45.0.0-11
 - Merge miryu-grub-config GUI into Miryu System Assistant tab as a new
   "Boot Menu" section with GRUB2 boot menu and kernel parameter controls
