@@ -10,474 +10,469 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
 msgid "Miryu Toolkit"
 msgstr "Boîte à outils Miryu"
-
 msgid "Miryu system utility toolkit"
 msgstr "Boîte à outils système Miryu"
-
 msgid "(c) 2026 Miryu"
 msgstr "(c) 2026 Miryu"
-
 msgid "Manage Miryu components, maintenance tasks and system-wide environment variables in one place."
 msgstr "Gérez les composants Miryu, les tâches de maintenance et les variables d'environnement système au même endroit."
-
 msgid "System-wide environment variables"
 msgstr "Variables d'environnement système"
-
 msgid "Ready"
 msgstr "Prêt"
-
 msgid "Refresh status"
 msgstr "Actualiser l'état"
-
 msgid "Install Wine"
 msgstr "Installer Wine"
-
 msgid "Install Wine, DXVK, Winetricks and WineASIO for running Windows programs and some audio workflows."
 msgstr "Installe Wine, DXVK, Winetricks et WineASIO pour exécuter des programmes Windows et certains flux de travail audio."
-
 msgid "Install Steam"
 msgstr "Installer Steam"
-
 msgid "Install the Steam client. Steam will download update files on first launch."
 msgstr "Installe le client Steam. Steam téléchargera les fichiers de mise à jour au premier lancement."
-
 msgid "Install MIDI playback support"
 msgstr "Installer la prise en charge de la lecture MIDI"
-
 msgid "Install the FluidSynth GStreamer plugin to enable MIDI file playback support."
 msgstr "Installe le greffon GStreamer FluidSynth pour activer la lecture des fichiers MIDI."
-
 msgid "Install additional fonts"
 msgstr "Installer des polices supplémentaires"
-
 msgid "Install Noto Sans, Noto Serif, monospace and CJK supplemental fonts to improve multilingual display."
 msgstr "Installe Noto Sans, Noto Serif, des polices monospace et des polices CJK supplémentaires pour améliorer l'affichage multilingue."
-
 msgid "Additional components"
 msgstr "Composants supplémentaires"
-
 msgid "Status: checking"
 msgstr "État : vérification"
-
 msgid "Packages: %1"
 msgstr "Paquets : %1"
-
 msgid "Install"
 msgstr "Installer"
-
 msgid "Uninstall"
 msgstr "Désinstaller"
-
 msgid "Environment variables"
 msgstr "Variables d'environnement"
-
 msgid "Set system-wide environment variables using the NAME=VALUE format. Changes are written to /etc/environment and take effect after logging in again."
 msgstr "Définissez les variables d'environnement système au format NOM=VALEUR. Les changements sont écrits dans /etc/environment et prennent effet après reconnexion."
-
 msgid "Edit"
 msgstr "Modifier"
-
 msgid "Reload"
 msgstr "Recharger"
-
 msgid "Apply"
 msgstr "Appliquer"
-
 msgid "Log out and log back in for changes to take effect."
 msgstr "Déconnectez-vous puis reconnectez-vous pour appliquer les changements."
-
 msgid "Status: installed"
 msgstr "État : installé"
-
 msgid "Status: partially installed (%1/%2)"
 msgstr "État : partiellement installé (%1/%2)"
-
 msgid "Status: not installed"
 msgstr "État : non installé"
-
 msgid "Confirm %1"
 msgstr "Confirmer %1"
-
 msgid "%1 completed."
 msgstr "%1 terminé."
-
 msgid "Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."
 msgstr "Impossible de démarrer pkexec. Assurez-vous que polkit est installé et lancez ce programme depuis une session graphique."
-
 msgid "%1 failed"
 msgstr "Échec de %1"
-
 msgid "Unable to read /etc/environment. You can add variables and apply them later."
 msgstr "Impossible de lire /etc/environment. Vous pouvez ajouter des variables et les appliquer plus tard."
-
 msgid "/etc/environment has been loaded. Log out and log back in for changes to take effect."
 msgstr "/etc/environment a été chargé. Déconnectez-vous puis reconnectez-vous pour appliquer les changements."
-
 msgid "Add environment variable"
 msgstr "Ajouter une variable d'environnement"
-
 msgid "Variable (NAME=VALUE):"
 msgstr "Variable (NOM=VALEUR) :"
-
 msgid "Invalid format"
 msgstr "Format invalide"
-
 msgid "Select an environment variable first."
 msgstr "Sélectionnez d'abord une variable d'environnement."
-
 msgid "No item selected"
 msgstr "Aucun élément sélectionné"
-
 msgid "Edit environment variable"
 msgstr "Modifier la variable d'environnement"
-
 msgid "Unable to create a temporary file."
 msgstr "Impossible de créer un fichier temporaire."
-
 msgid "Apply failed"
 msgstr "Échec de l'application"
-
 msgid "Saved to /etc/environment. Log out and log back in for changes to take effect."
 msgstr "Enregistré dans /etc/environment. Déconnectez-vous puis reconnectez-vous pour appliquer les changements."
-
 msgid "System-wide environment variables have been saved. Log out and log back in for changes to take effect."
 msgstr "Les variables d'environnement système ont été enregistrées. Déconnectez-vous puis reconnectez-vous pour appliquer les changements."
-
 msgid "Apply completed"
 msgstr "Application terminée"
-
 msgid "Writing /etc/environment failed.\n\n%1"
 msgstr "Échec de l'écriture dans /etc/environment.\n\n%1"
-
 msgid "Environment variables must use the NAME=VALUE format. NAME may only contain letters, digits and underscores, and must not start with a digit."
 msgstr "Les variables d'environnement doivent utiliser le format NOM=VALEUR. NOM ne peut contenir que des lettres, des chiffres et des tirets bas, et ne doit pas commencer par un chiffre."
-
 msgid "A single environment variable must not contain line breaks."
 msgstr "Une variable d'environnement ne doit pas contenir de sauts de ligne."
-
 msgid "Restore defaults"
 msgstr "Restaurer les valeurs par défaut"
-
 msgid "DNF5 details: %1"
 msgstr "Détails DNF5 : %1"
-
 msgid "Detailed dnf5 installation log:"
 msgstr "Journal détaillé de l'installation dnf5 :"
-
 msgid "Starting privileged package helper..."
 msgstr "Démarrage de l'assistant de paquets privilégié..."
-
 msgid "%1 “%2” failed."
 msgstr "Échec de %1 « %2 »."
-
 msgid "Do you want to %1 “%2”?\n\nThe package helper will run: dnf5 %3 -y %4"
 msgstr "Voulez-vous %1 « %2 » ?\n\nL'assistant de paquets exécutera : dnf5 %3 -y %4"
-
 msgid "Restore the default system-wide environment variables?"
 msgstr "Restaurer les variables d'environnement système par défaut ?"
-
 msgid "Default system-wide environment variables have been restored. Log out and log back in for changes to take effect."
 msgstr "Les variables d'environnement système par défaut ont été restaurées. Déconnectez-vous puis reconnectez-vous pour appliquer les changements."
-
 msgid "Defaults restored"
 msgstr "Valeurs par défaut restaurées"
-
 msgid "Restoring default system-wide environment variables failed.\n\n%1"
 msgstr "Échec de la restauration des variables d'environnement système par défaut.\n\n%1"
-
 msgid "Restore failed"
 msgstr "Échec de la restauration"
-
 msgid "Collect system logs"
 msgstr "Collecter les journaux système"
-
 msgid "Collecting system logs..."
 msgstr "Collecte des journaux système..."
-
 msgid "Collecting system logs"
 msgstr "Collecte des journaux système"
-
 msgid "Collecting system information and logs. This may take a moment..."
 msgstr "Collecte des informations et journaux système. Cela peut prendre un moment..."
-
 msgid "Starting privileged log collection helper..."
 msgstr "Démarrage de l'assistant de collecte de journaux privilégié..."
-
 msgid "System logs collected: %1"
 msgstr "Journaux système collectés : %1"
-
 msgid "Collection completed. Archive saved to: %1"
 msgstr "Collecte terminée. Archive enregistrée dans : %1"
-
 msgid "System logs have been collected and saved to:\n%1"
 msgstr "Les journaux système ont été collectés et enregistrés dans :\n%1"
-
 msgid "Collection completed"
 msgstr "Collecte terminée"
-
 msgid "Log collection failed."
 msgstr "Échec de la collecte des journaux."
-
 msgid "Failed to collect system logs. See the log window for details."
 msgstr "Échec de la collecte des journaux système. Consultez la fenêtre de journal pour plus de détails."
-
 msgid "Collection failed"
 msgstr "Échec de la collecte"
-
 msgid "About"
 msgstr "À propos"
-
 msgid "Project links"
 msgstr "Liens du projet"
-
 msgid "Miryu Toolkit (Project Repository)"
 msgstr "Miryu Toolkit (Dépôt du projet)"
-
 msgid "Clean up previous kernel"
 msgstr "Nettoyer le noyau précédent"
-
 msgid "Remove previous kernel versions? This will run: dnf-3 remove --oldinstallonly"
 msgstr "Supprimer les versions précédentes du noyau ? Cela exécutera : dnf-3 remove --oldinstallonly"
-
 msgid "Clean up"
 msgstr "Nettoyer"
-
 msgid "Cleaning up previous kernel..."
 msgstr "Nettoyage du noyau précédent..."
-
 msgid "Kernel cleanup log"
 msgstr "Journal de nettoyage du noyau"
-
 msgid "Removing previous kernel versions via dnf-3..."
 msgstr "Suppression des versions précédentes du noyau via dnf-3..."
-
 msgid "Starting privileged kernel cleanup helper..."
 msgstr "Démarrage de l'assistant de nettoyage du noyau privilégié..."
-
 msgid "Kernel cleanup completed."
 msgstr "Nettoyage du noyau terminé."
-
 msgid "Previous kernel versions have been cleaned up."
 msgstr "Les versions précédentes du noyau ont été nettoyées."
-
 msgid "Cleanup completed"
 msgstr "Nettoyage terminé"
-
 msgid "Kernel cleanup failed."
 msgstr "Le nettoyage du noyau a échoué."
-
 msgid "Failed to clean up previous kernel versions. See the log window for details."
 msgstr "Le nettoyage des versions précédentes du noyau a échoué. Consultez la fenêtre de journal pour plus de détails."
-
 msgid "Cleanup failed"
 msgstr "Échec du nettoyage"
-
 msgid "Update system"
 msgstr "Mettre à jour le système"
-
 msgid "Checking for available updates..."
 msgstr "Vérification des mises à jour disponibles..."
-
 msgid "System update"
 msgstr "Mise à jour du système"
-
 msgid "Checking for available updates with dnf5. This may take a moment..."
 msgstr "Vérification des mises à jour disponibles avec dnf5. Cela peut prendre un moment..."
-
 msgid "Running: dnf5 check-update --refresh"
 msgstr "Exécution : dnf5 check-update --refresh"
-
 msgid "Authentication was canceled."
 msgstr "L'authentification a été annulée."
-
 msgid "Available updates detected."
 msgstr "Des mises à jour disponibles ont été détectées."
-
 msgid "Updates are available."
 msgstr "Des mises à jour sont disponibles."
-
 msgid "dnf5 detected available updates. Do you want to update the system now?"
 msgstr "dnf5 a détecté des mises à jour disponibles. Voulez-vous mettre à jour le système maintenant ?"
-
 msgid "Update"
 msgstr "Mettre à jour"
-
 msgid "Update cancelled."
 msgstr "Mise à jour annulée."
-
 msgid "Your system is already up to date."
 msgstr "Votre système est déjà à jour."
-
 msgid "No updates"
 msgstr "Aucune mise à jour"
-
 msgid "Failed to check for updates."
 msgstr "Échec de la vérification des mises à jour."
-
 msgid "Update check failed."
 msgstr "Échec de la vérification des mises à jour."
-
 msgid "Failed to check for available updates. See the log window for details."
 msgstr "Échec de la vérification des mises à jour disponibles. Consultez la fenêtre de journal pour plus de détails."
-
 msgid "Check failed"
 msgstr "Échec de la vérification"
-
 msgid "Updating the system with dnf5. Please wait..."
 msgstr "Mise à jour du système avec dnf5. Veuillez patienter..."
-
 msgid "Starting privileged system update helper..."
 msgstr "Démarrage de l'assistant de mise à jour système privilégié..."
-
 msgid "Running: dnf5 update --refresh"
 msgstr "Exécution : dnf5 update --refresh"
-
 msgid "System update completed."
 msgstr "Mise à jour du système terminée."
-
 msgid "The system has been updated successfully."
 msgstr "Le système a été mis à jour avec succès."
-
 msgid "Update completed"
 msgstr "Mise à jour terminée"
-
 msgid "System update failed."
 msgstr "Échec de la mise à jour du système."
-
 msgid "Failed to update the system. See the log window for details."
 msgstr "Échec de la mise à jour du système. Consultez la fenêtre de journal pour plus de détails."
-
 msgid "Update failed"
 msgstr "Échec de la mise à jour"
-
 msgid "Miryu System Assistant"
 msgstr "Assistant système Miryu"
-
 msgid "Install additional components"
 msgstr "Installer des composants supplémentaires"
-
 msgid "List failed systemd service units"
 msgstr "Lister les unités de service systemd échouées"
-
 msgid "Unlock RPM database"
 msgstr "Déverrouiller la base de données RPM"
-
 msgid "View dnf5 log"
 msgstr "Afficher le journal dnf5"
-
 msgid "Clean unused packages (dnf5 autoremove)"
 msgstr "Nettoyer les paquets inutilisés (dnf5 autoremove)"
-
 msgid "View software crash information"
 msgstr "Afficher les informations de plantage logiciel"
-
 msgid "Failed systemd service units"
 msgstr "Unités de service systemd échouées"
-
 msgid "Listing failed systemd service units..."
 msgstr "Liste des unités de service systemd échouées..."
-
 msgid "Running: systemctl --failed --no-pager"
 msgstr "Exécution : systemctl --failed --no-pager"
-
 msgid "Command completed."
 msgstr "Commande terminée."
-
 msgid "Command failed (exit code %1)."
 msgstr "Échec de la commande (code de sortie %1)."
-
 msgid "Unable to start systemctl."
 msgstr "Impossible de démarrer systemctl."
-
 msgid "Before unlocking the RPM database, please check whether dnf5 and dnf5daemon-server have completed their transactions.\n\nAre you sure you want to unlock the RPM database?"
 msgstr "Avant de déverrouiller la base de données RPM, veuillez vérifier que dnf5 et dnf5daemon-server ont terminé leurs transactions.\n\nÊtes-vous sûr de vouloir déverrouiller la base de données RPM ?"
-
 msgid "Unlock"
 msgstr "Déverrouiller"
-
 msgid "Unlocking RPM database..."
 msgstr "Déverrouillage de la base de données RPM..."
-
 msgid "RPM database has been unlocked."
 msgstr "La base de données RPM a été déverrouillée."
-
 msgid "Unlock completed"
 msgstr "Déverrouillage terminé"
-
 msgid "Failed to unlock RPM database."
 msgstr "Échec du déverrouillage de la base de données RPM."
-
 msgid "Failed to unlock the RPM database."
 msgstr "Échec du déverrouillage de la base de données RPM."
-
 msgid "Unlock failed"
 msgstr "Échec du déverrouillage"
-
 msgid "The dnf5 log file does not exist at %1."
 msgstr "Le fichier journal dnf5 n'existe pas à %1."
-
 msgid "File not found"
 msgstr "Fichier introuvable"
-
 msgid "Clean unused packages"
 msgstr "Nettoyer les paquets inutilisés"
-
 msgid "Removing unused dependency packages with dnf5 autoremove..."
 msgstr "Suppression des paquets de dépendances inutilisés avec dnf5 autoremove..."
-
 msgid "Starting privileged dnf5 autoremove helper..."
 msgstr "Démarrage du helper privilégié dnf5 autoremove..."
-
 msgid "Running: dnf5 autoremove --assumeyes"
 msgstr "Exécution : dnf5 autoremove --assumeyes"
-
 msgid "Cleanup completed."
 msgstr "Nettoyage terminé."
-
 msgid "Unused packages cleanup completed."
 msgstr "Nettoyage des paquets inutilisés terminé."
-
 msgid "Unused packages have been cleaned up."
 msgstr "Les paquets inutilisés ont été nettoyés."
-
 msgid "Cleanup failed."
 msgstr "Échec du nettoyage."
-
 msgid "Unused packages cleanup failed."
 msgstr "Échec du nettoyage des paquets inutilisés."
-
 msgid "Failed to clean up unused packages. See the log window for details."
 msgstr "Échec du nettoyage des paquets inutilisés. Voir la fenêtre de journal pour plus de détails."
-
 msgid "Cleaning unused packages..."
 msgstr "Nettoyage des paquets inutilisés..."
-
 msgid "Software crash information"
 msgstr "Informations de plantage logiciel"
-
 msgid "Showing software crash information (dmesg | grep segfault)..."
 msgstr "Affichage des informations de plantage logiciel (dmesg | grep segfault)..."
-
 msgid "Running: dmesg 2>&1 | grep -i segfault"
 msgstr "Exécution : dmesg 2>&1 | grep -i segfault"
-
 msgid "Command completed (exit code %1)."
 msgstr "Commande terminée (code de sortie %1)."
-
 msgid "No segfault entries found in the kernel log (dmesg)."
 msgstr "Aucune entrée de segfault trouvée dans le journal du noyau (dmesg)."
+msgid "Boot Menu"
+msgstr "Menu de démarrage"
+msgid "Show boot menu"
+msgstr "Afficher le menu de démarrage"
+msgid "Show the GRUB menu before starting the default system."
+msgstr "Afficher le menu GRUB avant de démarrer le système par défaut."
+msgid "Delay before booting"
+msgstr "Délai avant le démarrage"
+msgid " seconds"
+msgstr " secondes"
+msgid "wait indefinitely"
+msgstr "attendre indéfiniment"
+msgid "Use -1 to wait until a menu entry is selected."
+msgstr "Utilisez -1 pour attendre jusqu'à la sélection d'une entrée de menu."
+msgid "Remember last selected entry as the default"
+msgstr "Mémoriser la dernière entrée sélectionnée comme valeur par défaut"
+msgid "Kernel Parameters"
+msgstr "Paramètres du noyau"
+msgid "Current kernel command line"
+msgstr "Ligne de commande actuelle du noyau"
+msgid "Custom parameters written by this tool"
+msgstr "Paramètres personnalisés écrits par cet outil"
+msgid "Remove"
+msgstr "Supprimer"
+msgid "Up"
+msgstr "Monter"
+msgid "Down"
+msgstr "Descendre"
+msgid "New parameter"
+msgstr "Nouveau paramètre"
+msgid "Example: nomodeset"
+msgstr "Exemple : nomodeset"
+msgid "Add"
+msgstr "Ajouter"
+msgid "Saving requires administrator authentication through polkit."
+msgstr "L'enregistrement nécessite une authentification administrateur via polkit."
+msgid "Save GRUB2 Settings"
+msgstr "Enregistrer les paramètres GRUB2"
+msgid "Could not load the GRUB configuration."
+msgstr "Impossible de charger la configuration GRUB."
+msgid "Empty Parameter"
+msgstr "Paramètre vide"
+msgid "Enter one kernel parameter first."
+msgstr "Veuillez d'abord saisir un paramètre du noyau."
+msgid "Invalid Parameter"
+msgstr "Paramètre invalide"
+msgid "Add one parameter at a time. Spaces are not allowed."
+msgstr "Ajoutez un seul paramètre à la fois. Les espaces ne sont pas autorisés."
+msgid "Use only letters, numbers, and these characters: _ . / : = , + @ % -"
+msgstr "Utilisez uniquement des lettres, des chiffres et ces caractères : _ . / : = , + @ % -"
+msgid "Duplicate Parameter"
+msgstr "Paramètre en double"
+msgid "The parameter \xe2\x80\x9c%1\xe2\x80\x9d already exists."
+msgstr "Le paramètre \xe2\x80\x9c%1\xe2\x80\x9d existe déjà."
+msgid "Edit Parameter"
+msgstr "Modifier le paramètre"
+msgid "Parameter"
+msgstr "Paramètre"
+msgid "Save Failed"
+msgstr "Échec de l'enregistrement"
+msgid "Could not create a temporary configuration file."
+msgstr "Impossible de créer un fichier de configuration temporaire."
+msgid "Helper Not Found"
+msgstr "Assistant introuvable"
+msgid ""
+"The privileged helper was not found at:\n"
+"%1\n"
+"\n"
+"Install the project before saving GRUB2 settings."
+msgstr ""
+"L'assistant privilégié est introuvable à l'emplacement :\n"
+"%1\n"
+"\n"
+"Installez le projet avant d'enregistrer les paramètres GRUB2."
+msgid "GRUB2 settings saved. Reboot to use the new boot menu."
+msgstr "Paramètres GRUB2 enregistrés. Redémarrez pour utiliser le nouveau menu de démarrage."
+msgid "Saved"
+msgstr "Enregistré"
+msgid "GRUB2 settings were saved and grub2-mkconfig completed successfully."
+msgstr "Les paramètres GRUB2 ont été enregistrés et grub2-mkconfig s'est terminé avec succès."
+# Helper messages
+msgid "Usage: miryu-toolkit-grub-config-helper --apply <generated-config-file>"
+msgstr "Utilisation : miryu-toolkit-grub-config-helper --apply <fichier-de-configuration-généré>"
+msgid "This helper must run as root through polkit."
+msgstr "Cet assistant doit être exécuté en tant que root via polkit."
+msgid "Could not read the generated configuration file."
+msgstr "Impossible de lire le fichier de configuration généré."
+msgid "The input file was not generated by Miryu GRUB2 Boot Config."
+msgstr "Le fichier d'entrée n'a pas été généré par Miryu GRUB2 Boot Config."
+msgid "GRUB_TIMEOUT must be between -1 and 3600."
+msgstr "GRUB_TIMEOUT doit être compris entre -1 et 3600."
+msgid "Unsupported or unsafe configuration line: %1"
+msgstr "Ligne de configuration non prise en charge ou non sécurisée : %1"
+msgid "The configuration is incomplete."
+msgstr "La configuration est incomplète."
+msgid "Could not open %1 for writing."
+msgstr "Impossible d'ouvrir %1 en écriture."
+msgid "Could not atomically replace %1."
+msgstr "Impossible de remplacer %1 de manière atomique."
+msgid "Warning: could not remove the old drop-in file %1."
+msgstr "Avertissement : impossible de supprimer l'ancien fichier drop-in %1."
+msgid "Could not apply new kernel parameters to BLS entries."
+msgstr "Impossible d'appliquer les nouveaux paramètres du noyau aux entrées BLS."
+msgid "Could not remove old kernel parameters from BLS entries."
+msgstr "Impossible de supprimer les anciens paramètres du noyau des entrées BLS."
+msgid "grub2-mkconfig timed out."
+msgstr "grub2-mkconfig a expiré."
+msgid "grub2-mkconfig failed."
+msgstr "grub2-mkconfig a échoué."
+msgid "GRUB2 configuration updated."
+msgstr "Configuration GRUB2 mise à jour."
+msgid "Reading configuration file..."
+msgstr "Lecture du fichier de configuration..."
+msgid "Parsing configuration..."
+msgstr "Analyse de la configuration..."
+msgid "Reading existing %1..."
+msgstr "Lecture de %1 existant..."
+msgid "Writing %1..."
+msgstr "Écriture de %1..."
+msgid "Updating BLS entries..."
+msgstr "Mise à jour des entrées BLS..."
+msgid "Regenerating GRUB configuration..."
+msgstr "Régénération de la configuration GRUB..."
+msgid "Applying GRUB2 Settings"
+msgstr "Application des paramètres GRUB2"
+msgid "GRUB2 settings saved successfully."
+msgstr "Les paramètres GRUB2 ont été enregistrés avec succès."
+msgid "GRUB2 settings save failed."
+msgstr "Échec de l'enregistrement des paramètres GRUB2."
+msgid "Save failed."
+msgstr "Échec de l'enregistrement."
+msgid "Could not start the privileged helper. Make sure polkit is installed and run this program from a graphical session."
+msgstr "Impossible de démarrer l'assistant privilégié. Assurez-vous que polkit est installé et exécutez ce programme depuis une session graphique."
+msgid "%1 “%2” failed. See the log window for details."
+msgstr "%1 « %2 » a échoué. Consultez la fenêtre de journal pour plus de détails."
 
-msgid "Miryu Toolkit manages optional Miryu components (Wine, Steam, MIDI playback, extra fonts), system-wide environment variables, and collects system logs."
-msgstr "Miryu Toolkit gère les composants Miryu optionnels (Wine, Steam, lecture MIDI, polices supplémentaires), les variables d’environnement système et collecte les journaux système."
+msgid "Authentication canceled"
+msgstr "Authentification annulée"
 
-msgid "Relaunch Miryu Toolkit"
-msgstr "Relancer Miryu Toolkit"
+msgid "Authentication was canceled. No updates were checked or installed."
+msgstr "L'authentification a été annulée. Aucune mise à jour n'a été vérifiée ou installée."
 
-msgid "Miryu Toolkit is an external application and has been automatically launched."
-msgstr "Miryu Toolkit est une application externe et a été lancée automatiquement."
+msgid "Close"
+msgstr "Fermer"
 
-msgid "Could not launch Miryu Toolkit. Make sure it is installed."
-msgstr "Impossible de lancer Miryu Toolkit. Assurez-vous qu'il est installé."
+msgid "Completed"
+msgstr "Terminé"
+
+msgid "Could not save and regenerate GRUB2 configuration."
+msgstr "Impossible d'enregistrer et de régénérer la configuration GRUB2."
+
+msgid "Failed"
+msgstr "Échec"
+
+msgid "Waiting for administrator authentication..."
+msgstr "En attente de l'authentification de l'administrateur..."
+msgid "Cancel update"
+msgstr "Annuler la mise à jour"
+msgid "Cancelling..."
+msgstr "Annulation..."

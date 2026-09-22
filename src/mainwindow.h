@@ -1,18 +1,25 @@
 #pragma once
 
+#include "grubconfig.h"
+
 #include <QLabel>
 #include <QListWidget>
 #include <QMainWindow>
 #include <QMap>
 #include <QPlainTextEdit>
+#include <QPointer>
 #include <QProcess>
 #include <QPushButton>
 #include <QTabWidget>
 #include <QVector>
 
+class QCheckBox;
 class QDialog;
 class QDialogButtonBox;
+class QLineEdit;
 class QPlainTextEdit;
+class QSpinBox;
+class QTextEdit;
 
 struct ExtraComponent
 {
@@ -64,14 +71,31 @@ private:
     void collectSystemLogs();
     void cleanupOldKernel();
     void updateSystem();
-    void startPrivilegedSystemUpdate(QDialog *logDialog, QPlainTextEdit *logView,
-                                     QDialogButtonBox *closeButtons);
+    void startPrivilegedSystemUpdate(QDialog *logDialog, QPlainTextEdit *logView);
     void listFailedServices();
     void unlockRpmDatabase();
     void viewDnf5Log();
     void cleanupUnusedPackages();
     void viewCrashInfo();
     static QString currentUserName();
+
+    // ── Boot Menu (GRUB2) tab ──
+    QWidget *buildBootMenuTab();
+    QWidget *buildBootMenuSection();
+    void loadGrubConfig();
+    void updateGrubUiFromConfig();
+    void onSaveGrubClicked();
+    void onAddGrubParam();
+    void onRemoveGrubParam();
+    void onEditGrubParam();
+    void onMoveGrubUp();
+    void onMoveGrubDown();
+    void refreshGrubActionButtons();
+    QStringList grubParameterList() const;
+    void setGrubParameterList(const QStringList &params);
+    bool validateGrubParameter(const QString &param, int ignoredRow = -1);
+    QString resolveGrubHelperPath() const;
+    void setGrubBusy(bool busy);
 
     QTabWidget *m_tabs = nullptr;
     QVector<ExtraComponent> m_components;
@@ -81,4 +105,20 @@ private:
     QListWidget *m_environmentList = nullptr;
     QLabel *m_environmentStatus = nullptr;
     QLabel *m_bottomStatus = nullptr;
+
+    // GRUB Boot Menu members
+    QPointer<GrubConfig> m_grubConfig;
+    QCheckBox *m_grubShowMenuCheck = nullptr;
+    QSpinBox *m_grubDelaySpin = nullptr;
+    QCheckBox *m_grubRememberCheck = nullptr;
+    QTextEdit *m_grubCurrentParamsDisplay = nullptr;
+    QListWidget *m_grubParamListWidget = nullptr;
+    QLineEdit *m_grubNewParamEdit = nullptr;
+    QPushButton *m_grubAddParamButton = nullptr;
+    QPushButton *m_grubRemoveParamButton = nullptr;
+    QPushButton *m_grubEditParamButton = nullptr;
+    QPushButton *m_grubMoveUpButton = nullptr;
+    QPushButton *m_grubMoveDownButton = nullptr;
+    QLabel *m_grubStatusLabel = nullptr;
+    QPushButton *m_grubSaveButton = nullptr;
 };

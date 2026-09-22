@@ -1,6 +1,6 @@
 Name:           miryu-toolkit
 Version:        45.0.0
-Release:        9%{?dist}
+Release:        11%{?dist}
 Summary:        Miryu Toolkit
 
 License:        GPL-3.0-or-later
@@ -25,14 +25,18 @@ Requires:       tar
 Requires:       zstd
 Requires:       inxi
 Requires:       lshw
+Requires:       grub2-tools
+Requires:       grubby
 Obsoletes:      evernight-vista-tools
+Obsoletes:      miryu-grub-config < %{version}-%{release}
 
 %description
 Miryu Toolkit is a Qt6 and KDE Frameworks 6 application for managing
 optional Miryu components and system-wide environment variables.
 
 It provides polkit-protected helpers for Wine, Steam, MIDI playback support and
-additional fonts, plus a system log collection tool.
+additional fonts, plus a system log collection tool. It also integrates a GRUB2
+boot menu configuration tool with kernel parameter management.
 
 %prep
 %autosetup
@@ -54,7 +58,7 @@ additional fonts, plus a system log collection tool.
 %{_datadir}/applications/file-manager-as-root.desktop
 %{_datadir}/kio/servicemenus/open-root.desktop
 %{_datadir}/metainfo/org.miryu.toolkit.metainfo.xml
-%{_datadir}/polkit-1/actions/org.miryu.toolkit.policy
+%{_datadir}/polkit-1/actions/org.miryugaming.toolkit.policy
 %dir %{_libexecdir}/miryu-toolkit
 %{_libexecdir}/miryu-toolkit/miryu-toolkit-wine
 %{_libexecdir}/miryu-toolkit/miryu-toolkit-steam
@@ -72,10 +76,28 @@ additional fonts, plus a system log collection tool.
 %{_libexecdir}/miryu-toolkit/miryu-toolkit-autoremove
 %{_libexecdir}/miryu-toolkit/miryu-toolkit-collect-logs
 %{_libexecdir}/miryu-toolkit/miryu-toolkit-view-crash
+%{_libexecdir}/miryu-toolkit/miryu-toolkit-grub-config-helper
 %{_qt6_plugindir}/plasma/kcms/systemsettings_qwidgets/kcm_miryu_toolkit.so
 
 
 %changelog
+* Tue Sep 22 2026 KairikiFedora <13278297951@sina.cn> - 45.0.0-11
+- Merge miryu-grub-config GUI into Miryu System Assistant tab as a new
+  "Boot Menu" section with GRUB2 boot menu and kernel parameter controls
+- Remove standalone GRUB config title/subtitle and reboot button from
+  the merged UI
+- Add miryu-toolkit-grub-config-helper polkit helper for saving GRUB2
+  settings and regenerating bootloader configuration
+- Rename all polkit action IDs from org.miryu.toolkit.* to
+  org.miryugaming.toolkit.*
+- Add org.miryugaming.toolkit.save-grub polkit action
+- Merge 57 translation strings from miryu-grub-config into all 6 .po files
+- Add Requires for grub2-tools and grubby
+- Obsoletes miryu-grub-config
+
+* Sat Sep 05 2026 KairikiFedora <13278297951@sina.cn> - 45.0.0-10
+- Bump to 45.0.0-10
+
 * Sat Sep 05 2026 KairikiFedora <13278297951@sina.cn> - 45.0.0-9
 - Remove Personalization Module
 

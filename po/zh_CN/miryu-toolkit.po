@@ -10,474 +10,469 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
 msgid "Miryu Toolkit"
 msgstr "Miryu 工具箱"
-
 msgid "Miryu system utility toolkit"
 msgstr "Miryu 系统工具箱"
-
 msgid "(c) 2026 Miryu"
 msgstr "(c) 2026 Miryu"
-
 msgid "Manage Miryu components, maintenance tasks and system-wide environment variables in one place."
 msgstr "集中管理 Miryu 组件、维护任务和系统范围环境变量。"
-
 msgid "System-wide environment variables"
 msgstr "系统范围环境变量"
-
 msgid "Ready"
 msgstr "准备完成"
-
 msgid "Refresh status"
 msgstr "刷新状态"
-
 msgid "Install Wine"
 msgstr "安装 Wine"
-
 msgid "Install Wine, DXVK, Winetricks and WineASIO for running Windows programs and some audio workflows."
 msgstr "安装 Wine、DXVK、Winetricks 和 WineASIO，用于运行 Windows 程序和部分音频工作流。"
-
 msgid "Install Steam"
 msgstr "安装 Steam"
-
 msgid "Install the Steam client. Steam will download update files on first launch."
 msgstr "安装 Steam 客户端。首次启动时 Steam 会下载更新文件。"
-
 msgid "Install MIDI playback support"
 msgstr "安装 MIDI 播放支持"
-
 msgid "Install the FluidSynth GStreamer plugin to enable MIDI file playback support."
 msgstr "安装 FluidSynth GStreamer 插件，以启用 MIDI 文件播放支持。"
-
 msgid "Install additional fonts"
 msgstr "安装补充字体"
-
 msgid "Install Noto Sans, Noto Serif, monospace and CJK supplemental fonts to improve multilingual display."
 msgstr "安装 Noto Sans、Noto Serif、等宽和 CJK 补充字体，以改善多语言显示。"
-
 msgid "Additional components"
 msgstr "额外组件"
-
 msgid "Status: checking"
 msgstr "状态：检查中"
-
 msgid "Packages: %1"
 msgstr "软件包：%1"
-
 msgid "Install"
 msgstr "安装"
-
 msgid "Uninstall"
 msgstr "卸载"
-
 msgid "Environment variables"
 msgstr "环境变量"
-
 msgid "Set system-wide environment variables using the NAME=VALUE format. Changes are written to /etc/environment and take effect after logging in again."
 msgstr "使用 NAME=VALUE 格式设置系统范围环境变量。修改会写入 /etc/environment，并在重新登录后生效。"
-
 msgid "Edit"
 msgstr "编辑"
-
 msgid "Reload"
 msgstr "重新读取"
-
 msgid "Apply"
 msgstr "应用"
-
 msgid "Log out and log back in for changes to take effect."
 msgstr "注销并重新登录后更改生效。"
-
 msgid "Status: installed"
 msgstr "状态：已安装"
-
 msgid "Status: partially installed (%1/%2)"
 msgstr "状态：部分安装（%1/%2）"
-
 msgid "Status: not installed"
 msgstr "状态：未安装"
-
 msgid "Confirm %1"
 msgstr "确认%1"
-
 msgid "%1 completed."
 msgstr "%1完成。"
-
 msgid "Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."
 msgstr "无法启动 pkexec。请确认系统已安装 polkit，并从图形会话运行本程序。"
-
 msgid "%1 failed"
 msgstr "%1失败"
-
 msgid "Unable to read /etc/environment. You can add variables and apply them later."
 msgstr "无法读取 /etc/environment。可以添加变量后再应用。"
-
 msgid "/etc/environment has been loaded. Log out and log back in for changes to take effect."
 msgstr "已读取 /etc/environment。注销并重新登录后更改生效。"
-
 msgid "Add environment variable"
 msgstr "添加环境变量"
-
 msgid "Variable (NAME=VALUE):"
 msgstr "变量（NAME=VALUE）："
-
 msgid "Invalid format"
 msgstr "格式错误"
-
 msgid "Select an environment variable first."
 msgstr "请先选择一个环境变量。"
-
 msgid "No item selected"
 msgstr "未选择条目"
-
 msgid "Edit environment variable"
 msgstr "编辑环境变量"
-
 msgid "Unable to create a temporary file."
 msgstr "无法创建临时文件。"
-
 msgid "Apply failed"
 msgstr "应用失败"
-
 msgid "Saved to /etc/environment. Log out and log back in for changes to take effect."
 msgstr "已保存到 /etc/environment。注销并重新登录后更改生效。"
-
 msgid "System-wide environment variables have been saved. Log out and log back in for changes to take effect."
 msgstr "系统范围环境变量已保存。注销并重新登录后更改生效。"
-
 msgid "Apply completed"
 msgstr "应用完成"
-
 msgid "Writing /etc/environment failed.\n\n%1"
 msgstr "写入 /etc/environment 失败。\n\n%1"
-
 msgid "Environment variables must use the NAME=VALUE format. NAME may only contain letters, digits and underscores, and must not start with a digit."
 msgstr "环境变量必须使用 NAME=VALUE 格式。NAME 只能包含字母、数字和下划线，且不能以数字开头。"
-
 msgid "A single environment variable must not contain line breaks."
 msgstr "单个环境变量不能包含换行符。"
-
 msgid "Restore defaults"
 msgstr "恢复默认"
-
 msgid "DNF5 details: %1"
 msgstr "DNF5 详细信息：%1"
-
 msgid "Detailed dnf5 installation log:"
 msgstr "dnf5 安装详细日志："
-
 msgid "Starting privileged package helper..."
 msgstr "正在启动提权软件包 helper..."
-
 msgid "%1 “%2” failed."
 msgstr "%1“%2”失败。"
-
 msgid "Do you want to %1 “%2”?\n\nThe package helper will run: dnf5 %3 -y %4"
 msgstr "确定要%1“%2”吗？\n\n软件包 helper 将运行：dnf5 %3 -y %4"
-
 msgid "Restore the default system-wide environment variables?"
 msgstr "要恢复默认系统范围环境变量吗？"
-
 msgid "Default system-wide environment variables have been restored. Log out and log back in for changes to take effect."
 msgstr "默认系统范围环境变量已恢复。注销并重新登录后更改生效。"
-
 msgid "Defaults restored"
 msgstr "已恢复默认"
-
 msgid "Restoring default system-wide environment variables failed.\n\n%1"
 msgstr "恢复默认系统范围环境变量失败。\n\n%1"
-
 msgid "Restore failed"
 msgstr "恢复失败"
-
 msgid "Collect system logs"
 msgstr "收集系统日志"
-
 msgid "Collecting system logs..."
 msgstr "正在收集系统日志..."
-
 msgid "Collecting system logs"
 msgstr "收集系统日志"
-
 msgid "Collecting system information and logs. This may take a moment..."
 msgstr "正在收集系统信息和日志。这可能需要一些时间..."
-
 msgid "Starting privileged log collection helper..."
 msgstr "正在启动提权日志收集 helper..."
-
 msgid "System logs collected: %1"
 msgstr "系统日志已收集：%1"
-
 msgid "Collection completed. Archive saved to: %1"
 msgstr "收集完成。归档已保存到：%1"
-
 msgid "System logs have been collected and saved to:\n%1"
 msgstr "系统日志已收集并保存到：\n%1"
-
 msgid "Collection completed"
 msgstr "收集完成"
-
 msgid "Log collection failed."
 msgstr "日志收集失败。"
-
 msgid "Failed to collect system logs. See the log window for details."
 msgstr "收集系统日志失败。详情请查看日志窗口。"
-
 msgid "Collection failed"
 msgstr "收集失败"
-
 msgid "About"
 msgstr "关于"
-
 msgid "Project links"
 msgstr "项目链接"
-
 msgid "Miryu Toolkit (Project Repository)"
 msgstr "Miryu Toolkit（项目仓库）"
-
 msgid "Clean up previous kernel"
 msgstr "清理上一版本内核"
-
 msgid "Remove previous kernel versions? This will run: dnf-3 remove --oldinstallonly"
 msgstr "移除上一版本内核？将运行：dnf-3 remove --oldinstallonly"
-
 msgid "Clean up"
 msgstr "清理"
-
 msgid "Cleaning up previous kernel..."
 msgstr "正在清理上一版本内核..."
-
 msgid "Kernel cleanup log"
 msgstr "内核清理日志"
-
 msgid "Removing previous kernel versions via dnf-3..."
 msgstr "正在通过 dnf-3 移除上一版本内核..."
-
 msgid "Starting privileged kernel cleanup helper..."
 msgstr "正在启动提权内核清理 helper..."
-
 msgid "Kernel cleanup completed."
 msgstr "内核清理完成。"
-
 msgid "Previous kernel versions have been cleaned up."
 msgstr "上一版本内核已清理。"
-
 msgid "Cleanup completed"
 msgstr "清理完成"
-
 msgid "Kernel cleanup failed."
 msgstr "内核清理失败。"
-
 msgid "Failed to clean up previous kernel versions. See the log window for details."
 msgstr "清理上一版本内核失败。详情请查看日志窗口。"
-
 msgid "Cleanup failed"
 msgstr "清理失败"
-
 msgid "Update system"
 msgstr "更新系统"
-
 msgid "Checking for available updates..."
 msgstr "正在检查可用更新..."
-
 msgid "System update"
 msgstr "系统更新"
-
 msgid "Checking for available updates with dnf5. This may take a moment..."
 msgstr "正在使用 dnf5 检查可用更新。这可能需要一些时间..."
-
 msgid "Running: dnf5 check-update --refresh"
 msgstr "运行：dnf5 check-update --refresh"
-
 msgid "Authentication was canceled."
 msgstr "认证已取消。"
-
 msgid "Available updates detected."
 msgstr "检测到可用更新。"
-
 msgid "Updates are available."
 msgstr "有可用更新。"
-
 msgid "dnf5 detected available updates. Do you want to update the system now?"
 msgstr "dnf5 检测到可用更新。是否要现在更新系统？"
-
 msgid "Update"
 msgstr "更新"
-
 msgid "Update cancelled."
 msgstr "已取消更新。"
-
 msgid "Your system is already up to date."
 msgstr "您的系统已是最新版本。"
-
 msgid "No updates"
 msgstr "无可用更新"
-
 msgid "Failed to check for updates."
 msgstr "检查更新失败。"
-
 msgid "Update check failed."
 msgstr "更新检查失败。"
-
 msgid "Failed to check for available updates. See the log window for details."
 msgstr "检查可用更新失败。详情请查看日志窗口。"
-
 msgid "Check failed"
 msgstr "检查失败"
-
 msgid "Updating the system with dnf5. Please wait..."
 msgstr "正在使用 dnf5 更新系统。请稍候..."
-
 msgid "Starting privileged system update helper..."
 msgstr "正在启动提权系统更新 helper..."
-
 msgid "Running: dnf5 update --refresh"
 msgstr "运行：dnf5 update --refresh"
-
 msgid "System update completed."
 msgstr "系统更新完成。"
-
 msgid "The system has been updated successfully."
 msgstr "系统已成功更新。"
-
 msgid "Update completed"
 msgstr "更新完成"
-
 msgid "System update failed."
 msgstr "系统更新失败。"
-
 msgid "Failed to update the system. See the log window for details."
 msgstr "更新系统失败。详情请查看日志窗口。"
-
 msgid "Update failed"
 msgstr "更新失败"
-
 msgid "Miryu System Assistant"
 msgstr "Miryu 系统助手"
-
 msgid "Install additional components"
 msgstr "安装额外组件"
-
 msgid "List failed systemd service units"
 msgstr "列出 systemd 失败的服务单元"
-
 msgid "Unlock RPM database"
 msgstr "解锁 RPM 数据库"
-
 msgid "View dnf5 log"
 msgstr "查看 dnf5 日志"
-
 msgid "Clean unused packages (dnf5 autoremove)"
 msgstr "清理无用的软件包（dnf5 autoremove）"
-
 msgid "View software crash information"
 msgstr "查看软件崩溃信息"
-
 msgid "Failed systemd service units"
 msgstr "systemd 失败的服务单元"
-
 msgid "Listing failed systemd service units..."
 msgstr "正在列出 systemd 失败的服务单元..."
-
 msgid "Running: systemctl --failed --no-pager"
 msgstr "运行：systemctl --failed --no-pager"
-
 msgid "Command completed."
 msgstr "命令已完成。"
-
 msgid "Command failed (exit code %1)."
 msgstr "命令失败（退出码 %1）。"
-
 msgid "Unable to start systemctl."
 msgstr "无法启动 systemctl。"
-
 msgid "Before unlocking the RPM database, please check whether dnf5 and dnf5daemon-server have completed their transactions.\n\nAre you sure you want to unlock the RPM database?"
 msgstr "在解锁 RPM 数据库前，请检查 dnf5 和 dnf5daemon-server 是否已完成事务。\n\n你确定解锁 RPM 数据库吗？"
-
 msgid "Unlock"
 msgstr "解锁"
-
 msgid "Unlocking RPM database..."
 msgstr "正在解锁 RPM 数据库..."
-
 msgid "RPM database has been unlocked."
 msgstr "RPM 数据库已解锁。"
-
 msgid "Unlock completed"
 msgstr "解锁完成"
-
 msgid "Failed to unlock RPM database."
 msgstr "解锁 RPM 数据库失败。"
-
 msgid "Failed to unlock the RPM database."
 msgstr "解锁 RPM 数据库失败。"
-
 msgid "Unlock failed"
 msgstr "解锁失败"
-
 msgid "The dnf5 log file does not exist at %1."
 msgstr "dnf5 日志文件不存在于 %1。"
-
 msgid "File not found"
 msgstr "文件未找到"
-
 msgid "Clean unused packages"
 msgstr "清理无用的软件包"
-
 msgid "Removing unused dependency packages with dnf5 autoremove..."
 msgstr "正在使用 dnf5 autoremove 移除无用的依赖软件包..."
-
 msgid "Starting privileged dnf5 autoremove helper..."
 msgstr "正在启动提权 dnf5 autoremove helper..."
-
 msgid "Running: dnf5 autoremove --assumeyes"
 msgstr "运行：dnf5 autoremove --assumeyes"
-
 msgid "Cleanup completed."
 msgstr "清理完成。"
-
 msgid "Unused packages cleanup completed."
 msgstr "无用软件包清理完成。"
-
 msgid "Unused packages have been cleaned up."
 msgstr "无用软件包已清理。"
-
 msgid "Cleanup failed."
 msgstr "清理失败。"
-
 msgid "Unused packages cleanup failed."
 msgstr "无用软件包清理失败。"
-
 msgid "Failed to clean up unused packages. See the log window for details."
 msgstr "清理无用软件包失败。详情请查看日志窗口。"
-
 msgid "Cleaning unused packages..."
 msgstr "正在清理无用的软件包..."
-
 msgid "Software crash information"
 msgstr "软件崩溃信息"
-
 msgid "Showing software crash information (dmesg | grep segfault)..."
 msgstr "正在显示软件崩溃信息（dmesg | grep segfault）..."
-
 msgid "Running: dmesg 2>&1 | grep -i segfault"
 msgstr "运行：dmesg 2>&1 | grep -i segfault"
-
 msgid "Command completed (exit code %1)."
 msgstr "命令已完成（退出码 %1）。"
-
 msgid "No segfault entries found in the kernel log (dmesg)."
 msgstr "内核日志（dmesg）中未发现 segfault（段错误）记录。"
+msgid "Boot Menu"
+msgstr "启动菜单"
+msgid "Show boot menu"
+msgstr "显示启动菜单"
+msgid "Show the GRUB menu before starting the default system."
+msgstr "启动默认系统前显示 GRUB 菜单。"
+msgid "Delay before booting"
+msgstr "启动前等待时间"
+msgid " seconds"
+msgstr " 秒"
+msgid "wait indefinitely"
+msgstr "无限等待"
+msgid "Use -1 to wait until a menu entry is selected."
+msgstr "使用 -1 表示一直等待，直到选择菜单项。"
+msgid "Remember last selected entry as the default"
+msgstr "记住上次选择的启动项作为默认项"
+msgid "Kernel Parameters"
+msgstr "内核参数"
+msgid "Current kernel command line"
+msgstr "当前内核命令行"
+msgid "Custom parameters written by this tool"
+msgstr "由此工具写入的自定义参数"
+msgid "Remove"
+msgstr "移除"
+msgid "Up"
+msgstr "上移"
+msgid "Down"
+msgstr "下移"
+msgid "New parameter"
+msgstr "新参数"
+msgid "Example: nomodeset"
+msgstr "示例：nomodeset"
+msgid "Add"
+msgstr "添加"
+msgid "Saving requires administrator authentication through polkit."
+msgstr "保存需要通过 polkit 进行管理员身份验证。"
+msgid "Save GRUB2 Settings"
+msgstr "保存 GRUB2 设置"
+msgid "Could not load the GRUB configuration."
+msgstr "无法加载 GRUB 配置。"
+msgid "Empty Parameter"
+msgstr "参数为空"
+msgid "Enter one kernel parameter first."
+msgstr "请先输入一个内核参数。"
+msgid "Invalid Parameter"
+msgstr "无效参数"
+msgid "Add one parameter at a time. Spaces are not allowed."
+msgstr "每次只能添加一个参数，不允许包含空格。"
+msgid "Use only letters, numbers, and these characters: _ . / : = , + @ % -"
+msgstr "只能使用字母、数字和这些字符：_ . / : = , + @ % -"
+msgid "Duplicate Parameter"
+msgstr "参数重复"
+msgid "The parameter \xe2\x80\x9c%1\xe2\x80\x9d already exists."
+msgstr "参数\xe2\x80\x9c%1\xe2\x80\x9d已存在。"
+msgid "Edit Parameter"
+msgstr "编辑参数"
+msgid "Parameter"
+msgstr "参数"
+msgid "Save Failed"
+msgstr "保存失败"
+msgid "Could not create a temporary configuration file."
+msgstr "无法创建临时配置文件。"
+msgid "Helper Not Found"
+msgstr "未找到辅助程序"
+msgid ""
+"The privileged helper was not found at:\n"
+"%1\n"
+"\n"
+"Install the project before saving GRUB2 settings."
+msgstr ""
+"未在以下位置找到特权辅助程序：\n"
+"%1\n"
+"\n"
+"请先安装项目，再保存 GRUB2 设置。"
+msgid "GRUB2 settings saved. Reboot to use the new boot menu."
+msgstr "GRUB2 设置已保存。重启后使用新的启动菜单。"
+msgid "Saved"
+msgstr "已保存"
+msgid "GRUB2 settings were saved and grub2-mkconfig completed successfully."
+msgstr "GRUB2 设置已保存，grub2-mkconfig 已成功完成。"
+# Helper messages
+msgid "Usage: miryu-toolkit-grub-config-helper --apply <generated-config-file>"
+msgstr "用法：miryu-toolkit-grub-config-helper --apply <生成的配置文件>"
+msgid "This helper must run as root through polkit."
+msgstr "此辅助程序必须通过 polkit 以 root 身份运行。"
+msgid "Could not read the generated configuration file."
+msgstr "无法读取生成的配置文件。"
+msgid "The input file was not generated by Miryu GRUB2 Boot Config."
+msgstr "输入文件不是由 Miryu GRUB2 Boot Config 生成的。"
+msgid "GRUB_TIMEOUT must be between -1 and 3600."
+msgstr "GRUB_TIMEOUT 必须在 -1 到 3600 之间。"
+msgid "Unsupported or unsafe configuration line: %1"
+msgstr "不受支持或不安全的配置行：%1"
+msgid "The configuration is incomplete."
+msgstr "配置不完整。"
+msgid "Could not open %1 for writing."
+msgstr "无法打开 %1 进行写入。"
+msgid "Could not atomically replace %1."
+msgstr "无法原子替换 %1。"
+msgid "Warning: could not remove the old drop-in file %1."
+msgstr "警告：无法移除旧的 drop-in 文件 %1。"
+msgid "Could not apply new kernel parameters to BLS entries."
+msgstr "无法将新内核参数应用到 BLS 条目。"
+msgid "Could not remove old kernel parameters from BLS entries."
+msgstr "无法从 BLS 条目中移除旧的内核参数。"
+msgid "grub2-mkconfig timed out."
+msgstr "grub2-mkconfig 超时。"
+msgid "grub2-mkconfig failed."
+msgstr "grub2-mkconfig 失败。"
+msgid "GRUB2 configuration updated."
+msgstr "GRUB2 配置已更新。"
+msgid "Reading configuration file..."
+msgstr "正在读取配置文件..."
+msgid "Parsing configuration..."
+msgstr "正在解析配置..."
+msgid "Reading existing %1..."
+msgstr "正在读取现有的 %1..."
+msgid "Writing %1..."
+msgstr "正在写入 %1..."
+msgid "Updating BLS entries..."
+msgstr "正在更新 BLS 条目..."
+msgid "Regenerating GRUB configuration..."
+msgstr "正在重新生成 GRUB 配置..."
+msgid "Applying GRUB2 Settings"
+msgstr "正在应用 GRUB2 设置"
+msgid "GRUB2 settings saved successfully."
+msgstr "GRUB2 设置保存成功。"
+msgid "GRUB2 settings save failed."
+msgstr "GRUB2 设置保存失败。"
+msgid "Save failed."
+msgstr "保存失败。"
+msgid "Could not start the privileged helper. Make sure polkit is installed and run this program from a graphical session."
+msgstr "无法启动特权辅助程序。请确保已安装 polkit 并在图形会话中运行此程序。"
+msgid "%1 “%2” failed. See the log window for details."
+msgstr "%1“%2”失败。诶细信息请查看日志窗口。"
 
-msgid "Miryu Toolkit manages optional Miryu components (Wine, Steam, MIDI playback, extra fonts), system-wide environment variables, and collects system logs."
-msgstr "Miryu 工具箱管理可选的 Miryu 组件（Wine、Steam、MIDI 播放、补充字体）和系统范围环境变量，并收集系统日志。"
+msgid "Authentication canceled"
+msgstr "认证已取消"
 
-msgid "Relaunch Miryu Toolkit"
-msgstr "重新启动 Miryu 工具箱"
+msgid "Authentication was canceled. No updates were checked or installed."
+msgstr "认证已取消。未检查或安装任何更新。"
 
-msgid "Miryu Toolkit is an external application and has been automatically launched."
-msgstr "Miryu 工具箱是一个外部应用程序，已自动启动。"
+msgid "Close"
+msgstr "关闭"
 
-msgid "Could not launch Miryu Toolkit. Make sure it is installed."
-msgstr "无法启动 Miryu 工具箱。请确认已安装。"
+msgid "Completed"
+msgstr "完成"
+
+msgid "Could not save and regenerate GRUB2 configuration."
+msgstr "无法保存并重新生成 GRUB2 配置。"
+
+msgid "Failed"
+msgstr "失败"
+
+msgid "Waiting for administrator authentication..."
+msgstr "等待管理员身份验证..."
+msgid "Cancel update"
+msgstr "取消更新"
+msgid "Cancelling..."
+msgstr "正在取消..."

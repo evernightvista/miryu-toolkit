@@ -10,474 +10,469 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
 msgid "Miryu Toolkit"
 msgstr "Miryu ツールキット"
-
 msgid "Miryu system utility toolkit"
 msgstr "Miryu システムユーティリティツールキット"
-
 msgid "(c) 2026 Miryu"
 msgstr "(c) 2026 Miryu"
-
 msgid "Manage Miryu components, maintenance tasks and system-wide environment variables in one place."
 msgstr "Miryu コンポーネント、保守作業、システム全体の環境変数をまとめて管理します。"
-
 msgid "System-wide environment variables"
 msgstr "システム全体の環境変数"
-
 msgid "Ready"
 msgstr "準備完了"
-
 msgid "Refresh status"
 msgstr "状態を更新"
-
 msgid "Install Wine"
 msgstr "Wine をインストール"
-
 msgid "Install Wine, DXVK, Winetricks and WineASIO for running Windows programs and some audio workflows."
 msgstr "Windows プログラムや一部の音声ワークフローを実行するために Wine、DXVK、Winetricks、WineASIO をインストールします。"
-
 msgid "Install Steam"
 msgstr "Steam をインストール"
-
 msgid "Install the Steam client. Steam will download update files on first launch."
 msgstr "Steam クライアントをインストールします。初回起動時に Steam が更新ファイルをダウンロードします。"
-
 msgid "Install MIDI playback support"
 msgstr "MIDI 再生サポートをインストール"
-
 msgid "Install the FluidSynth GStreamer plugin to enable MIDI file playback support."
 msgstr "MIDI ファイル再生サポートを有効にするために FluidSynth GStreamer プラグインをインストールします。"
-
 msgid "Install additional fonts"
 msgstr "追加フォントをインストール"
-
 msgid "Install Noto Sans, Noto Serif, monospace and CJK supplemental fonts to improve multilingual display."
 msgstr "多言語表示を改善するために Noto Sans、Noto Serif、等幅、CJK 追加フォントをインストールします。"
-
 msgid "Additional components"
 msgstr "追加コンポーネント"
-
 msgid "Status: checking"
 msgstr "状態: 確認中"
-
 msgid "Packages: %1"
 msgstr "パッケージ: %1"
-
 msgid "Install"
 msgstr "インストール"
-
 msgid "Uninstall"
 msgstr "アンインストール"
-
 msgid "Environment variables"
 msgstr "環境変数"
-
 msgid "Set system-wide environment variables using the NAME=VALUE format. Changes are written to /etc/environment and take effect after logging in again."
 msgstr "NAME=VALUE 形式でシステム全体の環境変数を設定します。変更は /etc/environment に書き込まれ、再ログイン後に有効になります。"
-
 msgid "Edit"
 msgstr "編集"
-
 msgid "Reload"
 msgstr "再読み込み"
-
 msgid "Apply"
 msgstr "適用"
-
 msgid "Log out and log back in for changes to take effect."
 msgstr "変更を有効にするにはログアウトして再度ログインしてください。"
-
 msgid "Status: installed"
 msgstr "状態: インストール済み"
-
 msgid "Status: partially installed (%1/%2)"
 msgstr "状態: 一部インストール済み (%1/%2)"
-
 msgid "Status: not installed"
 msgstr "状態: 未インストール"
-
 msgid "Confirm %1"
 msgstr "%1の確認"
-
 msgid "%1 completed."
 msgstr "%1が完了しました。"
-
 msgid "Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."
 msgstr "pkexec を起動できません。polkit がインストールされていることを確認し、グラフィカルセッションからこのプログラムを実行してください。"
-
 msgid "%1 failed"
 msgstr "%1に失敗しました"
-
 msgid "Unable to read /etc/environment. You can add variables and apply them later."
 msgstr "/etc/environment を読み取れません。変数を追加して後で適用できます。"
-
 msgid "/etc/environment has been loaded. Log out and log back in for changes to take effect."
 msgstr "/etc/environment を読み込みました。変更を有効にするにはログアウトして再度ログインしてください。"
-
 msgid "Add environment variable"
 msgstr "環境変数を追加"
-
 msgid "Variable (NAME=VALUE):"
 msgstr "変数 (NAME=VALUE):"
-
 msgid "Invalid format"
 msgstr "形式が無効です"
-
 msgid "Select an environment variable first."
 msgstr "先に環境変数を選択してください。"
-
 msgid "No item selected"
 msgstr "項目が選択されていません"
-
 msgid "Edit environment variable"
 msgstr "環境変数を編集"
-
 msgid "Unable to create a temporary file."
 msgstr "一時ファイルを作成できません。"
-
 msgid "Apply failed"
 msgstr "適用に失敗しました"
-
 msgid "Saved to /etc/environment. Log out and log back in for changes to take effect."
 msgstr "/etc/environment に保存しました。変更を有効にするにはログアウトして再度ログインしてください。"
-
 msgid "System-wide environment variables have been saved. Log out and log back in for changes to take effect."
 msgstr "システム全体の環境変数を保存しました。変更を有効にするにはログアウトして再度ログインしてください。"
-
 msgid "Apply completed"
 msgstr "適用が完了しました"
-
 msgid "Writing /etc/environment failed.\n\n%1"
 msgstr "/etc/environment への書き込みに失敗しました。\n\n%1"
-
 msgid "Environment variables must use the NAME=VALUE format. NAME may only contain letters, digits and underscores, and must not start with a digit."
 msgstr "環境変数は NAME=VALUE 形式でなければなりません。NAME には英字、数字、アンダースコアのみ使用でき、数字で始めることはできません。"
-
 msgid "A single environment variable must not contain line breaks."
 msgstr "1 つの環境変数に改行を含めることはできません。"
-
 msgid "Restore defaults"
 msgstr "既定値に戻す"
-
 msgid "DNF5 details: %1"
 msgstr "DNF5 の詳細: %1"
-
 msgid "Detailed dnf5 installation log:"
 msgstr "dnf5 インストール詳細ログ:"
-
 msgid "Starting privileged package helper..."
 msgstr "権限付きパッケージヘルパーを起動しています..."
-
 msgid "%1 “%2” failed."
 msgstr "%1「%2」に失敗しました。"
-
 msgid "Do you want to %1 “%2”?\n\nThe package helper will run: dnf5 %3 -y %4"
 msgstr "「%2」を%1しますか？\n\nパッケージヘルパーは次を実行します: dnf5 %3 -y %4"
-
 msgid "Restore the default system-wide environment variables?"
 msgstr "既定のシステム全体の環境変数を復元しますか？"
-
 msgid "Default system-wide environment variables have been restored. Log out and log back in for changes to take effect."
 msgstr "既定のシステム全体の環境変数を復元しました。変更を有効にするにはログアウトして再度ログインしてください。"
-
 msgid "Defaults restored"
 msgstr "既定値を復元しました"
-
 msgid "Restoring default system-wide environment variables failed.\n\n%1"
 msgstr "既定のシステム全体の環境変数の復元に失敗しました。\n\n%1"
-
 msgid "Restore failed"
 msgstr "復元に失敗しました"
-
 msgid "Collect system logs"
 msgstr "システムログを収集"
-
 msgid "Collecting system logs..."
 msgstr "システムログを収集中..."
-
 msgid "Collecting system logs"
 msgstr "システムログの収集"
-
 msgid "Collecting system information and logs. This may take a moment..."
 msgstr "システム情報とログを収集中です。しばらくお待ちください..."
-
 msgid "Starting privileged log collection helper..."
 msgstr "特権ログ収集 helper を起動中..."
-
 msgid "System logs collected: %1"
 msgstr "システムログを収集しました：%1"
-
 msgid "Collection completed. Archive saved to: %1"
 msgstr "収集が完了しました。アーカイブは %1 に保存されました"
-
 msgid "System logs have been collected and saved to:\n%1"
 msgstr "システムログを収集し、以下に保存しました：\n%1"
-
 msgid "Collection completed"
 msgstr "収集完了"
-
 msgid "Log collection failed."
 msgstr "ログの収集に失敗しました。"
-
 msgid "Failed to collect system logs. See the log window for details."
 msgstr "システムログの収集に失敗しました。詳細はログウィンドウを参照してください。"
-
 msgid "Collection failed"
 msgstr "収集失敗"
-
 msgid "About"
 msgstr "情報"
-
 msgid "Project links"
 msgstr "プロジェクトリンク"
-
 msgid "Miryu Toolkit (Project Repository)"
 msgstr "Miryu Toolkit（プロジェクトリポジトリ）"
-
 msgid "Clean up previous kernel"
 msgstr "以前のカーネルをクリーンアップ"
-
 msgid "Remove previous kernel versions? This will run: dnf-3 remove --oldinstallonly"
 msgstr "以前のカーネルバージョンを削除しますか？次を実行します：dnf-3 remove --oldinstallonly"
-
 msgid "Clean up"
 msgstr "クリーンアップ"
-
 msgid "Cleaning up previous kernel..."
 msgstr "以前のカーネルをクリーンアップ中..."
-
 msgid "Kernel cleanup log"
 msgstr "カーネルクリーンアップログ"
-
 msgid "Removing previous kernel versions via dnf-3..."
 msgstr "dnf-3 で以前のカーネルバージョンを削除中..."
-
 msgid "Starting privileged kernel cleanup helper..."
 msgstr "特権カーネルクリーンアップ helper を起動中..."
-
 msgid "Kernel cleanup completed."
 msgstr "カーネルのクリーンアップが完了しました。"
-
 msgid "Previous kernel versions have been cleaned up."
 msgstr "以前のカーネルバージョンがクリーンアップされました。"
-
 msgid "Cleanup completed"
 msgstr "クリーンアップ完了"
-
 msgid "Kernel cleanup failed."
 msgstr "カーネルのクリーンアップに失敗しました。"
-
 msgid "Failed to clean up previous kernel versions. See the log window for details."
 msgstr "以前のカーネルバージョンのクリーンアップに失敗しました。詳細はログウィンドウを参照してください。"
-
 msgid "Cleanup failed"
 msgstr "クリーンアップ失敗"
-
 msgid "Update system"
 msgstr "システムを更新"
-
 msgid "Checking for available updates..."
 msgstr "利用可能な更新を確認中..."
-
 msgid "System update"
 msgstr "システム更新"
-
 msgid "Checking for available updates with dnf5. This may take a moment..."
 msgstr "dnf5 で利用可能な更新を確認しています。しばらくお待ちください..."
-
 msgid "Running: dnf5 check-update --refresh"
 msgstr "実行: dnf5 check-update --refresh"
-
 msgid "Authentication was canceled."
 msgstr "認証がキャンセルされました。"
-
 msgid "Available updates detected."
 msgstr "利用可能な更新が検出されました。"
-
 msgid "Updates are available."
 msgstr "利用可能な更新があります。"
-
 msgid "dnf5 detected available updates. Do you want to update the system now?"
 msgstr "dnf5 が利用可能な更新を検出しました。今すぐシステムを更新しますか？"
-
 msgid "Update"
 msgstr "更新"
-
 msgid "Update cancelled."
 msgstr "更新がキャンセルされました。"
-
 msgid "Your system is already up to date."
 msgstr "システムは既に最新です。"
-
 msgid "No updates"
 msgstr "更新なし"
-
 msgid "Failed to check for updates."
 msgstr "更新の確認に失敗しました。"
-
 msgid "Update check failed."
 msgstr "更新確認に失敗しました。"
-
 msgid "Failed to check for available updates. See the log window for details."
 msgstr "利用可能な更新の確認に失敗しました。詳細はログウィンドウを参照してください。"
-
 msgid "Check failed"
 msgstr "確認失敗"
-
 msgid "Updating the system with dnf5. Please wait..."
 msgstr "dnf5 でシステムを更新しています。お待ちください..."
-
 msgid "Starting privileged system update helper..."
 msgstr "特権システム更新 helper を起動中..."
-
 msgid "Running: dnf5 update --refresh"
 msgstr "実行: dnf5 update --refresh"
-
 msgid "System update completed."
 msgstr "システム更新が完了しました。"
-
 msgid "The system has been updated successfully."
 msgstr "システムは正常に更新されました。"
-
 msgid "Update completed"
 msgstr "更新完了"
-
 msgid "System update failed."
 msgstr "システム更新に失敗しました。"
-
 msgid "Failed to update the system. See the log window for details."
 msgstr "システムの更新に失敗しました。詳細はログウィンドウを参照してください。"
-
 msgid "Update failed"
 msgstr "更新失敗"
-
 msgid "Miryu System Assistant"
 msgstr "Miryu システムアシスタント"
-
 msgid "Install additional components"
 msgstr "追加コンポーネントのインストール"
-
 msgid "List failed systemd service units"
 msgstr "失敗した systemd サービスユニットを一覧表示"
-
 msgid "Unlock RPM database"
 msgstr "RPM データベースのロックを解除"
-
 msgid "View dnf5 log"
 msgstr "dnf5 ログを表示"
-
 msgid "Clean unused packages (dnf5 autoremove)"
 msgstr "不要なパッケージをクリーンアップ（dnf5 autoremove）"
-
 msgid "View software crash information"
 msgstr "ソフトウェアクラッシュ情報を表示"
-
 msgid "Failed systemd service units"
 msgstr "失敗した systemd サービスユニット"
-
 msgid "Listing failed systemd service units..."
 msgstr "失敗した systemd サービスユニットを一覧表示しています..."
-
 msgid "Running: systemctl --failed --no-pager"
 msgstr "実行：systemctl --failed --no-pager"
-
 msgid "Command completed."
 msgstr "コマンドが完了しました。"
-
 msgid "Command failed (exit code %1)."
 msgstr "コマンドが失敗しました（終了コード %1）。"
-
 msgid "Unable to start systemctl."
 msgstr "systemctl を起動できません。"
-
 msgid "Before unlocking the RPM database, please check whether dnf5 and dnf5daemon-server have completed their transactions.\n\nAre you sure you want to unlock the RPM database?"
 msgstr "RPM データベースのロックを解除する前に、dnf5 と dnf5daemon-server のトランザクションが完了しているか確認してください。\n\nRPM データベースのロックを解除しますか？"
-
 msgid "Unlock"
 msgstr "ロック解除"
-
 msgid "Unlocking RPM database..."
 msgstr "RPM データベースのロックを解除しています..."
-
 msgid "RPM database has been unlocked."
 msgstr "RPM データベースのロックが解除されました。"
-
 msgid "Unlock completed"
 msgstr "ロック解除完了"
-
 msgid "Failed to unlock RPM database."
 msgstr "RPM データベースのロック解除に失敗しました。"
-
 msgid "Failed to unlock the RPM database."
 msgstr "RPM データベースのロック解除に失敗しました。"
-
 msgid "Unlock failed"
 msgstr "ロック解除失敗"
-
 msgid "The dnf5 log file does not exist at %1."
 msgstr "dnf5 ログファイルが %1 に存在しません。"
-
 msgid "File not found"
 msgstr "ファイルが見つかりません"
-
 msgid "Clean unused packages"
 msgstr "不要なパッケージのクリーンアップ"
-
 msgid "Removing unused dependency packages with dnf5 autoremove..."
 msgstr "dnf5 autoremove で不要な依存パッケージを削除しています..."
-
 msgid "Starting privileged dnf5 autoremove helper..."
 msgstr "提権 dnf5 autoremove helper を起動しています..."
-
 msgid "Running: dnf5 autoremove --assumeyes"
 msgstr "実行：dnf5 autoremove --assumeyes"
-
 msgid "Cleanup completed."
 msgstr "クリーンアップが完了しました。"
-
 msgid "Unused packages cleanup completed."
 msgstr "不要パッケージのクリーンアップが完了しました。"
-
 msgid "Unused packages have been cleaned up."
 msgstr "不要なパッケージがクリーンアップされました。"
-
 msgid "Cleanup failed."
 msgstr "クリーンアップに失敗しました。"
-
 msgid "Unused packages cleanup failed."
 msgstr "不要パッケージのクリーンアップに失敗しました。"
-
 msgid "Failed to clean up unused packages. See the log window for details."
 msgstr "不要なパッケージのクリーンアップに失敗しました。詳細はログウィンドウを参照してください。"
-
 msgid "Cleaning unused packages..."
 msgstr "不要なパッケージをクリーンアップしています..."
-
 msgid "Software crash information"
 msgstr "ソフトウェアクラッシュ情報"
-
 msgid "Showing software crash information (dmesg | grep segfault)..."
 msgstr "ソフトウェアクラッシュ情報を表示しています（dmesg | grep segfault）..."
-
 msgid "Running: dmesg 2>&1 | grep -i segfault"
 msgstr "実行：dmesg 2>&1 | grep -i segfault"
-
 msgid "Command completed (exit code %1)."
 msgstr "コマンドが完了しました（終了コード %1）。"
-
 msgid "No segfault entries found in the kernel log (dmesg)."
 msgstr "カーネルログ（dmesg）に segfault エントリは見つかりませんでした。"
+msgid "Boot Menu"
+msgstr "ブートメニュー"
+msgid "Show boot menu"
+msgstr "ブートメニューを表示"
+msgid "Show the GRUB menu before starting the default system."
+msgstr "既定のシステムを起動する前に GRUB メニューを表示します。"
+msgid "Delay before booting"
+msgstr "起動前の待ち時間"
+msgid " seconds"
+msgstr " 秒"
+msgid "wait indefinitely"
+msgstr "無期限に待機"
+msgid "Use -1 to wait until a menu entry is selected."
+msgstr "-1 を指定すると、メニュー項目が選択されるまで待機します。"
+msgid "Remember last selected entry as the default"
+msgstr "最後に選択した項目を既定値として記憶"
+msgid "Kernel Parameters"
+msgstr "カーネルパラメーター"
+msgid "Current kernel command line"
+msgstr "現在のカーネルコマンドライン"
+msgid "Custom parameters written by this tool"
+msgstr "このツールが書き込むカスタムパラメーター"
+msgid "Remove"
+msgstr "削除"
+msgid "Up"
+msgstr "上へ"
+msgid "Down"
+msgstr "下へ"
+msgid "New parameter"
+msgstr "新しいパラメーター"
+msgid "Example: nomodeset"
+msgstr "例: nomodeset"
+msgid "Add"
+msgstr "追加"
+msgid "Saving requires administrator authentication through polkit."
+msgstr "保存には polkit による管理者認証が必要です。"
+msgid "Save GRUB2 Settings"
+msgstr "GRUB2 設定を保存"
+msgid "Could not load the GRUB configuration."
+msgstr "GRUB 設定を読み込めませんでした。"
+msgid "Empty Parameter"
+msgstr "パラメーターが空です"
+msgid "Enter one kernel parameter first."
+msgstr "最初にカーネルパラメーターを一つ入力してください。"
+msgid "Invalid Parameter"
+msgstr "無効なパラメーター"
+msgid "Add one parameter at a time. Spaces are not allowed."
+msgstr "一度に一つのパラメーターを追加してください。スペースは使用できません。"
+msgid "Use only letters, numbers, and these characters: _ . / : = , + @ % -"
+msgstr "英数字と次の文字のみ使用できます: _ . / : = , + @ % -"
+msgid "Duplicate Parameter"
+msgstr "重複パラメーター"
+msgid "The parameter \xe2\x80\x9c%1\xe2\x80\x9d already exists."
+msgstr "パラメーター\xe2\x80\x9c%1\xe2\x80\x9dは既に存在します。"
+msgid "Edit Parameter"
+msgstr "パラメーターを編集"
+msgid "Parameter"
+msgstr "パラメーター"
+msgid "Save Failed"
+msgstr "保存に失敗しました"
+msgid "Could not create a temporary configuration file."
+msgstr "一時設定ファイルを作成できませんでした。"
+msgid "Helper Not Found"
+msgstr "ヘルパーが見つかりません"
+msgid ""
+"The privileged helper was not found at:\n"
+"%1\n"
+"\n"
+"Install the project before saving GRUB2 settings."
+msgstr ""
+"特権ヘルパーが以下の場所に見つかりません:\n"
+"%1\n"
+"\n"
+"GRUB2 設定を保存する前にプロジェクトをインストールしてください。"
+msgid "GRUB2 settings saved. Reboot to use the new boot menu."
+msgstr "GRUB2 設定が保存されました。再起動して新しいブートメニューを使用してください。"
+msgid "Saved"
+msgstr "保存しました"
+msgid "GRUB2 settings were saved and grub2-mkconfig completed successfully."
+msgstr "GRUB2 設定が保存され、grub2-mkconfig が正常に完了しました。"
+# Helper messages
+msgid "Usage: miryu-toolkit-grub-config-helper --apply <generated-config-file>"
+msgstr "使用法: miryu-toolkit-grub-config-helper --apply <生成された設定ファイル>"
+msgid "This helper must run as root through polkit."
+msgstr "このヘルパーは polkit を通じて root として実行する必要があります。"
+msgid "Could not read the generated configuration file."
+msgstr "生成された設定ファイルを読み込めませんでした。"
+msgid "The input file was not generated by Miryu GRUB2 Boot Config."
+msgstr "入力ファイルは Miryu GRUB2 Boot Config によって生成されたものではありません。"
+msgid "GRUB_TIMEOUT must be between -1 and 3600."
+msgstr "GRUB_TIMEOUT は -1 から 3600 の間でなければなりません。"
+msgid "Unsupported or unsafe configuration line: %1"
+msgstr "サポートされていない、または安全でない設定行: %1"
+msgid "The configuration is incomplete."
+msgstr "設定が不完全です。"
+msgid "Could not open %1 for writing."
+msgstr "%1 を書き込み用に開けませんでした。"
+msgid "Could not atomically replace %1."
+msgstr "%1 を原子的に置換できませんでした。"
+msgid "Warning: could not remove the old drop-in file %1."
+msgstr "警告: 古い drop-in ファイル %1 を削除できませんでした。"
+msgid "Could not apply new kernel parameters to BLS entries."
+msgstr "新しいカーネルパラメーターを BLS エントリーに適用できませんでした。"
+msgid "Could not remove old kernel parameters from BLS entries."
+msgstr "古いカーネルパラメーターを BLS エントリーから削除できませんでした。"
+msgid "grub2-mkconfig timed out."
+msgstr "grub2-mkconfig がタイムアウトしました。"
+msgid "grub2-mkconfig failed."
+msgstr "grub2-mkconfig が失敗しました。"
+msgid "GRUB2 configuration updated."
+msgstr "GRUB2 設定を更新しました。"
+msgid "Reading configuration file..."
+msgstr "設定ファイルを読み込んでいます..."
+msgid "Parsing configuration..."
+msgstr "設定を解析しています..."
+msgid "Reading existing %1..."
+msgstr "既存の %1 を読み込んでいます..."
+msgid "Writing %1..."
+msgstr "%1 を書き込んでいます..."
+msgid "Updating BLS entries..."
+msgstr "BLS エントリを更新しています..."
+msgid "Regenerating GRUB configuration..."
+msgstr "GRUB 設定を再生成しています..."
+msgid "Applying GRUB2 Settings"
+msgstr "GRUB2 設定を適用中"
+msgid "GRUB2 settings saved successfully."
+msgstr "GRUB2 設定が正常に保存されました。"
+msgid "GRUB2 settings save failed."
+msgstr "GRUB2 設定の保存に失敗しました。"
+msgid "Save failed."
+msgstr "保存に失敗しました。"
+msgid "Could not start the privileged helper. Make sure polkit is installed and run this program from a graphical session."
+msgstr "特権ヘルパーを起動できませんでした。polkit がインストールされており、グラフィカルセッションからこのプログラムを実行していることを確認してください。"
+msgid "%1 “%2” failed. See the log window for details."
+msgstr "%1「%2」が失敗しました。詳細はログウィンドウを参照してください。"
 
-msgid "Miryu Toolkit manages optional Miryu components (Wine, Steam, MIDI playback, extra fonts), system-wide environment variables, and collects system logs."
-msgstr "Miryu Toolkit はオプションの Miryu コンポーネント（Wine、Steam、MIDI 再生、追加フォント）とシステム全体の環境変数を管理し、システムログを収集します。"
+msgid "Authentication canceled"
+msgstr "認証がキャンセルされました"
 
-msgid "Relaunch Miryu Toolkit"
-msgstr "Miryu Toolkit を再起動"
+msgid "Authentication was canceled. No updates were checked or installed."
+msgstr "認証がキャンセルされました。更新の確認やインストールは行われていません。"
 
-msgid "Miryu Toolkit is an external application and has been automatically launched."
-msgstr "Miryu Toolkit は外部アプリケーションであり、自動的に起動されました。"
+msgid "Close"
+msgstr "閉じる"
 
-msgid "Could not launch Miryu Toolkit. Make sure it is installed."
-msgstr "Miryu Toolkit を起動できません。インストールされていることを確認してください。"
+msgid "Completed"
+msgstr "完了"
+
+msgid "Could not save and regenerate GRUB2 configuration."
+msgstr "GRUB2 設定の保存と再生成ができませんでした。"
+
+msgid "Failed"
+msgstr "失敗"
+
+msgid "Waiting for administrator authentication..."
+msgstr "管理者の認証を待っています..."
+msgid "Cancel update"
+msgstr "更新をキャンセル"
+msgid "Cancelling..."
+msgstr "キャンセル中..."

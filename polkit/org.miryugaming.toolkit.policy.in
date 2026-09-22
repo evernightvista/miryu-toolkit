@@ -6,7 +6,7 @@
   <vendor>Evernight Vista Team</vendor>
   <vendor_url>https://github.com/evernightvista</vendor_url>
 
-  <action id="org.miryu.toolkit.install-wine">
+  <action id="org.miryugaming.toolkit.install-wine">
     <description>Manage Wine support packages</description>
     <description xml:lang="zh_CN">管理 Wine 支持软件包</description>
     <description xml:lang="zh_TW">管理 Wine 支援軟體包</description>
@@ -31,7 +31,7 @@
     <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
   </action>
 
-  <action id="org.miryu.toolkit.install-steam">
+  <action id="org.miryugaming.toolkit.install-steam">
     <description>Manage Steam package</description>
     <description xml:lang="zh_CN">管理 Steam 软件包</description>
     <description xml:lang="zh_TW">管理 Steam 軟體包</description>
@@ -56,7 +56,7 @@
     <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
   </action>
 
-  <action id="org.miryu.toolkit.install-midi">
+  <action id="org.miryugaming.toolkit.install-midi">
     <description>Manage MIDI playback support package</description>
     <description xml:lang="zh_CN">管理 MIDI 播放支持软件包</description>
     <description xml:lang="zh_TW">管理 MIDI 播放支援軟體包</description>
@@ -81,7 +81,7 @@
     <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
   </action>
 
-  <action id="org.miryu.toolkit.install-extra-fonts">
+  <action id="org.miryugaming.toolkit.install-extra-fonts">
     <description>Manage additional font packages</description>
     <description xml:lang="zh_CN">管理补充字体软件包</description>
     <description xml:lang="zh_TW">管理補充字型軟體包</description>
@@ -106,7 +106,7 @@
     <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
   </action>
 
-  <action id="org.miryu.toolkit.remove-wine">
+  <action id="org.miryugaming.toolkit.remove-wine">
     <description>Remove Wine support packages</description>
     <description xml:lang="zh_CN">卸载 Wine 支持软件包</description>
     <description xml:lang="zh_TW">卸載 Wine 支援軟體包</description>
@@ -131,7 +131,7 @@
     <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
   </action>
 
-  <action id="org.miryu.toolkit.remove-steam">
+  <action id="org.miryugaming.toolkit.remove-steam">
     <description>Remove Steam package</description>
     <description xml:lang="zh_CN">卸载 Steam 软件包</description>
     <description xml:lang="zh_TW">卸載 Steam 軟體包</description>
@@ -156,7 +156,7 @@
     <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
   </action>
 
-  <action id="org.miryu.toolkit.remove-midi">
+  <action id="org.miryugaming.toolkit.remove-midi">
     <description>Remove MIDI playback support package</description>
     <description xml:lang="zh_CN">卸载 MIDI 播放支持软件包</description>
     <description xml:lang="zh_TW">卸載 MIDI 播放支援軟體包</description>
@@ -181,7 +181,7 @@
     <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
   </action>
 
-  <action id="org.miryu.toolkit.remove-extra-fonts">
+  <action id="org.miryugaming.toolkit.remove-extra-fonts">
     <description>Remove additional font packages</description>
     <description xml:lang="zh_CN">卸载补充字体软件包</description>
     <description xml:lang="zh_TW">卸載補充字型軟體包</description>
@@ -206,7 +206,7 @@
     <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
   </action>
 
-  <action id="org.miryu.toolkit.apply-environment">
+  <action id="org.miryugaming.toolkit.apply-environment">
     <description>Apply system-wide environment variables</description>
     <description xml:lang="zh_CN">应用系统范围环境变量</description>
     <description xml:lang="zh_TW">套用系統範圍環境變數</description>
@@ -231,7 +231,7 @@
     <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
   </action>
 
-  <action id="org.miryu.toolkit.restore-environment">
+  <action id="org.miryugaming.toolkit.restore-environment">
     <description>Restore default system-wide environment variables</description>
     <description xml:lang="zh_CN">恢复默认系统范围环境变量</description>
     <description xml:lang="zh_TW">恢復預設系統範圍環境變數</description>
@@ -256,7 +256,7 @@
     <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
   </action>
 
-  <action id="org.miryu.toolkit.cleanup-kernel">
+  <action id="org.miryugaming.toolkit.cleanup-kernel">
     <description>Remove previous kernel versions</description>
     <description xml:lang="zh_CN">移除上一版本内核</description>
     <description xml:lang="zh_TW">移除上一版本核心</description>
@@ -281,7 +281,7 @@
     <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
   </action>
 
-  <action id="org.miryu.toolkit.update-system">
+  <action id="org.miryugaming.toolkit.update-system">
     <description>Update the operating system</description>
     <description xml:lang="zh_CN">更新操作系统</description>
     <description xml:lang="zh_TW">更新作業系統</description>
@@ -306,7 +306,7 @@
     <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
   </action>
 
-  <action id="org.miryu.toolkit.collect-logs">
+  <action id="org.miryugaming.toolkit.collect-logs">
     <description>Collect system logs</description>
     <description xml:lang="zh_CN">收集系统日志</description>
     <description xml:lang="zh_TW">收集系統日誌</description>
@@ -331,7 +331,7 @@
     <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
   </action>
 
-  <action id="org.miryu.toolkit.unlock-rpm">
+  <action id="org.miryugaming.toolkit.unlock-rpm">
     <description>Unlock the RPM database</description>
     <description xml:lang="zh_CN">解锁 RPM 数据库</description>
     <description xml:lang="zh_TW">解鎖 RPM 資料庫</description>
@@ -356,7 +356,7 @@
     <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
   </action>
 
-  <action id="org.miryu.toolkit.autoremove">
+  <action id="org.miryugaming.toolkit.autoremove">
     <description>Clean up unused packages with dnf5 autoremove</description>
     <description xml:lang="zh_CN">使用 dnf5 autoremove 清理无用软件包</description>
     <description xml:lang="zh_TW">使用 dnf5 autoremove 清理無用軟體包</description>
@@ -381,7 +381,7 @@
     <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
   </action>
 
-  <action id="org.miryu.toolkit.view-crash">
+  <action id="org.miryugaming.toolkit.view-crash">
     <description>View software crash information</description>
     <description xml:lang="zh_CN">查看软件崩溃信息</description>
     <description xml:lang="zh_TW">檢視軟體崩潰資訊</description>
@@ -403,6 +403,31 @@
       <allow_active>yes</allow_active>
     </defaults>
     <annotate key="org.freedesktop.policykit.exec.path">@CMAKE_INSTALL_FULL_LIBEXECDIR@/miryu-toolkit/miryu-toolkit-view-crash</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
+  </action>
+
+  <action id="org.miryugaming.toolkit.save-grub">
+    <description>Save GRUB2 settings</description>
+    <description xml:lang="zh_CN">保存 GRUB2 设置</description>
+    <description xml:lang="zh_TW">儲存 GRUB2 設定</description>
+    <description xml:lang="ja">GRUB2 設定を保存</description>
+    <description xml:lang="de">GRUB2-Einstellungen speichern</description>
+    <description xml:lang="ko">GRUB2 설정 저장</description>
+    <description xml:lang="fr">Enregistrer les paramètres GRUB2</description>
+    <message>Authentication is required to save GRUB2 settings and regenerate the bootloader configuration.</message>
+    <message xml:lang="zh_CN">保存 GRUB2 设置并重新生成引导加载器配置需要进行身份验证。</message>
+    <message xml:lang="zh_TW">儲存 GRUB2 設定並重新產生開機載入程式設定需要進行身分驗證。</message>
+    <message xml:lang="ja">GRUB2 設定を保存し、ブートローダー設定を再生成するには認証が必要です。</message>
+    <message xml:lang="de">Zum Speichern der GRUB2-Einstellungen und zum Neuerstellen der Bootloader-Konfiguration ist eine Authentifizierung erforderlich.</message>
+    <message xml:lang="ko">GRUB2 설정을 저장하고 부트로더 구성을 다시 생성하려면 인증이 필요합니다.</message>
+    <message xml:lang="fr">Une authentification est requise pour enregistrer les paramètres GRUB2 et régénérer la configuration du chargeur d'amorçage.</message>
+    <icon_name>preferences-system</icon_name>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">@CMAKE_INSTALL_FULL_LIBEXECDIR@/miryu-toolkit/miryu-toolkit-grub-config-helper</annotate>
     <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
   </action>
 </policyconfig>

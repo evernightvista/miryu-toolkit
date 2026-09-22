@@ -7,11 +7,14 @@
 
 #include <QAbstractItemView>
 #include <QApplication>
+#include <QCheckBox>
+#include <QCoreApplication>
 #include <QDesktopServices>
 #include <QDialog>
 #include <QDialogButtonBox>
 #include <QDir>
 #include <QFile>
+#include <QFileInfo>
 #include <QFont>
 #include <QFormLayout>
 #include <QFrame>
@@ -20,14 +23,22 @@
 #include <QIcon>
 #include <QInputDialog>
 #include <QLineEdit>
+#include <QPixmap>
 #include <QPlainTextEdit>
 #include <QRegularExpression>
 #include <QSaveFile>
+#include <QScrollArea>
 #include <QScrollBar>
+#include <QSpinBox>
+#include <QStandardPaths>
 #include <QTemporaryFile>
+#include <QTextEdit>
 #include <QTextStream>
 #include <QUrl>
 #include <QVBoxLayout>
+
+#include <signal.h>
+#include <sys/types.h>
 
 #include <memory>
 
@@ -35,8 +46,13 @@
 #define TOOLKIT_LIBEXEC_DIR "/usr/libexec/miryu-toolkit"
 #endif
 
+#ifndef GRUB_HELPER_PATH
+#define GRUB_HELPER_PATH "/usr/libexec/miryu-toolkit/miryu-toolkit-grub-config-helper"
+#endif
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
+    , m_grubConfig(new GrubConfig(this))
 {
     setupComponents();
 
@@ -57,10 +73,20 @@ MainWindow::MainWindow(QWidget *parent)
     rootLayout->addWidget(subtitle);
 
     m_tabs = new QTabWidget(central);
-    m_tabs->addTab(buildSystemAssistantTab(), i18n("Miryu System Assistant"));
-    m_tabs->addTab(buildEnvironmentTab(), i18n("System-wide environment variables"));
-    m_tabs->addTab(buildExtrasTab(), i18n("Install additional components"));
-    m_tabs->addTab(buildAboutTab(), i18n("About"));
+
+    auto wrapScroll = [](QWidget *content) -> QWidget * {
+        auto *scroll = new QScrollArea;
+        scroll->setWidget(content);
+        scroll->setWidgetResizable(true);
+        scroll->setFrameShape(QFrame::NoFrame);
+        return scroll;
+    };
+
+    m_tabs->addTab(wrapScroll(buildSystemAssistantTab()), i18n("Miryu System Assistant"));
+    m_tabs->addTab(wrapScroll(buildBootMenuTab()), i18n("Boot Menu"));
+    m_tabs->addTab(wrapScroll(buildEnvironmentTab()), i18n("System-wide environment variables"));
+    m_tabs->addTab(wrapScroll(buildExtrasTab()), i18n("Install additional components"));
+    m_tabs->addTab(wrapScroll(buildAboutTab()), i18n("About"));
     rootLayout->addWidget(m_tabs, 1);
 
     auto *bottomLayout = new QHBoxLayout;
@@ -70,11 +96,13 @@ MainWindow::MainWindow(QWidget *parent)
     rootLayout->addLayout(bottomLayout);
 
     setCentralWidget(central);
+    setMinimumSize(980, 620);
     resize(980, 620);
     setWindowTitle(i18n("Miryu Toolkit"));
 
     refreshComponentStates();
     loadEnvironmentVariables();
+    loadGrubConfig();
 }
 
 void MainWindow::setupComponents()
@@ -179,6 +207,7 @@ QWidget *MainWindow::buildSystemAssistantTab()
     groupLayout->addWidget(collectLogsButton);
 
     layout->addWidget(group);
+
     layout->addStretch();
     return page;
 }
@@ -464,6 +493,7 @@ void MainWindow::runPackageOperation(const ExtraComponent &component, const QStr
 
     auto *logDialog = new QDialog(this);
     logDialog->setAttribute(Qt::WA_DeleteOnClose);
+    logDialog->setWindowFlags(Qt::Dialog | Qt::WindowTitleHint);
     logDialog->setWindowTitle(i18n("DNF5 details: %1", component.name));
     logDialog->resize(760, 460);
 
@@ -477,11 +507,6 @@ void MainWindow::runPackageOperation(const ExtraComponent &component, const QStr
     logView->appendPlainText(i18n("Starting privileged package helper..."));
     logLayout->addWidget(logView, 1);
 
-    auto *closeButtons = new QDialogButtonBox(QDialogButtonBox::Close, logDialog);
-    closeButtons->button(QDialogButtonBox::Close)->setEnabled(false);
-    connect(closeButtons, &QDialogButtonBox::rejected, logDialog, &QDialog::close);
-    logLayout->addWidget(closeButtons);
-
     auto appendOutput = [logView](const QByteArray &data) {
         if (data.isEmpty()) {
             return;
@@ -493,44 +518,520 @@ void MainWindow::runPackageOperation(const ExtraComponent &component, const QStr
         logView->verticalScrollBar()->setValue(logView->verticalScrollBar()->maximum());
     };
 
-    connect(process, &QProcess::readyReadStandardOutput, this, [process, appendOutput]() {
+    connect(process, &QProcess::readyReadStandardOutput, logDialog, [process, appendOutput]() {
         appendOutput(process->readAllStandardOutput());
     });
-    connect(process, &QProcess::readyReadStandardError, this, [process, appendOutput]() {
+    connect(process, &QProcess::readyReadStandardError, logDialog, [process, appendOutput]() {
         appendOutput(process->readAllStandardError());
     });
 
-    connect(process, &QProcess::finished, this, [this, process, component, actionText, logView, closeButtons](int exitCode, QProcess::ExitStatus exitStatus) {
+    QPointer<QPlainTextEdit> viewGuard(logView);
+    QPointer<QDialog> dialogGuard(logDialog);
+    connect(process, &QProcess::finished, this, [this, process, component, actionText, viewGuard, dialogGuard](int exitCode, QProcess::ExitStatus exitStatus) {
         const QString output = QString::fromLocal8Bit(process->readAllStandardOutput())
             + QString::fromLocal8Bit(process->readAllStandardError());
-        if (!output.trimmed().isEmpty()) {
-            logView->appendPlainText(output.trimmed());
+        if (!output.trimmed().isEmpty() && viewGuard) {
+            viewGuard->appendPlainText(output.trimmed());
         }
         process->deleteLater();
         m_runningProcess = nullptr;
         refreshComponentStates();
 
-        if (exitStatus == QProcess::NormalExit && exitCode == 0) {
-            logView->appendPlainText(i18n("%1 completed.", actionText));
-        } else {
-            logView->appendPlainText(i18n("%1 “%2” failed.", actionText, component.name));
+        if (!dialogGuard) {
+            return;
         }
-        closeButtons->button(QDialogButtonBox::Close)->setEnabled(true);
+
+        if (exitStatus == QProcess::NormalExit && exitCode == 0) {
+            if (viewGuard) {
+                viewGuard->appendPlainText(i18n("%1 completed.", actionText));
+            }
+            KMessageBox::information(dialogGuard,
+                                     i18n("%1 completed.", actionText),
+                                     i18n("Completed"));
+        } else {
+            if (viewGuard) {
+                viewGuard->appendPlainText(i18n("%1 “%2” failed.", actionText, component.name));
+            }
+            KMessageBox::error(dialogGuard,
+                               i18n("%1 “%2” failed. See the log window for details.", actionText, component.name),
+                               i18n("Failed"));
+        }
+        dialogGuard->close();
     });
 
-    connect(process, &QProcess::errorOccurred, this, [this, process, actionText, logView, closeButtons](QProcess::ProcessError error) {
+    QPointer<QDialog> errDialogGuard(logDialog);
+    QPointer<QPlainTextEdit> errViewGuard(logView);
+    connect(process, &QProcess::errorOccurred, this, [this, process, actionText, errViewGuard, errDialogGuard](QProcess::ProcessError error) {
         if (error == QProcess::FailedToStart) {
             process->deleteLater();
             m_runningProcess = nullptr;
             refreshComponentStates();
-            logView->appendPlainText(i18n("Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."));
-            logView->appendPlainText(i18n("%1 failed", actionText));
-            closeButtons->button(QDialogButtonBox::Close)->setEnabled(true);
+            if (errViewGuard) {
+                errViewGuard->appendPlainText(i18n("Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."));
+                errViewGuard->appendPlainText(i18n("%1 failed", actionText));
+            }
+            KMessageBox::error(errDialogGuard,
+                               i18n("Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."),
+                               i18n("Failed"));
+            if (errDialogGuard) {
+                errDialogGuard->close();
+            }
         }
     });
 
     process->start(QStringLiteral("pkexec"), args);
     logDialog->show();
+}
+
+// ── Boot Menu (GRUB2) tab ──
+
+QWidget *MainWindow::buildBootMenuTab()
+{
+    auto *page = new QWidget;
+    auto *layout = new QVBoxLayout(page);
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->setSpacing(10);
+
+    layout->addWidget(buildBootMenuSection());
+
+    layout->addStretch();
+    return page;
+}
+
+QWidget *MainWindow::buildBootMenuSection()
+{
+    auto *group = new QGroupBox(i18n("Boot Menu"));
+    auto *groupLayout = new QVBoxLayout(group);
+    groupLayout->setSpacing(12);
+
+    // ── Boot menu options ──
+    m_grubShowMenuCheck = new QCheckBox(i18n("Show boot menu"), group);
+    m_grubShowMenuCheck->setToolTip(i18n("Show the GRUB menu before starting the default system."));
+    groupLayout->addWidget(m_grubShowMenuCheck);
+
+    auto *delayLayout = new QHBoxLayout();
+    delayLayout->setSpacing(12);
+    auto *delayLabel = new QLabel(i18n("Delay before booting"), group);
+    m_grubDelaySpin = new QSpinBox(group);
+    m_grubDelaySpin->setRange(-1, 3600);
+    m_grubDelaySpin->setSuffix(i18n(" seconds"));
+    m_grubDelaySpin->setSpecialValueText(i18n("wait indefinitely"));
+    m_grubDelaySpin->setToolTip(i18n("Use -1 to wait until a menu entry is selected."));
+    delayLayout->addWidget(delayLabel);
+    delayLayout->addSpacing(8);
+    delayLayout->addWidget(m_grubDelaySpin);
+    delayLayout->addStretch();
+    groupLayout->addLayout(delayLayout);
+
+    m_grubRememberCheck = new QCheckBox(i18n("Remember last selected entry as the default"), group);
+    groupLayout->addWidget(m_grubRememberCheck);
+
+    groupLayout->addSpacing(4);
+
+    // ── Kernel parameters ──
+    auto *paramsTitle = new QLabel(i18n("Kernel Parameters"), group);
+    QFont cardTitleFont = paramsTitle->font();
+    cardTitleFont.setBold(true);
+    paramsTitle->setFont(cardTitleFont);
+    groupLayout->addWidget(paramsTitle);
+
+    auto *currentLabel = new QLabel(i18n("Current kernel command line"), group);
+    groupLayout->addWidget(currentLabel);
+
+    m_grubCurrentParamsDisplay = new QTextEdit(group);
+    m_grubCurrentParamsDisplay->setReadOnly(true);
+    m_grubCurrentParamsDisplay->setMinimumHeight(76);
+    m_grubCurrentParamsDisplay->setMaximumHeight(92);
+    groupLayout->addWidget(m_grubCurrentParamsDisplay);
+
+    auto *customLabel = new QLabel(i18n("Custom parameters written by this tool"), group);
+    groupLayout->addWidget(customLabel);
+
+    auto *listLayout = new QHBoxLayout();
+    listLayout->setSpacing(12);
+
+    m_grubParamListWidget = new QListWidget(group);
+    m_grubParamListWidget->setSelectionMode(QAbstractItemView::SingleSelection);
+    m_grubParamListWidget->setAlternatingRowColors(true);
+    m_grubParamListWidget->setMinimumHeight(132);
+    connect(m_grubParamListWidget, &QListWidget::currentRowChanged, this, &MainWindow::refreshGrubActionButtons);
+    listLayout->addWidget(m_grubParamListWidget, 1);
+
+    auto *sideButtons = new QVBoxLayout();
+    sideButtons->setSpacing(8);
+
+    m_grubRemoveParamButton = new QPushButton(i18n("Remove"), group);
+    m_grubEditParamButton = new QPushButton(i18n("Edit"), group);
+    m_grubMoveUpButton = new QPushButton(i18n("Up"), group);
+    m_grubMoveDownButton = new QPushButton(i18n("Down"), group);
+
+    connect(m_grubRemoveParamButton, &QPushButton::clicked, this, &MainWindow::onRemoveGrubParam);
+    connect(m_grubEditParamButton, &QPushButton::clicked, this, &MainWindow::onEditGrubParam);
+    connect(m_grubMoveUpButton, &QPushButton::clicked, this, &MainWindow::onMoveGrubUp);
+    connect(m_grubMoveDownButton, &QPushButton::clicked, this, &MainWindow::onMoveGrubDown);
+
+    sideButtons->addWidget(m_grubRemoveParamButton);
+    sideButtons->addWidget(m_grubEditParamButton);
+    sideButtons->addWidget(m_grubMoveUpButton);
+    sideButtons->addWidget(m_grubMoveDownButton);
+    sideButtons->addStretch();
+    listLayout->addLayout(sideButtons);
+    groupLayout->addLayout(listLayout);
+
+    auto *addLayout = new QHBoxLayout();
+    addLayout->setSpacing(12);
+    auto *newLabel = new QLabel(i18n("New parameter"), group);
+    m_grubNewParamEdit = new QLineEdit(group);
+    m_grubNewParamEdit->setPlaceholderText(i18n("Example: nomodeset"));
+    m_grubAddParamButton = new QPushButton(i18n("Add"), group);
+    m_grubAddParamButton->setIcon(QIcon::fromTheme(QStringLiteral("list-add")));
+    connect(m_grubNewParamEdit, &QLineEdit::returnPressed, this, &MainWindow::onAddGrubParam);
+    connect(m_grubAddParamButton, &QPushButton::clicked, this, &MainWindow::onAddGrubParam);
+    addLayout->addWidget(newLabel);
+    addLayout->addSpacing(8);
+    addLayout->addWidget(m_grubNewParamEdit, 1);
+    addLayout->addSpacing(8);
+    addLayout->addWidget(m_grubAddParamButton);
+    groupLayout->addLayout(addLayout);
+
+    groupLayout->addSpacing(4);
+
+    // ── Bottom: status + save (no reboot button) ──
+    auto *bottomLayout = new QHBoxLayout();
+    bottomLayout->setSpacing(12);
+
+    m_grubStatusLabel = new QLabel(i18n("Saving requires administrator authentication through polkit."), group);
+    m_grubStatusLabel->setWordWrap(true);
+
+    m_grubSaveButton = new QPushButton(i18n("Save GRUB2 Settings"), group);
+    m_grubSaveButton->setIcon(QIcon::fromTheme(QStringLiteral("document-save")));
+    connect(m_grubSaveButton, &QPushButton::clicked, this, &MainWindow::onSaveGrubClicked);
+
+    bottomLayout->addWidget(m_grubStatusLabel, 1);
+    bottomLayout->addWidget(m_grubSaveButton);
+    groupLayout->addLayout(bottomLayout);
+
+    return group;
+}
+
+void MainWindow::loadGrubConfig()
+{
+    if (!m_grubConfig || !m_grubConfig->load()) {
+        if (m_grubStatusLabel) {
+            m_grubStatusLabel->setText(i18n("Could not load the GRUB configuration."));
+        }
+        return;
+    }
+    updateGrubUiFromConfig();
+}
+
+void MainWindow::updateGrubUiFromConfig()
+{
+    if (!m_grubConfig) {
+        return;
+    }
+    m_grubShowMenuCheck->setChecked(m_grubConfig->showMenu());
+    m_grubDelaySpin->setValue(m_grubConfig->timeout());
+    m_grubRememberCheck->setChecked(m_grubConfig->rememberLast());
+    m_grubCurrentParamsDisplay->setPlainText(m_grubConfig->currentCmdline());
+    setGrubParameterList(m_grubConfig->bootParams().split(QLatin1Char(' '), Qt::SkipEmptyParts));
+    refreshGrubActionButtons();
+}
+
+QStringList MainWindow::grubParameterList() const
+{
+    QStringList result;
+    for (int i = 0; i < m_grubParamListWidget->count(); ++i) {
+        const auto *item = m_grubParamListWidget->item(i);
+        if (item && !item->text().trimmed().isEmpty()) {
+            result << item->text().trimmed();
+        }
+    }
+    return result;
+}
+
+void MainWindow::setGrubParameterList(const QStringList &params)
+{
+    m_grubParamListWidget->clear();
+    for (const QString &param : params) {
+        const QString trimmed = param.trimmed();
+        if (!trimmed.isEmpty()) {
+            m_grubParamListWidget->addItem(trimmed);
+        }
+    }
+}
+
+bool MainWindow::validateGrubParameter(const QString &param, int ignoredRow)
+{
+    if (param.isEmpty()) {
+        KMessageBox::information(this, i18n("Empty Parameter"), i18n("Enter one kernel parameter first."));
+        return false;
+    }
+
+    if (param.contains(QRegularExpression(QStringLiteral(R"(\s)")))) {
+        KMessageBox::error(this, i18n("Invalid Parameter"),
+                           i18n("Add one parameter at a time. Spaces are not allowed."));
+        return false;
+    }
+
+    const QRegularExpression safeParamRe(QStringLiteral(R"(^[A-Za-z0-9_./:=,+@%-]+$)"));
+    if (!safeParamRe.match(param).hasMatch()) {
+        KMessageBox::error(this, i18n("Invalid Parameter"),
+                           i18n("Use only letters, numbers, and these characters: _ . / : = , + @ % -"));
+        return false;
+    }
+
+    for (int i = 0; i < m_grubParamListWidget->count(); ++i) {
+        if (i == ignoredRow) {
+            continue;
+        }
+        const auto *item = m_grubParamListWidget->item(i);
+        if (item && item->text() == param) {
+            KMessageBox::information(this, i18n("Duplicate Parameter"),
+                                     i18n("The parameter \xe2\x80\x9c%1\xe2\x80\x9d already exists.", param));
+            return false;
+        }
+    }
+
+    return true;
+}
+
+void MainWindow::onAddGrubParam()
+{
+    const QString param = m_grubNewParamEdit->text().trimmed();
+    if (!validateGrubParameter(param)) {
+        return;
+    }
+
+    m_grubParamListWidget->addItem(param);
+    m_grubNewParamEdit->clear();
+    m_grubNewParamEdit->setFocus();
+    refreshGrubActionButtons();
+}
+
+void MainWindow::onRemoveGrubParam()
+{
+    const int row = m_grubParamListWidget->currentRow();
+    if (row >= 0) {
+        delete m_grubParamListWidget->takeItem(row);
+    }
+    refreshGrubActionButtons();
+}
+
+void MainWindow::onEditGrubParam()
+{
+    const int row = m_grubParamListWidget->currentRow();
+    if (row < 0) {
+        return;
+    }
+
+    auto *item = m_grubParamListWidget->item(row);
+    bool ok = false;
+    const QString edited = QInputDialog::getText(this, i18n("Edit Parameter"), i18n("Parameter"),
+                                                 QLineEdit::Normal, item->text(), &ok).trimmed();
+    if (ok && validateGrubParameter(edited, row)) {
+        item->setText(edited);
+    }
+}
+
+void MainWindow::onMoveGrubUp()
+{
+    const int row = m_grubParamListWidget->currentRow();
+    if (row <= 0) {
+        return;
+    }
+
+    auto *item = m_grubParamListWidget->takeItem(row);
+    m_grubParamListWidget->insertItem(row - 1, item);
+    m_grubParamListWidget->setCurrentRow(row - 1);
+    refreshGrubActionButtons();
+}
+
+void MainWindow::onMoveGrubDown()
+{
+    const int row = m_grubParamListWidget->currentRow();
+    if (row < 0 || row >= m_grubParamListWidget->count() - 1) {
+        return;
+    }
+
+    auto *item = m_grubParamListWidget->takeItem(row);
+    m_grubParamListWidget->insertItem(row + 1, item);
+    m_grubParamListWidget->setCurrentRow(row + 1);
+    refreshGrubActionButtons();
+}
+
+void MainWindow::refreshGrubActionButtons()
+{
+    if (!m_grubParamListWidget || !m_grubParamListWidget->isEnabled()) {
+        m_grubRemoveParamButton->setEnabled(false);
+        m_grubEditParamButton->setEnabled(false);
+        m_grubMoveUpButton->setEnabled(false);
+        m_grubMoveDownButton->setEnabled(false);
+        return;
+    }
+
+    const int row = m_grubParamListWidget->currentRow();
+    const bool hasSelection = row >= 0;
+    m_grubRemoveParamButton->setEnabled(hasSelection);
+    m_grubEditParamButton->setEnabled(hasSelection);
+    m_grubMoveUpButton->setEnabled(row > 0);
+    m_grubMoveDownButton->setEnabled(row >= 0 && row < m_grubParamListWidget->count() - 1);
+}
+
+void MainWindow::onSaveGrubClicked()
+{
+    if (!m_grubConfig) {
+        return;
+    }
+
+    m_grubConfig->setShowMenu(m_grubShowMenuCheck->isChecked());
+    m_grubConfig->setTimeout(m_grubDelaySpin->value());
+    m_grubConfig->setRememberLast(m_grubRememberCheck->isChecked());
+    m_grubConfig->setBootParams(grubParameterList().join(QLatin1Char(' ')));
+
+    QTemporaryFile tempFile(QDir::tempPath() + QStringLiteral("/miryu-toolkit-grub-XXXXXX.cfg"));
+    tempFile.setAutoRemove(false);
+    if (!tempFile.open()) {
+        KMessageBox::error(this, i18n("Save Failed"), i18n("Could not create a temporary configuration file."));
+        return;
+    }
+
+    const QString configContent = m_grubConfig->generateConfigContent();
+    tempFile.write(configContent.toUtf8());
+    tempFile.flush();
+    const QString tempPath = tempFile.fileName();
+    tempFile.close();
+
+    const QString helperPath = resolveGrubHelperPath();
+    if (!QFileInfo::exists(helperPath)) {
+        QFile::remove(tempPath);
+        KMessageBox::error(this, i18n("Helper Not Found"),
+                           i18n("The privileged helper was not found at:\n%1\n\nInstall the project before saving GRUB2 settings.",
+                                helperPath));
+        return;
+    }
+
+    // ── Build a non-closeable log dialog ──
+    auto *logDialog = new QDialog(this);
+    logDialog->setAttribute(Qt::WA_DeleteOnClose);
+    logDialog->setWindowFlags(Qt::Dialog | Qt::WindowTitleHint);   // no close button
+    logDialog->setWindowTitle(i18n("Applying GRUB2 Settings"));
+    logDialog->resize(640, 440);
+
+    auto *logLayout = new QVBoxLayout(logDialog);
+    auto *logView = new QPlainTextEdit(logDialog);
+    logView->setReadOnly(true);
+    logView->setLineWrapMode(QPlainTextEdit::NoWrap);
+    logView->appendPlainText(i18n("Waiting for administrator authentication..."));
+    logLayout->addWidget(logView, 1);
+
+    // ── Async QProcess so the main window stays responsive ──
+    auto *process = new QProcess(this);
+
+    auto appendOutput = [logView](const QByteArray &data) {
+        const QString text = QString::fromUtf8(data).trimmed();
+        if (!text.isEmpty()) {
+            logView->appendPlainText(text);
+            logView->verticalScrollBar()->setValue(logView->verticalScrollBar()->maximum());
+        }
+    };
+    connect(process, &QProcess::readyReadStandardOutput, logDialog, [appendOutput, process]() {
+        appendOutput(process->readAllStandardOutput());
+    });
+    connect(process, &QProcess::readyReadStandardError, logDialog, [appendOutput, process]() {
+        appendOutput(process->readAllStandardError());
+    });
+
+    QPointer<QPlainTextEdit> viewGuard(logView);
+    QPointer<QDialog> dialogGuard(logDialog);
+    connect(process, &QProcess::finished, this, [this, process, dialogGuard, viewGuard, tempPath, appendOutput](int exitCode, QProcess::ExitStatus exitStatus) {
+        // Flush any remaining output
+        if (viewGuard) {
+            appendOutput(process->readAllStandardOutput());
+            appendOutput(process->readAllStandardError());
+        }
+
+        QFile::remove(tempPath);
+        setGrubBusy(false);
+        process->deleteLater();
+
+        if (!dialogGuard) {
+            return;
+        }
+
+        const bool success = (exitStatus == QProcess::NormalExit && exitCode == 0);
+
+        if (success) {
+            if (viewGuard) {
+                viewGuard->appendPlainText(i18n("GRUB2 settings saved successfully."));
+            }
+            m_grubStatusLabel->setText(i18n("GRUB2 settings saved. Reboot to use the new boot menu."));
+            KMessageBox::information(dialogGuard, i18n("Saved"),
+                                     i18n("GRUB2 settings were saved and grub2-mkconfig completed successfully."));
+            loadGrubConfig();
+        } else {
+            if (viewGuard) {
+                viewGuard->appendPlainText(i18n("GRUB2 settings save failed."));
+            }
+            m_grubStatusLabel->setText(i18n("Save failed."));
+            if (exitCode == -1) {
+                // Process never started (pkexec not found, etc.)
+                KMessageBox::error(dialogGuard, i18n("Save Failed"),
+                                   i18n("Could not start the privileged helper. Make sure polkit is installed and run this program from a graphical session."));
+            } else {
+                KMessageBox::error(dialogGuard, i18n("Save Failed"),
+                                   i18n("Could not save and regenerate GRUB2 configuration."));
+            }
+        }
+
+        dialogGuard->close();
+    });
+
+    QPointer<QPlainTextEdit> errViewGuard(logView);
+    connect(process, &QProcess::errorOccurred, this, [errViewGuard](QProcess::ProcessError error) {
+        if (error == QProcess::FailedToStart) {
+            if (errViewGuard) {
+                errViewGuard->appendPlainText(i18n("Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."));
+            }
+        }
+        // Other errors (e.g. Crashed) are handled in finished()
+    });
+
+    setGrubBusy(true);
+    m_grubStatusLabel->setText(i18n("Waiting for administrator authentication..."));
+
+    process->start(QStringLiteral("pkexec"), QStringList() << helperPath << QStringLiteral("--apply") << tempPath);
+
+    logDialog->show();
+}
+
+void MainWindow::setGrubBusy(bool busy)
+{
+    m_grubSaveButton->setEnabled(!busy);
+    m_grubShowMenuCheck->setEnabled(!busy);
+    m_grubDelaySpin->setEnabled(!busy);
+    m_grubRememberCheck->setEnabled(!busy);
+    m_grubParamListWidget->setEnabled(!busy);
+    m_grubNewParamEdit->setEnabled(!busy);
+    m_grubAddParamButton->setEnabled(!busy);
+    refreshGrubActionButtons();
+}
+
+QString MainWindow::resolveGrubHelperPath() const
+{
+    const QString installedPath = QStringLiteral(GRUB_HELPER_PATH);
+    if (QFileInfo::exists(installedPath)) {
+        return installedPath;
+    }
+
+    const QString localPath = QCoreApplication::applicationDirPath()
+                              + QLatin1Char('/')
+                              + QStringLiteral("miryu-toolkit-grub-config-helper");
+    if (QFileInfo::exists(localPath)) {
+        return localPath;
+    }
+
+    return installedPath;
 }
 
 void MainWindow::setComponentsBusy(bool busy)
@@ -825,6 +1326,7 @@ void MainWindow::cleanupOldKernel()
 
     auto *logDialog = new QDialog(this);
     logDialog->setAttribute(Qt::WA_DeleteOnClose);
+    logDialog->setWindowFlags(Qt::Dialog | Qt::WindowTitleHint);
     logDialog->setWindowTitle(i18n("Kernel cleanup log"));
     logDialog->resize(760, 460);
 
@@ -839,11 +1341,6 @@ void MainWindow::cleanupOldKernel()
     logView->appendPlainText(i18n("Starting privileged kernel cleanup helper..."));
     logLayout->addWidget(logView, 1);
 
-    auto *closeButtons = new QDialogButtonBox(QDialogButtonBox::Close, logDialog);
-    closeButtons->button(QDialogButtonBox::Close)->setEnabled(false);
-    connect(closeButtons, &QDialogButtonBox::rejected, logDialog, &QDialog::close);
-    logLayout->addWidget(closeButtons);
-
     auto appendOutput = [logView](const QByteArray &data) {
         if (data.isEmpty()) {
             return;
@@ -855,23 +1352,29 @@ void MainWindow::cleanupOldKernel()
         logView->verticalScrollBar()->setValue(logView->verticalScrollBar()->maximum());
     };
 
-    connect(process, &QProcess::readyReadStandardOutput, this, [process, appendOutput]() {
+    connect(process, &QProcess::readyReadStandardOutput, logDialog, [process, appendOutput]() {
         appendOutput(process->readAllStandardOutput());
     });
-    connect(process, &QProcess::readyReadStandardError, this, [process, appendOutput]() {
+    connect(process, &QProcess::readyReadStandardError, logDialog, [process, appendOutput]() {
         appendOutput(process->readAllStandardError());
     });
 
-    connect(process, &QProcess::finished, this, [this, process, logView, closeButtons](int exitCode, QProcess::ExitStatus exitStatus) {
+    QPointer<QPlainTextEdit> viewGuard(logView);
+    QPointer<QDialog> dialogGuard(logDialog);
+    connect(process, &QProcess::finished, this, [this, process, viewGuard, dialogGuard](int exitCode, QProcess::ExitStatus exitStatus) {
         QString output = QString::fromLocal8Bit(process->readAllStandardOutput())
             + QString::fromLocal8Bit(process->readAllStandardError());
-        if (!output.trimmed().isEmpty()) {
-            logView->appendPlainText(output.trimmed());
+        if (!output.trimmed().isEmpty() && viewGuard) {
+            viewGuard->appendPlainText(output.trimmed());
         }
 
         process->deleteLater();
         m_runningProcess = nullptr;
         refreshComponentStates();
+
+        if (!dialogGuard) {
+            return;
+        }
 
         // Detect "nothing to do" or "done" as completed
         bool completed = false;
@@ -887,23 +1390,29 @@ void MainWindow::cleanupOldKernel()
             if (m_bottomStatus) {
                 m_bottomStatus->setText(i18n("Kernel cleanup completed."));
             }
-            logView->appendPlainText(i18n("Kernel cleanup completed."));
-            KMessageBox::information(this,
+            if (viewGuard) {
+                viewGuard->appendPlainText(i18n("Kernel cleanup completed."));
+            }
+            KMessageBox::information(dialogGuard,
                                      i18n("Previous kernel versions have been cleaned up."),
                                      i18n("Cleanup completed"));
         } else {
             if (m_bottomStatus) {
                 m_bottomStatus->setText(i18n("Kernel cleanup failed."));
             }
-            logView->appendPlainText(i18n("Kernel cleanup failed."));
-            KMessageBox::error(this,
+            if (viewGuard) {
+                viewGuard->appendPlainText(i18n("Kernel cleanup failed."));
+            }
+            KMessageBox::error(dialogGuard,
                                i18n("Failed to clean up previous kernel versions. See the log window for details."),
                                i18n("Cleanup failed"));
         }
-        closeButtons->button(QDialogButtonBox::Close)->setEnabled(true);
+        dialogGuard->close();
     });
 
-    connect(process, &QProcess::errorOccurred, this, [this, process, logView, closeButtons](QProcess::ProcessError error) {
+    QPointer<QDialog> errDialogGuard(logDialog);
+    QPointer<QPlainTextEdit> errViewGuard(logView);
+    connect(process, &QProcess::errorOccurred, this, [this, process, errViewGuard, errDialogGuard](QProcess::ProcessError error) {
         if (error == QProcess::FailedToStart) {
             process->deleteLater();
             m_runningProcess = nullptr;
@@ -911,8 +1420,15 @@ void MainWindow::cleanupOldKernel()
             if (m_bottomStatus) {
                 m_bottomStatus->setText(i18n("Kernel cleanup failed."));
             }
-            logView->appendPlainText(i18n("Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."));
-            closeButtons->button(QDialogButtonBox::Close)->setEnabled(true);
+            if (errViewGuard) {
+                errViewGuard->appendPlainText(i18n("Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."));
+            }
+            KMessageBox::error(errDialogGuard,
+                               i18n("Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."),
+                               i18n("Cleanup failed"));
+            if (errDialogGuard) {
+                errDialogGuard->close();
+            }
         }
     });
 
@@ -942,6 +1458,7 @@ void MainWindow::collectSystemLogs()
     // Progress dialog
     auto *logDialog = new QDialog(this);
     logDialog->setAttribute(Qt::WA_DeleteOnClose);
+    logDialog->setWindowFlags(Qt::Dialog | Qt::WindowTitleHint);
     logDialog->setWindowTitle(i18n("Collecting system logs"));
     logDialog->resize(640, 420);
 
@@ -955,11 +1472,6 @@ void MainWindow::collectSystemLogs()
     logView->setLineWrapMode(QPlainTextEdit::NoWrap);
     logView->appendPlainText(i18n("Starting privileged log collection helper..."));
     logLayout->addWidget(logView, 1);
-
-    auto *closeButtons = new QDialogButtonBox(QDialogButtonBox::Close, logDialog);
-    closeButtons->button(QDialogButtonBox::Close)->setEnabled(false);
-    connect(closeButtons, &QDialogButtonBox::rejected, logDialog, &QDialog::close);
-    logLayout->addWidget(closeButtons);
 
     // Accumulate stdout separately so the archive path can be extracted
     // reliably in the finished handler. The readyReadStandardOutput signal
@@ -975,21 +1487,23 @@ void MainWindow::collectSystemLogs()
         logView->verticalScrollBar()->setValue(logView->verticalScrollBar()->maximum());
     };
 
-    connect(process, &QProcess::readyReadStandardOutput, this, [process, appendOutput, stdoutAccum]() {
+    connect(process, &QProcess::readyReadStandardOutput, logDialog, [process, appendOutput, stdoutAccum]() {
         QByteArray data = process->readAllStandardOutput();
         stdoutAccum->append(data);
         appendOutput(data);
     });
-    connect(process, &QProcess::readyReadStandardError, this, [process, appendOutput]() {
+    connect(process, &QProcess::readyReadStandardError, logDialog, [process, appendOutput]() {
         appendOutput(process->readAllStandardError());
     });
 
-    connect(process, &QProcess::finished, this, [this, process, logView, closeButtons, stdoutAccum](int exitCode, QProcess::ExitStatus exitStatus) {
+    QPointer<QPlainTextEdit> viewGuard(logView);
+    QPointer<QDialog> dialogGuard(logDialog);
+    connect(process, &QProcess::finished, this, [this, process, viewGuard, dialogGuard, stdoutAccum](int exitCode, QProcess::ExitStatus exitStatus) {
         // Drain any remaining output
         stdoutAccum->append(process->readAllStandardOutput());
         const QByteArray stderrRemainder = process->readAllStandardError();
-        if (!stderrRemainder.trimmed().isEmpty()) {
-            logView->appendPlainText(QString::fromLocal8Bit(stderrRemainder).trimmed());
+        if (!stderrRemainder.trimmed().isEmpty() && viewGuard) {
+            viewGuard->appendPlainText(QString::fromLocal8Bit(stderrRemainder).trimmed());
         }
 
         // The helper prints the archive path on the last line of stdout
@@ -999,27 +1513,37 @@ void MainWindow::collectSystemLogs()
         m_runningProcess = nullptr;
         refreshComponentStates();
 
+        if (!dialogGuard) {
+            return;
+        }
+
         if (exitStatus == QProcess::NormalExit && exitCode == 0) {
             if (m_bottomStatus) {
                 m_bottomStatus->setText(i18n("System logs collected: %1", archivePath));
             }
-            logView->appendPlainText(i18n("Collection completed. Archive saved to: %1", archivePath));
-            KMessageBox::information(this,
+            if (viewGuard) {
+                viewGuard->appendPlainText(i18n("Collection completed. Archive saved to: %1", archivePath));
+            }
+            KMessageBox::information(dialogGuard,
                                      i18n("System logs have been collected and saved to:\n%1", archivePath),
                                      i18n("Collection completed"));
         } else {
             if (m_bottomStatus) {
                 m_bottomStatus->setText(i18n("Log collection failed."));
             }
-            logView->appendPlainText(i18n("Log collection failed."));
-            KMessageBox::error(this,
+            if (viewGuard) {
+                viewGuard->appendPlainText(i18n("Log collection failed."));
+            }
+            KMessageBox::error(dialogGuard,
                                i18n("Failed to collect system logs. See the log window for details."),
                                i18n("Collection failed"));
         }
-        closeButtons->button(QDialogButtonBox::Close)->setEnabled(true);
+        dialogGuard->close();
     });
 
-    connect(process, &QProcess::errorOccurred, this, [this, process, logView, closeButtons](QProcess::ProcessError error) {
+    QPointer<QDialog> errDialogGuard(logDialog);
+    QPointer<QPlainTextEdit> errViewGuard(logView);
+    connect(process, &QProcess::errorOccurred, this, [this, process, errViewGuard, errDialogGuard](QProcess::ProcessError error) {
         if (error == QProcess::FailedToStart) {
             process->deleteLater();
             m_runningProcess = nullptr;
@@ -1027,8 +1551,15 @@ void MainWindow::collectSystemLogs()
             if (m_bottomStatus) {
                 m_bottomStatus->setText(i18n("Log collection failed."));
             }
-            logView->appendPlainText(i18n("Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."));
-            closeButtons->button(QDialogButtonBox::Close)->setEnabled(true);
+            if (errViewGuard) {
+                errViewGuard->appendPlainText(i18n("Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."));
+            }
+            KMessageBox::error(errDialogGuard,
+                               i18n("Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."),
+                               i18n("Collection failed"));
+            if (errDialogGuard) {
+                errDialogGuard->close();
+            }
         }
     });
 
@@ -1065,6 +1596,7 @@ void MainWindow::updateSystem()
 
     auto *logDialog = new QDialog(this);
     logDialog->setAttribute(Qt::WA_DeleteOnClose);
+    logDialog->setWindowFlags(Qt::Dialog | Qt::WindowTitleHint);
     logDialog->setWindowTitle(i18n("System update"));
     logDialog->resize(760, 480);
 
@@ -1079,10 +1611,22 @@ void MainWindow::updateSystem()
     logView->appendPlainText(i18n("Running: dnf5 check-update --refresh"));
     logLayout->addWidget(logView, 1);
 
-    auto *closeButtons = new QDialogButtonBox(QDialogButtonBox::Close, logDialog);
-    closeButtons->button(QDialogButtonBox::Close)->setEnabled(false);
-    connect(closeButtons, &QDialogButtonBox::rejected, logDialog, &QDialog::close);
-    logLayout->addWidget(closeButtons);
+    auto *cancelButton = new QPushButton(i18n("Cancel update"), logDialog);
+    cancelButton->setObjectName(QStringLiteral("cancelUpdateButton"));
+    cancelButton->setIcon(QIcon::fromTheme(QStringLiteral("dialog-cancel")));
+    cancelButton->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Fixed);
+    logLayout->addWidget(cancelButton, 0, Qt::AlignRight);
+
+    logDialog->setProperty("cancelled", false);
+
+    connect(cancelButton, &QPushButton::clicked, this, [this, logView, cancelButton, logDialog]() {
+        if (m_runningProcess) {
+            kill(m_runningProcess->processId(), SIGINT);
+            logView->appendPlainText(i18n("Cancelling..."));
+            cancelButton->setEnabled(false);
+            logDialog->setProperty("cancelled", true);
+        }
+    });
 
     auto appendOutput = [logView](const QByteArray &data) {
         if (data.isEmpty()) {
@@ -1092,79 +1636,115 @@ void MainWindow::updateSystem()
         logView->verticalScrollBar()->setValue(logView->verticalScrollBar()->maximum());
     };
 
-    connect(checkProcess, &QProcess::readyReadStandardOutput, this, [checkProcess, appendOutput]() {
+    connect(checkProcess, &QProcess::readyReadStandardOutput, logDialog, [checkProcess, appendOutput]() {
         appendOutput(checkProcess->readAllStandardOutput());
     });
-    connect(checkProcess, &QProcess::readyReadStandardError, this, [checkProcess, appendOutput]() {
+    connect(checkProcess, &QProcess::readyReadStandardError, logDialog, [checkProcess, appendOutput]() {
         appendOutput(checkProcess->readAllStandardError());
     });
 
-    connect(checkProcess, &QProcess::finished, this, [this, checkProcess, logDialog, logView, logHint, closeButtons](int exitCode, QProcess::ExitStatus exitStatus) {
+    QPointer<QDialog> dialogGuard(logDialog);
+    QPointer<QPlainTextEdit> viewGuard(logView);
+    QPointer<QLabel> hintGuard(logHint);
+    connect(checkProcess, &QProcess::finished, this, [this, checkProcess, dialogGuard, viewGuard, hintGuard](int exitCode, QProcess::ExitStatus exitStatus) {
         const QByteArray stdoutRemainder = checkProcess->readAllStandardOutput();
-        if (!stdoutRemainder.trimmed().isEmpty()) {
-            logView->appendPlainText(QString::fromLocal8Bit(stdoutRemainder).trimmed());
+        if (!stdoutRemainder.trimmed().isEmpty() && viewGuard) {
+            viewGuard->appendPlainText(QString::fromLocal8Bit(stdoutRemainder).trimmed());
         }
         const QByteArray stderrRemainder = checkProcess->readAllStandardError();
-        if (!stderrRemainder.trimmed().isEmpty()) {
-            logView->appendPlainText(QString::fromLocal8Bit(stderrRemainder).trimmed());
+        if (!stderrRemainder.trimmed().isEmpty() && viewGuard) {
+            viewGuard->appendPlainText(QString::fromLocal8Bit(stderrRemainder).trimmed());
         }
 
         checkProcess->deleteLater();
         m_runningProcess = nullptr;
         refreshComponentStates();
 
+        if (!dialogGuard) {
+            return;
+        }
+
+        const bool wasCancelled = dialogGuard->property("cancelled").toBool();
+        if (wasCancelled) {
+            if (viewGuard) {
+                viewGuard->appendPlainText(i18n("Update cancelled."));
+            }
+            if (m_bottomStatus) {
+                m_bottomStatus->setText(i18n("Update cancelled."));
+            }
+            dialogGuard->close();
+            return;
+        }
+
         const bool updatesAvailable = (exitStatus == QProcess::NormalExit && exitCode == 100);
         const bool noUpdates = (exitStatus == QProcess::NormalExit && exitCode == 0);
         const bool authCanceled = (exitStatus == QProcess::NormalExit && exitCode == 127);
 
         if (updatesAvailable) {
-            logView->appendPlainText(i18n("Available updates detected."));
+            if (viewGuard) {
+                viewGuard->appendPlainText(i18n("Available updates detected."));
+            }
             if (m_bottomStatus) {
                 m_bottomStatus->setText(i18n("Updates are available."));
             }
-            if (KMessageBox::questionTwoActions(logDialog,
+            if (KMessageBox::questionTwoActions(dialogGuard,
                                                 i18n("dnf5 detected available updates. Do you want to update the system now?"),
                                                 i18n("Update system"),
                                                 KGuiItem(i18n("Update")),
                                                 KStandardGuiItem::cancel())
                 == KMessageBox::PrimaryAction) {
-                logHint->setText(i18n("Updating the system with dnf5. Please wait..."));
-                startPrivilegedSystemUpdate(logDialog, logView, closeButtons);
+                if (hintGuard) {
+                    hintGuard->setText(i18n("Updating the system with dnf5. Please wait..."));
+                }
+                startPrivilegedSystemUpdate(dialogGuard, viewGuard);
             } else {
-                logView->appendPlainText(i18n("Update cancelled."));
+                if (viewGuard) {
+                    viewGuard->appendPlainText(i18n("Update cancelled."));
+                }
                 if (m_bottomStatus) {
                     m_bottomStatus->setText(i18n("Update cancelled."));
                 }
-                closeButtons->button(QDialogButtonBox::Close)->setEnabled(true);
+                dialogGuard->close();
             }
         } else if (noUpdates) {
-            logView->appendPlainText(i18n("Your system is already up to date."));
+            if (viewGuard) {
+                viewGuard->appendPlainText(i18n("Your system is already up to date."));
+            }
             if (m_bottomStatus) {
                 m_bottomStatus->setText(i18n("Your system is already up to date."));
             }
-            KMessageBox::information(logDialog,
+            KMessageBox::information(dialogGuard,
                                      i18n("Your system is already up to date."),
                                      i18n("No updates"));
-            closeButtons->button(QDialogButtonBox::Close)->setEnabled(true);
+            dialogGuard->close();
         } else if (authCanceled) {
-            logView->appendPlainText(i18n("Authentication was canceled."));
+            if (viewGuard) {
+                viewGuard->appendPlainText(i18n("Authentication was canceled."));
+            }
             if (m_bottomStatus) {
                 m_bottomStatus->setText(i18n("Authentication was canceled."));
             }
-            closeButtons->button(QDialogButtonBox::Close)->setEnabled(true);
+            KMessageBox::information(dialogGuard,
+                                     i18n("Authentication was canceled. No updates were checked or installed."),
+                                     i18n("Authentication canceled"));
+            dialogGuard->close();
         } else {
-            logView->appendPlainText(i18n("Failed to check for updates."));
+            if (viewGuard) {
+                viewGuard->appendPlainText(i18n("Failed to check for updates."));
+            }
             if (m_bottomStatus) {
                 m_bottomStatus->setText(i18n("Update check failed."));
             }
-            KMessageBox::error(logDialog,
+            KMessageBox::error(dialogGuard,
                                i18n("Failed to check for available updates. See the log window for details."),
                                i18n("Check failed"));
-            closeButtons->button(QDialogButtonBox::Close)->setEnabled(true);
+            dialogGuard->close();
         }
     });
 
-    connect(checkProcess, &QProcess::errorOccurred, this, [this, checkProcess, logView, closeButtons](QProcess::ProcessError error) {
+    QPointer<QDialog> errDialogGuard(logDialog);
+    QPointer<QPlainTextEdit> errViewGuard(logView);
+    connect(checkProcess, &QProcess::errorOccurred, this, [this, checkProcess, errViewGuard, errDialogGuard](QProcess::ProcessError error) {
         if (error == QProcess::FailedToStart) {
             checkProcess->deleteLater();
             m_runningProcess = nullptr;
@@ -1172,8 +1752,21 @@ void MainWindow::updateSystem()
             if (m_bottomStatus) {
                 m_bottomStatus->setText(i18n("Update check failed."));
             }
-            logView->appendPlainText(i18n("Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."));
-            closeButtons->button(QDialogButtonBox::Close)->setEnabled(true);
+            if (errDialogGuard) {
+                auto *cancelBtn = errDialogGuard->findChild<QPushButton*>(QStringLiteral("cancelUpdateButton"));
+                if (cancelBtn) {
+                    cancelBtn->setEnabled(false);
+                }
+            }
+            if (errViewGuard) {
+                errViewGuard->appendPlainText(i18n("Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."));
+            }
+            KMessageBox::error(errDialogGuard,
+                               i18n("Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."),
+                               i18n("Check failed"));
+            if (errDialogGuard) {
+                errDialogGuard->close();
+            }
         }
     });
 
@@ -1184,12 +1777,18 @@ void MainWindow::updateSystem()
     logDialog->show();
 }
 
-void MainWindow::startPrivilegedSystemUpdate(QDialog *logDialog, QPlainTextEdit *logView,
-                                             QDialogButtonBox *closeButtons)
+void MainWindow::startPrivilegedSystemUpdate(QDialog *logDialog, QPlainTextEdit *logView)
 {
     auto *process = new QProcess(this);
     m_runningProcess = process;
     setComponentsBusy(true);
+
+    // Re-enable the cancel button for the update phase
+    auto *cancelButton = logDialog->findChild<QPushButton*>(QStringLiteral("cancelUpdateButton"));
+    if (cancelButton) {
+        cancelButton->setEnabled(true);
+    }
+    logDialog->setProperty("cancelled", false);
 
     logView->appendPlainText(i18n("Starting privileged system update helper..."));
     logView->appendPlainText(i18n("Running: dnf5 update --refresh"));
@@ -1205,45 +1804,71 @@ void MainWindow::startPrivilegedSystemUpdate(QDialog *logDialog, QPlainTextEdit 
         logView->verticalScrollBar()->setValue(logView->verticalScrollBar()->maximum());
     };
 
-    connect(process, &QProcess::readyReadStandardOutput, this, [process, appendOutput]() {
+    connect(process, &QProcess::readyReadStandardOutput, logDialog, [process, appendOutput]() {
         appendOutput(process->readAllStandardOutput());
     });
-    connect(process, &QProcess::readyReadStandardError, this, [process, appendOutput]() {
+    connect(process, &QProcess::readyReadStandardError, logDialog, [process, appendOutput]() {
         appendOutput(process->readAllStandardError());
     });
 
-    connect(process, &QProcess::finished, this, [this, process, logDialog, logView, closeButtons](int exitCode, QProcess::ExitStatus exitStatus) {
+    QPointer<QDialog> dialogGuard(logDialog);
+    QPointer<QPlainTextEdit> viewGuard(logView);
+    connect(process, &QProcess::finished, this, [this, process, dialogGuard, viewGuard](int exitCode, QProcess::ExitStatus exitStatus) {
         const QString output = QString::fromLocal8Bit(process->readAllStandardOutput())
             + QString::fromLocal8Bit(process->readAllStandardError());
-        if (!output.trimmed().isEmpty()) {
-            logView->appendPlainText(output.trimmed());
+        if (!output.trimmed().isEmpty() && viewGuard) {
+            viewGuard->appendPlainText(output.trimmed());
         }
 
         process->deleteLater();
         m_runningProcess = nullptr;
         refreshComponentStates();
 
-        if (exitStatus == QProcess::NormalExit && exitCode == 0) {
-            logView->appendPlainText(i18n("System update completed."));
+        if (!dialogGuard) {
+            return;
+        }
+
+        // Disable the cancel button — process is no longer running
+        auto *cancelBtn = dialogGuard->findChild<QPushButton*>(QStringLiteral("cancelUpdateButton"));
+        if (cancelBtn) {
+            cancelBtn->setEnabled(false);
+        }
+
+        const bool wasCancelled = dialogGuard->property("cancelled").toBool();
+        if (wasCancelled) {
+            if (viewGuard) {
+                viewGuard->appendPlainText(i18n("Update cancelled."));
+            }
+            if (m_bottomStatus) {
+                m_bottomStatus->setText(i18n("Update cancelled."));
+            }
+        } else if (exitStatus == QProcess::NormalExit && exitCode == 0) {
+            if (viewGuard) {
+                viewGuard->appendPlainText(i18n("System update completed."));
+            }
             if (m_bottomStatus) {
                 m_bottomStatus->setText(i18n("System update completed."));
             }
-            KMessageBox::information(logDialog,
+            KMessageBox::information(dialogGuard,
                                      i18n("The system has been updated successfully."),
                                      i18n("Update completed"));
         } else {
-            logView->appendPlainText(i18n("System update failed."));
+            if (viewGuard) {
+                viewGuard->appendPlainText(i18n("System update failed."));
+            }
             if (m_bottomStatus) {
                 m_bottomStatus->setText(i18n("System update failed."));
             }
-            KMessageBox::error(logDialog,
+            KMessageBox::error(dialogGuard,
                                i18n("Failed to update the system. See the log window for details."),
                                i18n("Update failed"));
         }
-        closeButtons->button(QDialogButtonBox::Close)->setEnabled(true);
+        dialogGuard->close();
     });
 
-    connect(process, &QProcess::errorOccurred, this, [this, process, logView, closeButtons](QProcess::ProcessError error) {
+    QPointer<QDialog> errDialogGuard(logDialog);
+    QPointer<QPlainTextEdit> errViewGuard(logView);
+    connect(process, &QProcess::errorOccurred, this, [this, process, errViewGuard, errDialogGuard](QProcess::ProcessError error) {
         if (error == QProcess::FailedToStart) {
             process->deleteLater();
             m_runningProcess = nullptr;
@@ -1251,8 +1876,21 @@ void MainWindow::startPrivilegedSystemUpdate(QDialog *logDialog, QPlainTextEdit 
             if (m_bottomStatus) {
                 m_bottomStatus->setText(i18n("System update failed."));
             }
-            logView->appendPlainText(i18n("Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."));
-            closeButtons->button(QDialogButtonBox::Close)->setEnabled(true);
+            if (errDialogGuard) {
+                auto *cancelBtn = errDialogGuard->findChild<QPushButton*>(QStringLiteral("cancelUpdateButton"));
+                if (cancelBtn) {
+                    cancelBtn->setEnabled(false);
+                }
+            }
+            if (errViewGuard) {
+                errViewGuard->appendPlainText(i18n("Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."));
+            }
+            KMessageBox::error(errDialogGuard,
+                               i18n("Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."),
+                               i18n("Update failed"));
+            if (errDialogGuard) {
+                errDialogGuard->close();
+            }
         }
     });
 
@@ -1268,6 +1906,7 @@ void MainWindow::listFailedServices()
 
     auto *logDialog = new QDialog(this);
     logDialog->setAttribute(Qt::WA_DeleteOnClose);
+    logDialog->setWindowFlags(Qt::Dialog | Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
     logDialog->setWindowTitle(i18n("Failed systemd service units"));
     logDialog->resize(760, 460);
 
@@ -1282,10 +1921,11 @@ void MainWindow::listFailedServices()
     logView->appendPlainText(i18n("Running: systemctl --failed --no-pager"));
     logLayout->addWidget(logView, 1);
 
-    auto *closeButtons = new QDialogButtonBox(QDialogButtonBox::Close, logDialog);
-    closeButtons->button(QDialogButtonBox::Close)->setEnabled(false);
-    connect(closeButtons, &QDialogButtonBox::rejected, logDialog, &QDialog::close);
-    logLayout->addWidget(closeButtons);
+    auto *closeButton = new QPushButton(i18n("Close"), logDialog);
+    closeButton->setIcon(QIcon::fromTheme(QStringLiteral("window-close")));
+    closeButton->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Fixed);
+    logLayout->addWidget(closeButton, 0, Qt::AlignRight);
+    connect(closeButton, &QPushButton::clicked, logDialog, &QDialog::close);
 
     auto appendOutput = [logView](const QByteArray &data) {
         if (data.isEmpty()) {
@@ -1295,26 +1935,32 @@ void MainWindow::listFailedServices()
         logView->verticalScrollBar()->setValue(logView->verticalScrollBar()->maximum());
     };
 
-    connect(process, &QProcess::readyReadStandardOutput, this, [process, appendOutput]() {
+    connect(process, &QProcess::readyReadStandardOutput, logDialog, [process, appendOutput]() {
         appendOutput(process->readAllStandardOutput());
     });
-    connect(process, &QProcess::readyReadStandardError, this, [process, appendOutput]() {
+    connect(process, &QProcess::readyReadStandardError, logDialog, [process, appendOutput]() {
         appendOutput(process->readAllStandardError());
     });
 
-    connect(process, &QProcess::finished, this, [logView, closeButtons](int exitCode, QProcess::ExitStatus exitStatus) {
+    QPointer<QPlainTextEdit> viewGuard(logView);
+    connect(process, &QProcess::finished, this, [viewGuard](int exitCode, QProcess::ExitStatus exitStatus) {
         if (exitStatus == QProcess::NormalExit && exitCode == 0) {
-            logView->appendPlainText(i18n("Command completed."));
+            if (viewGuard) {
+                viewGuard->appendPlainText(i18n("Command completed."));
+            }
         } else {
-            logView->appendPlainText(i18n("Command failed (exit code %1).", exitCode));
+            if (viewGuard) {
+                viewGuard->appendPlainText(i18n("Command failed (exit code %1).", exitCode));
+            }
         }
-        closeButtons->button(QDialogButtonBox::Close)->setEnabled(true);
     });
 
-    connect(process, &QProcess::errorOccurred, this, [logView, closeButtons](QProcess::ProcessError error) {
+    QPointer<QPlainTextEdit> errViewGuard(logView);
+    connect(process, &QProcess::errorOccurred, this, [errViewGuard](QProcess::ProcessError error) {
         if (error == QProcess::FailedToStart) {
-            logView->appendPlainText(i18n("Unable to start systemctl."));
-            closeButtons->button(QDialogButtonBox::Close)->setEnabled(true);
+            if (errViewGuard) {
+                errViewGuard->appendPlainText(i18n("Unable to start systemctl."));
+            }
         }
     });
 
@@ -1416,6 +2062,7 @@ void MainWindow::cleanupUnusedPackages()
 
     auto *logDialog = new QDialog(this);
     logDialog->setAttribute(Qt::WA_DeleteOnClose);
+    logDialog->setWindowFlags(Qt::Dialog | Qt::WindowTitleHint);
     logDialog->setWindowTitle(i18n("Clean unused packages"));
     logDialog->resize(760, 460);
 
@@ -1431,11 +2078,6 @@ void MainWindow::cleanupUnusedPackages()
     logView->appendPlainText(i18n("Running: dnf5 autoremove --assumeyes"));
     logLayout->addWidget(logView, 1);
 
-    auto *closeButtons = new QDialogButtonBox(QDialogButtonBox::Close, logDialog);
-    closeButtons->button(QDialogButtonBox::Close)->setEnabled(false);
-    connect(closeButtons, &QDialogButtonBox::rejected, logDialog, &QDialog::close);
-    logLayout->addWidget(closeButtons);
-
     auto appendOutput = [logView](const QByteArray &data) {
         if (data.isEmpty()) {
             return;
@@ -1444,45 +2086,57 @@ void MainWindow::cleanupUnusedPackages()
         logView->verticalScrollBar()->setValue(logView->verticalScrollBar()->maximum());
     };
 
-    connect(process, &QProcess::readyReadStandardOutput, this, [process, appendOutput]() {
+    connect(process, &QProcess::readyReadStandardOutput, logDialog, [process, appendOutput]() {
         appendOutput(process->readAllStandardOutput());
     });
-    connect(process, &QProcess::readyReadStandardError, this, [process, appendOutput]() {
+    connect(process, &QProcess::readyReadStandardError, logDialog, [process, appendOutput]() {
         appendOutput(process->readAllStandardError());
     });
 
-    connect(process, &QProcess::finished, this, [this, process, logView, closeButtons](int exitCode, QProcess::ExitStatus exitStatus) {
+    QPointer<QPlainTextEdit> viewGuard(logView);
+    QPointer<QDialog> dialogGuard(logDialog);
+    connect(process, &QProcess::finished, this, [this, process, viewGuard, dialogGuard](int exitCode, QProcess::ExitStatus exitStatus) {
         const QString output = QString::fromLocal8Bit(process->readAllStandardOutput())
             + QString::fromLocal8Bit(process->readAllStandardError());
-        if (!output.trimmed().isEmpty()) {
-            logView->appendPlainText(output.trimmed());
+        if (!output.trimmed().isEmpty() && viewGuard) {
+            viewGuard->appendPlainText(output.trimmed());
         }
 
         process->deleteLater();
         m_runningProcess = nullptr;
         refreshComponentStates();
 
+        if (!dialogGuard) {
+            return;
+        }
+
         if (exitStatus == QProcess::NormalExit && exitCode == 0) {
-            logView->appendPlainText(i18n("Cleanup completed."));
+            if (viewGuard) {
+                viewGuard->appendPlainText(i18n("Cleanup completed."));
+            }
             if (m_bottomStatus) {
                 m_bottomStatus->setText(i18n("Unused packages cleanup completed."));
             }
-            KMessageBox::information(this,
+            KMessageBox::information(dialogGuard,
                                      i18n("Unused packages have been cleaned up."),
                                      i18n("Cleanup completed"));
         } else {
-            logView->appendPlainText(i18n("Cleanup failed."));
+            if (viewGuard) {
+                viewGuard->appendPlainText(i18n("Cleanup failed."));
+            }
             if (m_bottomStatus) {
                 m_bottomStatus->setText(i18n("Unused packages cleanup failed."));
             }
-            KMessageBox::error(this,
+            KMessageBox::error(dialogGuard,
                                i18n("Failed to clean up unused packages. See the log window for details."),
                                i18n("Cleanup failed"));
         }
-        closeButtons->button(QDialogButtonBox::Close)->setEnabled(true);
+        dialogGuard->close();
     });
 
-    connect(process, &QProcess::errorOccurred, this, [this, process, logView, closeButtons](QProcess::ProcessError error) {
+    QPointer<QDialog> errDialogGuard(logDialog);
+    QPointer<QPlainTextEdit> errViewGuard(logView);
+    connect(process, &QProcess::errorOccurred, this, [this, process, errViewGuard, errDialogGuard](QProcess::ProcessError error) {
         if (error == QProcess::FailedToStart) {
             process->deleteLater();
             m_runningProcess = nullptr;
@@ -1490,8 +2144,15 @@ void MainWindow::cleanupUnusedPackages()
             if (m_bottomStatus) {
                 m_bottomStatus->setText(i18n("Unused packages cleanup failed."));
             }
-            logView->appendPlainText(i18n("Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."));
-            closeButtons->button(QDialogButtonBox::Close)->setEnabled(true);
+            if (errViewGuard) {
+                errViewGuard->appendPlainText(i18n("Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."));
+            }
+            KMessageBox::error(errDialogGuard,
+                               i18n("Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."),
+                               i18n("Cleanup failed"));
+            if (errDialogGuard) {
+                errDialogGuard->close();
+            }
         }
     });
 
@@ -1507,6 +2168,7 @@ void MainWindow::viewCrashInfo()
 
     auto *logDialog = new QDialog(this);
     logDialog->setAttribute(Qt::WA_DeleteOnClose);
+    logDialog->setWindowFlags(Qt::Dialog | Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
     logDialog->setWindowTitle(i18n("Software crash information"));
     logDialog->resize(760, 460);
 
@@ -1521,10 +2183,11 @@ void MainWindow::viewCrashInfo()
     logView->appendPlainText(i18n("Running: dmesg 2>&1 | grep -i segfault"));
     logLayout->addWidget(logView, 1);
 
-    auto *closeButtons = new QDialogButtonBox(QDialogButtonBox::Close, logDialog);
-    closeButtons->button(QDialogButtonBox::Close)->setEnabled(false);
-    connect(closeButtons, &QDialogButtonBox::rejected, logDialog, &QDialog::close);
-    logLayout->addWidget(closeButtons);
+    auto *closeButton = new QPushButton(i18n("Close"), logDialog);
+    closeButton->setIcon(QIcon::fromTheme(QStringLiteral("window-close")));
+    closeButton->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Fixed);
+    logLayout->addWidget(closeButton, 0, Qt::AlignRight);
+    connect(closeButton, &QPushButton::clicked, logDialog, &QDialog::close);
 
     auto appendOutput = [logView](const QByteArray &data) {
         if (data.isEmpty()) {
@@ -1537,26 +2200,32 @@ void MainWindow::viewCrashInfo()
         logView->verticalScrollBar()->setValue(logView->verticalScrollBar()->maximum());
     };
 
-    connect(process, &QProcess::readyReadStandardOutput, this, [process, appendOutput]() {
+    connect(process, &QProcess::readyReadStandardOutput, logDialog, [process, appendOutput]() {
         appendOutput(process->readAllStandardOutput());
     });
-    connect(process, &QProcess::readyReadStandardError, this, [process, appendOutput]() {
+    connect(process, &QProcess::readyReadStandardError, logDialog, [process, appendOutput]() {
         appendOutput(process->readAllStandardError());
     });
 
-    connect(process, &QProcess::finished, this, [logView, closeButtons](int exitCode, QProcess::ExitStatus exitStatus) {
+    QPointer<QPlainTextEdit> viewGuard(logView);
+    connect(process, &QProcess::finished, this, [viewGuard](int exitCode, QProcess::ExitStatus exitStatus) {
         if (exitStatus == QProcess::NormalExit && exitCode == 0) {
-            logView->appendPlainText(i18n("Command completed."));
+            if (viewGuard) {
+                viewGuard->appendPlainText(i18n("Command completed."));
+            }
         } else {
-            logView->appendPlainText(i18n("Command completed (exit code %1).", exitCode));
+            if (viewGuard) {
+                viewGuard->appendPlainText(i18n("Command completed (exit code %1).", exitCode));
+            }
         }
-        closeButtons->button(QDialogButtonBox::Close)->setEnabled(true);
     });
 
-    connect(process, &QProcess::errorOccurred, this, [logView, closeButtons](QProcess::ProcessError error) {
+    QPointer<QPlainTextEdit> errViewGuard(logView);
+    connect(process, &QProcess::errorOccurred, this, [errViewGuard](QProcess::ProcessError error) {
         if (error == QProcess::FailedToStart) {
-            logView->appendPlainText(i18n("Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."));
-            closeButtons->button(QDialogButtonBox::Close)->setEnabled(true);
+            if (errViewGuard) {
+                errViewGuard->appendPlainText(i18n("Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."));
+            }
         }
     });
 

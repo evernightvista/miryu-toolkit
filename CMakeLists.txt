@@ -31,10 +31,15 @@ add_executable(miryu-toolkit
     src/main.cpp
     src/mainwindow.cpp
     src/mainwindow.h
+    src/grubconfig.cpp
+    src/grubconfig.h
 )
 
 target_compile_definitions(miryu-toolkit PRIVATE
     TOOLKIT_LIBEXEC_DIR="${CMAKE_INSTALL_FULL_LIBEXECDIR}/miryu-toolkit"
+    GRUB_HELPER_PATH="${CMAKE_INSTALL_FULL_LIBEXECDIR}/miryu-toolkit/miryu-toolkit-grub-config-helper"
+    GRUB_DEFAULT_PATH="/etc/default/grub"
+    BLS_ENTRIES_PATH="/boot/loader/entries"
 )
 
 target_link_libraries(miryu-toolkit
@@ -48,8 +53,8 @@ target_link_libraries(miryu-toolkit
 )
 
 configure_file(
-    polkit/org.miryu.toolkit.policy.in
-    ${CMAKE_CURRENT_BINARY_DIR}/org.miryu.toolkit.policy
+    polkit/org.miryugaming.toolkit.policy.in
+    ${CMAKE_CURRENT_BINARY_DIR}/org.miryugaming.toolkit.policy
     @ONLY
 )
 
@@ -82,6 +87,22 @@ target_link_libraries(miryu-toolkit-collect-logs
 install(TARGETS miryu-toolkit-collect-logs
         DESTINATION ${CMAKE_INSTALL_LIBEXECDIR}/miryu-toolkit)
 
+# GRUB config helper (C++ binary, runs as root via pkexec)
+add_executable(miryu-toolkit-grub-config-helper
+    src/grubconfighelper.cpp
+)
+target_link_libraries(miryu-toolkit-grub-config-helper
+    Qt6::Core
+    KF6::I18n
+)
+target_compile_definitions(miryu-toolkit-grub-config-helper PRIVATE
+    GRUB_DEFAULT_PATH="/etc/default/grub"
+    GRUB_DROPIN_PATH="/etc/default/grub.d/99_miryu_boot.cfg"
+    GRUB_CFG_PATH="/boot/grub2/grub.cfg"
+)
+install(TARGETS miryu-toolkit-grub-config-helper
+        DESTINATION ${CMAKE_INSTALL_LIBEXECDIR}/miryu-toolkit)
+
 install(PROGRAMS
         helpers/miryu-toolkit-wine
         helpers/miryu-toolkit-steam
@@ -109,6 +130,6 @@ install(FILES data/servicemenus/open-root.desktop
         DESTINATION ${KDE_INSTALL_DATADIR}/kio/servicemenus)
 install(FILES org.miryu.toolkit/org.miryu.toolkit.metainfo.xml
         DESTINATION ${KDE_INSTALL_METAINFODIR})
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/org.miryu.toolkit.policy
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/org.miryugaming.toolkit.policy
         DESTINATION ${KDE_INSTALL_DATADIR}/polkit-1/actions)
 ki18n_install(po)

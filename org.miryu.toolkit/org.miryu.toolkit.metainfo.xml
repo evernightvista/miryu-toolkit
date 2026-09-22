@@ -15,9 +15,26 @@
       It also includes a system log collection tool that gathers system information,
       dnf5 logs and Anaconda installer logs into a compressed archive.
     </p>
+    <p>
+      A GRUB2 boot menu configuration tool is integrated, allowing users to toggle
+      the boot menu visibility, set the boot timeout, remember the last selected
+      entry, and manage custom kernel parameters with polkit-protected saving.
+    </p>
   </description>
   <launchable type="desktop-id">miryu-toolkit.desktop</launchable>
   <releases>
+    <release version="45.0.0" date="2026-09-22">
+      <description>
+        <ul>
+          <li>Merge GRUB2 boot menu configuration as a separate Boot Menu tab</li>
+          <li>Add kernel parameter management with add, edit, remove, and reorder</li>
+          <li>Rename polkit action IDs from org.miryu.toolkit to org.miryugaming.toolkit</li>
+          <li>Fix window expanding after maximize/restore cycle</li>
+          <li>Async GRUB2 save with real-time visual log dialog</li>
+          <li>Unify all polkit operations: remove close button, close log with result dialog</li>
+        </ul>
+      </description>
+    </release>
     <release version="45.0.0" date="2026-08-13"/>
   </releases>
 </component>
