@@ -1,11 +1,11 @@
 Name:           miryu-toolkit
 Version:        45.0.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Miryu Toolkit
 
 License:        GPL-3.0-or-later
 URL:            https://github.com/evernightvista/miryu-toolkit
-Source0:        %{name}-%{version}.tar.gz
+Source0:        https://github.com/evernightvista/miryu-toolkit/archive/refs/heads/main.zip
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -39,7 +39,7 @@ additional fonts, plus a system log collection tool. It also integrates a GRUB2
 boot menu configuration tool with kernel parameter management.
 
 %prep
-%autosetup
+%autosetup -n %{name}-main
 
 %build
 %cmake
@@ -77,10 +77,15 @@ boot menu configuration tool with kernel parameter management.
 %{_libexecdir}/miryu-toolkit/miryu-toolkit-collect-logs
 %{_libexecdir}/miryu-toolkit/miryu-toolkit-view-crash
 %{_libexecdir}/miryu-toolkit/miryu-toolkit-grub-config-helper
+%{_libexecdir}/miryu-toolkit/miryu-toolkit-fedora-kernel
+%{_libexecdir}/miryu-toolkit/miryu-toolkit-remove-fedora-kernel
 %{_qt6_plugindir}/plasma/kcms/systemsettings_qwidgets/kcm_miryu_toolkit.so
 
 
 %changelog
+* Thu Oct 15 2026 KairikiFedora <13278297951@sina.cn> - 45.0.0-13
+- Add Install Fedora Kernel and fix zh_cn traslate bugs
+
 * Tue Sep 22 2026 KairikiFedora <13278297951@sina.cn> - 45.0.0-12
 - Fix KCM not translate
 

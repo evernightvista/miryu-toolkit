@@ -104,6 +104,8 @@ install(TARGETS miryu-toolkit-grub-config-helper
         DESTINATION ${CMAKE_INSTALL_LIBEXECDIR}/miryu-toolkit)
 
 install(PROGRAMS
+        helpers/miryu-toolkit-fedora-kernel
+        helpers/miryu-toolkit-remove-fedora-kernel
         helpers/miryu-toolkit-wine
         helpers/miryu-toolkit-steam
         helpers/miryu-toolkit-midi

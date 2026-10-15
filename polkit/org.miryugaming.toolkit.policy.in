@@ -6,6 +6,31 @@
   <vendor>Evernight Vista Team</vendor>
   <vendor_url>https://github.com/evernightvista</vendor_url>
 
+  <action id="org.miryugaming.toolkit.install-fedora-kernel">
+    <description>Manage Fedora official kernel packages</description>
+    <description xml:lang="zh_CN">管理 Fedora 官方内核软件包</description>
+    <description xml:lang="zh_TW">管理 Fedora 官方核心軟體包</description>
+    <description xml:lang="ja">Fedora 公式カーネルパッケージを管理</description>
+    <description xml:lang="de">Offizielle Fedora-Kernel-Pakete verwalten</description>
+    <description xml:lang="ko">Fedora 공식 커널 패키지 관리</description>
+    <description xml:lang="fr">Gérer les paquets du noyau officiel Fedora</description>
+    <message>安装 Fedora 官方内核需要认证</message>
+    <message xml:lang="zh_CN">安装 Fedora 官方内核需要认证</message>
+    <message xml:lang="zh_TW">安裝 Fedora 官方核心需要認證</message>
+    <message xml:lang="ja">Fedora 公式カーネルのインストールには認証が必要です</message>
+    <message xml:lang="de">Für die Installation des offiziellen Fedora-Kernels ist eine Authentifizierung erforderlich</message>
+    <message xml:lang="ko">Fedora 공식 커널 설치에는 인증이 필요합니다</message>
+    <message xml:lang="fr">L'installation du noyau officiel Fedora nécessite une authentification</message>
+    <icon_name>preferences-system</icon_name>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">@CMAKE_INSTALL_FULL_LIBEXECDIR@/miryu-toolkit/miryu-toolkit-fedora-kernel</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
+  </action>
+
   <action id="org.miryugaming.toolkit.install-wine">
     <description>Manage Wine support packages</description>
     <description xml:lang="zh_CN">管理 Wine 支持软件包</description>
@@ -103,6 +128,31 @@
       <allow_active>auth_admin_keep</allow_active>
     </defaults>
     <annotate key="org.freedesktop.policykit.exec.path">@CMAKE_INSTALL_FULL_LIBEXECDIR@/miryu-toolkit/miryu-toolkit-extra-fonts</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
+  </action>
+
+  <action id="org.miryugaming.toolkit.remove-fedora-kernel">
+    <description>Remove Fedora official kernel packages</description>
+    <description xml:lang="zh_CN">卸载 Fedora 官方内核软件包</description>
+    <description xml:lang="zh_TW">卸載 Fedora 官方核心軟體包</description>
+    <description xml:lang="ja">Fedora 公式カーネルパッケージを削除</description>
+    <description xml:lang="de">Offizielle Fedora-Kernel-Pakete entfernen</description>
+    <description xml:lang="ko">Fedora 공식 커널 패키지 제거</description>
+    <description xml:lang="fr">Supprimer les paquets du noyau officiel Fedora</description>
+    <message>卸载 Fedora 官方内核需要认证</message>
+    <message xml:lang="zh_CN">卸载 Fedora 官方内核需要认证</message>
+    <message xml:lang="zh_TW">卸載 Fedora 官方核心需要認證</message>
+    <message xml:lang="ja">Fedora 公式カーネルのアンインストールには認証が必要です</message>
+    <message xml:lang="de">Für die Deinstallation des offiziellen Fedora-Kernels ist eine Authentifizierung erforderlich</message>
+    <message xml:lang="ko">Fedora 공식 커널 제거에는 인증이 필요합니다</message>
+    <message xml:lang="fr">La désinstallation du noyau officiel Fedora nécessite une authentification</message>
+    <icon_name>preferences-system</icon_name>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">@CMAKE_INSTALL_FULL_LIBEXECDIR@/miryu-toolkit/miryu-toolkit-remove-fedora-kernel</annotate>
     <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
   </action>
 

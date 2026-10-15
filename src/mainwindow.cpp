@@ -109,6 +109,20 @@ void MainWindow::setupComponents()
 {
     m_components = {
         {
+            QStringLiteral("fedora-kernel"),
+            i18n("Install Fedora official kernel"),
+            i18n("If some games' anti-cheat systems use Epic EAC Linux v2 and cannot start, you can install the Fedora official kernel to solve the problem."),
+            QStringLiteral("miryu-toolkit-fedora-kernel"),
+            QStringLiteral("miryu-toolkit-remove-fedora-kernel"),
+            {
+                QStringLiteral("kernel"),
+                QStringLiteral("kernel-core"),
+                QStringLiteral("kernel-modules"),
+                QStringLiteral("kernel-modules-core"),
+                QStringLiteral("kernel-modules-extra"),
+            },
+        },
+        {
             QStringLiteral("wine"),
             i18n("Install Wine"),
             i18n("Install Wine, DXVK, Winetricks and WineASIO for running Windows programs and some audio workflows."),
