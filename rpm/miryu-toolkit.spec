@@ -1,6 +1,6 @@
 Name:           miryu-toolkit
-Version:        45.0.0
-Release:        13%{?dist}
+Version:        45.0.1
+Release:        1%{?dist}
 Summary:        Miryu Toolkit
 
 License:        GPL-3.0-or-later
@@ -79,10 +79,15 @@ boot menu configuration tool with kernel parameter management.
 %{_libexecdir}/miryu-toolkit/miryu-toolkit-grub-config-helper
 %{_libexecdir}/miryu-toolkit/miryu-toolkit-fedora-kernel
 %{_libexecdir}/miryu-toolkit/miryu-toolkit-remove-fedora-kernel
+%{_libexecdir}/miryu-toolkit/miryu-toolkit-apply-sleep
+%{_libexecdir}/miryu-toolkit/miryu-toolkit-fix-sleep
 %{_qt6_plugindir}/plasma/kcms/systemsettings_qwidgets/kcm_miryu_toolkit.so
 
 
 %changelog
+* Sun Nov 01 2026 KairikiFedora <13278297951@sina.cn> - 45.0.1-1
+- Add Sleep Settings
+
 * Thu Oct 15 2026 KairikiFedora <13278297951@sina.cn> - 45.0.0-13
 - Add Install Fedora Kernel and fix zh_cn traslate bugs
 

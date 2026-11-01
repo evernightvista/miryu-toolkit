@@ -1,0 +1,705 @@
+#!/usr/bin/bash
+# One-stop sleep fix helper:
+#   1. Make sure a swap area at least as large as the memory exists (create a
+#      swap file otherwise).
+#   2. Point the kernel resume device at that swap area (via grubby / BLS, or
+#      /etc/default/grub as a fallback), so hibernation can resume.
+#
+# Run as root (through pkexec).
+set -eu
+
+# --- 0. Detect the virtualization platform ---
+# Hibernation behaves differently inside a virtual machine, so identify the
+# hypervisor first and gate the platform-specific work on it. Values follow
+# systemd-detect-virt (microsoft, vmware, oracle, kvm, xen, ...); an empty
+# value means the system runs on bare metal.
+detect_virt() {
+    if command -v systemd-detect-virt >/dev/null 2>&1; then
+        v=$(systemd-detect-virt 2>/dev/null || true)
+        case "$v" in
+            ""|none) ;;
+            *) printf '%s\n' "$v"; return 0 ;;
+        esac
+    fi
+    # Fallback for systems without systemd tools: DMI / hypervisor hints.
+    dmi_vendor=$(cat /sys/class/dmi/id/sys_vendor 2>/dev/null || true)
+    dmi_product=$(cat /sys/class/dmi/id/product_name 2>/dev/null || true)
+    case "$dmi_vendor" in
+        *Microsoft*|*Hyper-V*)           printf '%s\n' microsoft; return 0 ;;
+        *VMware*)                        printf '%s\n' vmware; return 0 ;;
+        *VirtualBox*|*innotek*)          printf '%s\n' oracle; return 0 ;;
+        *Xen*)                           printf '%s\n' xen; return 0 ;;
+        *Amazon*)                        printf '%s\n' amazon; return 0 ;;
+        *QEMU*|*KVM*|*Red\ Hat*)         printf '%s\n' kvm; return 0 ;;
+    esac
+    case "$dmi_product" in
+        *Virtual\ Machine*|*VirtualBox*) printf '%s\n' kvm; return 0 ;;
+    esac
+    if [ -r /sys/hypervisor/type ]; then
+        printf '%s\n' "$(cat /sys/hypervisor/type 2>/dev/null)"
+    fi
+    return 0
+}
+
+virt=$(detect_virt)
+is_hyperv=0
+is_vmware=0
+case "$virt" in
+    microsoft|hyperv|hyper-v) is_hyperv=1 ;;
+    vmware)                   is_vmware=1 ;;
+esac
+
+# --- 1. Determine how much swap we need (at least the size of the memory) ---
+ram_kb=$(awk '/^MemTotal:/ {print $2}' /proc/meminfo)
+need_bytes=$(( ram_kb * 1024 ))
+
+# Find the first swap area (excluding zram) that is large enough.
+suitable_entry=""
+while read -r path type size_kb rest; do
+    [ -z "${path:-}" ] && continue
+    case "$type" in
+        zram) continue ;;
+        file|partition) ;;
+        *) continue ;;
+    esac
+    size_bytes=$(( size_kb * 1024 ))
+    if [ "$size_bytes" -ge "$need_bytes" ]; then
+        suitable_entry="$path|$type"
+        break
+    fi
+done < <(awk 'NR>1 {print}' /proc/swaps)
+
+swap_path=""
+swap_type=""
+if [ -n "$suitable_entry" ]; then
+    swap_path="${suitable_entry%%|*}"
+    swap_type="${suitable_entry##*|}"
+else
+    # No swap area is large enough: create a swap file the size of the memory.
+    swap_type="file"
+    size_mb=$(( (need_bytes + 1048575) / 1048576 ))
+
+    # Detect the filesystem type where the swap file will live.
+    # btrfs needs special handling: swap files must be No_COW and preallocated
+    # without holes. The most reliable approach is a dedicated subvolume with
+    # the No_COW attribute set, with the swap file living inside it.
+    fstype=$(findmnt -no FSTYPE -T / 2>/dev/null || true)
+
+    if [ "$fstype" = "btrfs" ]; then
+        # On btrfs, place the swap file inside a dedicated No_COW subvolume.
+        swap_dir="/swap"
+        swap_path="$swap_dir/swapfile"
+        # Clean up a legacy swap file at the old root location if present.
+        if grep -qF "/swapfile" /proc/swaps 2>/dev/null; then
+            swapoff /swapfile 2>/dev/null || true
+        fi
+        [ -f /swapfile ] && rm -f /swapfile
+        # Create the subvolume (idempotent: skip if it already exists).
+        if [ ! -d "$swap_dir" ]; then
+            btrfs subvolume create "$swap_dir" >/dev/null
+        fi
+        # Set No_COW on the subvolume so all files created inside inherit it.
+        # This must be done before any swap file is written.
+        chattr +C "$swap_dir" 2>/dev/null || true
+    else
+        swap_path="/swapfile"
+    fi
+
+    # Deactivate and remove any existing swap file at the target path so we can
+    # recreate it cleanly. swapoff must succeed before rm; otherwise a stale
+    # active swap would make the subsequent swapon fail with "busy".
+    if grep -qF "$swap_path" /proc/swaps 2>/dev/null; then
+        swapoff "$swap_path" || {
+            echo "ERROR: failed to deactivate existing $swap_path; please close memory-heavy applications and retry." >&2
+            exit 1
+        }
+    fi
+    [ -f "$swap_path" ] && rm -f "$swap_path"
+
+    # Create the swap file.
+    if [ "$fstype" = "btrfs" ]; then
+        # Preferred: btrfs-progs >= 6.1 ships a dedicated command that creates
+        # a valid swap file (No_COW + contiguous preallocation) in one step.
+        if command -v btrfs >/dev/null 2>&1 \
+           && btrfs filesystem mkswapfile --help >/dev/null 2>&1; then
+            btrfs filesystem mkswapfile --size "${size_mb}m" --uuid clear "$swap_path"
+        else
+            # Fallback: the subvolume is No_COW, so files inherit it; also set
+            # it on the empty file explicitly before writing any data.
+            truncate -s 0 "$swap_path"
+            chattr +C "$swap_path" 2>/dev/null || true
+            # On btrfs fallocate does not allocate contiguous extents suitable
+            # for swap, so use dd to write real data.
+            dd if=/dev/zero of="$swap_path" bs=1M count="$size_mb" status=none conv=fsync
+        fi
+    else
+        if ! fallocate -l "${size_mb}M" "$swap_path" 2>/dev/null; then
+            dd if=/dev/zero of="$swap_path" bs=1M count="$size_mb" status=none
+        fi
+    fi
+
+    chmod 600 "$swap_path"
+    mkswap "$swap_path" >/dev/null
+
+    # Enable with a high priority so the kernel picks this swap area for
+    # hibernation. Without an explicit priority, zram (which usually has a
+    # higher default priority) would be chosen first and hibernation fails
+    # with "device or resource busy" because zram cannot store the image.
+    if grep -qF "$swap_path" /proc/swaps 2>/dev/null; then
+        :
+    else
+        swapon -p 100 "$swap_path"
+    fi
+    # Update /etc/fstab: drop stale swap entries for paths we no longer use,
+    # then ensure the current swap file is listed with the high priority.
+    if [ -f /etc/fstab ]; then
+        sed -i -E '/^[[:space:]]*(\/swapfile|\/swap\/swapfile)[[:space:]]+none[[:space:]]+swap/d' /etc/fstab
+    fi
+    echo "$swap_path none swap sw,pri=100 0 0" >> /etc/fstab
+fi
+
+# --- Ensure the swap area used for hibernation has the highest priority ---
+# The kernel hibernates to the swap area with the highest priority. If zram
+# (or another swap) outranks our swap file, hibernation fails with EBUSY.
+# For an existing swap file whose priority is not 100, re-enable it with the
+# high priority (swapoff may fail if it is in use; in that case just update
+# fstab so the change takes effect on next boot).
+if [ "$swap_type" = "file" ] && grep -qF "$swap_path" /proc/swaps 2>/dev/null; then
+    cur_pri=$(awk -v p="$swap_path" '$1 == p {print $5; exit}' /proc/swaps)
+    if [ "$cur_pri" != "100" ]; then
+        if swapoff "$swap_path" 2>/dev/null; then
+            swapon -p 100 "$swap_path"
+        fi
+        # Keep fstab consistent regardless of whether swapoff succeeded.
+        if [ -f /etc/fstab ]; then
+            sed -i -E "\|^[[:space:]]*${swap_path}[[:space:]]+none[[:space:]]+swap|d" /etc/fstab
+            echo "$swap_path none swap sw,pri=100 0 0" >> /etc/fstab
+        fi
+    fi
+fi
+
+# --- SELinux: label the swap file so the kernel can use it under enforcing ---
+# This runs for both newly-created and pre-existing swap files. Swap partitions
+# do not need the swapfile_t label, so skip them.
+# When SELinux is enforcing, a swap file must carry the swapfile_t type,
+# otherwise swapon / hibernate resume is denied. Apply a persistent file
+# context rule (semanage fcontext) and restore the label, falling back to
+# a one-shot chcon when the policy tools are unavailable.
+if [ "$swap_type" = "file" ] \
+   && command -v getenforce >/dev/null 2>&1 \
+   && [ "$(getenforce 2>/dev/null)" = "Enforcing" ]; then
+    # Skip if the swap file already carries the swapfile_t type (already
+    # configured on a previous run), to avoid re-running policy tooling.
+    current_ctx=""
+    if command -v stat >/dev/null 2>&1; then
+        current_ctx=$(stat -c %C "$swap_path" 2>/dev/null || true)
+    fi
+    if [ -z "$current_ctx" ] && command -v ls >/dev/null 2>&1; then
+        current_ctx=$(ls -Zd "$swap_path" 2>/dev/null | awk '{print $1}')
+    fi
+    if ! echo "$current_ctx" | grep -q 'swapfile_t'; then
+        if command -v semanage >/dev/null 2>&1 && command -v restorecon >/dev/null 2>&1; then
+            # -a adds the rule; if it already exists use -m to modify instead.
+            semanage fcontext -a -t swapfile_t "$swap_path" >/dev/null 2>&1 \
+                || semanage fcontext -m -t swapfile_t "$swap_path" >/dev/null 2>&1 || true
+            restorecon -v "$swap_path" >/dev/null 2>&1 || true
+        elif command -v chcon >/dev/null 2>&1; then
+            chcon -t swapfile_t "$swap_path" 2>/dev/null || true
+        fi
+    fi
+
+    # systemd-logind (systemd_logind_t) must be able to *search* the
+    # directory that holds the swap file, otherwise it is denied even when
+    # the swap file itself is swapfile_t. This matters for custom locations
+    # such as a btrfs subvolume (/swap). The root directory (/) already
+    # carries root_t which logind can search, so skip it.
+    swap_dir=$(dirname "$swap_path")
+    if [ "$swap_dir" != "/" ]; then
+        dir_ctx=""
+        if command -v stat >/dev/null 2>&1; then
+            dir_ctx=$(stat -c %C "$swap_dir" 2>/dev/null || true)
+        fi
+        if ! echo "$dir_ctx" | grep -qE 'root_t|default_t|swapfile_t'; then
+            if command -v semanage >/dev/null 2>&1 && command -v restorecon >/dev/null 2>&1; then
+                semanage fcontext -a -t root_t "$swap_dir" >/dev/null 2>&1 \
+                    || semanage fcontext -m -t root_t "$swap_dir" >/dev/null 2>&1 || true
+                restorecon -v "$swap_dir" >/dev/null 2>&1 || true
+            elif command -v chcon >/dev/null 2>&1; then
+                chcon -t root_t "$swap_dir" 2>/dev/null || true
+            fi
+        fi
+    fi
+
+    # Even with swapfile_t, hibernation may still be denied unless the
+    # domain_kernel_dump boolean is on. It permits the kernel to write
+    # (suspend) memory to the swap file and resume from it.
+    if command -v getsebool >/dev/null 2>&1 && command -v setsebool >/dev/null 2>&1; then
+        current_bool=$(getsebool domain_kernel_dump 2>/dev/null | awk '{print $NF}')
+        if [ "$current_bool" != "on" ]; then
+            setsebool -P domain_kernel_dump on 2>/dev/null || true
+        fi
+    fi
+fi
+
+# --- Ensure the hibernation image compressor is available ---
+# hibernate() returns -EOPNOTSUPP ("Operation not supported") before it even
+# starts creating the image, when the configured compressor
+# (/sys/module/hibernate/parameters/compressor, "lzo" by default) is neither
+# built into nor loadable by the kernel. Minimal or virtualization-optimized
+# kernels (Hyper-V / cloud images) often ship without CONFIG_CRYPTO_LZO, which
+# makes every hibernation attempt fail this way.
+comp_param="/sys/module/hibernate/parameters/compressor"
+if [ -r "$comp_param" ]; then
+    hib_comp=$(cat "$comp_param" 2>/dev/null || true)
+    [ -n "$hib_comp" ] || hib_comp="lzo"
+
+    # An algorithm usable by the acomp API is registered under its name.
+    acomp_available() {
+        grep -Eqi "^[[:space:]]*name[[:space:]]*:[[:space:]]*$1[[:space:]]*$" /proc/crypto 2>/dev/null
+    }
+
+    if ! acomp_available "$hib_comp" && command -v modprobe >/dev/null 2>&1; then
+        modprobe "$hib_comp" >/dev/null 2>&1 || true
+    fi
+
+    if ! acomp_available "$hib_comp"; then
+        # Try another algorithm the kernel accepts at runtime. Only "lzo" and
+        # "lz4" can be selected through the module parameter.
+        for alg in lz4 lzo; do
+            [ "$alg" = "$hib_comp" ] && continue
+            if ! acomp_available "$alg" && command -v modprobe >/dev/null 2>&1; then
+                modprobe "$alg" >/dev/null 2>&1 || true
+            fi
+            if acomp_available "$alg"; then
+                echo "$alg" > "$comp_param" 2>/dev/null && hib_comp="$alg"
+                break
+            fi
+        done
+
+        # Persist across reboots: either the compressor that works, or
+        # "nocompress" (hibernate() then skips the compressor lookup
+        # entirely, which is the last resort when nothing is available).
+        if command -v grubby >/dev/null 2>&1; then
+            grubby --update-kernel=ALL --remove-args="hibernate.compressor nocompress" >/dev/null 2>&1 || true
+            if acomp_available "$hib_comp"; then
+                grubby --update-kernel=ALL --args="hibernate.compressor=$hib_comp" >/dev/null 2>&1 || true
+            else
+                grubby --update-kernel=ALL --args="nocompress" >/dev/null 2>&1 || true
+            fi
+        else
+            grub_default="/etc/default/grub"
+            if [ -f "$grub_default" ]; then
+                sed -i -E 's/[[:space:]]*hibernate\.compressor=[^ "]*//g; s/[[:space:]]*nocompress//g' "$grub_default"
+                if acomp_available "$hib_comp"; then
+                    sed -i -E "s|(^GRUB_CMDLINE_LINUX=\")(.*)(\")|\1\2 hibernate.compressor=$hib_comp\3|" "$grub_default"
+                else
+                    sed -i -E "s|(^GRUB_CMDLINE_LINUX=\")(.*)(\")|\1\2 nocompress\3|" "$grub_default"
+                fi
+                if command -v grub2-mkconfig >/dev/null 2>&1; then
+                    cfg="/boot/grub2/grub.cfg"
+                    [ -f "$cfg" ] || cfg="/boot/grub/grub.cfg"
+                    grub2-mkconfig -o "$cfg" >/dev/null 2>&1 || true
+                elif command -v update-grub >/dev/null 2>&1; then
+                    update-grub >/dev/null 2>&1 || true
+                fi
+            fi
+        fi
+    fi
+fi
+
+# --- Hyper-V: release VMBus devices from uio_hv_generic ---
+# In a Hyper-V guest, a VMBus device bound to uio_hv_generic aborts the
+# hibernation during the freeze phase: vmbus_suspend() returns -EOPNOTSUPP
+# for hv_drivers that have no .suspend callback, and the kernel then reports
+# "Some devices failed to power down, aborting". Unbinding the device lets
+# hibernation proceed.
+uio_dir="/sys/bus/vmbus/drivers/uio_hv_generic"
+if [ "$is_hyperv" = "1" ] && [ -d "$uio_dir" ]; then
+    freed_ids=""
+    for entry in "$uio_dir"/*; do
+        [ -L "$entry" ] || continue
+        uio_id=$(basename "$entry")
+        if echo "$uio_id" > "$uio_dir/unbind" 2>/dev/null; then
+            freed_ids="$freed_ids $uio_id"
+        fi
+    done
+
+    if [ -n "$freed_ids" ]; then
+        # Keep the device unbound after reboots. Nothing on a plain guest
+        # binds uio_hv_generic automatically, but do not let it come back and
+        # break hibernation again. Remove the file to restore the binding.
+        uio_builtin=""
+        if command -v modinfo >/dev/null 2>&1; then
+            uio_mod=$(modinfo -F filename uio_hv_generic 2>/dev/null || true)
+            [ "$uio_mod" = "(builtin)" ] && uio_builtin="1"
+        fi
+
+        if [ -z "$uio_builtin" ]; then
+            mkdir -p /etc/modprobe.d
+            printf '# Added by miryu-toolkit: uio_hv_generic has no suspend callback\n# and makes hibernation fail on Hyper-V. Delete this file to re-enable it.\nblacklist uio_hv_generic\n' \
+                > /etc/modprobe.d/miryu-hibernation.conf
+        else
+            # Built into the kernel, so a blacklist cannot help: unbind before
+            # every sleep cycle through a systemd sleep hook.
+            hook_dir="/usr/lib/systemd/system-sleep"
+            mkdir -p "$hook_dir"
+            cat > "$hook_dir/miryu-hv-uio-unbind" <<'HOOK'
+#!/usr/bin/sh
+# Added by miryu-toolkit: uio_hv_generic has no suspend callback and makes
+# hibernation fail on Hyper-V. Release its devices before going to sleep.
+case "$1" in
+  pre)
+    dir=/sys/bus/vmbus/drivers/uio_hv_generic
+    [ -d "$dir" ] || exit 0
+    for entry in "$dir"/*; do
+      [ -L "$entry" ] || continue
+      echo "$(basename "$entry")" > "$dir/unbind" 2>/dev/null || true
+    done
+    ;;
+esac
+exit 0
+HOOK
+            chmod +x "$hook_dir/miryu-hv-uio-unbind"
+        fi
+    fi
+fi
+
+# --- VMware: release the vmwgfx GPU before hibernating ---
+# vmw_pm_freeze() aborts with -EBUSY ("Can't hibernate while 3D resources are
+# active") whenever anything else than its own probe-time FIFO resource is
+# still registered - that is the case as long as any user-space client (Xorg,
+# a compositor, a GL app) holds a DRM context, even with 3D acceleration
+# switched off in the VM settings. Unbinding the driver during hibernation
+# makes the freeze callback disappear, so the image can be written; the
+# device is re-probed after resume. Suspend-to-RAM is left untouched.
+vmwgfx_dir="/sys/bus/pci/drivers/vmwgfx"
+hook_dir="/usr/lib/systemd/system-sleep"
+hook_state=""
+if [ "$is_vmware" = "1" ] && [ -d "$vmwgfx_dir" ]; then
+    mkdir -p "$hook_dir"
+    cat > "$hook_dir/miryu-vmwgfx-unbind" <<'HOOK'
+#!/bin/sh
+# Added by miryu-toolkit: vmw_pm_freeze() aborts hibernation with -EBUSY
+# ("Can't hibernate while 3D resources are active") as soon as any user-space
+# DRM client owns a context. Detach the GPU from its driver for the duration
+# of the hibernation so the freeze callback no longer exists, then put it
+# back after resume. Suspend-to-RAM is not touched.
+LOG=/run/miryu-vmwgfx.log
+
+say() {
+    echo "$(date '+%F %T') [$1/$2] $3" >> "$LOG" 2>&1
+}
+
+case "$2" in
+  hibernate|hybrid-sleep|suspend-then-hibernate) ;;
+  *) exit 0 ;;
+esac
+
+say "$1" "$2" "started"
+
+DRV=/sys/bus/pci/drivers/vmwgfx
+
+case "$1" in
+  pre)
+    [ -d "$DRV" ] || { say pre "$2" "no vmwgfx driver directory"; exit 0; }
+    found=0
+    for entry in "$DRV"/[0-9a-fA-F]* ; do
+      [ -e "$entry" ] || continue
+      dev=${entry##*/}
+      found=1
+      if echo "$dev" > "$DRV/unbind" 2>>"$LOG"; then
+        say pre "$2" "unbound $dev"
+      else
+        # Fall back to taking the PCI function away entirely; the rescan in
+        # the post stage brings it back either way.
+        say pre "$2" "unbind of $dev failed, removing the PCI function"
+        echo 1 > "/sys/bus/pci/devices/$dev/remove" 2>>"$LOG" || true
+      fi
+    done
+    [ "$found" = "1" ] || say pre "$2" "vmwgfx is bound to no device"
+    ;;
+  post)
+    echo 1 > /sys/bus/pci/rescan 2>>"$LOG" || true
+    systemctl --no-block start display-manager >> "$LOG" 2>&1 || true
+    say post "$2" "re-probed the PCI bus and restarted the display manager"
+    ;;
+esac
+
+exit 0
+HOOK
+    chmod +x "$hook_dir/miryu-vmwgfx-unbind"
+fi
+if [ "$is_vmware" = "1" ]; then
+    if [ -x "$hook_dir/miryu-vmwgfx-unbind" ]; then
+        hook_state="installed"
+    else
+        hook_state="NOT installed"
+    fi
+fi
+
+# --- Generic: release drivers whose freeze callback aborts hibernation ---
+# Which driver misbehaves depends on the machine (vendor WMI drivers, sensors,
+# etc.), so they cannot all be enumerated ahead of time. Learn them from what
+# the kernel already reported: every "dpm_run_callback(): <callback> [<driver>]
+# returns -<errno>" line names a driver that aborts the freezer. Such drivers
+# are detached while the image is written and re-attached after resume, and the
+# sleep hook keeps learning from later failures.
+release_conf="/etc/miryu-toolkit/sleep-release.conf"
+mkdir -p "${release_conf%/*}"
+
+learn_offenders() {
+    dmesg 2>/dev/null | awk '
+        /dpm_run_callback\(\):.*\[[A-Za-z0-9_]+\] returns -[0-9]+/ {
+            if (match($0, /\[[A-Za-z0-9_]+\]/))
+                print substr($0, RSTART + 1, RLENGTH - 2)
+        }' | sort -u
+}
+
+learned_drivers=$(learn_offenders)
+for drv in $learned_drivers; do
+    grep -qx "$drv" "$release_conf" 2>/dev/null || printf '%s\n' "$drv" >> "$release_conf"
+done
+if [ -f "$release_conf" ]; then
+    chmod 644 "$release_conf"
+fi
+
+cat > "$hook_dir/miryu-sleep-release" <<'HOOK'
+#!/bin/sh
+# Added by miryu-toolkit: some drivers return an error from their freeze
+# callback, which aborts hibernation ("Some devices failed to power down").
+# Detach those drivers for the duration of the hibernation, re-attach them
+# after resume, and record any further offender the kernel reports.
+LOG=/run/miryu-sleep-release.log
+CONF=/etc/miryu-toolkit/sleep-release.conf
+STATE=/run/miryu-sleep-release.state
+
+say() { echo "$(date '+%F %T') [$1/$2] $3" >> "$LOG" 2>&1; }
+
+case "$2" in
+  hibernate|hybrid-sleep|suspend-then-hibernate) ;;
+  *) exit 0 ;;
+esac
+
+# The image is written to a block device right after the freezer, so the
+# storage stack must stay attached.
+skip_driver() {
+    case "$1" in
+      nvme*|ahci*|ata_piix|sd_mod|virtio_blk|virtio_pci|virtio_scsi|usb_storage|mpt3sas|megaraid*|xen_blk*) return 0 ;;
+    esac
+    return 1
+}
+
+learn_offenders() {
+    dmesg 2>/dev/null | awk '
+        /dpm_run_callback\(\):.*\[[A-Za-z0-9_]+\] returns -[0-9]+/ {
+            if (match($0, /\[[A-Za-z0-9_]+\]/))
+                print substr($0, RSTART + 1, RLENGTH - 2)
+        }' | sort -u
+}
+
+say "$1" "$2" "started"
+
+case "$1" in
+  pre)
+    : > "$STATE"
+    [ -r "$CONF" ] || exit 0
+    while read -r mod; do
+      [ -n "$mod" ] || continue
+      if skip_driver "$mod"; then
+        say pre "$2" "refusing to detach $mod"
+        continue
+      fi
+      found=0
+      # The driver name registered under /sys/bus/*/drivers/ is not always the
+      # module name the kernel prints, so compare the module symlink too.
+      for drvdir in /sys/bus/*/drivers/*; do
+        [ -d "$drvdir" ] || continue
+        drv=${drvdir##*/}
+        drvmod=""
+        if [ -L "$drvdir/module" ]; then
+          drvmod=$(basename "$(readlink -f "$drvdir/module")")
+        fi
+        drvn=$(printf '%s' "$drv" | tr '-' '_')
+        if [ "$drv" != "$mod" ] && [ "$drvmod" != "$mod" ] && [ "$drvn" != "$mod" ]; then
+          continue
+        fi
+        bus=${drvdir#/sys/bus/}
+        bus=${bus%%/*}
+        for entry in "$drvdir"/*; do
+          [ -L "$entry" ] || continue
+          dev=${entry##*/}
+          found=1
+          echo "$bus $drv $dev" >> "$STATE"
+          if echo "$dev" > "/sys/bus/$bus/drivers/$drv/unbind" 2>>"$LOG"; then
+            say pre "$2" "detached $bus/$drv/$dev"
+          else
+            say pre "$2" "could not detach $bus/$drv/$dev"
+          fi
+        done
+      done
+      [ "$found" = "1" ] || say pre "$2" "no driver matches $mod"
+    done < "$CONF"
+    ;;
+  post)
+    if [ -s "$STATE" ]; then
+      while read -r bus drv dev; do
+        [ -n "$bus" ] || continue
+        echo "$dev" > "/sys/bus/$bus/drivers/$drv/bind" 2>>"$LOG" || true
+      done < "$STATE"
+      say post "$2" "re-attached the detached drivers"
+    fi
+    rm -f "$STATE"
+    for drv in $(learn_offenders); do
+      if [ -r "$CONF" ] && grep -qx "$drv" "$CONF"; then
+        continue
+      fi
+      printf '%s\n' "$drv" >> "$CONF"
+      say post "$2" "learned $drv; the next hibernation will release it"
+    done
+    ;;
+esac
+
+exit 0
+HOOK
+chmod +x "$hook_dir/miryu-sleep-release"
+
+# Report which driver directory each learned module resolves to, so a name
+# mismatch is visible in the output instead of failing silently at sleep time.
+if [ -n "$learned_drivers" ]; then
+    for mod in $learned_drivers; do
+        target=""
+        for drvdir in /sys/bus/*/drivers/*; do
+            [ -d "$drvdir" ] || continue
+            drv=${drvdir##*/}
+            drvmod=""
+            if [ -L "$drvdir/module" ]; then
+                drvmod=$(basename "$(readlink -f "$drvdir/module")")
+            fi
+            if [ "$drv" = "$mod" ] || [ "$drvmod" = "$mod" ] \
+                 || [ "$(printf '%s' "$drv" | tr '-' '_')" = "$mod" ]; then
+                bus=${drvdir#/sys/bus/}
+                bus=${bus%%/*}
+                target="${target:+$target }$bus/$drv"
+            fi
+        done
+        echo "sleep release: $mod -> ${target:-no device found}"
+    done
+fi
+
+# --- 2. Build the resume= kernel arguments for the chosen swap area ---
+resume_args=""
+
+if [ "$swap_type" = "partition" ]; then
+    uuid=$(blkid -s UUID -o value "$swap_path" 2>/dev/null || true)
+    if [ -n "$uuid" ]; then
+        resume_args="resume=UUID=$uuid"
+    else
+        resume_args="resume=$swap_path"
+    fi
+else
+    # Swap file: resume=UUID=<filesystem-uuid> resume_offset=<physical offset>
+    fs_uuid=""
+    # Primary: findmnt reports the filesystem UUID directly.
+    if command -v findmnt >/dev/null 2>&1; then
+        fs_uuid=$(findmnt -no UUID -T "$swap_path" 2>/dev/null || true)
+        # Fallback: resolve the underlying block device and ask blkid.
+        # On btrfs subvolumes findmnt prints SOURCE with a subvolume suffix
+        # like "/dev/nvme0n1p2[/@]" which blkid cannot parse, so strip it.
+        if [ -z "$fs_uuid" ]; then
+            dev=$(findmnt -no SOURCE -T "$swap_path" 2>/dev/null | sed 's/\[.*//')
+            [ -n "$dev" ] && fs_uuid=$(blkid -s UUID -o value "$dev" 2>/dev/null || true)
+        fi
+    fi
+    # Last resort: derive the device from /proc/mounts and ask blkid.
+    if [ -z "$fs_uuid" ]; then
+        mnt=$(stat -c '%m' "$swap_path" 2>/dev/null || true)
+        if [ -n "$mnt" ]; then
+            dev=$(awk -v m="$mnt" '$2 == m {print $1; exit}' /proc/mounts)
+            [ -n "$dev" ] && fs_uuid=$(blkid -s UUID -o value "$dev" 2>/dev/null || true)
+        fi
+    fi
+    offset=""
+    # For swap files the physical offset is required for resume.
+    # On btrfs, filefrag does not report the offset usable by the resume
+    # mechanism; btrfs inspect-internal map-swapfile must be used instead.
+    if command -v btrfs >/dev/null 2>&1; then
+        btrfs_offset=$(btrfs inspect-internal map-swapfile -r "$swap_path" 2>/dev/null || true)
+        [ -n "$btrfs_offset" ] && offset="$btrfs_offset"
+    fi
+    if [ -z "$offset" ] && command -v filefrag >/dev/null 2>&1; then
+        offset=$(filefrag -v "$swap_path" 2>/dev/null \
+            | awk '/^[[:space:]]*0:/ {gsub(/\./,"",$4); print $4; exit}')
+    fi
+    if [ -n "$fs_uuid" ]; then
+        resume_args="resume=UUID=$fs_uuid"
+        [ -n "$offset" ] && resume_args="$resume_args resume_offset=$offset"
+    fi
+fi
+
+# --- 3. Apply the resume arguments persistently ---
+# Always remove any stale/broken resume= / resume_offset= first, even when we
+# cannot build new arguments, so an empty resume= does not block hibernation.
+if command -v grubby >/dev/null 2>&1; then
+    grubby --update-kernel=ALL --remove-args="resume resume_offset" >/dev/null 2>&1 || true
+    [ -n "$resume_args" ] && grubby --update-kernel=ALL --args="$resume_args"
+else
+    # Fallback: edit GRUB_CMDLINE_LINUX in /etc/default/grub
+    grub_default="/etc/default/grub"
+    mkdir -p "$(dirname "$grub_default")"
+    touch "$grub_default"
+    if ! grep -q '^GRUB_CMDLINE_LINUX=' "$grub_default"; then
+        echo 'GRUB_CMDLINE_LINUX=""' >> "$grub_default"
+    fi
+    # Remove any prior resume= / resume_offset= entries (including empty ones).
+    sed -i -E 's/\s*resume(_offset)?=[^ "]*//g' "$grub_default"
+    # Collapse stray whitespace before the closing quote.
+    sed -i -E 's/(^GRUB_CMDLINE_LINUX="[^"]*?)\s+"/\1"/' "$grub_default"
+    if [ -n "$resume_args" ]; then
+        sed -i -E "s|(^GRUB_CMDLINE_LINUX=\")(.*)(\")|\1\2 $resume_args\3|" "$grub_default"
+    fi
+    # Regenerate grub.cfg if possible
+    if command -v grub2-mkconfig >/dev/null 2>&1; then
+        cfg="/boot/grub2/grub.cfg"
+        [ -f "$cfg" ] || cfg="/boot/grub/grub.cfg"
+        grub2-mkconfig -o "$cfg" >/dev/null 2>&1 || true
+    elif command -v update-grub >/dev/null 2>&1; then
+        update-grub >/dev/null 2>&1 || true
+    fi
+fi
+
+# --- 4. Ensure the initramfs contains the resume hook ---
+# The userspace initramfs must include the resume module/hook so the kernel
+# can restore from the swap area at boot. dracut (Fedora/RHEL/EndeavourOS/...)
+# and initramfs-tools (Debian/Ubuntu) are handled here.
+if command -v dracut >/dev/null 2>&1; then
+    mkdir -p /etc/dracut.conf.d
+    # Make sure the resume module is included.
+    if ! grep -q 'add_dracutmodules.*resume' /etc/dracut.conf.d/resume.conf 2>/dev/null; then
+        echo 'add_dracutmodules+=" resume "' > /etc/dracut.conf.d/resume.conf
+    fi
+    # Regenerate the initramfs for all installed kernels.
+    if command -v dracut-rebuild >/dev/null 2>&1; then
+        dracut-rebuild >/dev/null 2>&1 || true
+    else
+        dracut -f >/dev/null 2>&1 || true
+    fi
+elif [ -d /etc/initramfs-tools ]; then
+    # Debian/Ubuntu style initramfs-tools.
+    mkdir -p /etc/initramfs-tools/conf.d
+    # RESUME should point at the swap device: the partition UUID for a swap
+    # partition, or the host filesystem UUID for a swap file.
+    if [ "$swap_type" = "partition" ] && [ -n "${uuid:-}" ]; then
+        echo "RESUME=UUID=$uuid" > /etc/initramfs-tools/conf.d/resume
+    elif [ -n "${fs_uuid:-}" ]; then
+        echo "RESUME=UUID=$fs_uuid" > /etc/initramfs-tools/conf.d/resume
+    fi
+    if command -v update-initramfs >/dev/null 2>&1; then
+        update-initramfs -u -k all >/dev/null 2>&1 || true
+    fi
+fi
+
+echo "Sleep fix applied (${virt:-bare metal}): swap=$swap_path resume='$resume_args'"
+if [ "$is_vmware" = "1" ]; then
+    gpu_list=$(printf '%s ' "$vmwgfx_dir"/[0-9a-fA-F]* 2>/dev/null | sed 's#.*/##g')
+    echo "vmwgfx devices: ${gpu_list:-none} hook=$hook_state"
+fi

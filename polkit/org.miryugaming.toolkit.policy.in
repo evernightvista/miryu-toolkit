@@ -306,6 +306,54 @@
     <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
   </action>
 
+  <action id="org.miryugaming.toolkit.apply-sleep">
+    <description>Apply sleep settings</description>
+    <description xml:lang="zh_CN">应用睡眠设置</description>
+    <description xml:lang="zh_TW">套用睡眠設定</description>
+    <description xml:lang="ja">スリープ設定を適用</description>
+    <description xml:lang="de">Energieverwaltungseinstellungen anwenden</description>
+    <description xml:lang="ko">절전 설정 적용</description>
+    <description xml:lang="fr">Appliquer les paramètres de veille</description>
+    <message>应用睡眠设置需要认证</message>
+    <message xml:lang="zh_CN">应用睡眠设置需要认证</message>
+    <message xml:lang="zh_TW">套用睡眠設定需要認證</message>
+    <message xml:lang="ja">スリープ設定の適用には認証が必要です</message>
+    <message xml:lang="de">Zum Anwenden der Energieverwaltungseinstellungen ist eine Authentifizierung erforderlich</message>
+    <message xml:lang="ko">절전 설정을 적용하려면 인증이 필요합니다</message>
+    <message xml:lang="fr">L'application des paramètres de veille nécessite une authentification</message>
+    <icon_name>preferences-system</icon_name>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">@CMAKE_INSTALL_FULL_LIBEXECDIR@/miryu-toolkit/miryu-toolkit-apply-sleep</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
+  </action>
+
+  <action id="org.miryugaming.toolkit.fix-sleep">
+    <description>Fix sleep mode problems</description>
+    <description xml:lang="zh_CN">修复睡眠模式问题</description>
+    <description xml:lang="zh_TW">修復睡眠模式問題</description>
+    <description xml:lang="ja">スリープモードの問題を修正</description>
+    <description xml:lang="ko">절전 모드 문제 해결</description>
+    <description xml:lang="fr">Résoudre les problèmes de mode de veille</description>
+    <message>Fixing sleep mode problems requires authentication</message>
+    <message xml:lang="zh_CN">修复睡眠模式问题需要认证</message>
+    <message xml:lang="zh_TW">修復睡眠模式問題需要認證</message>
+    <message xml:lang="ja">スリープモードの問題修正には認証が必要です</message>
+    <message xml:lang="ko">절전 모드 문제를 해결하려면 인증이 필요합니다</message>
+    <message xml:lang="fr">La résolution des problèmes de mode de veille nécessite une authentification</message>
+    <icon_name>preferences-system</icon_name>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">@CMAKE_INSTALL_FULL_LIBEXECDIR@/miryu-toolkit/miryu-toolkit-fix-sleep</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
+  </action>
+
   <action id="org.miryugaming.toolkit.cleanup-kernel">
     <description>Remove previous kernel versions</description>
     <description xml:lang="zh_CN">移除上一版本内核</description>

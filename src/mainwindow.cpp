@@ -8,6 +8,7 @@
 #include <QAbstractItemView>
 #include <QApplication>
 #include <QCheckBox>
+#include <QComboBox>
 #include <QCoreApplication>
 #include <QDesktopServices>
 #include <QDialog>
@@ -25,6 +26,7 @@
 #include <QLineEdit>
 #include <QPixmap>
 #include <QPlainTextEdit>
+#include <QProcess>
 #include <QRegularExpression>
 #include <QSaveFile>
 #include <QScrollArea>
@@ -38,6 +40,8 @@
 #include <QVBoxLayout>
 
 #include <signal.h>
+#include <sys/stat.h>
+#include <sys/sysmacros.h>
 #include <sys/types.h>
 
 #include <memory>
@@ -68,7 +72,7 @@ MainWindow::MainWindow(QWidget *parent)
     title->setFont(titleFont);
     rootLayout->addWidget(title);
 
-    auto *subtitle = new QLabel(i18n("Manage Miryu components, maintenance tasks and system-wide environment variables in one place."), central);
+    auto *subtitle = new QLabel(i18n("Manage Miryu components, maintenance tasks, system-wide environment variables and sleep settings in one place."), central);
     subtitle->setWordWrap(true);
     rootLayout->addWidget(subtitle);
 
@@ -85,6 +89,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_tabs->addTab(wrapScroll(buildSystemAssistantTab()), i18n("Miryu System Assistant"));
     m_tabs->addTab(wrapScroll(buildBootMenuTab()), i18n("Boot Menu"));
     m_tabs->addTab(wrapScroll(buildEnvironmentTab()), i18n("System-wide environment variables"));
+    m_tabs->addTab(wrapScroll(buildSleepTab()), i18n("Sleep"));
     m_tabs->addTab(wrapScroll(buildExtrasTab()), i18n("Install additional components"));
     m_tabs->addTab(wrapScroll(buildAboutTab()), i18n("About"));
     rootLayout->addWidget(m_tabs, 1);
@@ -102,6 +107,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     refreshComponentStates();
     loadEnvironmentVariables();
+    loadSleepConfig();
     loadGrubConfig();
 }
 
@@ -351,6 +357,972 @@ QWidget *MainWindow::buildEnvironmentTab()
     return page;
 }
 
+// ── Sleep tab ──
+
+static const QString SLEEP_CONFIG_PATH = QStringLiteral("/etc/systemd/sleep.conf.d/90-miryu-toolkit.conf");
+
+QString MainWindow::readSysFile(const QString &path)
+{
+    QFile file(path);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        return {};
+    }
+    return QString::fromUtf8(file.readAll().trimmed());
+}
+
+QWidget *MainWindow::buildSleepTab()
+{
+    auto *page = new QWidget;
+    auto *layout = new QVBoxLayout(page);
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->setSpacing(10);
+
+    // ── Allowed sleep modes ──
+    auto *modesGroup = new QGroupBox(i18n("Allowed sleep modes"), page);
+    auto *modesLayout = new QVBoxLayout(modesGroup);
+    modesLayout->setSpacing(8);
+
+    auto *modesHint = new QLabel(i18n("Choose the sleep modes you want to allow."), modesGroup);
+    modesHint->setWordWrap(true);
+    modesLayout->addWidget(modesHint);
+
+    auto makeModeRow = [modesGroup](const QString &title, const QString &description, QCheckBox **check) {
+        auto *row = new QHBoxLayout();
+        row->setSpacing(12);
+        auto *text = new QVBoxLayout();
+        text->setSpacing(2);
+        auto *titleLabel = new QLabel(title, modesGroup);
+        QFont titleFont = titleLabel->font();
+        titleFont.setBold(true);
+        titleLabel->setFont(titleFont);
+        text->addWidget(titleLabel);
+        auto *descLabel = new QLabel(description, modesGroup);
+        descLabel->setWordWrap(true);
+        descLabel->setStyleSheet(QStringLiteral("color: palette(mid);"));
+        text->addWidget(descLabel);
+        row->addLayout(text, 1);
+        *check = new QCheckBox(modesGroup);
+        row->addWidget(*check, 0, Qt::AlignVCenter);
+        return row;
+    };
+
+    modesLayout->addLayout(makeModeRow(
+        i18n("Suspend"),
+        i18n("Keeps the session in memory (RAM). The computer is still running but uses only a bit of power."),
+        &m_sleepSuspendCheck));
+    modesLayout->addLayout(makeModeRow(
+        i18n("Hibernate"),
+        i18n("Saves the session to disk (Swap). Shuts down the computer."),
+        &m_sleepHibernateCheck));
+    modesLayout->addLayout(makeModeRow(
+        i18n("Suspend then hibernate"),
+        i18n("Suspends for a while (systemd decides how long, based on battery power), then hibernates."),
+        &m_sleepSuspendThenHibernateCheck));
+    modesLayout->addLayout(makeModeRow(
+        i18n("Hybrid sleep"),
+        i18n("Suspends but also saves the session to disk (Swap)."),
+        &m_sleepHybridSleepCheck));
+
+    layout->addWidget(modesGroup);
+
+    // ── Suspend method ──
+    auto *suspendMethodGroup = new QGroupBox(i18n("Suspend method"), page);
+    auto *suspendMethodLayout = new QVBoxLayout(suspendMethodGroup);
+    auto *suspendMethodHint = new QLabel(
+        i18n("This is the method used to suspend the computer. Only the methods offered by your BIOS/firmware can be chosen."),
+        suspendMethodGroup);
+    suspendMethodHint->setWordWrap(true);
+    suspendMethodLayout->addWidget(suspendMethodHint);
+    auto *suspendMethodRow = new QHBoxLayout();
+    suspendMethodRow->setSpacing(12);
+    m_suspendModeCombo = new QComboBox(suspendMethodGroup);
+    m_suspendModeCombo->setMinimumWidth(260);
+    suspendMethodRow->addStretch();
+    suspendMethodRow->addWidget(m_suspendModeCombo);
+    suspendMethodLayout->addLayout(suspendMethodRow);
+    layout->addWidget(suspendMethodGroup);
+
+    // ── Hibernation method ──
+    auto *hibernateMethodGroup = new QGroupBox(i18n("Hibernation method"), page);
+    auto *hibernateMethodLayout = new QVBoxLayout(hibernateMethodGroup);
+    auto *hibernateMethodHint = new QLabel(
+        i18n("This is the method used to power off the computer during hibernation."),
+        hibernateMethodGroup);
+    hibernateMethodHint->setWordWrap(true);
+    hibernateMethodLayout->addWidget(hibernateMethodHint);
+    auto *hibernateMethodRow = new QHBoxLayout();
+    hibernateMethodRow->setSpacing(12);
+    m_hibernateMethodCombo = new QComboBox(hibernateMethodGroup);
+    m_hibernateMethodCombo->setMinimumWidth(260);
+    hibernateMethodRow->addStretch();
+    hibernateMethodRow->addWidget(m_hibernateMethodCombo);
+    hibernateMethodLayout->addLayout(hibernateMethodRow);
+    layout->addWidget(hibernateMethodGroup);
+
+    // ── Detected problems ──
+    auto *problemsGroup = new QGroupBox(i18n("Detected problems"), page);
+    auto *problemsLayout = new QVBoxLayout(problemsGroup);
+    auto *problemsHint = new QLabel(i18n("Fix the detected problems to make your allowed sleep modes available."), problemsGroup);
+    problemsHint->setWordWrap(true);
+    problemsLayout->addWidget(problemsHint);
+    m_sleepProblemsList = new QListWidget(problemsGroup);
+    m_sleepProblemsList->setSelectionMode(QAbstractItemView::NoSelection);
+    m_sleepProblemsList->setAlternatingRowColors(true);
+    m_sleepProblemsList->setMinimumHeight(140);
+    problemsLayout->addWidget(m_sleepProblemsList, 1);
+    auto *fixButtonLayout = new QHBoxLayout();
+    fixButtonLayout->addStretch();
+    m_sleepFixButton = new QPushButton(i18n("Fix detected problems"), problemsGroup);
+    m_sleepFixButton->setIcon(QIcon::fromTheme(QStringLiteral("tools-wizard")));
+    m_sleepFixButton->setEnabled(false);
+    connect(m_sleepFixButton, &QPushButton::clicked, this, &MainWindow::fixSleepProblems);
+    fixButtonLayout->addWidget(m_sleepFixButton);
+    problemsLayout->addLayout(fixButtonLayout);
+    layout->addWidget(problemsGroup);
+
+    // ── Available sleep modes ──
+    auto *availableGroup = new QGroupBox(i18n("Available sleep modes"), page);
+    auto *availableLayout = new QVBoxLayout(availableGroup);
+    auto *availableHint = new QLabel(i18n("These are the sleep modes systemd reports as available right now."), availableGroup);
+    availableHint->setWordWrap(true);
+    availableLayout->addWidget(availableHint);
+    m_sleepAvailableList = new QListWidget(availableGroup);
+    m_sleepAvailableList->setSelectionMode(QAbstractItemView::NoSelection);
+    m_sleepAvailableList->setAlternatingRowColors(true);
+    m_sleepAvailableList->setMinimumHeight(96);
+    availableLayout->addWidget(m_sleepAvailableList, 1);
+    layout->addWidget(availableGroup);
+
+    // ── Bottom: status + apply ──
+    auto *bottomLayout = new QHBoxLayout();
+    bottomLayout->setSpacing(12);
+    m_sleepStatusLabel = new QLabel(i18n("Saving requires administrator authentication through polkit."), page);
+    m_sleepStatusLabel->setWordWrap(true);
+    m_sleepApplyButton = new QPushButton(i18n("Apply sleep settings"), page);
+    m_sleepApplyButton->setIcon(QIcon::fromTheme(QStringLiteral("document-save")));
+    connect(m_sleepApplyButton, &QPushButton::clicked, this, &MainWindow::saveSleepConfig);
+    bottomLayout->addWidget(m_sleepStatusLabel, 1);
+    bottomLayout->addWidget(m_sleepApplyButton);
+    layout->addLayout(bottomLayout);
+
+    layout->addStretch();
+    return page;
+}
+
+void MainWindow::loadSleepConfig()
+{
+    if (!m_sleepSuspendCheck) {
+        return;
+    }
+
+    // Read the drop-in config written by this tool (if any)
+    QVariantMap values;
+    QFile file(SLEEP_CONFIG_PATH);
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream stream(&file);
+        while (!stream.atEnd()) {
+            const QString line = stream.readLine().trimmed();
+            if (line.isEmpty() || line.startsWith(QLatin1Char('#')) || line.startsWith(QLatin1Char('['))) {
+                continue;
+            }
+            const int eq = line.indexOf(QLatin1Char('='));
+            if (eq > 0) {
+                values.insert(line.left(eq).trimmed(), line.mid(eq + 1).trimmed());
+            }
+        }
+    }
+
+    auto isAllowed = [&values](const QString &key) -> bool {
+        const QString v = values.value(key, QStringLiteral("yes")).toString().toLower();
+        return !(v == QLatin1String("no") || v == QLatin1String("false")
+                 || v == QLatin1String("0") || v == QLatin1String("off"));
+    };
+
+    m_sleepSuspendCheck->setChecked(isAllowed(QStringLiteral("AllowSuspend")));
+    m_sleepHibernateCheck->setChecked(isAllowed(QStringLiteral("AllowHibernation")));
+    m_sleepSuspendThenHibernateCheck->setChecked(isAllowed(QStringLiteral("AllowSuspendThenHibernate")));
+    m_sleepHybridSleepCheck->setChecked(isAllowed(QStringLiteral("AllowHybridSleep")));
+
+    // Populate suspend mode combo from /sys/power/mem_sleep
+    const QString memSleep = readSysFile(QStringLiteral("/sys/power/mem_sleep"));
+    const QString suspendCurrent = values.value(QStringLiteral("MemorySleepMode"), QString()).toString();
+    m_suspendModeCombo->clear();
+    m_suspendModeCombo->addItem(i18n("Default"), QString());
+    if (!memSleep.isEmpty()) {
+        const QStringList tokens = memSleep.split(QLatin1Char(' '), Qt::SkipEmptyParts);
+        for (QString token : tokens) {
+            bool active = false;
+            if (token.startsWith(QLatin1Char('[')) && token.endsWith(QLatin1Char(']'))) {
+                token = token.mid(1, token.size() - 2);
+                active = true;
+            }
+            QString label;
+            if (token == QLatin1String("s2idle")) {
+                label = i18n("Suspend-to-idle (s2idle)");
+            } else if (token == QLatin1String("deep")) {
+                label = i18n("Suspend-to-RAM (S3)");
+            } else if (token == QLatin1String("shallow")) {
+                label = i18n("Shallow (S1)");
+            } else {
+                label = token;
+            }
+            m_suspendModeCombo->addItem(label, token);
+            if (active && suspendCurrent.isEmpty()) {
+                // Show the kernel default in the "Default" entry when nothing is configured
+                const int idx = m_suspendModeCombo->findData(QString());
+                if (idx >= 0) {
+                    m_suspendModeCombo->setItemText(idx, i18n("Default — %1", label));
+                }
+            }
+        }
+    }
+    const int suspendIdx = m_suspendModeCombo->findData(suspendCurrent);
+    m_suspendModeCombo->setCurrentIndex(suspendIdx >= 0 ? suspendIdx : 0);
+
+    // Populate hibernate method combo from /sys/power/disk
+    const QString disk = readSysFile(QStringLiteral("/sys/power/disk"));
+    const QString hibernateCurrent = values.value(QStringLiteral("HibernateMode"), QString()).toString();
+    m_hibernateMethodCombo->clear();
+    m_hibernateMethodCombo->addItem(i18n("Default"), QString());
+    if (!disk.isEmpty()) {
+        const QStringList tokens = disk.split(QLatin1Char(' '), Qt::SkipEmptyParts);
+        for (QString token : tokens) {
+            bool active = false;
+            if (token.startsWith(QLatin1Char('[')) && token.endsWith(QLatin1Char(']'))) {
+                token = token.mid(1, token.size() - 2);
+                active = true;
+            }
+            QString label;
+            if (token == QLatin1String("platform")) {
+                label = i18n("Platform (the firmware powers off)");
+            } else if (token == QLatin1String("shutdown")) {
+                label = i18n("Shutdown (the kernel powers off)");
+            } else {
+                // reboot, suspend, test_resume are not for normal use
+                continue;
+            }
+            m_hibernateMethodCombo->addItem(label, token);
+            if (active && hibernateCurrent.isEmpty()) {
+                const int idx = m_hibernateMethodCombo->findData(QString());
+                if (idx >= 0) {
+                    m_hibernateMethodCombo->setItemText(idx, i18n("Default — %1", label));
+                }
+            }
+        }
+    }
+    const int hibernateIdx = m_hibernateMethodCombo->findData(hibernateCurrent);
+    m_hibernateMethodCombo->setCurrentIndex(hibernateIdx >= 0 ? hibernateIdx : 0);
+
+    // Connect signals after the UI is populated
+    connect(m_sleepSuspendCheck, &QCheckBox::toggled, this, [this](bool) {
+        updateSleepDependents();
+        refreshSleepChecks();
+    });
+    connect(m_sleepHibernateCheck, &QCheckBox::toggled, this, [this](bool) {
+        updateHibernateMethodSensitivity();
+        refreshSleepChecks();
+    });
+    connect(m_sleepSuspendThenHibernateCheck, &QCheckBox::toggled, this, [this](bool) {
+        updateHibernateMethodSensitivity();
+        refreshSleepChecks();
+    });
+    connect(m_sleepHybridSleepCheck, &QCheckBox::toggled, this, [this](bool) {
+        refreshSleepChecks();
+    });
+
+    updateSleepDependents();
+    refreshSleepChecks();
+}
+
+void MainWindow::updateSleepDependents()
+{
+    const bool suspendAllowed = m_sleepSuspendCheck->isChecked();
+    // Suspend-then-hibernate and hybrid sleep require suspend
+    if (!suspendAllowed) {
+        m_sleepSuspendThenHibernateCheck->setChecked(false);
+    }
+    m_sleepSuspendThenHibernateCheck->setEnabled(suspendAllowed);
+    m_sleepHybridSleepCheck->setEnabled(suspendAllowed);
+
+    // Suspend method is only relevant when more than one method is offered
+    const int suspendMethods = m_suspendModeCombo ? m_suspendModeCombo->count() - 1 : 0;
+    if (m_suspendModeCombo) {
+        m_suspendModeCombo->setEnabled(suspendAllowed && suspendMethods > 1);
+    }
+
+    updateHibernateMethodSensitivity();
+}
+
+void MainWindow::updateHibernateMethodSensitivity()
+{
+    const bool hibernates = m_sleepHibernateCheck->isChecked()
+                            || m_sleepSuspendThenHibernateCheck->isChecked();
+    const int hibernateMethods = m_hibernateMethodCombo ? m_hibernateMethodCombo->count() - 1 : 0;
+    if (m_hibernateMethodCombo) {
+        m_hibernateMethodCombo->setEnabled(hibernates && hibernateMethods > 1);
+    }
+}
+
+void MainWindow::refreshSleepChecks()
+{
+    if (!m_sleepProblemsList) {
+        return;
+    }
+
+    m_sleepProblemsList->clear();
+
+    const bool suspend = m_sleepSuspendCheck->isChecked();
+    const bool hibernate = m_sleepHibernateCheck->isChecked()
+                           || m_sleepSuspendThenHibernateCheck->isChecked()
+                           || m_sleepHybridSleepCheck->isChecked();
+
+    struct Report {
+        int ok; // 1 = ok, 0 = problem, -1 = information
+        QString title;
+        QString detail;
+    };
+    QList<Report> reports;
+    bool hasFixableProblem = false;
+
+    // ── Suspend check ──
+    if (suspend) {
+        const QString state = readSysFile(QStringLiteral("/sys/power/state"));
+        const QStringList states = state.split(QLatin1Char(' '), Qt::SkipEmptyParts);
+        if (states.contains(QStringLiteral("mem")) || states.contains(QStringLiteral("freeze"))) {
+            const QString memSleep = readSysFile(QStringLiteral("/sys/power/mem_sleep"));
+            QString current;
+            for (const QString &t : memSleep.split(QLatin1Char(' '), Qt::SkipEmptyParts)) {
+                if (t.startsWith(QLatin1Char('[')) && t.endsWith(QLatin1Char(']'))) {
+                    current = t.mid(1, t.size() - 2);
+                    break;
+                }
+            }
+            if (current.isEmpty()) {
+                reports.append({1, i18n("Suspend"), i18n("The kernel supports suspend.")});
+            } else {
+                QString label = current;
+                if (current == QLatin1String("s2idle")) {
+                    label = i18n("Suspend-to-idle (s2idle)");
+                } else if (current == QLatin1String("deep")) {
+                    label = i18n("Suspend-to-RAM (S3)");
+                } else if (current == QLatin1String("shallow")) {
+                    label = i18n("Shallow (S1)");
+                }
+                reports.append({1, i18n("Suspend"), i18n("The kernel supports suspend. Method in use: %1.", label)});
+            }
+        } else {
+            reports.append({0, i18n("Suspend"), i18n("The kernel does not support suspend.")});
+        }
+    }
+
+    // ── Hibernation checks ──
+    if (hibernate) {
+        // Kernel support
+        const QString state = readSysFile(QStringLiteral("/sys/power/state"));
+        if (state.split(QLatin1Char(' '), Qt::SkipEmptyParts).contains(QStringLiteral("disk"))) {
+            reports.append({1, i18n("Kernel support"), i18n("The kernel supports hibernation.")});
+        } else {
+            reports.append({0, i18n("Kernel support"), i18n("The kernel does not support hibernation.")});
+        }
+
+        // Secure boot / kernel lockdown
+        const QString lockdown = readSysFile(QStringLiteral("/sys/kernel/security/lockdown"));
+        bool locked = false;
+        const QRegularExpression re(QStringLiteral(R"(\[(\w+)\])"));
+        auto m = re.match(lockdown);
+        if (m.hasMatch()) {
+            locked = m.captured(1) != QLatin1String("none");
+        }
+        bool secureBoot = false;
+        const QString efivarsPath = QStringLiteral("/sys/firmware/efi/efivars");
+        QDir efivars(efivarsPath);
+        if (efivars.exists()) {
+            const QStringList entries = efivars.entryList(QDir::Files);
+            for (const QString &name : entries) {
+                if (name.startsWith(QStringLiteral("SecureBoot-"))) {
+                    QFile f(efivars.filePath(name));
+                    if (f.open(QIODevice::ReadOnly)) {
+                        const QByteArray data = f.readAll();
+                        if (!data.isEmpty()) {
+                            secureBoot = data.at(data.size() - 1) == 1;
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+        if (locked) {
+            reports.append({0, i18n("Secure Boot"), i18n("Secure Boot is enabled and the kernel lockdown prevents hibernation.")});
+        } else if (secureBoot) {
+            reports.append({1, i18n("Secure Boot"), i18n("Secure Boot is enabled but the kernel lockdown is not active.")});
+        } else {
+            reports.append({1, i18n("Secure Boot"), i18n("Secure Boot is disabled.")});
+        }
+
+        // Swap areas
+        struct SwapEntry {
+            QString path;
+            bool swapfile;
+            qint64 size; // bytes
+            int priority;
+        };
+        QList<SwapEntry> swapEntries;
+        QFile swaps(QStringLiteral("/proc/swaps"));
+        if (swaps.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            QTextStream stream(&swaps);
+            QString line = stream.readLine(); // header
+            while (!stream.atEnd()) {
+                line = stream.readLine().trimmed();
+                if (line.isEmpty()) {
+                    continue;
+                }
+                const QStringList fields = line.split(QRegularExpression(QStringLiteral(R"(\s+)")));
+                if (fields.size() < 5) {
+                    continue;
+                }
+                QString path = fields.at(0);
+                path.replace(QStringLiteral("\\040"), QStringLiteral(" "));
+                const QString type = fields.at(1);
+                if (type == QLatin1String("file")) {
+                    if (path.endsWith(QStringLiteral(" (deleted)"))) {
+                        continue;
+                    }
+                } else if (type == QLatin1String("partition")) {
+                    if (QFileInfo(path).fileName().startsWith(QStringLiteral("zram"))) {
+                        continue;
+                    }
+                } else {
+                    continue;
+                }
+                bool ok = false;
+                const qint64 sizeKb = fields.at(2).toLongLong(&ok);
+                if (!ok) {
+                    continue;
+                }
+                bool priOk = false;
+                const int priority = fields.value(4).toInt(&priOk);
+                swapEntries.append({path, type == QLatin1String("file"), sizeKb * 1024, priOk ? priority : -2});
+            }
+        }
+
+        qint64 ram = 0;
+        QFile meminfo(QStringLiteral("/proc/meminfo"));
+        if (meminfo.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            QTextStream stream(&meminfo);
+            while (!stream.atEnd()) {
+                const QString line = stream.readLine();
+                if (line.startsWith(QStringLiteral("MemTotal:"))) {
+                    const QRegularExpression re(QStringLiteral(R"(MemTotal:\s+(\d+)\s+kB)"));
+                    auto mm = re.match(line);
+                    if (mm.hasMatch()) {
+                        ram = mm.captured(1).toLongLong() * 1024;
+                    }
+                    break;
+                }
+            }
+        }
+
+        auto formatSize = [](qint64 bytes) -> QString {
+            static const char *units[] = {"B", "KB", "MB", "GB", "TB"};
+            double size = bytes;
+            int unit = 0;
+            while (size >= 1024.0 && unit < 4) {
+                size /= 1024.0;
+                ++unit;
+            }
+            return QString::number(size, 'f', 1) + QStringLiteral(" ") + QString::fromUtf8(units[unit]);
+        };
+
+        if (swapEntries.isEmpty()) {
+            reports.append({0, i18n("Swap"), i18n("No swap partition or swap file is in use.")});
+            hasFixableProblem = true;
+        } else {
+            for (const auto &entry : swapEntries) {
+                const QString title = i18n("Swap area in %1", entry.path);
+                const QString swapSize = formatSize(entry.size);
+                const QString ramSize = formatSize(ram);
+                if (entry.size < ram) {
+                    reports.append({0, title, i18n("The swap area (%1) is smaller than the memory (%2).", swapSize, ramSize)});
+                    hasFixableProblem = true;
+                } else {
+                    reports.append({-1, title, i18n("The swap area (%1) is at least as large as the memory (%2).", swapSize, ramSize)});
+                }
+            }
+
+            // Hibernation uses the swap area with the highest priority. If a
+            // zram device outranks the swap file, the kernel tries to write the
+            // hibernation image to zram and fails with EBUSY.
+            int highestSwapFilePriority = -3;
+            for (const auto &entry : swapEntries) {
+                if (entry.swapfile && entry.priority > highestSwapFilePriority) {
+                    highestSwapFilePriority = entry.priority;
+                }
+            }
+            int highestZramPriority = -3;
+            QFile swapsFile(QStringLiteral("/proc/swaps"));
+            if (swapsFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+                QTextStream stream(&swapsFile);
+                stream.readLine(); // header
+                while (!stream.atEnd()) {
+                    const QStringList f = stream.readLine().trimmed().split(QRegularExpression(QStringLiteral(R"(\s+)")));
+                    if (f.size() >= 5 && f.at(0).contains(QStringLiteral("zram"))) {
+                        bool ok = false;
+                        const int p = f.at(4).toInt(&ok);
+                        if (ok && p > highestZramPriority) {
+                            highestZramPriority = p;
+                        }
+                    }
+                }
+            }
+            if (highestZramPriority > highestSwapFilePriority && highestSwapFilePriority >= 0) {
+                reports.append({0, i18n("Swap priority"),
+                                i18n("A zram device (priority %1) outranks the swap file (priority %2); hibernation may fail with \"device or resource busy\".",
+                                     QString::number(highestZramPriority), QString::number(highestSwapFilePriority))});
+                hasFixableProblem = true;
+            } else if (highestSwapFilePriority >= 0) {
+                reports.append({-1, i18n("Swap priority"),
+                                i18n("The swap file has the highest swap priority (%1).", QString::number(highestSwapFilePriority))});
+            }
+        }
+
+        // Hibernation image compression. The kernel refuses to hibernate with
+        // "Operation not supported" when the configured compressor is missing.
+        QFile compParam(QStringLiteral("/sys/module/hibernate/parameters/compressor"));
+        if (compParam.exists()) {
+            QString compressor = QStringLiteral("lzo");
+            if (compParam.open(QIODevice::ReadOnly | QIODevice::Text)) {
+                const QString value = QString::fromUtf8(compParam.readAll()).trimmed();
+                if (!value.isEmpty()) {
+                    compressor = value;
+                }
+            }
+            bool compressorAvailable = false;
+            QFile crypto(QStringLiteral("/proc/crypto"));
+            if (crypto.open(QIODevice::ReadOnly | QIODevice::Text)) {
+                QTextStream stream(&crypto);
+                while (!stream.atEnd()) {
+                    const QString line = stream.readLine().trimmed();
+                    if (line.startsWith(QStringLiteral("name")) && line.contains(QLatin1Char(':'))) {
+                        if (line.section(QLatin1Char(':'), 1).trimmed() == compressor) {
+                            compressorAvailable = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (!compressorAvailable) {
+                reports.append({0, i18n("Hibernation compression"),
+                                i18n("The hibernation compressor %1 is not available in the kernel; hibernation fails with \"Operation not supported\".",
+                                     compressor)});
+                hasFixableProblem = true;
+            } else {
+                reports.append({-1, i18n("Hibernation compression"),
+                                i18n("The hibernation compressor %1 is available.", compressor)});
+            }
+        }
+
+        // Hyper-V: uio_hv_generic has no suspend callback, so vmbus_suspend()
+        // returns EOPNOTSUPP and the freezer aborts hibernation.
+        const QString uioDriverDir = QStringLiteral("/sys/bus/vmbus/drivers/uio_hv_generic");
+        if (QDir(uioDriverDir).exists()) {
+            QStringList boundDevices;
+            const QFileInfoList entries = QDir(uioDriverDir).entryInfoList(
+                QDir::NoDotAndDotDot | QDir::Dirs | QDir::System);
+            for (const QFileInfo &entry : entries) {
+                if (entry.isSymLink()) {
+                    boundDevices.append(entry.fileName());
+                }
+            }
+            if (!boundDevices.isEmpty()) {
+                reports.append({0, i18n("Hyper-V devices"),
+                                i18n("The uio_hv_generic driver is bound to %1 VMBus device(s) and has no suspend support, which aborts hibernation.",
+                                     QString::number(boundDevices.size()))});
+                hasFixableProblem = true;
+            } else {
+                reports.append({-1, i18n("Hyper-V devices"),
+                                i18n("No VMBus device is bound to uio_hv_generic.")});
+            }
+        }
+
+        // VMware: vmw_pm_freeze() returns EBUSY while any user-space DRM
+        // client holds a context, even with 3D acceleration disabled.
+        const QString vmwgfxDir = QStringLiteral("/sys/bus/pci/drivers/vmwgfx");
+        if (QDir(vmwgfxDir).exists()) {
+            QStringList boundGpus;
+            const QFileInfoList entries = QDir(vmwgfxDir).entryInfoList(
+                QDir::NoDotAndDotDot | QDir::Dirs | QDir::System);
+            for (const QFileInfo &entry : entries) {
+                if (entry.isSymLink()) {
+                    boundGpus.append(entry.fileName());
+                }
+            }
+            const bool graphicalSession = qEnvironmentVariableIsSet("WAYLAND_DISPLAY")
+                                           || qEnvironmentVariableIsSet("DISPLAY");
+            if (!boundGpus.isEmpty() && graphicalSession) {
+                reports.append({0, i18n("VMware graphics"),
+                                i18n("The vmwgfx driver refuses to freeze while a graphical session holds a DRM context, which aborts hibernation.")});
+                hasFixableProblem = true;
+            } else {
+                reports.append({-1, i18n("VMware graphics"),
+                                i18n("The vmwgfx driver will be released during hibernation.")});
+            }
+        }
+
+        // Drivers whose freeze callback returns an error abort hibernation.
+        // The helper learns them from the kernel log and the sleep hook detaches
+        // them for the duration of the hibernation.
+        const QString sleepReleaseConf = QStringLiteral("/etc/miryu-toolkit/sleep-release.conf");
+        QFile releaseFile(sleepReleaseConf);
+        QStringList releasedDrivers;
+        if (releaseFile.exists() && releaseFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            while (!releaseFile.atEnd()) {
+                const QString line = QString::fromUtf8(releaseFile.readLine()).trimmed();
+                if (!line.isEmpty()) {
+                    releasedDrivers.append(line);
+                }
+            }
+            releaseFile.close();
+        }
+        if (!releasedDrivers.isEmpty()) {
+            reports.append({-1, i18n("Hibernation drivers"),
+                            i18n("%1 driver(s) abort the freezer and are detached while the image is written: %2",
+                                 QString::number(releasedDrivers.size()), releasedDrivers.join(QStringLiteral(", ")))});
+        }
+
+        QProcess hibernateState;
+        hibernateState.start(QStringLiteral("systemctl"),
+                             {QStringLiteral("is-failed"), QStringLiteral("systemd-hibernate.service")});
+        if (hibernateState.waitForFinished(3000) && hibernateState.exitCode() == 0) {
+            reports.append({0, i18n("Last hibernation"),
+                            i18n("The previous hibernation attempt failed; the failing driver can be released automatically.")});
+            hasFixableProblem = true;
+        }
+
+        // Resume device
+        const QString resume = readSysFile(QStringLiteral("/sys/power/resume"));
+        QStringList resumeParts = resume.split(QLatin1Char(':'));
+        unsigned long resumeMajor = 0, resumeMinor = 0;
+        if (resumeParts.size() == 2) {
+            bool ok1 = false, ok2 = false;
+            resumeMajor = resumeParts.at(0).toULong(&ok1);
+            resumeMinor = resumeParts.at(1).toULong(&ok2);
+            if (!ok1 || !ok2) {
+                resumeMajor = resumeMinor = 0;
+            }
+        }
+
+        if (resumeMajor == 0) {
+            reports.append({0, i18n("Resume device"), i18n("No resume device is set.")});
+            hasFixableProblem = true;
+        } else {
+            // Try to match the resume device to a swap area
+            QString matchedPath;
+            for (const auto &entry : swapEntries) {
+                struct stat st;
+                if (::stat(entry.path.toUtf8().constData(), &st) != 0) {
+                    continue;
+                }
+                const dev_t rdev = entry.swapfile ? st.st_dev : st.st_rdev;
+                if (static_cast<int>(major(rdev)) == static_cast<int>(resumeMajor)
+                    && static_cast<int>(minor(rdev)) == static_cast<int>(resumeMinor)) {
+                    matchedPath = entry.path;
+                    break;
+                }
+            }
+            if (matchedPath.isEmpty()) {
+                reports.append({0, i18n("Resume device"),
+                                i18n("The resume device (%1:%2) does not match any swap partition or swap file in use.",
+                                     QString::number(resumeMajor), QString::number(resumeMinor))});
+                hasFixableProblem = true;
+            } else {
+                reports.append({-1, i18n("Resume device"),
+                                i18n("The resume device is set to %1.", matchedPath)});
+            }
+        }
+
+        // SELinux: under enforcing mode, swap files must carry the swapfile_t
+        // label, otherwise hibernation (resume) is denied by the policy.
+        bool selinuxEnforcing = false;
+        QFile enforceFile(QStringLiteral("/sys/fs/selinux/enforce"));
+        if (enforceFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            const QString val = QString::fromUtf8(enforceFile.readAll()).trimmed();
+            selinuxEnforcing = (val == QLatin1String("1"));
+        }
+        if (selinuxEnforcing) {
+            for (const auto &entry : swapEntries) {
+                if (!entry.swapfile) {
+                    continue; // swap partitions do not need the swapfile_t label
+                }
+                QProcess statProc;
+                statProc.start(QStringLiteral("stat"),
+                               {QStringLiteral("-c"), QStringLiteral("%C"), entry.path});
+                statProc.waitForFinished(2000);
+                const QString ctx = QString::fromUtf8(statProc.readAllStandardOutput()).trimmed();
+                if (!ctx.contains(QStringLiteral("swapfile_t"))) {
+                    reports.append({0, i18n("SELinux"),
+                                    i18n("The swap file %1 is not labeled with swapfile_t; hibernation may be denied under SELinux enforcing mode.",
+                                         entry.path)});
+                    hasFixableProblem = true;
+                } else {
+                    reports.append({-1, i18n("SELinux"),
+                                    i18n("The swap file %1 is correctly labeled with swapfile_t.",
+                                         entry.path)});
+                }
+
+                // systemd-logind must be able to search the swap file's
+                // parent directory; label it root_t if it is not already
+                // a logind-searchable type. Skip the root directory.
+                const QString swapDir = QFileInfo(entry.path).path();
+                if (swapDir != QStringLiteral("/")) {
+                    QProcess dirProc;
+                    dirProc.start(QStringLiteral("stat"),
+                                  {QStringLiteral("-c"), QStringLiteral("%C"), swapDir});
+                    dirProc.waitForFinished(2000);
+                    const QString dirCtx = QString::fromUtf8(dirProc.readAllStandardOutput()).trimmed();
+                    if (!dirCtx.contains(QStringLiteral("root_t"))
+                        && !dirCtx.contains(QStringLiteral("default_t"))
+                        && !dirCtx.contains(QStringLiteral("swapfile_t"))) {
+                        reports.append({0, i18n("SELinux"),
+                                        i18n("The swap directory %1 has an SELinux context that systemd-logind cannot search.",
+                                             swapDir)});
+                        hasFixableProblem = true;
+                    } else {
+                        reports.append({-1, i18n("SELinux"),
+                                        i18n("The swap directory %1 has a searchable SELinux context.",
+                                             swapDir)});
+                    }
+                }
+            }
+
+            // The domain_kernel_dump boolean must be on so the kernel is
+            // allowed to write memory to the swap file for hibernation.
+            QProcess boolProc;
+            boolProc.start(QStringLiteral("getsebool"), {QStringLiteral("domain_kernel_dump")});
+            boolProc.waitForFinished(2000);
+            const QString boolOut = QString::fromUtf8(boolProc.readAllStandardOutput()).trimmed();
+            if (!boolOut.endsWith(QStringLiteral("on"))) {
+                reports.append({0, i18n("SELinux"),
+                                i18n("The SELinux boolean domain_kernel_dump is off; hibernation to swap is not permitted.")});
+                hasFixableProblem = true;
+            } else {
+                reports.append({-1, i18n("SELinux"),
+                                i18n("The SELinux boolean domain_kernel_dump is on.")});
+            }
+        }
+    }
+
+    // Populate the problems list (show problems and information only; if none, show "No problems detected")
+    QList<Report> shown;
+    for (const auto &r : reports) {
+        if (r.ok != 1) {
+            shown.append(r);
+        }
+    }
+    if (shown.isEmpty()) {
+        shown.append({1, i18n("No problems detected"), i18n("This computer looks ready for the sleep modes above.")});
+    }
+    for (const auto &r : shown) {
+        QString iconName;
+        if (r.ok == 1) {
+            iconName = QStringLiteral("emblem-ok-symbolic");
+        } else if (r.ok == 0) {
+            iconName = QStringLiteral("dialog-warning-symbolic");
+        } else {
+            iconName = QStringLiteral("dialog-information-symbolic");
+        }
+        auto *item = new QListWidgetItem(QIcon::fromTheme(iconName),
+                                         r.title + QStringLiteral(": ") + r.detail);
+        if (r.ok == 0) {
+            item->setForeground(QColor(QStringLiteral("#c0392b")));
+        }
+        m_sleepProblemsList->addItem(item);
+    }
+
+    if (m_sleepFixButton) {
+        m_sleepFixButton->setEnabled(hasFixableProblem);
+    }
+
+    // ── Available sleep modes (from systemd/logind) ──
+    if (m_sleepAvailableList) {
+        m_sleepAvailableList->clear();
+        QStringList available;
+        // Use busctl to query logind for available sleep modes
+        struct ModeQuery {
+            const char *method;
+            const char *label;
+        };
+        const ModeQuery queries[] = {
+            {"CanSuspend", QT_TRANSLATE_NOOP("MainWindow", "Suspend")},
+            {"CanHibernate", QT_TRANSLATE_NOOP("MainWindow", "Hibernate")},
+            {"CanSuspendThenHibernate", QT_TRANSLATE_NOOP("MainWindow", "Suspend then hibernate")},
+            {"CanHybridSleep", QT_TRANSLATE_NOOP("MainWindow", "Hybrid sleep")},
+        };
+        for (const auto &q : queries) {
+            QProcess busctl;
+            busctl.start(QStringLiteral("busctl"),
+                         QStringList() << QStringLiteral("call")
+                                       << QStringLiteral("org.freedesktop.login1")
+                                       << QStringLiteral("/org/freedesktop/login1")
+                                       << QStringLiteral("org.freedesktop.login1.Manager")
+                                       << QString::fromUtf8(q.method));
+            if (busctl.waitForFinished(3000) && busctl.exitCode() == 0) {
+                const QString output = QString::fromUtf8(busctl.readAllStandardOutput()).trimmed();
+                if (output.contains(QStringLiteral("\"yes\"")) || output.contains(QStringLiteral("\"challenge\""))) {
+                    available << i18n(q.label);
+                }
+            }
+        }
+        if (available.isEmpty()) {
+            // Fallback: read kernel supported states from /sys/power/state
+            const QString state = readSysFile(QStringLiteral("/sys/power/state"));
+            const QStringList states = state.split(QLatin1Char(' '), Qt::SkipEmptyParts);
+            if (states.contains(QStringLiteral("mem")) || states.contains(QStringLiteral("freeze"))) {
+                available << i18n("Suspend");
+            }
+            if (states.contains(QStringLiteral("disk"))) {
+                available << i18n("Hibernate");
+            }
+        }
+        if (available.isEmpty()) {
+            auto *item = new QListWidgetItem(i18n("None"));
+            m_sleepAvailableList->addItem(item);
+        } else {
+            for (const QString &mode : available) {
+                m_sleepAvailableList->addItem(mode);
+            }
+        }
+    }
+}
+
+void MainWindow::saveSleepConfig()
+{
+    if (m_runningProcess) {
+        return;
+    }
+
+    // Build the sleep.conf content
+    QStringList lines;
+    lines << QStringLiteral("# Do not edit this file. It is generated by Miryu Toolkit.");
+    lines << QStringLiteral("[Sleep]");
+    lines << QStringLiteral("AllowSuspend=%1").arg(m_sleepSuspendCheck->isChecked() ? QStringLiteral("yes") : QStringLiteral("no"));
+    lines << QStringLiteral("AllowHibernation=%1").arg(m_sleepHibernateCheck->isChecked() ? QStringLiteral("yes") : QStringLiteral("no"));
+    lines << QStringLiteral("AllowSuspendThenHibernate=%1").arg(m_sleepSuspendThenHibernateCheck->isChecked() ? QStringLiteral("yes") : QStringLiteral("no"));
+    lines << QStringLiteral("AllowHybridSleep=%1").arg(m_sleepHybridSleepCheck->isChecked() ? QStringLiteral("yes") : QStringLiteral("no"));
+
+    const QString suspendMode = m_suspendModeCombo->currentData().toString();
+    if (!suspendMode.isEmpty()) {
+        lines << QStringLiteral("MemorySleepMode=%1").arg(suspendMode);
+    }
+    const QString hibernateMethod = m_hibernateMethodCombo->currentData().toString();
+    if (!hibernateMethod.isEmpty()) {
+        lines << QStringLiteral("HibernateMode=%1").arg(hibernateMethod);
+    }
+
+    // Write to a temp file
+    QTemporaryFile tempFile(QDir::tempPath() + QStringLiteral("/miryu-sleep-XXXXXX.conf"));
+    tempFile.setAutoRemove(false);
+    if (!tempFile.open()) {
+        KMessageBox::error(this, i18n("Unable to create a temporary file."), i18n("Apply failed"));
+        return;
+    }
+    tempFile.write(lines.join(QLatin1Char('\n')).toUtf8());
+    tempFile.write("\n");
+    tempFile.flush();
+    const QString tempPath = tempFile.fileName();
+    tempFile.close();
+
+    auto *process = new QProcess(this);
+    m_runningProcess = process;
+
+    connect(process, &QProcess::finished, this, [this, process, tempPath](int exitCode, QProcess::ExitStatus exitStatus) {
+        const QString output = QString::fromLocal8Bit(process->readAllStandardOutput())
+            + QString::fromLocal8Bit(process->readAllStandardError());
+        QFile::remove(tempPath);
+        process->deleteLater();
+        m_runningProcess = nullptr;
+
+        if (exitStatus == QProcess::NormalExit && exitCode == 0) {
+            m_sleepStatusLabel->setText(i18n("Sleep settings saved. Reboot for the changes to take full effect."));
+            KMessageBox::information(this,
+                                     i18n("Sleep settings have been saved. Reboot for the changes to take full effect."),
+                                     i18n("Apply completed"));
+        } else {
+            KMessageBox::error(this,
+                               i18n("Saving sleep settings failed.\n\n%1", output.right(4000)),
+                               i18n("Apply failed"));
+        }
+    });
+
+    connect(process, &QProcess::errorOccurred, this, [this, process, tempPath](QProcess::ProcessError error) {
+        if (error == QProcess::FailedToStart) {
+            QFile::remove(tempPath);
+            process->deleteLater();
+            m_runningProcess = nullptr;
+            KMessageBox::error(this,
+                               i18n("Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."),
+                               i18n("Apply failed"));
+        }
+    });
+
+    process->start(QStringLiteral("pkexec"),
+                   {QStringLiteral(TOOLKIT_LIBEXEC_DIR) + QStringLiteral("/miryu-toolkit-apply-sleep"),
+                    tempPath});
+}
+
+void MainWindow::fixSleepProblems()
+{
+    if (m_runningProcess) {
+        return;
+    }
+
+    if (m_sleepFixButton) {
+        m_sleepFixButton->setEnabled(false);
+        m_sleepFixButton->setText(i18n("Fixing…"));
+    }
+
+    auto *process = new QProcess(this);
+    m_runningProcess = process;
+
+    connect(process, &QProcess::finished, this, [this, process](int exitCode, QProcess::ExitStatus exitStatus) {
+        const QString output = QString::fromLocal8Bit(process->readAllStandardOutput())
+            + QString::fromLocal8Bit(process->readAllStandardError());
+        process->deleteLater();
+        m_runningProcess = nullptr;
+
+        if (m_sleepFixButton) {
+            m_sleepFixButton->setText(i18n("Fix detected problems"));
+        }
+
+        if (exitStatus == QProcess::NormalExit && exitCode == 0) {
+            refreshSleepChecks();
+            KMessageBox::information(this,
+                                     i18n("The detected problems have been fixed. Reboot for the changes to take full effect."),
+                                     i18n("Fix completed"));
+        } else {
+            refreshSleepChecks();
+            KMessageBox::error(this,
+                               i18n("Failed to fix the detected problems.\n\n%1", output.right(4000)),
+                               i18n("Fix failed"));
+        }
+    });
+
+    connect(process, &QProcess::errorOccurred, this, [this, process](QProcess::ProcessError error) {
+        if (error == QProcess::FailedToStart) {
+            process->deleteLater();
+            m_runningProcess = nullptr;
+            if (m_sleepFixButton) {
+                m_sleepFixButton->setText(i18n("Fix detected problems"));
+            }
+            KMessageBox::error(this,
+                               i18n("Unable to start pkexec. Make sure polkit is installed and run this program from a graphical session."),
+                               i18n("Fix failed"));
+        }
+    });
+
+    process->start(QStringLiteral("pkexec"),
+                   {QStringLiteral(TOOLKIT_LIBEXEC_DIR) + QStringLiteral("/miryu-toolkit-fix-sleep")});
+}
+
 QWidget *MainWindow::buildAboutTab()
 {
     auto *page = new QWidget;
@@ -365,7 +1337,7 @@ QWidget *MainWindow::buildAboutTab()
     auto *iconFrame = new QFrame(page);
     iconFrame->setFixedSize(96, 96);
     iconFrame->setStyleSheet(QStringLiteral(
-        "QFrame { background-color: #92e796; border-radius: 12px; }"));
+        "QFrame { background-color: #54b9c9; border-radius: 12px; }"));
     auto *iconLabel = new QLabel(iconFrame);
     iconLabel->setFixedSize(96, 96);
     iconLabel->setAlignment(Qt::AlignCenter);

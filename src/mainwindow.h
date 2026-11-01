@@ -14,9 +14,11 @@
 #include <QVector>
 
 class QCheckBox;
+class QComboBox;
 class QDialog;
 class QDialogButtonBox;
 class QLineEdit;
+class QListWidget;
 class QPlainTextEdit;
 class QSpinBox;
 class QTextEdit;
@@ -68,6 +70,17 @@ private:
     void setDefaultEnvironmentVariables();
     bool validateEnvironmentLine(const QString &line, QString *errorText = nullptr) const;
 
+    // ── Sleep tab ──
+    QWidget *buildSleepTab();
+    void loadSleepConfig();
+    void saveSleepConfig();
+    void refreshSleepChecks();
+    void updateSleepDependents();
+    void updateHibernateMethodSensitivity();
+    void fixSleepProblems();
+
+    static QString readSysFile(const QString &path);
+
     void collectSystemLogs();
     void cleanupOldKernel();
     void updateSystem();
@@ -105,6 +118,19 @@ private:
     QListWidget *m_environmentList = nullptr;
     QLabel *m_environmentStatus = nullptr;
     QLabel *m_bottomStatus = nullptr;
+
+    // Sleep tab members
+    QCheckBox *m_sleepSuspendCheck = nullptr;
+    QCheckBox *m_sleepHibernateCheck = nullptr;
+    QCheckBox *m_sleepSuspendThenHibernateCheck = nullptr;
+    QCheckBox *m_sleepHybridSleepCheck = nullptr;
+    QComboBox *m_suspendModeCombo = nullptr;
+    QComboBox *m_hibernateMethodCombo = nullptr;
+    QListWidget *m_sleepProblemsList = nullptr;
+    QListWidget *m_sleepAvailableList = nullptr;
+    QLabel *m_sleepStatusLabel = nullptr;
+    QPushButton *m_sleepApplyButton = nullptr;
+    QPushButton *m_sleepFixButton = nullptr;
 
     // GRUB Boot Menu members
     QPointer<GrubConfig> m_grubConfig;

@@ -1,0 +1,11 @@
+#!/usr/bin/sh
+set -eu
+
+source_file="${1:-}"
+if [ -z "$source_file" ] || [ ! -f "$source_file" ]; then
+    echo "Usage: $0 <sleep-conf-file>" >&2
+    exit 2
+fi
+
+mkdir -p /etc/systemd/sleep.conf.d
+install -m 0644 "$source_file" /etc/systemd/sleep.conf.d/90-miryu-toolkit.conf

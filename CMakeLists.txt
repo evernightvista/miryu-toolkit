@@ -116,6 +116,8 @@ install(PROGRAMS
         helpers/miryu-toolkit-remove-extra-fonts
         helpers/miryu-toolkit-apply-environment
         helpers/miryu-toolkit-restore-environment
+        helpers/miryu-toolkit-apply-sleep
+        helpers/miryu-toolkit-fix-sleep
         helpers/miryu-toolkit-cleanup-kernel
         helpers/miryu-toolkit-update-system
         helpers/miryu-toolkit-unlock-rpm
