@@ -32,6 +32,8 @@
 #include <QScrollArea>
 #include <QScrollBar>
 #include <QSpinBox>
+#include <QStandardItem>
+#include <QStandardItemModel>
 #include <QStandardPaths>
 #include <QTemporaryFile>
 #include <QTextEdit>
@@ -370,6 +372,54 @@ QString MainWindow::readSysFile(const QString &path)
     return QString::fromUtf8(file.readAll().trimmed());
 }
 
+QString MainWindow::readKernelConfig()
+{
+    // 1. /proc/config.gz (requires CONFIG_IKCONFIG_PROC=y)
+    {
+        QFile gz(QStringLiteral("/proc/config.gz"));
+        if (gz.exists()) {
+            QProcess proc;
+            proc.start(QStringLiteral("zcat"), {QStringLiteral("/proc/config.gz")});
+            if (proc.waitForFinished(3000) && proc.exitCode() == 0) {
+                const QString out = QString::fromUtf8(proc.readAllStandardOutput());
+                if (!out.isEmpty()) {
+                    return out;
+                }
+            }
+        }
+    }
+
+    const QString release = readSysFile(QStringLiteral("/proc/sys/kernel/osrelease"));
+
+    // 2. /boot/config-<release> (most distributions)
+    if (!release.isEmpty()) {
+        QFile f(QStringLiteral("/boot/config-") + release);
+        if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            return QString::fromUtf8(f.readAll());
+        }
+    }
+
+    // 3. /lib/modules/<release>/build/.config (kernel build tree)
+    if (!release.isEmpty()) {
+        QFile f(QStringLiteral("/lib/modules/") + release + QStringLiteral("/build/.config"));
+        if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            return QString::fromUtf8(f.readAll());
+        }
+    }
+
+    return {};
+}
+
+bool MainWindow::kernelConfigEnabled(const QString &configText, const QString &key)
+{
+    if (configText.isEmpty()) {
+        return true; // unknown -> assume available, don't disable the option
+    }
+    const QRegularExpression re(QStringLiteral("^%1=(y|m)$").arg(QRegularExpression::escape(key)),
+                                QRegularExpression::MultilineOption);
+    return re.match(configText).hasMatch();
+}
+
 QWidget *MainWindow::buildSleepTab()
 {
     auto *page = new QWidget;
@@ -458,6 +508,23 @@ QWidget *MainWindow::buildSleepTab()
     hibernateMethodRow->addWidget(m_hibernateMethodCombo);
     hibernateMethodLayout->addLayout(hibernateMethodRow);
     layout->addWidget(hibernateMethodGroup);
+
+    // ── Hibernation image compressor ──
+    auto *compressorGroup = new QGroupBox(i18n("Hibernation image compressor"), page);
+    auto *compressorLayout = new QVBoxLayout(compressorGroup);
+    auto *compressorHint = new QLabel(
+        i18n("The algorithm used to compress the hibernation image. The kernel must have the corresponding compression support built in; algorithms that are not available are greyed out."),
+        compressorGroup);
+    compressorHint->setWordWrap(true);
+    compressorLayout->addWidget(compressorHint);
+    auto *compressorRow = new QHBoxLayout();
+    compressorRow->setSpacing(12);
+    m_hibernateCompressorCombo = new QComboBox(compressorGroup);
+    m_hibernateCompressorCombo->setMinimumWidth(260);
+    compressorRow->addStretch();
+    compressorRow->addWidget(m_hibernateCompressorCombo);
+    compressorLayout->addLayout(compressorRow);
+    layout->addWidget(compressorGroup);
 
     // ── Detected problems ──
     auto *problemsGroup = new QGroupBox(i18n("Detected problems"), page);
@@ -613,6 +680,85 @@ void MainWindow::loadSleepConfig()
     const int hibernateIdx = m_hibernateMethodCombo->findData(hibernateCurrent);
     m_hibernateMethodCombo->setCurrentIndex(hibernateIdx >= 0 ? hibernateIdx : 0);
 
+    // Populate hibernation compressor combo.
+    //
+    // The kernel picks the compressor at boot via the "hibernate.compressor="
+    // command line parameter (hardcoded default: "lzo"). Miryu Toolkit's
+    // default recommendation is lz4, falling back to lzo when lz4 is missing.
+    // Algorithms that are not available at runtime are greyed out.
+    bool lzoAvailable = false;
+    bool lz4Available = false;
+    QFile cryptoFile(QStringLiteral("/proc/crypto"));
+    if (cryptoFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream stream(&cryptoFile);
+        while (!stream.atEnd()) {
+            const QString line = stream.readLine().trimmed();
+            if (line.startsWith(QStringLiteral("name")) && line.contains(QLatin1Char(':'))) {
+                const QString name = line.section(QLatin1Char(':'), 1).trimmed();
+                if (name == QLatin1String("lzo")) lzoAvailable = true;
+                else if (name == QLatin1String("lz4")) lz4Available = true;
+            }
+        }
+    }
+    // Compile-time kernel config as a fallback — it tells us whether the
+    // module can be loaded at all even if /proc/crypto isn't populated yet.
+    if (!lzoAvailable || !lz4Available) {
+        const QString kernelCfg = readKernelConfig();
+        if (!lzoAvailable) lzoAvailable = kernelConfigEnabled(kernelCfg, QStringLiteral("CONFIG_CRYPTO_LZO"));
+        if (!lz4Available) lz4Available = kernelConfigEnabled(kernelCfg, QStringLiteral("CONFIG_CRYPTO_LZ4"));
+    }
+
+    // Prefer lz4 (Miryu's default recommendation), fall back to lzo.
+    QString defaultLabel;
+    if (lz4Available) {
+        defaultLabel = i18n("Default — LZ4");
+    } else if (lzoAvailable) {
+        defaultLabel = i18n("Default — LZO");
+    } else {
+        defaultLabel = i18n("Default — none available");
+    }
+
+    const QString compressorCurrent = values.value(QStringLiteral("HibernateCompressor"), QString()).toString();
+    m_hibernateCompressorCombo->clear();
+    m_hibernateCompressorCombo->addItem(defaultLabel, QString());
+    m_hibernateCompressorCombo->addItem(QStringLiteral("LZO"), QStringLiteral("lzo"));
+    m_hibernateCompressorCombo->addItem(QStringLiteral("LZ4"), QStringLiteral("lz4"));
+
+    // Grey out algorithms that are not built into or loadable by the kernel.
+    auto *compModel = qobject_cast<QStandardItemModel *>(m_hibernateCompressorCombo->model());
+    if (compModel) {
+        for (int i = 0; i < m_hibernateCompressorCombo->count(); ++i) {
+            const QString data = m_hibernateCompressorCombo->itemData(i).toString();
+            bool enabled = true;
+            if (data == QLatin1String("lzo")) {
+                enabled = lzoAvailable;
+            } else if (data == QLatin1String("lz4")) {
+                enabled = lz4Available;
+            }
+            QStandardItem *item = compModel->item(i);
+            if (item) {
+                item->setEnabled(enabled);
+            }
+        }
+        // The "Default" entry is only meaningful when at least one algo is
+        // available. Otherwise both underlying choices are disabled and the
+        // whole section should be considered unusable.
+        QStandardItem *defaultItem = compModel->item(0);
+        if (defaultItem) {
+            defaultItem->setEnabled(lzoAvailable || lz4Available);
+        }
+    }
+
+    int compIdx = m_hibernateCompressorCombo->findData(compressorCurrent);
+    // If the stored value points to a disabled item, fall back to Default.
+    if (compIdx >= 0) {
+        QStandardItem *sel = compModel ? compModel->item(compIdx) : nullptr;
+        if (sel && !sel->isEnabled()) {
+            compIdx = 0;
+        }
+    }
+    m_hibernateCompressorCombo->setCurrentIndex(compIdx >= 0 ? compIdx : 0);
+
     // Connect signals after the UI is populated
     connect(m_sleepSuspendCheck, &QCheckBox::toggled, this, [this](bool) {
         updateSleepDependents();
@@ -660,6 +806,9 @@ void MainWindow::updateHibernateMethodSensitivity()
     const int hibernateMethods = m_hibernateMethodCombo ? m_hibernateMethodCombo->count() - 1 : 0;
     if (m_hibernateMethodCombo) {
         m_hibernateMethodCombo->setEnabled(hibernates && hibernateMethods > 1);
+    }
+    if (m_hibernateCompressorCombo) {
+        m_hibernateCompressorCombo->setEnabled(hibernates);
     }
 }
 
@@ -887,6 +1036,9 @@ void MainWindow::refreshSleepChecks()
 
         // Hibernation image compression. The kernel refuses to hibernate with
         // "Operation not supported" when the configured compressor is missing.
+        // If the kernel offers both lzo and lz4 there is nothing to report —
+        // the compressor selector above covers the choice. We only surface
+        // something when neither is available (red), or only one is (blue).
         QFile compParam(QStringLiteral("/sys/module/hibernate/parameters/compressor"));
         if (compParam.exists()) {
             QString compressor = QStringLiteral("lzo");
@@ -896,28 +1048,42 @@ void MainWindow::refreshSleepChecks()
                     compressor = value;
                 }
             }
-            bool compressorAvailable = false;
+
+            QStringList availableAlgs;
             QFile crypto(QStringLiteral("/proc/crypto"));
             if (crypto.open(QIODevice::ReadOnly | QIODevice::Text)) {
                 QTextStream stream(&crypto);
                 while (!stream.atEnd()) {
                     const QString line = stream.readLine().trimmed();
                     if (line.startsWith(QStringLiteral("name")) && line.contains(QLatin1Char(':'))) {
-                        if (line.section(QLatin1Char(':'), 1).trimmed() == compressor) {
-                            compressorAvailable = true;
-                            break;
+                        const QString name = line.section(QLatin1Char(':'), 1).trimmed();
+                        if (name == QLatin1String("lzo") || name == QLatin1String("lz4")) {
+                            availableAlgs.append(name);
                         }
                     }
                 }
             }
-            if (!compressorAvailable) {
+
+            const bool hasLzo = availableAlgs.contains(QLatin1String("lzo"));
+            const bool hasLz4 = availableAlgs.contains(QLatin1String("lz4"));
+
+            if (!hasLzo && !hasLz4) {
                 reports.append({0, i18n("Hibernation compression"),
-                                i18n("The hibernation compressor %1 is not available in the kernel; hibernation fails with \"Operation not supported\".",
-                                     compressor)});
+                                i18n("Neither the lzo nor the lz4 hibernation compressor is available in the kernel; hibernation fails with \"Operation not supported\".")});
                 hasFixableProblem = true;
+            } else if (hasLzo && hasLz4) {
+                // Both algorithms are available — nothing to warn about.
             } else {
-                reports.append({-1, i18n("Hibernation compression"),
-                                i18n("The hibernation compressor %1 is available.", compressor)});
+                // Only one of them is available. Tell the user to pick it.
+                const QString working = hasLzo ? QStringLiteral("lzo") : QStringLiteral("lz4");
+                if (availableAlgs.contains(compressor)) {
+                    reports.append({-1, i18n("Hibernation compression"),
+                                    i18n("The hibernation compressor %1 is available.", compressor)});
+                } else {
+                    reports.append({-1, i18n("Hibernation compression"),
+                                    i18n("The configured compressor %1 is not available; select %2 in the compressor list above.",
+                                         compressor, working)});
+                }
             }
         }
 
@@ -1217,6 +1383,8 @@ void MainWindow::saveSleepConfig()
     if (!hibernateMethod.isEmpty()) {
         lines << QStringLiteral("HibernateMode=%1").arg(hibernateMethod);
     }
+    const QString hibernateCompressor = m_hibernateCompressorCombo ? m_hibernateCompressorCombo->currentData().toString() : QString();
+    lines << QStringLiteral("HibernateCompressor=%1").arg(hibernateCompressor);
 
     // Write to a temp file
     QTemporaryFile tempFile(QDir::tempPath() + QStringLiteral("/miryu-sleep-XXXXXX.conf"));
@@ -1337,7 +1505,7 @@ QWidget *MainWindow::buildAboutTab()
     auto *iconFrame = new QFrame(page);
     iconFrame->setFixedSize(96, 96);
     iconFrame->setStyleSheet(QStringLiteral(
-        "QFrame { background-color: #54b9c9; border-radius: 12px; }"));
+        "QFrame { background-color: #92e796; border-radius: 12px; }"));
     auto *iconLabel = new QLabel(iconFrame);
     iconLabel->setFixedSize(96, 96);
     iconLabel->setAlignment(Qt::AlignCenter);

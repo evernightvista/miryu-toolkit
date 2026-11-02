@@ -9,3 +9,75 @@ fi
 
 mkdir -p /etc/systemd/sleep.conf.d
 install -m 0644 "$source_file" /etc/systemd/sleep.conf.d/90-miryu-toolkit.conf
+
+# ── Hibernation image compressor ──
+# The compressor is selected by the kernel at boot via the
+# "hibernate.compressor=" command line parameter (kernel default: "lzo").
+# Miryu Toolkit's default recommendation is lz4, falling back to lzo when
+# lz4 is missing. This is not a systemd sleep.conf setting, so we apply
+# it directly to the kernel cmdline.
+hib_comp=$(grep -E '^[[:space:]]*HibernateCompressor=' "$source_file" 2>/dev/null \
+            | head -n1 | cut -d= -f2- | tr -d '[:space:]' || true)
+
+# Auto-resolve a compressor when the user left the field at "Default".
+# Preference: lz4 (Miryu default), then lzo. Tries to load modules that
+# the kernel offers but hasn't loaded yet.
+resolve_compressor() {
+    acomp_available() {
+        grep -Eqi "^[[:space:]]*name[[:space:]]*:[[:space:]]*$1[[:space:]]*$" /proc/crypto 2>/dev/null
+    }
+    for alg in lz4 lzo; do
+        if acomp_available "$alg"; then
+            echo "$alg"
+            return 0
+        fi
+        if command -v modprobe >/dev/null 2>&1; then
+            modprobe "$alg" >/dev/null 2>&1 || true
+            if acomp_available "$alg"; then
+                echo "$alg"
+                return 0
+            fi
+        fi
+    done
+    return 1
+}
+
+if [ -z "$hib_comp" ]; then
+    hib_comp=$(resolve_compressor || true)
+fi
+
+apply_compressor_grubby() {
+    # Remove any previous compressor setting and the nocompress fallback that
+    # the automatic fix may have added.
+    grubby --update-kernel=ALL --remove-args="hibernate.compressor nocompress" >/dev/null 2>&1 || true
+    if [ -n "$hib_comp" ]; then
+        grubby --update-kernel=ALL --args="hibernate.compressor=$hib_comp" >/dev/null 2>&1 || true
+    fi
+}
+
+apply_compressor_grub() {
+    grub_default="/etc/default/grub"
+    [ -f "$grub_default" ] || return 0
+    # Strip previous hibernate.compressor=... and nocompress entries.
+    sed -i -E 's/[[:space:]]*hibernate\.compressor=[^ "]*//g; s/[[:space:]]*nocompress//g' "$grub_default"
+    if [ -n "$hib_comp" ]; then
+        sed -i -E "s|(^GRUB_CMDLINE_LINUX=\")(.*)(\")|\1\2 hibernate.compressor=$hib_comp\3|" "$grub_default"
+    fi
+    if command -v grub2-mkconfig >/dev/null 2>&1; then
+        cfg="/boot/grub2/grub.cfg"
+        [ -f "$cfg" ] || cfg="/boot/grub/grub.cfg"
+        grub2-mkconfig -o "$cfg" >/dev/null 2>&1 || true
+    elif command -v update-grub >/dev/null 2>&1; then
+        update-grub >/dev/null 2>&1 || true
+    fi
+}
+
+# Always run when there is a HibernateCompressor key in the file (even empty),
+# so we resolve "Default" and always clean up stale nocompress fallbacks.
+if grep -Eq '^[[:space:]]*HibernateCompressor=' "$source_file" 2>/dev/null; then
+    if command -v grubby >/dev/null 2>&1; then
+        apply_compressor_grubby
+    else
+        apply_compressor_grub
+    fi
+fi

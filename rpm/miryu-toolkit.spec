@@ -1,6 +1,6 @@
 Name:           miryu-toolkit
 Version:        45.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Miryu Toolkit
 
 License:        GPL-3.0-or-later
@@ -27,6 +27,7 @@ Requires:       inxi
 Requires:       lshw
 Requires:       grub2-tools
 Requires:       grubby
+Requires:       systemd
 Obsoletes:      evernight-vista-tools
 Obsoletes:      miryu-grub-config < %{version}-%{release}
 
@@ -85,8 +86,8 @@ boot menu configuration tool with kernel parameter management.
 
 
 %changelog
-* Sun Nov 01 2026 KairikiFedora <13278297951@sina.cn> - 45.0.1-1
-- Add Sleep Settings
+* Mon Nov 02 2026 KairikiFedora <13278297951@sina.cn> - 45.0.1-2
+- Default Hibernate Compact is LZ4
 
 * Thu Oct 15 2026 KairikiFedora <13278297951@sina.cn> - 45.0.0-13
 - Add Install Fedora Kernel and fix zh_cn traslate bugs

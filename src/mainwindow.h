@@ -80,6 +80,8 @@ private:
     void fixSleepProblems();
 
     static QString readSysFile(const QString &path);
+    static QString readKernelConfig();
+    static bool kernelConfigEnabled(const QString &configText, const QString &key);
 
     void collectSystemLogs();
     void cleanupOldKernel();
@@ -126,6 +128,7 @@ private:
     QCheckBox *m_sleepHybridSleepCheck = nullptr;
     QComboBox *m_suspendModeCombo = nullptr;
     QComboBox *m_hibernateMethodCombo = nullptr;
+    QComboBox *m_hibernateCompressorCombo = nullptr;
     QListWidget *m_sleepProblemsList = nullptr;
     QListWidget *m_sleepAvailableList = nullptr;
     QLabel *m_sleepStatusLabel = nullptr;
