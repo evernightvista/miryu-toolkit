@@ -1,6 +1,6 @@
 Name:           miryu-toolkit
 Version:        45.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Miryu Toolkit
 
 License:        GPL-3.0-or-later
@@ -86,6 +86,9 @@ boot menu configuration tool with kernel parameter management.
 
 
 %changelog
+* Mon Nov 02 2026 KairikiFedora <13278297951@sina.cn> - 45.0.1-3
+- Fix About Page Accent color BUG
+
 * Mon Nov 02 2026 KairikiFedora <13278297951@sina.cn> - 45.0.1-2
 - Default Hibernate Compact is LZ4
 
