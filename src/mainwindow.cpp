@@ -8,6 +8,7 @@
 #include <QAbstractItemView>
 #include <QApplication>
 #include <QCheckBox>
+#include <QColor>
 #include <QComboBox>
 #include <QCoreApplication>
 #include <QDesktopServices>
@@ -24,6 +25,7 @@
 #include <QIcon>
 #include <QInputDialog>
 #include <QLineEdit>
+#include <QPalette>
 #include <QPixmap>
 #include <QPlainTextEdit>
 #include <QProcess>
@@ -448,7 +450,10 @@ QWidget *MainWindow::buildSleepTab()
         text->addWidget(titleLabel);
         auto *descLabel = new QLabel(description, modesGroup);
         descLabel->setWordWrap(true);
-        descLabel->setStyleSheet(QStringLiteral("color: palette(mid);"));
+        // Muted secondary text. Resolve the color through the palette role at
+        // paint time so it stays readable when the color scheme changes;
+        // palette(mid) is nearly invisible in both light and dark schemes.
+        descLabel->setForegroundRole(QPalette::PlaceholderText);
         text->addWidget(descLabel);
         row->addLayout(text, 1);
         *check = new QCheckBox(modesGroup);

@@ -1,6 +1,6 @@
 Name:           miryu-toolkit
 Version:        45.0.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Miryu Toolkit
 
 License:        GPL-3.0-or-later
@@ -86,6 +86,9 @@ boot menu configuration tool with kernel parameter management.
 
 
 %changelog
+* Sat Nov 07 2026 KairikiFedora <13278297951@sina.cn> - 45.0.1-4
+- Fix Dark mode text bug
+
 * Mon Nov 02 2026 KairikiFedora <13278297951@sina.cn> - 45.0.1-3
 - Fix About Page Accent color BUG
 
