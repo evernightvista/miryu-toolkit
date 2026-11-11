@@ -1047,9 +1047,9 @@ msgstr "单个环境变量不能包含换行符。"
 
 #: src/mainwindow.cpp:2465
 msgid ""
-"Remove previous kernel versions? This will run: dnf-3 remove "
+"Remove previous kernel versions? This will run: dnf-3 -y remove "
 "--oldinstallonly"
-msgstr "移除上一版本内核？将运行：dnf-3 remove --oldinstallonly"
+msgstr "移除上一版本内核？将运行：dnf-3 -y remove --oldinstallonly"
 
 #: src/mainwindow.cpp:2467
 msgid "Clean up"

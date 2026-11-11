@@ -1064,9 +1064,9 @@ msgstr "단일 환경 변수에는 줄 바꿈을 포함할 수 없습니다."
 
 #: src/mainwindow.cpp:2465
 msgid ""
-"Remove previous kernel versions? This will run: dnf-3 remove "
+"Remove previous kernel versions? This will run: dnf-3 -y remove "
 "--oldinstallonly"
-msgstr "이전 커널 버전을 제거하시겠습니까? 다음을 실행합니다: dnf-3 remove --oldinstallonly"
+msgstr "이전 커널 버전을 제거하시겠습니까? 다음을 실행합니다: dnf-3 -y remove --oldinstallonly"
 
 #: src/mainwindow.cpp:2467
 msgid "Clean up"

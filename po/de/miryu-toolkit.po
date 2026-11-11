@@ -1154,10 +1154,10 @@ msgstr "Eine einzelne Umgebungsvariable darf keine Zeilenumbrüche enthalten."
 
 #: src/mainwindow.cpp:2465
 msgid ""
-"Remove previous kernel versions? This will run: dnf-3 remove "
+"Remove previous kernel versions? This will run: dnf-3 -y remove "
 "--oldinstallonly"
 msgstr ""
-"Vorherige Kernel-Versionen entfernen? Dies führt aus: dnf-3 remove "
+"Vorherige Kernel-Versionen entfernen? Dies führt aus: dnf-3 -y remove "
 "--oldinstallonly"
 
 #: src/mainwindow.cpp:2467

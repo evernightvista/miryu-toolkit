@@ -2467,7 +2467,7 @@ void MainWindow::cleanupOldKernel()
     }
 
     if (KMessageBox::questionTwoActions(this,
-                                        i18n("Remove previous kernel versions? This will run: dnf-3 remove --oldinstallonly"),
+                                        i18n("Remove previous kernel versions? This will run: dnf-3 -y remove --oldinstallonly"),
                                         i18n("Clean up previous kernel"),
                                         KGuiItem(i18n("Clean up")),
                                         KStandardGuiItem::cancel())

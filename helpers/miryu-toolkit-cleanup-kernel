@@ -14,4 +14,4 @@ else
     exit 1
 fi
 
-exec "$DNF3" remove --oldinstallonly
+exec "$DNF3" -y remove --oldinstallonly

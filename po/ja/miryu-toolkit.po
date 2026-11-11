@@ -1059,9 +1059,9 @@ msgstr "1 つの環境変数に改行を含めることはできません。"
 
 #: src/mainwindow.cpp:2465
 msgid ""
-"Remove previous kernel versions? This will run: dnf-3 remove "
+"Remove previous kernel versions? This will run: dnf-3 -y remove "
 "--oldinstallonly"
-msgstr "以前のカーネルバージョンを削除しますか？次を実行します：dnf-3 remove --oldinstallonly"
+msgstr "以前のカーネルバージョンを削除しますか？次を実行します：dnf-3 -y remove --oldinstallonly"
 
 #: src/mainwindow.cpp:2467
 msgid "Clean up"

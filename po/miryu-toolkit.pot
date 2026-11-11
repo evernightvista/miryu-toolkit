@@ -1030,7 +1030,7 @@ msgstr ""
 
 #: src/mainwindow.cpp:2465
 msgid ""
-"Remove previous kernel versions? This will run: dnf-3 remove --oldinstallonly"
+"Remove previous kernel versions? This will run: dnf-3 -y remove --oldinstallonly"
 msgstr ""
 
 #: src/mainwindow.cpp:2467

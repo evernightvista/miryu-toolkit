@@ -1141,10 +1141,10 @@ msgstr "Une variable d'environnement ne doit pas contenir de sauts de ligne."
 
 #: src/mainwindow.cpp:2465
 msgid ""
-"Remove previous kernel versions? This will run: dnf-3 remove "
+"Remove previous kernel versions? This will run: dnf-3 -y remove "
 "--oldinstallonly"
 msgstr ""
-"Supprimer les versions précédentes du noyau ? Cela exécutera : dnf-3 remove "
+"Supprimer les versions précédentes du noyau ? Cela exécutera : dnf-3 -y remove "
 "--oldinstallonly"
 
 #: src/mainwindow.cpp:2467
