@@ -1,7 +1,11 @@
+#include "bootbackup.h"
+#include "bootdata.h"
+
 #include <QCoreApplication>
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
+#include <QLocale>
 #include <QProcess>
 #include <QRegularExpression>
 #include <QSaveFile>
@@ -352,9 +356,16 @@ int main(int argc, char *argv[])
     KLocalizedString::setApplicationDomain("miryu-toolkit");
 
     const QStringList args = app.arguments();
+    if (args.size() == 5 && args.at(3) == QLatin1String("--lang")) {
+        const QLocale locale(args.at(4));
+        if (locale.language() != QLocale::C)
+            KLocalizedString::setLanguages({locale.name()});
+    }
 
-    if (args.size() != 3 || args.at(1) != QStringLiteral("--apply")) {
-        printError(i18n("Usage: miryu-toolkit-grub-config-helper --apply <generated-config-file>"));
+    if ((args.size() != 3 && args.size() != 5)
+        || args.at(1) != QStringLiteral("--apply")
+        || (args.size() == 5 && (args.at(3) != QLatin1String("--lang") || args.at(4).isEmpty()))) {
+        printError(i18n("Usage: miryu-toolkit-grub-config-helper --apply <generated-config-file> [--lang <locale>]"));
         return 2;
     }
 
@@ -402,7 +413,41 @@ int main(int argc, char *argv[])
     // 将受托管设置合并到 /etc/default/grub
     const QString mergedContent = mergeIntoGrubFile(grubExists ? existingContent : QString(), settings);
 
+    const BootSnapshot snapshot = BootProbe::inspect();
+    RepairTarget target;
+    target.root = QStringLiteral("/");
+    for (const auto &candidate : snapshot.repairTargets) {
+        if (!candidate.automatic && candidate.root == QLatin1String("/")) {
+            target = candidate;
+            break;
+        }
+    }
+    if (target.rootDevice.isEmpty()) {
+        printError(i18n("Could not identify the current root device; GRUB settings were not changed."));
+        return 6;
+    }
+
+    BootBackup backup;
+    if (!backup.create(snapshot, target, QStringLiteral("/"),
+                       BootBackup::configurationPaths(QStringLiteral("/")),
+                       BootBackup::defaultRoot(), &error)) {
+        printError(i18n("Could not create the pre-change configuration backup: %1", error));
+        return 6;
+    }
+    out << i18n("Configuration backup: %1", backup.directory()) << Qt::endl;
+
     if (!writeGrubFile(mergedContent, &error)) {
+        QString backupError;
+        backup.record(QStringLiteral("write-grub-config"), false, &backupError);
+        backup.finish(false, &backupError);
+        printError(error);
+        if (!backupError.isEmpty())
+            printError(i18n("Warning: could not finish the configuration backup: %1", backupError));
+        return 6;
+    }
+    if (!backup.record(QStringLiteral("write-grub-config"), true, &error)) {
+        QString ignored;
+        backup.finish(false, &ignored);
         printError(error);
         return 6;
     }
@@ -422,7 +467,19 @@ int main(int argc, char *argv[])
     out << i18n("Regenerating GRUB configuration...") << Qt::endl;
 
     // 重新生成 grub.cfg
-    if (!regenerateGrub(&error)) {
+    const bool regenerated = regenerateGrub(&error);
+    if (!backup.record(QStringLiteral("grub2-mkconfig"), regenerated, &error)) {
+        QString ignored;
+        backup.finish(false, &ignored);
+        printError(error);
+        return 7;
+    }
+    QString backupError;
+    if (!backup.finish(regenerated, &backupError)) {
+        printError(i18n("Could not finish the configuration backup: %1", backupError));
+        return 7;
+    }
+    if (!regenerated) {
         printError(error);
         return 7;
     }

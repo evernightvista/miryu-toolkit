@@ -1,17 +1,16 @@
 #!/usr/bin/sh
 set -eu
 
-# Remove old installonly packages (previous kernel versions) using dnf-3.
-# dnf-3 supports the --oldinstallonly flag which removes all but the
-# latest installonly kernel package.
+# Remove old installonly packages (previous kernel versions) using dnf5.
+# --oldinstallonly honors installonly_limit and never removes the running kernel.
 
-if command -v /usr/bin/dnf-3 >/dev/null 2>&1; then
-    DNF3=/usr/bin/dnf-3
-elif command -v dnf-3 >/dev/null 2>&1; then
-    DNF3=dnf-3
+if command -v /usr/bin/dnf5 >/dev/null 2>&1; then
+    DNF=/usr/bin/dnf5
+elif command -v dnf5 >/dev/null 2>&1; then
+    DNF=dnf5
 else
-    echo "Error: dnf-3 is not installed. Please install dnf to use this feature." >&2
+    echo "Error: dnf5 is not installed. Please install dnf5 to use this feature." >&2
     exit 1
 fi
 
-exec "$DNF3" -y remove --oldinstallonly
+exec "$DNF" -y remove --oldinstallonly

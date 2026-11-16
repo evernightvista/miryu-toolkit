@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: miryu-toolkit 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-02 10:28+0800\n"
+"POT-Creation-Date: 2026-11-16 12:08+0800\n"
 "PO-Revision-Date: 2026-08-12 00:00+0800\n"
 "Last-Translator: Miryu Team <packager@miryu.local>\n"
 "Language-Team: German\n"
@@ -12,110 +12,1727 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/grubconfighelper.cpp:70
+#: src/bootbackup.cpp:88
+msgid "The backup path contains a symbolic link or is not absolute."
+msgstr ""
+"Der Sicherungspfad enthält einen symbolischen Link oder ist nicht absolut."
+
+#: src/bootbackup.cpp:91
+msgid "Cannot create a traversable backup directory."
+msgstr "Es kann kein durchsuchbares Sicherungsverzeichnis erstellt werden."
+
+#: src/bootbackup.cpp:99
+msgid "Unsafe backup output path."
+msgstr "Unsicherer Ausgabepfad für die Sicherung."
+
+#: src/bootbackup.cpp:102
+msgid "Cannot open a private backup file for writing."
+msgstr "Eine private Sicherungsdatei kann nicht zum Schreiben geöffnet werden."
+
+#: src/bootbackup.cpp:104
+msgid "Cannot atomically write a backup file."
+msgstr "Eine Sicherungsdatei kann nicht atomar geschrieben werden."
+
+#: src/bootbackup.cpp:111
+msgid "Unsafe backup metadata output path."
+msgstr "Unsicherer Ausgabepfad für die Sicherungsmetadaten."
+
+#: src/bootbackup.cpp:114
+msgid "Cannot open backup metadata for writing."
+msgstr "Die Sicherungsmetadaten können nicht zum Schreiben geöffnet werden."
+
+#: src/bootbackup.cpp:116
+msgid "Cannot atomically write backup metadata."
+msgstr "Die Sicherungsmetadaten können nicht atomar geschrieben werden."
+
+#: src/bootbackup.cpp:194
+msgid "A restore destination contains a symbolic link: %1"
+msgstr "Ein Wiederherstellungsziel enthält einen symbolischen Link: %1"
+
+#: src/bootbackup.cpp:197
+msgid "A restore destination is not a regular file: %1"
+msgstr "Ein Wiederherstellungsziel ist keine reguläre Datei: %1"
+
+#: src/bootbackup.cpp:200
+msgid "A restore destination directory is unavailable: %1"
+msgstr "Ein Zielverzeichnis für die Wiederherstellung ist nicht verfügbar: %1"
+
+#: src/bootbackup.cpp:235
+msgid "The backup target has no block-device identity."
+msgstr "Das Sicherungsziel besitzt keine Blockgeräte-Identität."
+
+#: src/bootbackup.cpp:239
+msgid "The automatic backup target identity is inconsistent."
+msgstr ""
+"Die Identität des automatisch ermittelten Sicherungsziels ist inkonsistent."
+
+#: src/bootbackup.cpp:244
+msgid "The mounted backup target does not match its recorded root."
+msgstr ""
+"Das eingehängte Sicherungsziel stimmt nicht mit dem erfassten Root-"
+"Verzeichnis überein."
+
+#: src/bootbackup.cpp:252
+msgid "The target root is now backed by a different block device."
+msgstr ""
+"Dem Ziel-Root-Verzeichnis liegt inzwischen ein anderes Blockgerät zugrunde."
+
+#: src/bootbackup.cpp:260
+msgid "The selected backup ID or root is invalid."
+msgstr ""
+"Die ausgewählte Sicherungs-ID oder das ausgewählte Root-Verzeichnis ist "
+"ungültig."
+
+#: src/bootbackup.cpp:263
+msgid "The selected backup root is unavailable."
+msgstr "Das Root-Verzeichnis der ausgewählten Sicherung ist nicht verfügbar."
+
+#: src/bootbackup.cpp:266
+msgid "The selected backup is unavailable."
+msgstr "Die ausgewählte Sicherung ist nicht verfügbar."
+
+#: src/bootbackup.cpp:271
+msgid "The selected backup manifest is unavailable."
+msgstr "Das Manifest der ausgewählten Sicherung ist nicht verfügbar."
+
+#: src/bootbackup.cpp:275
+msgid "The selected backup manifest is too large."
+msgstr "Das Manifest der ausgewählten Sicherung ist zu groß."
+
+#: src/bootbackup.cpp:280
+msgid "The selected backup manifest is damaged."
+msgstr "Das Manifest der ausgewählten Sicherung ist beschädigt."
+
+#: src/bootbackup.cpp:305
+msgid "The backup manifest ID does not match its directory."
+msgstr ""
+"Die Manifest-ID der Sicherung stimmt nicht mit ihrem Verzeichnis überein."
+
+#: src/bootbackup.cpp:307
+msgid "The backup changed after it was reviewed. Refresh and try again."
+msgstr ""
+"Die Sicherung hat sich nach der Überprüfung geändert. Aktualisieren Sie die "
+"Ansicht und versuchen Sie es erneut."
+
+#: src/bootbackup.cpp:310
+msgid "The restore target root is unavailable or unsafe."
+msgstr ""
+"Das Root-Verzeichnis des Wiederherstellungsziels ist nicht verfügbar oder "
+"unsicher."
+
+#: src/bootbackup.cpp:318
+msgid "The selected backup belongs to a different target identity."
+msgstr "Die ausgewählte Sicherung gehört zu einer anderen Zielidentität."
+
+#: src/bootbackup.cpp:323
+msgid "This backup contains no restorable configuration files."
+msgstr ""
+"Diese Sicherung enthält keine wiederherstellbaren Konfigurationsdateien."
+
+#: src/bootbackup.cpp:328
+msgid "The backup contains an invalid file record."
+msgstr "Die Sicherung enthält einen ungültigen Dateieintrag."
+
+#: src/bootbackup.cpp:333
+msgid "The backup contains a disallowed or duplicate path."
+msgstr "Die Sicherung enthält einen unzulässigen oder doppelten Pfad."
+
+#: src/bootbackup.cpp:338
+msgid "The backup contains invalid file permissions."
+msgstr "Die Sicherung enthält ungültige Dateiberechtigungen."
+
+#: src/bootbackup.cpp:343
+msgid "A newly-created file record contains an unexpected original."
+msgstr ""
+"Der Dateieintrag für eine neu erstellte Datei enthält unerwarteterweise ein "
+"Original."
+
+#: src/bootbackup.cpp:346
+msgid "A newly-created file has an invalid post-operation hash."
+msgstr "Der Hash einer neu erstellten Datei nach dem Vorgang ist ungültig."
+
+#: src/bootbackup.cpp:354
+msgid "The backup contains an invalid saved-file record."
+msgstr ""
+"Die Sicherung enthält einen ungültigen Eintrag für eine gespeicherte Datei."
+
+#: src/bootbackup.cpp:359
+msgid "A saved configuration file is damaged: %1"
+msgstr "Eine gespeicherte Konfigurationsdatei ist beschädigt: %1"
+
+#: src/bootbackup.cpp:362
+msgid "The saved configuration exceeds the size limit."
+msgstr "Die gespeicherte Konfiguration überschreitet die Größenbeschränkung."
+
+#: src/bootbackup.cpp:385
+msgid "An offline backup requires an explicit mounted restore target."
+msgstr ""
+"Für eine Offline-Sicherung ist ein ausdrücklich angegebenes, eingehängtes "
+"Wiederherstellungsziel erforderlich."
+
+#: src/bootbackup.cpp:486
+msgid "The backup contains a disallowed restore path."
+msgstr "Die Sicherung enthält einen unzulässigen Wiederherstellungspfad."
+
+#: src/bootbackup.cpp:525
+msgid "The backup source root is unavailable or unsafe."
+msgstr ""
+"Das Quell-Root-Verzeichnis der Sicherung ist nicht verfügbar oder unsicher."
+
+#: src/bootbackup.cpp:527
+msgid "Too many configuration files were selected for backup."
+msgstr "Es wurden zu viele Konfigurationsdateien für die Sicherung ausgewählt."
+
+#: src/bootbackup.cpp:538
+msgid "Cannot create a private transaction backup."
+msgstr "Eine private Transaktionssicherung kann nicht erstellt werden."
+
+#: src/bootbackup.cpp:547
+msgid "A configuration path is outside the backup whitelist or duplicated: %1"
+msgstr ""
+"Ein Konfigurationspfad liegt außerhalb der Positivliste für Sicherungen oder "
+"ist doppelt vorhanden: %1"
+
+#: src/bootbackup.cpp:559
+msgid "An unsafe or oversized configuration backup source: %1"
+msgstr "Unsichere oder zu große Quelle für eine Konfigurationssicherung: %1"
+
+#: src/bootbackup.cpp:562
+msgid "The configuration backup exceeds the total size limit."
+msgstr "Die Konfigurationssicherung überschreitet die zulässige Gesamtgröße."
+
+#: src/bootbackup.cpp:565
+msgid "Cannot read configuration for backup: %1"
+msgstr "Die Konfiguration kann für die Sicherung nicht gelesen werden: %1"
+
+#: src/bootbackup.cpp:568
+msgid "Configuration changed or could not be read: %1"
+msgstr "Die Konfiguration wurde geändert oder konnte nicht gelesen werden: %1"
+
+#: src/bootbackup.cpp:617
+msgid "The transaction backup directory is unsafe."
+msgstr "Das Verzeichnis der Transaktionssicherung ist unsicher."
+
+#: src/bootbackup.cpp:620
+msgid "The transaction manifest is too large."
+msgstr "Das Transaktionsmanifest ist zu groß."
+
+#: src/bootbackup.cpp:627 src/bootbackup.cpp:698
+msgid "The transaction backup is not initialized."
+msgstr "Die Transaktionssicherung ist nicht initialisiert."
+
+#: src/bootbackup.cpp:642
+msgid "A newly-created configuration path became unsafe."
+msgstr "Ein neu erstellter Konfigurationspfad ist inzwischen unsicher."
+
+#: src/bootbackup.cpp:648
+msgid "A newly-created configuration is not a regular file."
+msgstr "Eine neu erstellte Konfiguration ist keine reguläre Datei."
+
+#: src/bootbackup.cpp:652
+msgid "Cannot fingerprint a newly-created configuration file."
+msgstr ""
+"Für eine neu erstellte Konfigurationsdatei kann kein Fingerabdruck erstellt "
+"werden."
+
+#: src/bootbackup.cpp:664
+msgid "Invalid operation record."
+msgstr "Ungültiger Vorgangseintrag."
+
+#: src/bootbackup.cpp:681 src/bootbackup.cpp:685
+msgid "Cannot append to the operation log."
+msgstr "Das Vorgangsprotokoll kann nicht ergänzt werden."
+
+#: src/bootbackup.cpp:730
+msgid ""
+"Refusing to remove a configuration not fingerprinted by the transaction: %1"
+msgstr ""
+"Das Entfernen der Konfiguration wird verweigert, weil die Transaktion keinen "
+"Fingerabdruck davon erstellt hat: %1"
+
+#: src/bootbackup.cpp:734
+msgid "Cannot verify a configuration created by the transaction: %1"
+msgstr ""
+"Eine von der Transaktion erstellte Konfiguration kann nicht überprüft "
+"werden: %1"
+
+#: src/bootbackup.cpp:736
+msgid "Refusing to remove a configuration changed after the transaction: %1"
+msgstr ""
+"Das Entfernen einer nach der Transaktion geänderten Konfiguration wird "
+"verweigert: %1"
+
+#: src/bootbackup.cpp:738
+msgid "Cannot remove a file created by the transaction: %1"
+msgstr ""
+"Eine von der Transaktion erstellte Datei kann nicht entfernt werden: %1"
+
+#: src/bootbackup.cpp:746
+msgid "Cannot reopen a saved configuration: %1"
+msgstr "Eine gespeicherte Konfiguration kann nicht erneut geöffnet werden: %1"
+
+#: src/bootbackup.cpp:750
+msgid "A saved configuration changed before restoration: %1"
+msgstr ""
+"Eine gespeicherte Konfiguration wurde vor der Wiederherstellung geändert: %1"
+
+#: src/bootbackup.cpp:757
+msgid "Cannot atomically restore configuration: %1"
+msgstr "Die Konfiguration kann nicht atomar wiederhergestellt werden: %1"
+
+#: src/bootbackup.cpp:761
+msgid "Cannot restore configuration permissions: %1"
+msgstr ""
+"Die Berechtigungen der Konfiguration können nicht wiederhergestellt werden: "
+"%1"
+
+#: src/bootdata.cpp:242
+msgid "Container and %1 wrappers are not read-only probes."
+msgstr "Container und Wrapper für %1 sind keine rein lesenden Prüfbefehle."
+
+#: src/bootdata.cpp:274
+msgid "The command is not an allowed read-only boot probe."
+msgstr ""
+"Der Befehl ist keine zulässige, rein lesende Prüfung der Startkonfiguration."
+
+#: src/bootdata.cpp:311
+msgid "Read-only command timed out."
+msgstr "Zeitüberschreitung beim rein lesenden Befehl."
+
+#: src/bootdata.cpp:677
+msgid "The EFI file or firmware label is invalid."
+msgstr "Die EFI-Datei oder die Firmware-Bezeichnung ist ungültig."
+
+#: src/bootdata.cpp:693
+msgid "The EFI binary must be a regular file below %1 on a mounted ESP."
+msgstr ""
+"Die EFI-Binärdatei muss eine reguläre Datei unterhalb von %1 auf einer "
+"eingehängten ESP sein."
+
+#: src/bootdata.cpp:708
+msgid "The selected filesystem is not a mounted EFI system partition."
+msgstr "Das ausgewählte Dateisystem ist keine eingehängte EFI-Systempartition."
+
+#: src/bootdata.cpp:719
+msgid "The physical disk and EFI partition could not be identified."
+msgstr ""
+"Der physische Datenträger und die EFI-Partition konnten nicht identifiziert "
+"werden."
+
+#: src/bootdata.cpp:726
+msgid "The EFI disk is unavailable."
+msgstr "Der EFI-Datenträger ist nicht verfügbar."
+
+#: src/bootdata.cpp:752
+msgid "The certificate must be a DER file between 64 bytes and 64 KiB."
+msgstr ""
+"Das Zertifikat muss eine DER-Datei mit einer Größe von 64 Byte bis 64 KiB "
+"sein."
+
+#: src/bootdata.cpp:754
+msgid "The certificate is not an ASN.1 DER SEQUENCE."
+msgstr "Das Zertifikat ist keine ASN.1-DER-SEQUENCE."
+
+#: src/bootdata.cpp:763
+msgid "The DER certificate has an invalid length."
+msgstr "Das DER-Zertifikat hat eine ungültige Länge."
+
+#: src/bootdata.cpp:767
+msgid "The DER certificate uses a non-minimal length encoding."
+msgstr "Das DER-Zertifikat verwendet eine nicht minimale Längenkodierung."
+
+#: src/bootdata.cpp:770
+msgid "The DER certificate is truncated or has trailing data."
+msgstr "Das DER-Zertifikat ist abgeschnitten oder enthält nachgestellte Daten."
+
+#: src/bootdata.cpp:832
+msgid "Root device is absent from the current disk inventory."
+msgstr "Das Root-Gerät fehlt in der aktuellen Datenträgerübersicht."
+
+#: src/bootdata.cpp:837
+msgid "Automatic repair supports only btrfs, ext4, xfs and f2fs partitions."
+msgstr ""
+"Die automatische Reparatur unterstützt nur Partitionen mit Btrfs, ext4, XFS "
+"und F2FS."
+
+#: src/bootdata.cpp:840
+msgid "The Btrfs subvolume name is invalid."
+msgstr "Der Name des Btrfs-Subvolumes ist ungültig."
+
+#: src/bootdata.cpp:843
+msgid ""
+"Offline target: GRUB files and firmware paths will be checked after a "
+"controlled mount."
+msgstr ""
+"Offline-Ziel: GRUB-Dateien und Firmware-Pfade werden nach einem "
+"kontrollierten Einhängen geprüft."
+
+#: src/bootdata.cpp:847
+msgid "The target does not contain %1 and %2."
+msgstr "Das Ziel enthält %1 und %2 nicht."
+
+#: src/bootdata.cpp:853
+msgid "Missing GRUB tool: %1"
+msgstr "Fehlendes GRUB-Werkzeug: %1"
+
+#: src/bootdata.cpp:854
+msgid "GRUB tool found: %1"
+msgstr "GRUB-Werkzeug gefunden: %1"
+
+#: src/bootdata.cpp:857
+msgid "GRUB defaults found: %1"
+msgstr "GRUB-Standardeinstellungen gefunden: %1"
+
+#: src/bootdata.cpp:858
+msgid "GRUB defaults missing: %1"
+msgstr "GRUB-Standardeinstellungen nicht gefunden: %1"
+
+#: src/bootdata.cpp:860
+msgid "Generated GRUB configuration found: %1"
+msgstr "Generierte GRUB-Konfiguration gefunden: %1"
+
+#: src/bootdata.cpp:861
+msgid "Generated GRUB configuration not found: %1"
+msgstr "Generierte GRUB-Konfiguration nicht gefunden: %1"
+
+#: src/bootdata.cpp:891
+msgid "No mounted EFI system partition was found inside the target."
+msgstr "Im Ziel wurde keine eingehängte EFI-Systempartition gefunden."
+
+#: src/bootdata.cpp:893
+msgid "No EFI programs were found below %1 on the target ESP."
+msgstr "Auf der Ziel-ESP wurden unterhalb von %1 keine EFI-Programme gefunden."
+
+#: src/bootdata.cpp:896
+msgid ""
+"No resolvable UEFI firmware entry points to an EFI program on the target ESP."
+msgstr ""
+"Kein auflösbarer UEFI-Firmware-Eintrag verweist auf ein EFI-Programm auf der "
+"Ziel-ESP."
+
+#: src/bootdata.cpp:898
+msgid "A UEFI firmware entry resolves to an EFI program on the target ESP."
+msgstr ""
+"Ein UEFI-Firmware-Eintrag verweist auf ein EFI-Programm auf der Ziel-ESP."
+
+#: src/bootdata.cpp:902
+msgid "Legacy BIOS GRUB modules found: %1"
+msgstr "GRUB-Module für Legacy-BIOS gefunden: %1"
+
+#: src/bootdata.cpp:903
+msgid "Legacy BIOS GRUB modules missing: %1"
+msgstr "GRUB-Module für Legacy-BIOS nicht gefunden: %1"
+
+#: src/bootdata.cpp:916
+msgid ""
+"The disk that contains the target root partition could not be determined."
+msgstr ""
+"Der Datenträger mit der Ziel-Root-Partition konnte nicht ermittelt werden."
+
+#: src/bootdata.cpp:918
+msgid "GRUB will be written to the master boot record of %1."
+msgstr "GRUB wird in den Master Boot Record von %1 geschrieben."
+
+#: src/bootdata.cpp:927
+msgid "The GPT disk has no BIOS boot partition; %1 will fail."
+msgstr ""
+"Auf dem GPT-Datenträger fehlt eine BIOS-Boot-Partition; %1 wird fehlschlagen."
+
+#: src/bootdata.cpp:944
+msgid "Reading UEFI firmware state"
+msgstr "UEFI-Firmware-Status wird gelesen"
+
+#: src/bootdata.cpp:957
+msgid "Could not read UEFI boot variables with %1."
+msgstr "UEFI-Startvariablen konnten nicht mit %1 gelesen werden."
+
+#: src/bootdata.cpp:963
+msgid "This system was not booted in UEFI mode."
+msgstr "Dieses System wurde nicht im UEFI-Modus gestartet."
+
+#: src/bootdata.cpp:974
+msgid ""
+"Device and command probing is performed only for the running root filesystem."
+msgstr ""
+"Die Erkennung von Geräten und Befehlen erfolgt nur für das aktuell laufende "
+"Root-Dateisystem."
+
+#: src/bootdata.cpp:978
+msgid "Finding EFI system partitions and Linux targets"
+msgstr "EFI-Systempartitionen und Linux-Ziele werden gesucht"
+
+#: src/bootdata.cpp:984
+msgid "No mounted EFI system partition was detected."
+msgstr "Es wurde keine eingehängte EFI-Systempartition erkannt."
+
+#: src/bootdata.cpp:987
+msgid "Reading Secure Boot certificates"
+msgstr "Secure-Boot-Zertifikate werden gelesen"
+
+#: src/bootdata.cpp:995
+msgid "%1: %2"
+msgstr "%1: %2"
+
+#: src/bootdata.cpp:1032
+msgid "The EFI boot variable is not writable: %1"
+msgstr "Die EFI-Startvariable ist nicht schreibbar: %1"
+
+#: src/bootdata.cpp:1038
+msgid "The EFI boot variable could not be written: %1"
+msgstr "Die EFI-Startvariable konnte nicht geschrieben werden: %1"
+
+#: src/bootdata.cpp:1044
+msgid "The EFI boot variable could not be flushed: %1"
+msgstr "Die EFI-Startvariable konnte nicht synchronisiert werden: %1"
+
+#: src/bootdata.cpp:1052
+msgid "The EFI boot variable could not be resized: %1"
+msgstr "Die Größe der EFI-Startvariablen konnte nicht geändert werden: %1"
+
+#: src/bootdata.cpp:1076
+msgid "No EFI boot variable destination was provided."
+msgstr "Es wurde kein Ziel für die EFI-Startvariable angegeben."
+
+#: src/bootdata.cpp:1079
+msgid "The EFI boot variable could not be read: %1"
+msgstr "Die EFI-Startvariable konnte nicht gelesen werden: %1"
+
+#: src/bootdata.cpp:1082
+msgid "The EFI boot variable is too short: %1"
+msgstr "Die EFI-Startvariable ist zu kurz: %1"
+
+#: src/bootdata.cpp:1101
+msgid "The EFI boot variable has no description terminator: %1"
+msgstr "Der EFI-Startvariablen fehlt das Abschlusszeichen der Beschreibung: %1"
+
+#: src/bootdata.cpp:1103
+msgid "The EFI boot variable device path is truncated: %1"
+msgstr "Der Gerätepfad der EFI-Startvariablen ist abgeschnitten: %1"
+
+#: src/bootdata.cpp:1121 src/bootdata.cpp:1148
+msgid "The EFI boot variable requires an authenticated update."
+msgstr "Die EFI-Startvariable erfordert eine authentifizierte Aktualisierung."
+
+#: src/bootdata.cpp:1124
+msgid "The EFI boot variable label is invalid."
+msgstr "Die Bezeichnung der EFI-Startvariablen ist ungültig."
+
+#: src/boothelper.cpp:72
+msgid "Could not start %1."
+msgstr "%1 konnte nicht gestartet werden."
+
+#: src/boothelper.cpp:80
+msgid "Could not provide standard input to a privileged operation."
+msgstr ""
+"Für den privilegierten Vorgang konnte keine Standardeingabe bereitgestellt "
+"werden."
+
+#: src/boothelper.cpp:88
+msgid "%1 timed out."
+msgstr "Zeitüberschreitung bei %1."
+
+#: src/boothelper.cpp:91
+msgid "%1 did not complete successfully."
+msgstr "%1 wurde nicht erfolgreich abgeschlossen."
+
+#: src/boothelper.cpp:196
+msgid "Invalid mount point below the target root."
+msgstr "Ungültiger Einhängepunkt unterhalb des Ziel-Root-Verzeichnisses."
+
+#: src/boothelper.cpp:199
+msgid "A mount point contains a symbolic link: %1"
+msgstr "Ein Einhängepunkt enthält einen symbolischen Link: %1"
+
+#: src/boothelper.cpp:201
+msgid "Cannot create mount point: %1"
+msgstr "Der Einhängepunkt kann nicht erstellt werden: %1"
+
+#: src/boothelper.cpp:204
+msgid "Mount point is not a directory: %1"
+msgstr "Der Einhängepunkt ist kein Verzeichnis: %1"
+
+#: src/boothelper.cpp:207
+msgid "Mount point escapes the selected target root."
+msgstr ""
+"Der Einhängepunkt liegt außerhalb des ausgewählten Ziel-Root-Verzeichnisses."
+
+#: src/boothelper.cpp:219
+msgid "The target fstab is too large to validate."
+msgstr "Die fstab des Ziels ist zu groß, um sie zu überprüfen."
+
+#: src/boothelper.cpp:228
+msgid "The target has a separate /boot filesystem; mount it before repair."
+msgstr ""
+"Das Ziel verfügt über ein separates /boot-Dateisystem; hängen Sie es vor der "
+"Reparatur ein."
+
+#: src/boothelper.cpp:260
+msgid "The target block device or subvolume is invalid."
+msgstr "Das Blockgerät oder Subvolume des Ziels ist ungültig."
+
+#: src/boothelper.cpp:269
+msgid ""
+"Automatic repair requires a supported Linux partition and Btrfs subvolume."
+msgstr ""
+"Für die automatische Reparatur werden eine unterstützte Linux-Partition und "
+"ein Btrfs-Subvolume benötigt."
+
+#: src/boothelper.cpp:273
+msgid ""
+"The selected automatic target is already mounted; select its mounted root "
+"instead."
+msgstr ""
+"Das für die automatische Reparatur ausgewählte Ziel ist bereits eingehängt; "
+"wählen Sie stattdessen sein eingehängtes Root-Verzeichnis aus."
+
+#: src/boothelper.cpp:280
+msgid "The mounted target root is invalid."
+msgstr "Das eingehängte Ziel-Root-Verzeichnis ist ungültig."
+
+#: src/boothelper.cpp:293
+msgid ""
+"The mounted Linux target is not in the allowed inventory or its mount source "
+"changed."
+msgstr ""
+"Das eingehängte Linux-Ziel ist nicht in der Liste der zulässigen Ziele "
+"enthalten oder seine Einhängequelle hat sich geändert."
+
+#: src/boothelper.cpp:320
+msgid "The GRUB installation disk path is invalid."
+msgstr "Der Pfad des Datenträgers für die GRUB-Installation ist ungültig."
+
+#: src/boothelper.cpp:323
+msgid "The GRUB installation target must be a whole disk."
+msgstr ""
+"Das Ziel der GRUB-Installation muss ein vollständiger Datenträger sein."
+
+#: src/boothelper.cpp:326
+msgid "The target root device is absent from the disk inventory."
+msgstr "Das Root-Gerät des Ziels fehlt in der Datenträgerübersicht."
+
+#: src/boothelper.cpp:328
+msgid "The selected disk does not contain the target root partition."
+msgstr "Der ausgewählte Datenträger enthält nicht die Ziel-Root-Partition."
+
+#: src/boothelper.cpp:338
+msgid "Only GRUB2 boot repair is supported."
+msgstr "Nur die GRUB2-Startreparatur wird unterstützt."
+
+#: src/boothelper.cpp:341
+msgid "Only GRUB2 UEFI or legacy BIOS repair is supported."
+msgstr ""
+"Es werden nur GRUB2-Reparaturen unter UEFI oder Legacy-BIOS unterstützt."
+
+#: src/boothelper.cpp:354
+msgid "The disk inventory changed before repair was applied."
+msgstr ""
+"Die Datenträgerübersicht hat sich vor dem Anwenden der Reparatur geändert."
+
+#: src/boothelper.cpp:358
+msgid ""
+"Legacy BIOS repair does not register firmware entries or fallback loaders."
+msgstr ""
+"Bei der Legacy-BIOS-Reparatur werden weder Firmware-Einträge noch Ausweich-"
+"Loader registriert."
+
+#: src/boothelper.cpp:360
+msgid "Legacy BIOS repair does not use an EFI system partition."
+msgstr "Die Legacy-BIOS-Reparatur verwendet keine EFI-Systempartition."
+
+#: src/boothelper.cpp:367 src/bootrepairpage.cpp:745
+msgid "Legacy BIOS repair is available on x86 systems only."
+msgstr "Die Legacy-BIOS-Reparatur ist nur auf x86-Systemen verfügbar."
+
+#: src/boothelper.cpp:371 src/boothelper.cpp:428
+msgid "mount and umount are required for automatic repair."
+msgstr "Für die automatische Reparatur werden mount und umount benötigt."
+
+#: src/boothelper.cpp:388
+msgid ""
+"The ESP must be a vfat EFI-GUID partition distinct from the root partition."
+msgstr ""
+"Die ESP muss eine vfat-formatierte Partition mit der EFI-GUID sein und sich "
+"von der Root-Partition unterscheiden."
+
+#: src/boothelper.cpp:392
+msgid "The bootloader ID must be 1 to 80 safe ASCII characters."
+msgstr "Die Bootloader-ID muss aus 1 bis 80 zulässigen ASCII-Zeichen bestehen."
+
+#: src/boothelper.cpp:396
+msgid "The requested GRUB EFI architecture does not match this host."
+msgstr "Die angeforderte GRUB-EFI-Architektur entspricht nicht diesem Host."
+
+#: src/boothelper.cpp:399
+msgid "UEFI firmware registration is unavailable."
+msgstr "Die Registrierung in der UEFI-Firmware ist nicht verfügbar."
+
+#: src/boothelper.cpp:404
+msgid ""
+"A UEFI boot entry named %1 already exists. Remove it or use a different "
+"bootloader ID."
+msgstr ""
+"Es ist bereits ein UEFI-Starteintrag mit dem Namen %1 vorhanden. Entfernen "
+"Sie ihn oder verwenden Sie eine andere Bootloader-ID."
+
+#: src/boothelper.cpp:412
+msgid "The ESP path is not canonical or contains a symbolic link."
+msgstr "Der ESP-Pfad ist nicht kanonisch oder enthält einen symbolischen Link."
+
+#: src/boothelper.cpp:423
+msgid "The selected ESP mount is not active or its source changed."
+msgstr ""
+"Die ausgewählte ESP-Einhängung ist nicht aktiv oder ihre Quelle hat sich "
+"geändert."
+
+#: src/boothelper.cpp:434
+msgid "The mounted ESP must be at the selected path inside the target root."
+msgstr ""
+"Die eingehängte ESP muss sich am ausgewählten Pfad innerhalb des Ziel-Root-"
+"Verzeichnisses befinden."
+
+#: src/boothelper.cpp:455
+msgid "The mounted target is not a valid Linux root."
+msgstr "Das eingehängte Ziel ist kein gültiges Linux-Root-Verzeichnis."
+
+#: src/boothelper.cpp:459
+msgid "Cannot create a private repair mount directory."
+msgstr ""
+"Es kann kein privates Einhängeverzeichnis für die Reparatur erstellt werden."
+
+#: src/boothelper.cpp:473
+msgid "The selected root or subvolume is not the expected Linux system."
+msgstr ""
+"Das ausgewählte Root-Dateisystem bzw. Subvolume gehört nicht zum erwarteten "
+"Linux-System."
+
+#: src/boothelper.cpp:499
+msgid "chroot, mount and umount are required to repair another Linux root."
+msgstr ""
+"Für die Reparatur eines anderen Linux-Root-Verzeichnisses werden chroot, "
+"mount und umount benötigt."
+
+#: src/boothelper.cpp:535
+msgid "A repair mount remains at %1"
+msgstr "Eine Einhängung für die Reparatur ist weiterhin unter %1 aktiv"
+
+#: src/boothelper.cpp:547
+msgid "Temporary repair directory retained: %1"
+msgstr "Temporäres Reparaturverzeichnis beibehalten: %1"
+
+#: src/boothelper.cpp:550
+msgid "One or more temporary repair mounts could not be unmounted."
+msgstr ""
+"Eine oder mehrere temporäre Reparatur-Einhängungen konnten nicht ausgehängt "
+"werden."
+
+#: src/boothelper.cpp:654 src/boothelper.cpp:816
+msgid "The firmware boot order changed since it was reviewed."
+msgstr ""
+"Die Startreihenfolge der Firmware hat sich seit der Überprüfung geändert."
+
+#: src/boothelper.cpp:662
+msgid "The current firmware BootOrder is invalid."
+msgstr "Die aktuelle BootOrder der Firmware ist ungültig."
+
+#: src/boothelper.cpp:668
+msgid "Boot order numbers must be existing, unique four-digit firmware IDs."
+msgstr ""
+"Die Nummern der Startreihenfolge müssen vorhandene, eindeutige vierstellige "
+"Firmware-IDs sein."
+
+#: src/boothelper.cpp:672
+msgid ""
+"The requested order must contain exactly the entries already in BootOrder."
+msgstr ""
+"Die angeforderte Reihenfolge muss genau die bereits in BootOrder enthaltenen "
+"Einträge umfassen."
+
+#: src/boothelper.cpp:693
+msgid "EFI state backup: %1"
+msgstr "Sicherung des EFI-Status: %1"
+
+#: src/boothelper.cpp:737
+msgid ""
+"Updated the EFI boot variable directly because the firmware ignored the "
+"efibootmgr change."
+msgstr ""
+"Die EFI-Startvariable wurde direkt aktualisiert, da die Firmware die "
+"Änderung durch efibootmgr ignoriert hat."
+
+#: src/boothelper.cpp:744
+msgid "unchanged"
+msgstr "unverändert"
+
+#: src/boothelper.cpp:743
+msgid ""
+"The firmware did not apply the change to boot entry %1. Current value: %2"
+msgstr ""
+"Die Firmware hat die Änderung am Starteintrag %1 nicht übernommen. Aktueller "
+"Wert: %2"
+
+#: src/boothelper.cpp:752
+msgid "UEFI firmware management is unavailable or its expected state changed."
+msgstr ""
+"Die Verwaltung der UEFI-Firmware ist nicht verfügbar oder ihr erwarteter "
+"Status hat sich geändert."
+
+#: src/boothelper.cpp:766
+msgid "The next-boot state changed since it was reviewed."
+msgstr "Der Status des nächsten Starts hat sich seit der Überprüfung geändert."
+
+#: src/boothelper.cpp:774
+msgid "The requested next-boot entry does not exist."
+msgstr "Der angeforderte Eintrag für den nächsten Start ist nicht vorhanden."
+
+#: src/boothelper.cpp:783
+msgid "The firmware entry changed since it was reviewed."
+msgstr "Der Firmware-Eintrag hat sich seit der Überprüfung geändert."
+
+#: src/boothelper.cpp:794
+msgid "The enabled state must be 0 or 1."
+msgstr "Der Aktivierungsstatus muss 0 oder 1 sein."
+
+#: src/boothelper.cpp:806
+msgid "The firmware label must be 1 to 80 printable characters."
+msgstr ""
+"Die Firmware-Bezeichnung muss aus 1 bis 80 druckbaren Zeichen bestehen."
+
+#: src/boothelper.cpp:811
+msgid "BootCurrent cannot be removed."
+msgstr "BootCurrent kann nicht entfernt werden."
+
+#: src/boothelper.cpp:824
+msgid "Unsupported EFI action."
+msgstr "Nicht unterstützte EFI-Aktion."
+
+#: src/boothelper.cpp:849 src/boothelper.cpp:861
+msgid "empty"
+msgstr "leer"
+
+#: src/boothelper.cpp:848
+msgid "The firmware did not accept the new boot order. Current order: %1"
+msgstr ""
+"Die Firmware hat die neue Startreihenfolge nicht akzeptiert. Aktuelle "
+"Reihenfolge: %1"
+
+#: src/boothelper.cpp:860
+msgid "The firmware did not accept the next-boot entry. Current value: %1"
+msgstr ""
+"Die Firmware hat den Eintrag für den nächsten Start nicht akzeptiert. "
+"Aktueller Wert: %1"
+
+#: src/boothelper.cpp:878
+msgid "The EFI change set is empty or too large."
+msgstr "Der EFI-Änderungssatz ist leer oder zu groß."
+
+#: src/boothelper.cpp:881
+msgid "UEFI firmware management is unavailable."
+msgstr "Die Verwaltung der UEFI-Firmware ist nicht verfügbar."
+
+#: src/boothelper.cpp:892
+msgid "The EFI change set contains an unsupported action."
+msgstr "Der EFI-Änderungssatz enthält eine nicht unterstützte Aktion."
+
+#: src/boothelper.cpp:919
+msgid "Specify either certificate base64 or certificatePath, not both."
+msgstr ""
+"Geben Sie das Zertifikat entweder Base64-kodiert oder über certificatePath "
+"an, nicht beides."
+
+#: src/boothelper.cpp:922
+msgid "The encoded certificate is too large."
+msgstr "Das kodierte Zertifikat ist zu groß."
+
+#: src/boothelper.cpp:927
+msgid "The certificate path is not a regular DER file of allowed size."
+msgstr ""
+"Der Zertifikatspfad verweist nicht auf eine reguläre DER-Datei zulässiger "
+"Größe."
+
+#: src/boothelper.cpp:930
+msgid "Cannot read the DER certificate."
+msgstr "Das DER-Zertifikat kann nicht gelesen werden."
+
+#: src/boothelper.cpp:940
+msgid "MOK management requires UEFI and mokutil."
+msgstr ""
+"Für die Verwaltung der Machine-Owner-Schlüssel (MOK) werden UEFI und mokutil "
+"benötigt."
+
+#: src/boothelper.cpp:955 src/uefibootpage.cpp:911
+msgid "The MOK password must contain 1 to 256 printable characters."
+msgstr "Das MOK-Passwort muss 1 bis 256 druckbare Zeichen enthalten."
+
+#: src/boothelper.cpp:959
+msgid "Cannot prepare the temporary DER certificate."
+msgstr "Das temporäre DER-Zertifikat kann nicht vorbereitet werden."
+
+#: src/boothelper.cpp:972
+msgid "Could not start mokutil."
+msgstr "mokutil konnte nicht gestartet werden."
+
+#: src/boothelper.cpp:978
+msgid "Could not provide the MOK password to mokutil."
+msgstr "Das MOK-Passwort konnte nicht an mokutil übergeben werden."
+
+#: src/boothelper.cpp:984
+msgid "mokutil timed out."
+msgstr "Zeitüberschreitung bei mokutil."
+
+#: src/boothelper.cpp:990
+msgid "mokutil did not complete the request."
+msgstr "mokutil hat die Anforderung nicht abgeschlossen."
+
+#: src/boothelper.cpp:1103
+msgid "Signed EFI bootloader files (shim and grub) could not be found for %1."
+msgstr ""
+"Signierte EFI-Bootloader-Dateien (shim und grub) konnten für %1 nicht "
+"gefunden werden."
+
+#: src/boothelper.cpp:1138
+msgid "Could not determine the boot filesystem UUID for the EFI grub.cfg stub."
+msgstr ""
+"Die UUID des Boot-Dateisystems für den EFI-grub.cfg-Stub konnte nicht "
+"ermittelt werden."
+
+#: src/boothelper.cpp:1153
+msgid "Could not write the EFI grub.cfg stub for %1."
+msgstr "Der EFI-grub.cfg-Stub für %1 konnte nicht geschrieben werden."
+
+#: src/boothelper.cpp:1182
+msgid "The ESP mount source changed before repair was applied."
+msgstr ""
+"Die Einhängequelle der ESP hat sich vor dem Anwenden der Reparatur geändert."
+
+#: src/boothelper.cpp:1193
+msgid "The target system is missing grub2-mkconfig."
+msgstr "Dem Zielsystem fehlt grub2-mkconfig."
+
+#: src/boothelper.cpp:1201
+msgid "GRUB repair requires grub2-install on the running system."
+msgstr ""
+"Für die GRUB-Reparatur muss grub2-install auf dem laufenden System "
+"installiert sein."
+
+#: src/boothelper.cpp:1208
+msgid ""
+"No GRUB modules for %1 were found. Install the matching GRUB module package "
+"and try again."
+msgstr ""
+"Keine GRUB-Module für %1 gefunden. Installieren Sie das passende GRUB-"
+"Modulpaket und versuchen Sie es erneut."
+
+#: src/boothelper.cpp:1221
+msgid "Repair configuration backup: %1"
+msgstr "Konfigurationssicherung für die Reparatur: %1"
+
+#: src/boothelper.cpp:1262
+msgid "grub2-mkconfig did not produce %1."
+msgstr "grub2-mkconfig hat %1 nicht erstellt."
+
+#: src/boothelper.cpp:1270
+msgid "The generated %1 contains no boot entries."
+msgstr "Die erstellte %1 enthält keine Starteinträge."
+
+#: src/boothelper.cpp:1281
+msgid "The EFI bootloader directory is missing %1."
+msgstr "Im EFI-Bootloader-Verzeichnis fehlt %1."
+
+#: src/boothelper.cpp:1300
+msgid "The installed GRUB EFI binary could not be found for registration."
+msgstr ""
+"Die installierte GRUB-EFI-Binärdatei konnte für die Registrierung nicht "
+"gefunden werden."
+
+#: src/boothelper.cpp:1349
+msgid "Pre-restore configuration backup: %1"
+msgstr "Konfigurationssicherung vor der Wiederherstellung: %1"
+
+#: src/boothelper.cpp:1365
+msgid ""
+"Configuration originals restored. Generated grub.cfg, EFI binaries and NVRAM "
+"were not restored; regenerate GRUB configuration when required."
+msgstr ""
+"Die Originalkonfigurationen wurden wiederhergestellt. Die generierte Datei "
+"grub.cfg, EFI-Binärdateien und der NVRAM-Inhalt wurden nicht "
+"wiederhergestellt; erstellen Sie bei Bedarf die GRUB-Konfiguration neu."
+
+#: src/boothelper.cpp:1374
+msgid "Cannot read the request from standard input."
+msgstr "Die Anforderung kann nicht von der Standardeingabe gelesen werden."
+
+#: src/boothelper.cpp:1379
+msgid "The request file is unavailable or exceeds 256 KiB."
+msgstr "Die Anforderungsdatei ist nicht verfügbar oder größer als 256 KiB."
+
+#: src/boothelper.cpp:1384
+msgid "Could not read the request."
+msgstr "Die Anforderung konnte nicht gelesen werden."
+
+#: src/boothelper.cpp:1387
+msgid "The request exceeds 256 KiB."
+msgstr "Die Anforderung überschreitet 256 KiB."
+
+#: src/boothelper.cpp:1407
+msgid "Administrator authorization is required."
+msgstr "Eine Administrator-Autorisierung ist erforderlich."
+
+#: src/boothelper.cpp:1417
+msgid "Usage: miryu-toolkit-list-mok --list-mok"
+msgstr "Aufruf: miryu-toolkit-list-mok --list-mok"
+
+#: src/boothelper.cpp:1429
+msgid "mokutil is not installed."
+msgstr "mokutil ist nicht installiert."
+
+#: src/boothelper.cpp:1447
+msgid ""
+"Usage: boothelper --list-mok | --apply <action> <request-json-file> | --"
+"apply-stdin <action> [--lang <locale>]"
+msgstr ""
+"Aufruf: boothelper --list-mok | --apply <action> <request-json-file> | --"
+"apply-stdin <action> [--lang <locale>]"
+
+#: src/boothelper.cpp:1470
+msgid "Unsupported privileged action."
+msgstr "Nicht unterstützte privilegierte Aktion."
+
+#: src/boothelper.cpp:1483
+msgid "The request is not a valid JSON object."
+msgstr "Die Anforderung ist kein gültiges JSON-Objekt."
+
+#: src/boothelper.cpp:1499
+msgid "The privileged operation failed."
+msgstr "Der privilegierte Vorgang ist fehlgeschlagen."
+
+#: src/boothelper.cpp:1503
+msgid "Privileged operation completed."
+msgstr "Der privilegierte Vorgang wurde abgeschlossen."
+
+#: src/bootrepairpage.cpp:55
+msgid "Offline device: %1"
+msgstr "Offline-Gerät: %1"
+
+#: src/bootrepairpage.cpp:56
+msgid "Offline device: %1 · %2"
+msgstr "Offline-Gerät: %1 · %2"
+
+#: src/bootrepairpage.cpp:59
+msgid "Current system: %1 (%2)"
+msgstr "Aktuelles System: %1 (%2)"
+
+#: src/bootrepairpage.cpp:60
+msgid "Mounted system: %1 (%2)"
+msgstr "Eingehängtes System: %1 (%2)"
+
+#: src/bootrepairpage.cpp:79 src/mainwindow.cpp:1728
+msgid "Completed"
+msgstr "Abgeschlossen"
+
+#: src/bootrepairpage.cpp:81
+msgid "Incomplete"
+msgstr "Unvollständig"
+
+#: src/bootrepairpage.cpp:83
+msgid "Prepared"
+msgstr "Vorbereitet"
+
+#: src/bootrepairpage.cpp:85
+msgid "Applying"
+msgstr "Wird angewendet"
+
+#: src/bootrepairpage.cpp:94
+msgid "Change EFI boot order"
+msgstr "EFI-Startreihenfolge ändern"
+
+#: src/bootrepairpage.cpp:96
+msgid "Set or clear the next EFI boot entry"
+msgstr "Nächsten EFI-Starteintrag festlegen oder löschen"
+
+#: src/bootrepairpage.cpp:98
+msgid "Enable or disable an EFI boot entry"
+msgstr "EFI-Starteintrag aktivieren oder deaktivieren"
+
+#: src/bootrepairpage.cpp:100
+msgid "Rename an EFI boot entry"
+msgstr "EFI-Starteintrag umbenennen"
+
+#: src/bootrepairpage.cpp:102
+msgid "Remove an EFI boot entry"
+msgstr "EFI-Starteintrag entfernen"
+
+#: src/bootrepairpage.cpp:104
+msgid "Add an EFI boot entry"
+msgstr "EFI-Starteintrag hinzufügen"
+
+#: src/bootrepairpage.cpp:106
+msgid "Apply EFI boot entry changes"
+msgstr "Änderungen an EFI-Starteinträgen anwenden"
+
+#: src/bootrepairpage.cpp:108
+msgid "Request Machine Owner Key (MOK) enrollment"
+msgstr "Registrierung eines Machine-Owner-Schlüssels (MOK) anfordern"
+
+#: src/bootrepairpage.cpp:110
+msgid "Cancel pending Machine Owner Key (MOK) enrollment"
+msgstr ""
+"Ausstehende Registrierung eines Machine-Owner-Schlüssels (MOK) abbrechen"
+
+#: src/bootrepairpage.cpp:112
+msgid "Repair the bootloader"
+msgstr "Bootloader reparieren"
+
+#: src/bootrepairpage.cpp:114
+msgid "Restore boot configuration"
+msgstr "Startkonfiguration wiederherstellen"
+
+#: src/bootrepairpage.cpp:116
+msgid "Write GRUB configuration"
+msgstr "GRUB-Konfiguration schreiben"
+
+#: src/bootrepairpage.cpp:118
+msgid "Install GRUB"
+msgstr "GRUB installieren"
+
+#: src/bootrepairpage.cpp:120
+msgid "Regenerate GRUB configuration"
+msgstr "GRUB-Konfiguration neu erstellen"
+
+#: src/bootrepairpage.cpp:122
+msgid "Register the bootloader in UEFI firmware"
+msgstr "Bootloader in der UEFI-Firmware registrieren"
+
+#: src/bootrepairpage.cpp:123
+msgid "Other boot operation"
+msgstr "Anderer Startvorgang"
+
+#: src/bootrepairpage.cpp:134
+msgid " (succeeded)"
+msgstr " (erfolgreich)"
+
+#: src/bootrepairpage.cpp:134
+msgid " (failed)"
+msgstr " (fehlgeschlagen)"
+
+#: src/bootrepairpage.cpp:150
+msgid "Waiting for the repair target scan…"
+msgstr "Warte auf die Suche nach Reparaturzielen…"
+
+#: src/bootrepairpage.cpp:153 src/uefibootpage.cpp:126
+msgid "Refresh"
+msgstr "Aktualisieren"
+
+#: src/bootrepairpage.cpp:159 src/bootrepairpage.cpp:395
+msgid "GRUB2 UEFI repair"
+msgstr "GRUB2-UEFI-Reparatur"
+
+#: src/bootrepairpage.cpp:166
+msgid "UEFI"
+msgstr "UEFI"
+
+#: src/bootrepairpage.cpp:167
+msgid "BIOS / Legacy"
+msgstr "BIOS / Legacy-Modus"
+
+#: src/bootrepairpage.cpp:168
+msgid "Firmware mode:"
+msgstr "Firmware-Modus:"
+
+#: src/bootrepairpage.cpp:172
+msgid "Linux target:"
+msgstr "Linux-Ziel:"
+
+#: src/bootrepairpage.cpp:174
+msgid "Btrfs subvolume:"
+msgstr "Btrfs-Subvolume:"
+
+#: src/bootrepairpage.cpp:178
+msgid "root"
+msgstr "root"
+
+#: src/bootrepairpage.cpp:183
+msgid "BIOS installation disk:"
+msgstr "BIOS-Installationsdatenträger:"
+
+#: src/bootrepairpage.cpp:189
+msgid "EFI system partition:"
+msgstr "EFI-Systempartition:"
+
+#: src/bootrepairpage.cpp:193
+msgid "/boot/efi"
+msgstr "/boot/efi"
+
+#: src/bootrepairpage.cpp:194
+msgid "/efi"
+msgstr "/efi"
+
+#: src/bootrepairpage.cpp:195
+msgid "/boot"
+msgstr "/boot"
+
+#: src/bootrepairpage.cpp:196
+msgid "Mount point in target:"
+msgstr "Einhängepunkt im Ziel:"
+
+#: src/bootrepairpage.cpp:201
+msgid "Bootloader ID:"
+msgstr "Bootloader-ID:"
+
+#: src/bootrepairpage.cpp:203 src/bootrepairpage.cpp:434
+#: src/uefibootpage.cpp:87
+msgid "Unknown"
+msgstr "Unbekannt"
+
+#: src/bootrepairpage.cpp:205 src/bootrepairpage.cpp:397
+msgid "EFI architecture:"
+msgstr "EFI-Architektur:"
+
+#: src/bootrepairpage.cpp:208
+msgid "Register the installed loader in UEFI firmware"
+msgstr "Den installierten EFI-Loader in der UEFI-Firmware registrieren"
+
+#: src/bootrepairpage.cpp:212
+msgid "Also install the removable/fallback EFI loader"
+msgstr "Zusätzlich den EFI-Ausweichloader für Wechseldatenträger installieren"
+
+#: src/bootrepairpage.cpp:227 src/bootrepairpage.cpp:396
+msgid "Repair GRUB2 UEFI Boot"
+msgstr "GRUB2-UEFI-Start reparieren"
+
+#: src/bootrepairpage.cpp:232
+msgid "Configuration backups"
+msgstr "Konfigurationssicherungen"
+
+#: src/bootrepairpage.cpp:237
+msgid "Time"
+msgstr "Zeit"
+
+#: src/bootrepairpage.cpp:237
+msgid "Result"
+msgstr "Ergebnis"
+
+#: src/bootrepairpage.cpp:238
+msgid "Target"
+msgstr "Ziel"
+
+#: src/bootrepairpage.cpp:238
+msgid "Changes"
+msgstr "Änderungen"
+
+#: src/bootrepairpage.cpp:260
+msgid ""
+"Restore replaces only whitelisted configuration originals. It does not "
+"restore NVRAM, generated grub.cfg, or EFI binaries."
+msgstr ""
+"Die Wiederherstellung ersetzt nur Originalkonfigurationen aus der "
+"Positivliste. NVRAM, die generierte Datei grub.cfg und EFI-Binärdateien "
+"werden nicht wiederhergestellt."
+
+#: src/bootrepairpage.cpp:263
+msgid "Restore Selected Configuration"
+msgstr "Ausgewählte Konfiguration wiederherstellen"
+
+#: src/bootrepairpage.cpp:268 src/uefibootpage.cpp:269
+msgid "Operation log"
+msgstr "Vorgangsprotokoll"
+
+#: src/bootrepairpage.cpp:334 src/uefibootpage.cpp:312
+msgid "Please wait for the current boot task…"
+msgstr "Bitte warten Sie, bis der aktuelle Startvorgang abgeschlossen ist…"
+
+#: src/bootrepairpage.cpp:352 src/mainwindow.cpp:110 src/uefibootpage.cpp:332
+msgid "Boot Repair"
+msgstr "Startreparatur"
+
+#: src/bootrepairpage.cpp:354 src/uefibootpage.cpp:334
+msgid "Boot Repair Failed"
+msgstr "Startreparatur fehlgeschlagen"
+
+#: src/bootrepairpage.cpp:385
+msgid "No supported Linux repair targets were found."
+msgstr "Es wurden keine unterstützten Linux-Reparaturziele gefunden."
+
+#: src/bootrepairpage.cpp:387
+msgid ""
+"Legacy BIOS mode: GRUB is written to the master boot record of the selected "
+"disk."
+msgstr ""
+"Legacy-BIOS-Modus: GRUB wird in den Master Boot Record des ausgewählten "
+"Datenträgers geschrieben."
+
+#: src/bootrepairpage.cpp:389
+msgid "Linux targets, EFI partitions and configuration backups loaded."
+msgstr "Linux-Ziele, EFI-Partitionen und Konfigurationssicherungen geladen."
+
+#: src/bootrepairpage.cpp:395
+msgid "GRUB2 legacy BIOS repair"
+msgstr "GRUB2-Legacy-BIOS-Reparatur"
+
+#: src/bootrepairpage.cpp:396
+msgid "Repair GRUB2 BIOS Boot"
+msgstr "GRUB2-BIOS-Start reparieren"
+
+#: src/bootrepairpage.cpp:397
+msgid "Architecture:"
+msgstr "Architektur:"
+
+#: src/bootrepairpage.cpp:473 src/bootrepairpage.cpp:610
+msgid "%1 (%2)"
+msgstr "%1 (%2)"
+
+#: src/bootrepairpage.cpp:530
+msgid "%1 · %2 (not mounted)"
+msgstr "%1 · %2 (nicht eingehängt)"
+
+#: src/bootrepairpage.cpp:531
+msgid "%1 · %2 (mounted at %3)"
+msgstr "%1 · %2 (eingehängt unter %3)"
+
+#: src/bootrepairpage.cpp:544
+msgid "%1 · %2"
+msgstr "%1 · %2"
+
+#: src/bootrepairpage.cpp:588
+msgid "Select a Linux target to view repair diagnostics."
+msgstr "Wählen Sie ein Linux-Ziel aus, um die Reparaturdiagnose anzuzeigen."
+
+#: src/bootrepairpage.cpp:612 src/uefibootpage.cpp:406
+msgid ", "
+msgstr ", "
+
+#: src/bootrepairpage.cpp:641
+msgid "Select a configuration backup to view its files and operations."
+msgstr ""
+"Wählen Sie eine Konfigurationssicherung aus, um ihre Dateien und Vorgänge "
+"anzuzeigen."
+
+#: src/bootrepairpage.cpp:645
+msgid "Files:"
+msgstr "Dateien:"
+
+#: src/bootrepairpage.cpp:647
+msgid "  No restorable configuration files."
+msgstr "  Keine wiederherstellbaren Konfigurationsdateien."
+
+#: src/bootrepairpage.cpp:652
+msgid "  %1 (original saved)"
+msgstr "  %1 (Original gesichert)"
+
+#: src/bootrepairpage.cpp:653
+msgid "  %1 (created by the operation)"
+msgstr "  %1 (vom Vorgang erstellt)"
+
+#: src/bootrepairpage.cpp:657
+msgid "Operations:"
+msgstr "Vorgänge:"
+
+#: src/bootrepairpage.cpp:659
+msgid "  No operations were recorded."
+msgstr "  Es wurden keine Vorgänge aufgezeichnet."
+
+#: src/bootrepairpage.cpp:721
+msgid "Confirm Boot Repair"
+msgstr "Startreparatur bestätigen"
+
+#: src/bootrepairpage.cpp:722 src/bootrepairpage.cpp:821
+#: src/bootrepairpage.cpp:822 src/uefibootpage.cpp:678 src/uefibootpage.cpp:700
+msgid "Yes"
+msgstr "Ja"
+
+#: src/bootrepairpage.cpp:722 src/bootrepairpage.cpp:821
+#: src/bootrepairpage.cpp:822 src/uefibootpage.cpp:678 src/uefibootpage.cpp:700
+msgid "No"
+msgstr "Nein"
+
+#: src/bootrepairpage.cpp:737
+msgid "Enter a valid relative Btrfs subvolume name, or leave it empty."
+msgstr ""
+"Geben Sie einen gültigen relativen Btrfs-Subvolume-Namen ein oder lassen Sie "
+"das Feld leer."
+
+#: src/bootrepairpage.cpp:738
+msgid "Invalid Subvolume"
+msgstr "Ungültiges Subvolume"
+
+#: src/bootrepairpage.cpp:746 src/bootrepairpage.cpp:783
+msgid "Unsupported Architecture"
+msgstr "Nicht unterstützte Architektur"
+
+#: src/bootrepairpage.cpp:751
+msgid "Select the disk that contains the target root partition."
+msgstr "Wählen Sie den Datenträger aus, der die Ziel-Root-Partition enthält."
+
+#: src/bootrepairpage.cpp:752
+msgid "No Installation Disk"
+msgstr "Kein Installationsdatenträger"
+
+#: src/bootrepairpage.cpp:764
+msgid ""
+"Repair GRUB2 legacy BIOS boot with these settings?\n"
+"\n"
+"Target: %1\n"
+"Installation disk: %2\n"
+"Architecture: %3\n"
+"\n"
+"This writes the GRUB2 boot image to the master boot record of the selected "
+"disk."
+msgstr ""
+"GRUB2-Legacy-BIOS-Start mit diesen Einstellungen reparieren?\n"
+"\n"
+"Ziel: %1\n"
+"Installationsdatenträger: %2\n"
+"Architektur: %3\n"
+"\n"
+"Dadurch wird das GRUB2-Startabbild in den Master Boot Record des "
+"ausgewählten Datenträgers geschrieben."
+
+#: src/bootrepairpage.cpp:767
+msgid "Repair the GRUB2 legacy BIOS boot configuration"
+msgstr "Die GRUB2-Legacy-BIOS-Startkonfiguration reparieren"
+
+#: src/bootrepairpage.cpp:775
+msgid ""
+"The bootloader ID must contain 1 to 80 safe ASCII letters, digits, dots, "
+"underscores, plus signs or hyphens."
+msgstr ""
+"Die Bootloader-ID muss 1 bis 80 sichere ASCII-Buchstaben, Ziffern, Punkte, "
+"Unterstriche, Pluszeichen oder Bindestriche enthalten."
+
+#: src/bootrepairpage.cpp:776
+msgid "Invalid Bootloader ID"
+msgstr "Ungültige Bootloader-ID"
+
+#: src/bootrepairpage.cpp:782
+msgid "The host EFI architecture could not be determined for GRUB2 repair."
+msgstr ""
+"Die EFI-Architektur des Hosts konnte für die GRUB2-Reparatur nicht ermittelt "
+"werden."
+
+#: src/bootrepairpage.cpp:788
+msgid ""
+"Disable firmware registration, or repair on a UEFI host with efibootmgr "
+"installed."
+msgstr ""
+"Deaktivieren Sie die Firmware-Registrierung oder führen Sie die Reparatur "
+"auf einem UEFI-Host mit installiertem efibootmgr durch."
+
+#: src/bootrepairpage.cpp:789
+msgid "Firmware Registration Unavailable"
+msgstr "Firmware-Registrierung nicht verfügbar"
+
+#: src/bootrepairpage.cpp:798
+msgid "Select a usable EFI system partition and target mount point."
+msgstr ""
+"Wählen Sie eine nutzbare EFI-Systempartition und einen Ziel-Einhängepunkt "
+"aus."
+
+#: src/bootrepairpage.cpp:799
+msgid "No EFI System Partition"
+msgstr "Keine EFI-Systempartition"
+
+#: src/bootrepairpage.cpp:819
+msgid "None; mount the selected ESP"
+msgstr "Keine; ausgewählte ESP einhängen"
+
+#: src/bootrepairpage.cpp:817
+msgid ""
+"Repair GRUB2 UEFI boot with these settings?\n"
+"\n"
+"Target: %1\n"
+"ESP device: %2\n"
+"Existing ESP mount: %3\n"
+"Target mount point: %4\n"
+"Bootloader ID: %5\n"
+"Register firmware entry: %6\n"
+"Fallback loader: %7\n"
+"Architecture: %8"
+msgstr ""
+"GRUB2-UEFI-Start mit diesen Einstellungen reparieren?\n"
+"\n"
+"Ziel: %1\n"
+"ESP-Gerät: %2\n"
+"Vorhandener ESP-Einhängepunkt: %3\n"
+"Ziel-Einhängepunkt: %4\n"
+"Bootloader-ID: %5\n"
+"Firmware-Eintrag registrieren: %6\n"
+"Ausweich-Loader: %7\n"
+"Architektur: %8"
+
+#: src/bootrepairpage.cpp:825
+msgid "Repair the GRUB2 UEFI boot configuration"
+msgstr "Die GRUB2-UEFI-Startkonfiguration reparieren"
+
+#: src/bootrepairpage.cpp:843
+msgid ""
+"Restore configuration originals from backup %1 (%2) to %3?\n"
+"\n"
+"Only whitelisted configuration originals are restored. NVRAM, generated grub."
+"cfg and EFI binaries are not restored."
+msgstr ""
+"Originalkonfigurationen aus der Sicherung %1 (%2) in %3 wiederherstellen?\n"
+"\n"
+"Es werden nur Originalkonfigurationen aus der Positivliste "
+"wiederhergestellt. NVRAM, die generierte Datei grub.cfg und EFI-Binärdateien "
+"werden nicht wiederhergestellt."
+
+#: src/bootrepairpage.cpp:846
+msgid "Restore configuration originals from a backup"
+msgstr "Originalkonfigurationen aus einer Sicherung wiederherstellen"
+
+#: src/bootservice.cpp:96
+msgid "Scanning boot configuration"
+msgstr "Startkonfiguration wird analysiert"
+
+#: src/bootservice.cpp:161
+msgid "The requested boot operation is not supported."
+msgstr "Der angeforderte Startvorgang wird nicht unterstützt."
+
+#: src/bootservice.cpp:163
+msgid "Another boot scan or operation is already in progress."
+msgstr ""
+"Eine andere Analyse der Startkonfiguration oder ein anderer Startvorgang "
+"läuft bereits."
+
+#: src/bootservice.cpp:169
+msgid "The privileged boot helper was not found or is not executable: %1"
+msgstr ""
+"Das privilegierte Hilfsprogramm für Startvorgänge wurde nicht gefunden oder "
+"ist nicht ausführbar: %1"
+
+#: src/bootservice.cpp:174
+msgid "pkexec is required for privileged boot operations."
+msgstr "Für privilegierte Startvorgänge ist pkexec erforderlich."
+
+#: src/bootservice.cpp:178
+msgid "Privileged boot operation"
+msgstr "Privilegierter Startvorgang"
+
+#: src/bootservice.cpp:192
+msgid "Could not send the operation request to the privileged helper."
+msgstr ""
+"Die Vorgangsanforderung konnte nicht an das privilegierte Hilfsprogramm "
+"gesendet werden."
+
+#: src/bootservice.cpp:219
+msgid "Could not start administrator authorization or the boot helper: %1"
+msgstr ""
+"Die Administrator-Autorisierung oder das Hilfsprogramm für Startvorgänge "
+"konnte nicht gestartet werden: %1"
+
+#: src/bootservice.cpp:232
+msgid "%1 completed successfully."
+msgstr "%1 wurde erfolgreich abgeschlossen."
+
+#: src/bootservice.cpp:236
+msgid "%1 stopped abnormally."
+msgstr "%1 wurde unerwartet beendet."
+
+#: src/bootservice.cpp:238
+msgid "%1 failed with exit status %2."
+msgstr "%1 ist mit Rückgabestatus %2 fehlgeschlagen."
+
+#: src/collect_logs.cpp:54
+msgid "Command timed out: %1"
+msgstr "Zeitüberschreitung beim Befehl: %1"
+
+#: src/collect_logs.cpp:58
+msgid "Completed: %1 -> %2"
+msgstr "Abgeschlossen: %1 -> %2"
+
+#: src/collect_logs.cpp:61
+msgid "Failed: %1 (exit status %2)"
+msgstr "Fehlgeschlagen: %1 (Rückgabestatus %2)"
+
+#: src/collect_logs.cpp:178
+msgid "Failed to create a temporary directory."
+msgstr "Ein temporäres Verzeichnis konnte nicht erstellt werden."
+
+#: src/collect_logs.cpp:189
+msgid "Creating temporary workspace: %1"
+msgstr "Temporärer Arbeitsbereich wird erstellt: %1"
+
+#: src/collect_logs.cpp:190
+msgid "none"
+msgstr "keiner"
+
+#: src/collect_logs.cpp:190
+msgid "Target user: %1"
+msgstr "Zielbenutzer: %1"
+
+#: src/collect_logs.cpp:241 src/collect_logs.cpp:248 src/collect_logs.cpp:257
+#: src/collect_logs.cpp:265
+msgid "Copied %1"
+msgstr "%1 kopiert"
+
+#: src/collect_logs.cpp:243 src/collect_logs.cpp:259
+msgid "Failed to copy %1"
+msgstr "%1 konnte nicht kopiert werden"
+
+#: src/collect_logs.cpp:254
+msgid "Live CD environment detected; collecting Anaconda logs…"
+msgstr "Live-CD-Umgebung erkannt; Anaconda-Protokolle werden gesammelt…"
+
+#: src/collect_logs.cpp:269
+msgid "Not a Live CD environment; skipping Anaconda logs."
+msgstr "Keine Live-CD-Umgebung; Anaconda-Protokolle werden übersprungen."
+
+#: src/collect_logs.cpp:318
+msgid "zstd was not found; created gzip archive: %1"
+msgstr ""
+"zstd wurde nicht gefunden; stattdessen wurde ein gzip-Archiv erstellt: %1"
+
+#: src/collect_logs.cpp:321
+msgid "Could not create the gzip archive."
+msgstr "Das gzip-Archiv konnte nicht erstellt werden."
+
+#: src/collect_logs.cpp:338
+msgid "Archive created: %1"
+msgstr "Archiv erstellt: %1"
+
+#: src/collect_logs.cpp:341
+msgid ""
+"Could not create the zstd archive (tar exit status %1, zstd exit status %2)."
+msgstr ""
+"Das zstd-Archiv konnte nicht erstellt werden (Rückgabestatus von tar: %1, "
+"Rückgabestatus von zstd: %2)."
+
+#: src/collect_logs.cpp:353
+msgid "Could not change archive ownership: %1"
+msgstr "Der Eigentümer des Archivs konnte nicht geändert werden: %1"
+
+#: src/collect_logs.cpp:363
+msgid "Log collection finished."
+msgstr "Protokollsammlung abgeschlossen."
+
+#: src/grubconfighelper.cpp:74
 msgid "The input file was not generated by Miryu GRUB2 Boot Config."
 msgstr "Die Eingabedatei wurde nicht von Miryu GRUB2 Boot Config generiert."
 
-#: src/grubconfighelper.cpp:102
+#: src/grubconfighelper.cpp:106
 msgid "GRUB_TIMEOUT must be between -1 and 3600."
 msgstr "GRUB_TIMEOUT muss zwischen -1 und 3600 liegen."
 
-#: src/grubconfighelper.cpp:131
+#: src/grubconfighelper.cpp:135
 msgid "Unsupported or unsafe configuration line: %1"
 msgstr "Nicht unterstützte oder unsichere Konfigurationszeile: %1"
 
-#: src/grubconfighelper.cpp:136
+#: src/grubconfighelper.cpp:140
 msgid "The configuration is incomplete."
 msgstr "Die Konfiguration ist unvollständig."
 
-#: src/grubconfighelper.cpp:212
+#: src/grubconfighelper.cpp:216
 msgid "Could not open %1 for writing."
 msgstr "%1 konnte nicht zum Schreiben geöffnet werden."
 
-#: src/grubconfighelper.cpp:218
+#: src/grubconfighelper.cpp:222
 msgid "Could not atomically replace %1."
 msgstr "%1 konnte nicht atomar ersetzt werden."
 
-#: src/grubconfighelper.cpp:236
+#: src/grubconfighelper.cpp:240
 msgid "Warning: could not remove the old drop-in file %1."
 msgstr "Warnung: Die alte Drop-in-Datei %1 konnte nicht entfernt werden."
 
-#: src/grubconfighelper.cpp:282
+#: src/grubconfighelper.cpp:286
 msgid "Could not apply new kernel parameters to BLS entries."
 msgstr ""
 "Neue Kernel-Parameter konnten nicht auf BLS-Einträge angewendet werden."
 
-#: src/grubconfighelper.cpp:293
+#: src/grubconfighelper.cpp:297
 msgid "Could not remove old kernel parameters from BLS entries."
-msgstr ""
-"Alte Kernel-Parameter konnten nicht aus BLS-Einträgen entfernt werden."
+msgstr "Alte Kernel-Parameter konnten nicht aus BLS-Einträgen entfernt werden."
 
-#: src/grubconfighelper.cpp:329
+#: src/grubconfighelper.cpp:333
 msgid "grub2-mkconfig timed out."
 msgstr "Zeitüberschreitung bei grub2-mkconfig."
 
-#: src/grubconfighelper.cpp:339
+#: src/grubconfighelper.cpp:343
 msgid "grub2-mkconfig failed."
 msgstr "grub2-mkconfig fehlgeschlagen."
 
 # Helper messages
-#: src/grubconfighelper.cpp:357
+#: src/grubconfighelper.cpp:368
 msgid ""
-"Usage: miryu-toolkit-grub-config-helper --apply <generated-config-file>"
+"Usage: miryu-toolkit-grub-config-helper --apply <generated-config-file> [--"
+"lang <locale>]"
 msgstr ""
-"Verwendung: miryu-toolkit-grub-config-helper --apply <generierte-"
-"Konfigurationsdatei>"
+"Aufruf: miryu-toolkit-grub-config-helper --apply <generierte-"
+"konfigurationsdatei> [--lang <gebietsschema>]"
 
-#: src/grubconfighelper.cpp:362
+#: src/grubconfighelper.cpp:373
 msgid "This helper must run as root through polkit."
 msgstr "Dieses Hilfsprogramm muss als Root über polkit ausgeführt werden."
 
-#: src/grubconfighelper.cpp:368
+#: src/grubconfighelper.cpp:379
 msgid "Reading configuration file..."
 msgstr "Konfigurationsdatei wird gelesen..."
 
-#: src/grubconfighelper.cpp:373
+#: src/grubconfighelper.cpp:384
 msgid "Could not read the generated configuration file."
 msgstr "Die generierte Konfigurationsdatei konnte nicht gelesen werden."
 
-#: src/grubconfighelper.cpp:377
+#: src/grubconfighelper.cpp:388
 msgid "Parsing configuration..."
-msgstr "Konfiguration wird geparst..."
+msgstr "Konfiguration wird ausgewertet..."
 
-#: src/grubconfighelper.cpp:386
+#: src/grubconfighelper.cpp:397
 msgid "Reading existing %1..."
-msgstr "Vorhandene %1 wird gelesen..."
+msgstr "Vorhandene Datei %1 wird gelesen..."
 
-#: src/grubconfighelper.cpp:400
+#: src/grubconfighelper.cpp:411
 msgid "Writing %1..."
 msgstr "%1 wird geschrieben..."
 
-#: src/grubconfighelper.cpp:413
+#: src/grubconfighelper.cpp:426
+msgid ""
+"Could not identify the current root device; GRUB settings were not changed."
+msgstr ""
+"Das aktuelle Root-Gerät konnte nicht ermittelt werden; die GRUB-"
+"Einstellungen wurden nicht geändert."
+
+#: src/grubconfighelper.cpp:434
+msgid "Could not create the pre-change configuration backup: %1"
+msgstr ""
+"Die Konfigurationssicherung vor der Änderung konnte nicht erstellt werden: %1"
+
+#: src/grubconfighelper.cpp:437
+msgid "Configuration backup: %1"
+msgstr "Konfigurationssicherung: %1"
+
+#: src/grubconfighelper.cpp:445
+msgid "Warning: could not finish the configuration backup: %1"
+msgstr ""
+"Warnung: Die Konfigurationssicherung konnte nicht abgeschlossen werden: %1"
+
+#: src/grubconfighelper.cpp:458
 msgid "Updating BLS entries..."
 msgstr "BLS-Einträge werden aktualisiert..."
 
-#: src/grubconfighelper.cpp:422
+#: src/grubconfighelper.cpp:467
 msgid "Regenerating GRUB configuration..."
 msgstr "GRUB-Konfiguration wird neu erstellt..."
 
-#: src/grubconfighelper.cpp:430
+#: src/grubconfighelper.cpp:479
+msgid "Could not finish the configuration backup: %1"
+msgstr "Die Konfigurationssicherung konnte nicht abgeschlossen werden: %1"
+
+#: src/grubconfighelper.cpp:487
 msgid "GRUB2 configuration updated."
 msgstr "GRUB2-Konfiguration aktualisiert."
 
-#: src/main.cpp:14 src/mainwindow.cpp:70 src/mainwindow.cpp:108
-#: src/mainwindow.cpp:1519 kcm/kcm_miryu_toolkit.cpp:41
+#: src/main.cpp:14 src/mainwindow.cpp:77 src/mainwindow.cpp:126
+#: src/mainwindow.cpp:1543 kcm/kcm_miryu_toolkit.cpp:41
 msgid "Miryu Toolkit"
-msgstr "Miryu Werkzeugkasten"
+msgstr "Miryu Toolkit"
 
 #: src/main.cpp:16
 msgid "Miryu system utility toolkit"
-msgstr "Miryu Systemwerkzeugkasten"
+msgstr "Miryu-Systemwerkzeuge"
 
 #: src/main.cpp:18
 msgid "(c) 2026 Miryu"
 msgstr "(c) 2026 Miryu"
 
-#: src/mainwindow.cpp:77
+#: src/mainwindow.cpp:84
 msgid ""
 "Manage Miryu components, maintenance tasks, system-wide environment "
 "variables and sleep settings in one place."
@@ -123,199 +1740,199 @@ msgstr ""
 "Verwalten Sie Miryu-Komponenten, Wartungsaufgaben, systemweite "
 "Umgebungsvariablen und Energieverwaltungseinstellungen an einem Ort."
 
-#: src/mainwindow.cpp:91 src/mainwindow.cpp:187
+#: src/mainwindow.cpp:98 src/mainwindow.cpp:208
 msgid "Miryu System Assistant"
-msgstr "Miryu System-Assistent"
+msgstr "Miryu-Systemassistent"
 
-#: src/mainwindow.cpp:92 src/mainwindow.cpp:1757
+#: src/mainwindow.cpp:99 src/mainwindow.cpp:1781
 msgid "Boot Menu"
 msgstr "Startmenü"
 
-#: src/mainwindow.cpp:93
+#: src/mainwindow.cpp:102
+msgid "UEFI Entries && Secure Boot"
+msgstr "UEFI-Einträge && Secure Boot"
+
+#: src/mainwindow.cpp:111
 msgid "System-wide environment variables"
 msgstr "Systemweite Umgebungsvariablen"
 
-#: src/mainwindow.cpp:94
+#: src/mainwindow.cpp:112
 msgid "Sleep"
 msgstr "Energieverwaltung"
 
-#: src/mainwindow.cpp:95
+#: src/mainwindow.cpp:113
 msgid "Install additional components"
 msgstr "Zusätzliche Komponenten installieren"
 
-#: src/mainwindow.cpp:96
+#: src/mainwindow.cpp:114
 msgid "About"
 msgstr "Über"
 
-#: src/mainwindow.cpp:100
+#: src/mainwindow.cpp:118
 msgid "Ready"
 msgstr "Bereit"
 
-#: src/mainwindow.cpp:121
+#: src/mainwindow.cpp:142
 msgid "Install Fedora official kernel"
 msgstr "Offiziellen Fedora-Kernel installieren"
 
-#: src/mainwindow.cpp:122
+#: src/mainwindow.cpp:143
 msgid ""
 "If some games' anti-cheat systems use Epic EAC Linux v2 and cannot start, "
 "you can install the Fedora official kernel to solve the problem."
 msgstr ""
 "Wenn die Anti-Cheat-Systeme einiger Spiele Epic EAC Linux v2 verwenden und "
-"nicht starten können, können Sie den offiziellen Fedora-Kernel installieren,"
-" um das Problem zu beheben."
+"nicht starten können, können Sie den offiziellen Fedora-Kernel installieren, "
+"um das Problem zu beheben."
 
-#: src/mainwindow.cpp:135
+#: src/mainwindow.cpp:156
 msgid "Install Wine"
 msgstr "Wine installieren"
 
-#: src/mainwindow.cpp:136
+#: src/mainwindow.cpp:157
 msgid ""
-"Install Wine, DXVK, Winetricks and WineASIO for running Windows programs and"
-" some audio workflows."
+"Install Wine, DXVK, Winetricks and WineASIO for running Windows programs and "
+"some audio workflows."
 msgstr ""
-"Wine, DXVK, Winetricks und WineASIO zum Ausführen von Windows-Programmen und"
-" einigen Audio-Arbeitsabläufen installieren."
+"Wine, DXVK, Winetricks und WineASIO zum Ausführen von Windows-Programmen und "
+"einigen Audio-Arbeitsabläufen installieren."
 
-#: src/mainwindow.cpp:149
+#: src/mainwindow.cpp:170
 msgid "Install Steam"
 msgstr "Steam installieren"
 
-#: src/mainwindow.cpp:150
+#: src/mainwindow.cpp:171
 msgid ""
 "Install the Steam client. Steam will download update files on first launch."
 msgstr ""
 "Den Steam-Client installieren. Steam lädt beim ersten Start "
 "Aktualisierungsdateien herunter."
 
-#: src/mainwindow.cpp:157
+#: src/mainwindow.cpp:178
 msgid "Install MIDI playback support"
 msgstr "MIDI-Wiedergabeunterstützung installieren"
 
-#: src/mainwindow.cpp:158
+#: src/mainwindow.cpp:179
 msgid ""
-"Install the FluidSynth GStreamer plugin to enable MIDI file playback "
-"support."
+"Install the FluidSynth GStreamer plugin to enable MIDI file playback support."
 msgstr ""
 "Das FluidSynth-GStreamer-Plugin installieren, um die Wiedergabe von MIDI-"
 "Dateien zu ermöglichen."
 
-#: src/mainwindow.cpp:165
+#: src/mainwindow.cpp:186
 msgid "Install additional fonts"
 msgstr "Zusätzliche Schriften installieren"
 
-#: src/mainwindow.cpp:166
+#: src/mainwindow.cpp:187
 msgid ""
 "Install Noto Sans, Noto Serif, monospace and CJK supplemental fonts to "
 "improve multilingual display."
 msgstr ""
-"Noto Sans, Noto Serif, Monospace- und CJK-Zusatzschriften installieren, um "
-"die mehrsprachige Darstellung zu verbessern."
+"Noto Sans, Noto Serif, nichtproportionale Schriften und CJK-Zusatzschriften "
+"installieren, um die mehrsprachige Darstellung zu verbessern."
 
-#: src/mainwindow.cpp:191 src/mainwindow.cpp:2466
+#: src/mainwindow.cpp:212 src/mainwindow.cpp:2492
 msgid "Clean up previous kernel"
-msgstr "Vorherige Kernel-Version bereinigen"
+msgstr "Vorherige Kernel-Versionen entfernen"
 
-#: src/mainwindow.cpp:196 src/mainwindow.cpp:2846
+#: src/mainwindow.cpp:217 src/mainwindow.cpp:2873
 msgid "Update system"
 msgstr "System aktualisieren"
 
-#: src/mainwindow.cpp:201
+#: src/mainwindow.cpp:222
 msgid "List failed systemd service units"
-msgstr "Fehlgeschlagene systemd-Service-Units auflisten"
+msgstr "Fehlgeschlagene systemd-Dienste auflisten"
 
-#: src/mainwindow.cpp:206 src/mainwindow.cpp:3133
+#: src/mainwindow.cpp:227 src/mainwindow.cpp:3160
 msgid "Unlock RPM database"
 msgstr "RPM-Datenbank entsperren"
 
-#: src/mainwindow.cpp:211
+#: src/mainwindow.cpp:232
 msgid "View dnf5 log"
 msgstr "dnf5-Protokoll anzeigen"
 
-#: src/mainwindow.cpp:216
+#: src/mainwindow.cpp:237
 msgid "Clean unused packages (dnf5 autoremove)"
 msgstr "Nicht verwendete Pakete bereinigen (dnf5 autoremove)"
 
-#: src/mainwindow.cpp:221
+#: src/mainwindow.cpp:242
 msgid "View software crash information"
 msgstr "Software-Absturzinformationen anzeigen"
 
-#: src/mainwindow.cpp:226
+#: src/mainwindow.cpp:247
 msgid "Collect system logs"
 msgstr "Systemprotokolle sammeln"
 
-#: src/mainwindow.cpp:244
+#: src/mainwindow.cpp:265
 msgid "Additional components"
 msgstr "Zusätzliche Komponenten"
 
-#: src/mainwindow.cpp:252
+#: src/mainwindow.cpp:273
 msgid "Refresh status"
 msgstr "Status aktualisieren"
 
-#: src/mainwindow.cpp:277
+#: src/mainwindow.cpp:298
 msgid "Status: checking"
 msgstr "Status: wird geprüft"
 
-#: src/mainwindow.cpp:287
+#: src/mainwindow.cpp:308
 msgid "Packages: %1"
 msgstr "Pakete: %1"
 
-#: src/mainwindow.cpp:294 src/mainwindow.cpp:1621
+#: src/mainwindow.cpp:315 src/mainwindow.cpp:1645
 msgid "Install"
 msgstr "Installieren"
 
-#: src/mainwindow.cpp:295 src/mainwindow.cpp:1621
+#: src/mainwindow.cpp:316 src/mainwindow.cpp:1645
 msgid "Uninstall"
 msgstr "Deinstallieren"
 
-#: src/mainwindow.cpp:320
+#: src/mainwindow.cpp:341
 msgid "Environment variables"
 msgstr "Umgebungsvariablen"
 
-#: src/mainwindow.cpp:323
+#: src/mainwindow.cpp:344
 msgid ""
 "Set system-wide environment variables using the NAME=VALUE format. Changes "
 "are written to /etc/environment and take effect after logging in again."
 msgstr ""
 "Systemweite Umgebungsvariablen im Format NAME=WERT festlegen. Änderungen "
-"werden nach /etc/environment geschrieben und nach erneuter Anmeldung "
-"wirksam."
+"werden in /etc/environment geschrieben und nach erneuter Anmeldung wirksam."
 
-#: src/mainwindow.cpp:333 src/mainwindow.cpp:1818
+#: src/mainwindow.cpp:354 src/mainwindow.cpp:1842
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: src/mainwindow.cpp:335
+#: src/mainwindow.cpp:356
 msgid "Reload"
 msgstr "Neu laden"
 
-#: src/mainwindow.cpp:336 src/mainwindow.cpp:2363 src/mainwindow.cpp:2364
+#: src/mainwindow.cpp:357 src/mainwindow.cpp:2389 src/mainwindow.cpp:2390
 msgid "Restore defaults"
 msgstr "Standardwerte wiederherstellen"
 
-#: src/mainwindow.cpp:337
+#: src/mainwindow.cpp:358
 msgid "Apply"
 msgstr "Anwenden"
 
-#: src/mainwindow.cpp:347
+#: src/mainwindow.cpp:368
 msgid "Log out and log back in for changes to take effect."
-msgstr ""
-"Melden Sie sich ab und wieder an, damit die Änderungen wirksam werden."
+msgstr "Melden Sie sich ab und wieder an, damit die Änderungen wirksam werden."
 
-#: src/mainwindow.cpp:431
+#: src/mainwindow.cpp:452
 msgid "Allowed sleep modes"
-msgstr "Erlaubte Energieverwaltungszustände"
+msgstr "Zulässige Energiesparmodi"
 
-#: src/mainwindow.cpp:435
+#: src/mainwindow.cpp:456
 msgid "Choose the sleep modes you want to allow."
-msgstr ""
-"Wählen Sie die Energieverwaltungszustände aus, die Sie erlauben möchten."
+msgstr "Wählen Sie die Energiesparmodi aus, die Sie zulassen möchten."
 
-#: src/mainwindow.cpp:460 src/mainwindow.cpp:850 src/mainwindow.cpp:860
-#: src/mainwindow.cpp:863 src/mainwindow.cpp:1346
+#: src/mainwindow.cpp:484 src/mainwindow.cpp:874 src/mainwindow.cpp:884
+#: src/mainwindow.cpp:887 src/mainwindow.cpp:1345 src/mainwindow.cpp:1370
 msgid "Suspend"
 msgstr "Bereitschaft"
 
-#: src/mainwindow.cpp:461
+#: src/mainwindow.cpp:485
 msgid ""
 "Keeps the session in memory (RAM). The computer is still running but uses "
 "only a bit of power."
@@ -323,21 +1940,21 @@ msgstr ""
 "Hält die Sitzung im Arbeitsspeicher (RAM). Der Computer läuft weiter, "
 "verbraucht aber nur wenig Strom."
 
-#: src/mainwindow.cpp:464 src/mainwindow.cpp:1349
+#: src/mainwindow.cpp:488 src/mainwindow.cpp:1346 src/mainwindow.cpp:1373
 msgid "Hibernate"
 msgstr "Ruhezustand"
 
-#: src/mainwindow.cpp:465
+#: src/mainwindow.cpp:489
 msgid "Saves the session to disk (Swap). Shuts down the computer."
 msgstr ""
 "Speichert die Sitzung auf der Festplatte (Swap). Der Computer wird "
 "heruntergefahren."
 
-#: src/mainwindow.cpp:468
+#: src/mainwindow.cpp:492 src/mainwindow.cpp:1347
 msgid "Suspend then hibernate"
 msgstr "Bereitschaft, dann Ruhezustand"
 
-#: src/mainwindow.cpp:469
+#: src/mainwindow.cpp:493
 msgid ""
 "Suspends for a while (systemd decides how long, based on battery power), "
 "then hibernates."
@@ -345,212 +1962,210 @@ msgstr ""
 "Wechselt für eine Weile in den Bereitschaftsmodus (systemd entscheidet "
 "anhand der Batterieladung, wie lange), geht dann in den Ruhezustand."
 
-#: src/mainwindow.cpp:472
+#: src/mainwindow.cpp:496 src/mainwindow.cpp:1348
 msgid "Hybrid sleep"
-msgstr "Hybrider Standbymodus"
+msgstr "Hybrider Bereitschaftsmodus"
 
-#: src/mainwindow.cpp:473
+#: src/mainwindow.cpp:497
 msgid "Suspends but also saves the session to disk (Swap)."
 msgstr ""
 "Wechselt in den Bereitschaftsmodus, speichert die Sitzung aber auch auf der "
 "Festplatte (Swap)."
 
-#: src/mainwindow.cpp:479
+#: src/mainwindow.cpp:503
 msgid "Suspend method"
 msgstr "Bereitschaftsmethode"
 
-#: src/mainwindow.cpp:482
+#: src/mainwindow.cpp:506
 msgid ""
-"This is the method used to suspend the computer. Only the methods offered by"
-" your BIOS/firmware can be chosen."
+"This is the method used to suspend the computer. Only the methods offered by "
+"your BIOS/firmware can be chosen."
 msgstr ""
 "Dies ist die Methode, mit der der Computer in den Bereitschaftsmodus "
 "versetzt wird. Es können nur die von Ihrem BIOS/Ihrer Firmware angebotenen "
 "Methoden gewählt werden."
 
-#: src/mainwindow.cpp:496
+#: src/mainwindow.cpp:520
 msgid "Hibernation method"
 msgstr "Ruhezustandsmethode"
 
-#: src/mainwindow.cpp:499
+#: src/mainwindow.cpp:523
 msgid "This is the method used to power off the computer during hibernation."
 msgstr ""
 "Dies ist die Methode, mit der der Computer während des Ruhezustands "
 "ausgeschaltet wird."
 
-#: src/mainwindow.cpp:513
+#: src/mainwindow.cpp:537
 msgid "Hibernation image compressor"
-msgstr "Bildkomprimierung für den Ruhezustand"
+msgstr "Kompressor für das Ruhezustandsabbild"
 
-#: src/mainwindow.cpp:516
+#: src/mainwindow.cpp:540
 msgid ""
 "The algorithm used to compress the hibernation image. The kernel must have "
 "the corresponding compression support built in; algorithms that are not "
 "available are greyed out."
 msgstr ""
-"Der Algorithmus, der zum Komprimieren des Ruhezustandsbilds verwendet wird. "
-"Der Kernel muss die entsprechende Komprimierungsunterstützung eingebaut "
-"haben; nicht verfügbare Algorithmen sind ausgegraut."
+"Der Algorithmus, der zum Komprimieren des Ruhezustandsabbilds verwendet "
+"wird. Der Kernel muss die entsprechende Komprimierung unterstützen; nicht "
+"verfügbare Algorithmen sind ausgegraut."
 
-#: src/mainwindow.cpp:530
+#: src/mainwindow.cpp:554
 msgid "Detected problems"
 msgstr "Erkannte Probleme"
 
-#: src/mainwindow.cpp:532
+#: src/mainwindow.cpp:556
 msgid "Fix the detected problems to make your allowed sleep modes available."
 msgstr ""
-"Beheben Sie die erkannten Probleme, damit Ihre erlaubten "
-"Energieverwaltungszustände verfügbar sind."
+"Beheben Sie die erkannten Probleme, damit die zugelassenen Energiesparmodi "
+"verfügbar sind."
 
-#: src/mainwindow.cpp:542 src/mainwindow.cpp:1461 src/mainwindow.cpp:1482
+#: src/mainwindow.cpp:566 src/mainwindow.cpp:1485 src/mainwindow.cpp:1506
 msgid "Fix detected problems"
 msgstr "Erkannte Probleme beheben"
 
-#: src/mainwindow.cpp:551
+#: src/mainwindow.cpp:575
 msgid "Available sleep modes"
-msgstr "Verfügbare Energieverwaltungszustände"
+msgstr "Verfügbare Energiesparmodi"
 
-#: src/mainwindow.cpp:553
+#: src/mainwindow.cpp:577
 msgid "These are the sleep modes systemd reports as available right now."
 msgstr ""
-"Dies sind die Energieverwaltungszustände, die systemd derzeit als verfügbar "
-"meldet."
+"Dies sind die Energiesparmodi, die systemd derzeit als verfügbar meldet."
 
-#: src/mainwindow.cpp:566 src/mainwindow.cpp:1857
+#: src/mainwindow.cpp:590 src/mainwindow.cpp:1881
 msgid "Saving requires administrator authentication through polkit."
 msgstr ""
 "Zum Speichern ist eine Administrator-Authentifizierung über polkit "
 "erforderlich."
 
-#: src/mainwindow.cpp:568
+#: src/mainwindow.cpp:592
 msgid "Apply sleep settings"
 msgstr "Energieverwaltungseinstellungen anwenden"
 
-#: src/mainwindow.cpp:617 src/mainwindow.cpp:653
+#: src/mainwindow.cpp:641 src/mainwindow.cpp:677
 msgid "Default"
 msgstr "Standard"
 
-#: src/mainwindow.cpp:628 src/mainwindow.cpp:854
+#: src/mainwindow.cpp:652 src/mainwindow.cpp:878
 msgid "Suspend-to-idle (s2idle)"
-msgstr "Bereitschaft bis Leerlauf (s2idle)"
+msgstr "Bereitschaft im Leerlauf (s2idle)"
 
-#: src/mainwindow.cpp:630 src/mainwindow.cpp:856
+#: src/mainwindow.cpp:654 src/mainwindow.cpp:880
 msgid "Suspend-to-RAM (S3)"
-msgstr "Bereitschaft bis RAM (S3)"
+msgstr "Bereitschaft im Arbeitsspeicher (S3)"
 
-#: src/mainwindow.cpp:632 src/mainwindow.cpp:858
+#: src/mainwindow.cpp:656 src/mainwindow.cpp:882
 msgid "Shallow (S1)"
-msgstr "Oberflächlich (S1)"
+msgstr "Flacher Bereitschaftsmodus (S1)"
 
-#: src/mainwindow.cpp:641 src/mainwindow.cpp:675
+#: src/mainwindow.cpp:665 src/mainwindow.cpp:699
 msgid "Default — %1"
 msgstr "Standard — %1"
 
-#: src/mainwindow.cpp:664
+#: src/mainwindow.cpp:688
 msgid "Platform (the firmware powers off)"
 msgstr "Plattform (die Firmware schaltet aus)"
 
-#: src/mainwindow.cpp:666
+#: src/mainwindow.cpp:690
 msgid "Shutdown (the kernel powers off)"
 msgstr "Herunterfahren (der Kernel schaltet aus)"
 
-#: src/mainwindow.cpp:714
+#: src/mainwindow.cpp:738
 msgid "Default — LZ4"
 msgstr "Standard — LZ4"
 
-#: src/mainwindow.cpp:716
+#: src/mainwindow.cpp:740
 msgid "Default — LZO"
 msgstr "Standard — LZO"
 
-#: src/mainwindow.cpp:718
+#: src/mainwindow.cpp:742
 msgid "Default — none available"
-msgstr "Standard — nicht verfügbar"
+msgstr "Standard — kein Kompressor verfügbar"
 
-#: src/mainwindow.cpp:850
+#: src/mainwindow.cpp:874
 msgid "The kernel supports suspend."
 msgstr "Der Kernel unterstützt den Bereitschaftsmodus."
 
-#: src/mainwindow.cpp:860
+#: src/mainwindow.cpp:884
 msgid "The kernel supports suspend. Method in use: %1."
-msgstr ""
-"Der Kernel unterstützt den Bereitschaftsmodus. Verwendete Methode: %1."
+msgstr "Der Kernel unterstützt den Bereitschaftsmodus. Verwendete Methode: %1."
 
-#: src/mainwindow.cpp:863
+#: src/mainwindow.cpp:887
 msgid "The kernel does not support suspend."
 msgstr "Der Kernel unterstützt den Bereitschaftsmodus nicht."
 
-#: src/mainwindow.cpp:872 src/mainwindow.cpp:874
+#: src/mainwindow.cpp:896 src/mainwindow.cpp:898
 msgid "Kernel support"
 msgstr "Kernel-Unterstützung"
 
-#: src/mainwindow.cpp:872
+#: src/mainwindow.cpp:896
 msgid "The kernel supports hibernation."
 msgstr "Der Kernel unterstützt den Ruhezustand."
 
-#: src/mainwindow.cpp:874
+#: src/mainwindow.cpp:898
 msgid "The kernel does not support hibernation."
 msgstr "Der Kernel unterstützt den Ruhezustand nicht."
 
-#: src/mainwindow.cpp:904 src/mainwindow.cpp:906 src/mainwindow.cpp:908
+#: src/mainwindow.cpp:928 src/mainwindow.cpp:930 src/mainwindow.cpp:932
 msgid "Secure Boot"
 msgstr "Secure Boot"
 
-#: src/mainwindow.cpp:904
+#: src/mainwindow.cpp:928
 msgid "Secure Boot is enabled and the kernel lockdown prevents hibernation."
 msgstr ""
-"Secure Boot ist aktiviert und der Kernel-Lockdown verhindert den "
+"Secure Boot ist aktiviert und der Kernel-Sperrmodus verhindert den "
 "Ruhezustand."
 
-#: src/mainwindow.cpp:906
+#: src/mainwindow.cpp:930
 msgid "Secure Boot is enabled but the kernel lockdown is not active."
-msgstr "Secure Boot ist aktiviert, aber der Kernel-Lockdown ist nicht aktiv."
+msgstr "Secure Boot ist aktiviert, aber der Kernel-Sperrmodus ist nicht aktiv."
 
-#: src/mainwindow.cpp:908
+#: src/mainwindow.cpp:932
 msgid "Secure Boot is disabled."
 msgstr "Secure Boot ist deaktiviert."
 
-#: src/mainwindow.cpp:986
+#: src/mainwindow.cpp:1010
 msgid "Swap"
 msgstr "Swap"
 
-#: src/mainwindow.cpp:986
+#: src/mainwindow.cpp:1010
 msgid "No swap partition or swap file is in use."
 msgstr "Es wird keine Swap-Partition oder Swap-Datei verwendet."
 
-#: src/mainwindow.cpp:990
+#: src/mainwindow.cpp:1014
 msgid "Swap area in %1"
 msgstr "Swap-Bereich in %1"
 
-#: src/mainwindow.cpp:994
+#: src/mainwindow.cpp:1018
 msgid "The swap area (%1) is smaller than the memory (%2)."
 msgstr "Der Swap-Bereich (%1) ist kleiner als der Arbeitsspeicher (%2)."
 
-#: src/mainwindow.cpp:997
+#: src/mainwindow.cpp:1021
 msgid "The swap area (%1) is at least as large as the memory (%2)."
 msgstr ""
 "Der Swap-Bereich (%1) ist mindestens so groß wie der Arbeitsspeicher (%2)."
 
-#: src/mainwindow.cpp:1027 src/mainwindow.cpp:1032
+#: src/mainwindow.cpp:1051 src/mainwindow.cpp:1056
 msgid "Swap priority"
 msgstr "Swap-Priorität"
 
-#: src/mainwindow.cpp:1028
+#: src/mainwindow.cpp:1052
 msgid ""
 "A zram device (priority %1) outranks the swap file (priority %2); "
 "hibernation may fail with \"device or resource busy\"."
 msgstr ""
-"Ein zram-Gerät (Priorität %1) hat Vorrang vor der Swap-Datei (Priorität %2);"
-" Ruhezustand kann mit „Gerät oder Ressource belegt“ fehlschlagen."
+"Ein zram-Gerät (Priorität %1) hat Vorrang vor der Swap-Datei (Priorität %2); "
+"der Ruhezustand kann mit „Gerät oder Ressource belegt“ fehlschlagen."
 
-#: src/mainwindow.cpp:1033
+#: src/mainwindow.cpp:1057
 msgid "The swap file has the highest swap priority (%1)."
 msgstr "Die Swap-Datei hat die höchste Swap-Priorität (%1)."
 
-#: src/mainwindow.cpp:1071 src/mainwindow.cpp:1080 src/mainwindow.cpp:1083
+#: src/mainwindow.cpp:1095 src/mainwindow.cpp:1104 src/mainwindow.cpp:1107
 msgid "Hibernation compression"
-msgstr "Ruhezustand-Kompression"
+msgstr "Ruhezustandskompression"
 
-#: src/mainwindow.cpp:1072
+#: src/mainwindow.cpp:1096
 msgid ""
 "Neither the lzo nor the lz4 hibernation compressor is available in the "
 "kernel; hibernation fails with \"Operation not supported\"."
@@ -558,11 +2173,11 @@ msgstr ""
 "Weder der lzo- noch der lz4-Ruhezustandskompressor ist im Kernel verfügbar; "
 "der Ruhezustand schlägt mit \"Vorgang nicht unterstützt\" fehl."
 
-#: src/mainwindow.cpp:1081
+#: src/mainwindow.cpp:1105
 msgid "The hibernation compressor %1 is available."
-msgstr "Der Ruhezustand-Kompressor %1 ist verfügbar."
+msgstr "Der Ruhezustandskompressor %1 ist verfügbar."
 
-#: src/mainwindow.cpp:1084
+#: src/mainwindow.cpp:1108
 msgid ""
 "The configured compressor %1 is not available; select %2 in the compressor "
 "list above."
@@ -570,43 +2185,43 @@ msgstr ""
 "Der konfigurierte Kompressor %1 ist nicht verfügbar; wählen Sie %2 in der "
 "Kompressorliste oben aus."
 
-#: src/mainwindow.cpp:1103 src/mainwindow.cpp:1108
+#: src/mainwindow.cpp:1127 src/mainwindow.cpp:1132
 msgid "Hyper-V devices"
 msgstr "Hyper-V-Geräte"
 
-#: src/mainwindow.cpp:1104
+#: src/mainwindow.cpp:1128
 msgid ""
 "The uio_hv_generic driver is bound to %1 VMBus device(s) and has no suspend "
 "support, which aborts hibernation."
 msgstr ""
-"Der Treiber uio_hv_generic ist an %1 VMBus-Gerät(e) gebunden und unterstützt"
-" kein Suspend, wodurch der Ruhezustand abgebrochen wird."
+"Der Treiber uio_hv_generic ist an %1 VMBus-Gerät(e) gebunden und unterstützt "
+"den Bereitschaftsmodus nicht, wodurch der Ruhezustand abgebrochen wird."
 
-#: src/mainwindow.cpp:1109
+#: src/mainwindow.cpp:1133
 msgid "No VMBus device is bound to uio_hv_generic."
 msgstr "Kein VMBus-Gerät ist an uio_hv_generic gebunden."
 
-#: src/mainwindow.cpp:1128 src/mainwindow.cpp:1132
+#: src/mainwindow.cpp:1152 src/mainwindow.cpp:1156
 msgid "VMware graphics"
 msgstr "VMware-Grafik"
 
-#: src/mainwindow.cpp:1129
+#: src/mainwindow.cpp:1153
 msgid ""
 "The vmwgfx driver refuses to freeze while a graphical session holds a DRM "
 "context, which aborts hibernation."
 msgstr ""
-"Der Treiber vmwgfx verweigert das Einfrieren, solange eine grafische Sitzung"
-" einen DRM-Kontext hält, wodurch der Ruhezustand abgebrochen wird."
+"Der Treiber vmwgfx verweigert das Einfrieren, solange eine grafische Sitzung "
+"einen DRM-Kontext hält, wodurch der Ruhezustand abgebrochen wird."
 
-#: src/mainwindow.cpp:1133
+#: src/mainwindow.cpp:1157
 msgid "The vmwgfx driver will be released during hibernation."
 msgstr "Der Treiber vmwgfx wird während des Ruhezustands freigegeben."
 
-#: src/mainwindow.cpp:1153
+#: src/mainwindow.cpp:1177
 msgid "Hibernation drivers"
 msgstr "Ruhezustand-Treiber"
 
-#: src/mainwindow.cpp:1154
+#: src/mainwindow.cpp:1178
 msgid ""
 "%1 driver(s) abort the freezer and are detached while the image is written: "
 "%2"
@@ -614,56 +2229,56 @@ msgstr ""
 "%1 Treiber brechen das Einfrieren ab und werden beim Schreiben des Abbilds "
 "getrennt: %2"
 
-#: src/mainwindow.cpp:1162
+#: src/mainwindow.cpp:1186
 msgid "Last hibernation"
 msgstr "Letzter Ruhezustand"
 
-#: src/mainwindow.cpp:1163
+#: src/mainwindow.cpp:1187
 msgid ""
 "The previous hibernation attempt failed; the failing driver can be released "
 "automatically."
 msgstr ""
-"Der letzte Ruhezustand-Versuch ist fehlgeschlagen; der verursachende Treiber"
-" kann automatisch freigegeben werden."
+"Der vorherige Versuch, in den Ruhezustand zu wechseln, ist fehlgeschlagen; "
+"der verursachende Treiber kann automatisch freigegeben werden."
 
-#: src/mainwindow.cpp:1181 src/mainwindow.cpp:1199 src/mainwindow.cpp:1204
+#: src/mainwindow.cpp:1205 src/mainwindow.cpp:1223 src/mainwindow.cpp:1228
 msgid "Resume device"
-msgstr "Aufwachgerät"
+msgstr "Gerät für die Wiederaufnahme"
 
-#: src/mainwindow.cpp:1181
+#: src/mainwindow.cpp:1205
 msgid "No resume device is set."
-msgstr "Es ist kein Aufwachgerät eingestellt."
+msgstr "Es ist kein Gerät für die Wiederaufnahme festgelegt."
 
-#: src/mainwindow.cpp:1200
+#: src/mainwindow.cpp:1224
 msgid ""
 "The resume device (%1:%2) does not match any swap partition or swap file in "
 "use."
 msgstr ""
-"Das Aufwachgerät (%1:%2) stimmt mit keiner verwendeten Swap-Partition oder "
-"Swap-Datei überein."
+"Das Gerät für die Wiederaufnahme (%1:%2) stimmt mit keiner verwendeten Swap-"
+"Partition oder Swap-Datei überein."
 
-#: src/mainwindow.cpp:1205
+#: src/mainwindow.cpp:1229
 msgid "The resume device is set to %1."
-msgstr "Das Aufwachgerät ist auf %1 eingestellt."
+msgstr "Das Gerät für die Wiederaufnahme ist auf %1 festgelegt."
 
-#: src/mainwindow.cpp:1228 src/mainwindow.cpp:1233 src/mainwindow.cpp:1251
-#: src/mainwindow.cpp:1256 src/mainwindow.cpp:1270 src/mainwindow.cpp:1274
+#: src/mainwindow.cpp:1252 src/mainwindow.cpp:1257 src/mainwindow.cpp:1275
+#: src/mainwindow.cpp:1280 src/mainwindow.cpp:1294 src/mainwindow.cpp:1298
 msgid "SELinux"
 msgstr "SELinux"
 
-#: src/mainwindow.cpp:1229
+#: src/mainwindow.cpp:1253
 msgid ""
 "The swap file %1 is not labeled with swapfile_t; hibernation may be denied "
 "under SELinux enforcing mode."
 msgstr ""
-"Die Swap-Datei %1 ist nicht mit swapfile_t bezeichnet; Ruhezustand kann im "
-"SELinux-Erzwingungsmodus verweigert werden."
+"Die Swap-Datei %1 ist nicht mit swapfile_t gekennzeichnet; der Ruhezustand "
+"kann im SELinux-Erzwingungsmodus verweigert werden."
 
-#: src/mainwindow.cpp:1234
+#: src/mainwindow.cpp:1258
 msgid "The swap file %1 is correctly labeled with swapfile_t."
-msgstr "Die Swap-Datei %1 ist korrekt mit swapfile_t bezeichnet."
+msgstr "Die Swap-Datei %1 ist korrekt mit swapfile_t gekennzeichnet."
 
-#: src/mainwindow.cpp:1252
+#: src/mainwindow.cpp:1276
 msgid ""
 "The swap directory %1 has an SELinux context that systemd-logind cannot "
 "search."
@@ -671,63 +2286,63 @@ msgstr ""
 "Das Swap-Verzeichnis %1 hat einen SELinux-Kontext, den systemd-logind nicht "
 "durchsuchen kann."
 
-#: src/mainwindow.cpp:1257
+#: src/mainwindow.cpp:1281
 msgid "The swap directory %1 has a searchable SELinux context."
 msgstr "Das Swap-Verzeichnis %1 hat einen durchsuchbaren SELinux-Kontext."
 
-#: src/mainwindow.cpp:1271
+#: src/mainwindow.cpp:1295
 msgid ""
 "The SELinux boolean domain_kernel_dump is off; hibernation to swap is not "
 "permitted."
 msgstr ""
-"Die SELinux-Boolesche Variable domain_kernel_dump ist aus; Ruhezustand auf "
-"Swap ist nicht erlaubt."
+"Die SELinux-Boolesche Variable domain_kernel_dump ist deaktiviert; der "
+"Ruhezustand auf Swap ist nicht zulässig."
 
-#: src/mainwindow.cpp:1275
+#: src/mainwindow.cpp:1299
 msgid "The SELinux boolean domain_kernel_dump is on."
-msgstr "Die SELinux-Boolesche Variable domain_kernel_dump ist an."
+msgstr "Die SELinux-Boolesche Variable domain_kernel_dump ist aktiviert."
 
-#: src/mainwindow.cpp:1288
+#: src/mainwindow.cpp:1312
 msgid "No problems detected"
 msgstr "Keine Probleme erkannt"
 
-#: src/mainwindow.cpp:1288
+#: src/mainwindow.cpp:1312
 msgid "This computer looks ready for the sleep modes above."
 msgstr ""
-"Dieser Computer scheint für die oben genannten Energieverwaltungszustände "
-"bereit zu sein."
+"Dieser Computer scheint für die oben aufgeführten Energiesparmodi bereit zu "
+"sein."
 
-#: src/mainwindow.cpp:1353
+#: src/mainwindow.cpp:1377
 msgid "None"
 msgstr "Keine"
 
-#: src/mainwindow.cpp:1393 src/mainwindow.cpp:2307
+#: src/mainwindow.cpp:1417 src/mainwindow.cpp:2333
 msgid "Unable to create a temporary file."
 msgstr "Eine temporäre Datei kann nicht erstellt werden."
 
-#: src/mainwindow.cpp:1393 src/mainwindow.cpp:1420 src/mainwindow.cpp:1431
-#: src/mainwindow.cpp:2307 src/mainwindow.cpp:2335 src/mainwindow.cpp:2346
+#: src/mainwindow.cpp:1417 src/mainwindow.cpp:1444 src/mainwindow.cpp:1455
+#: src/mainwindow.cpp:2333 src/mainwindow.cpp:2361 src/mainwindow.cpp:2372
 msgid "Apply failed"
 msgstr "Anwenden fehlgeschlagen"
 
-#: src/mainwindow.cpp:1413
+#: src/mainwindow.cpp:1437
 msgid "Sleep settings saved. Reboot for the changes to take full effect."
 msgstr ""
 "Energieverwaltungseinstellungen gespeichert. Starten Sie neu, damit die "
 "Änderungen vollständig wirksam werden."
 
-#: src/mainwindow.cpp:1415
+#: src/mainwindow.cpp:1439
 msgid ""
 "Sleep settings have been saved. Reboot for the changes to take full effect."
 msgstr ""
 "Energieverwaltungseinstellungen wurden gespeichert. Starten Sie neu, damit "
 "die Änderungen vollständig wirksam werden."
 
-#: src/mainwindow.cpp:1416 src/mainwindow.cpp:2331
+#: src/mainwindow.cpp:1440 src/mainwindow.cpp:2357
 msgid "Apply completed"
 msgstr "Anwenden abgeschlossen"
 
-#: src/mainwindow.cpp:1419
+#: src/mainwindow.cpp:1443
 msgid ""
 "Saving sleep settings failed.\n"
 "\n"
@@ -737,13 +2352,13 @@ msgstr ""
 "\n"
 "%1"
 
-#: src/mainwindow.cpp:1430 src/mainwindow.cpp:1485 src/mainwindow.cpp:1724
-#: src/mainwindow.cpp:1728 src/mainwindow.cpp:2148 src/mainwindow.cpp:2345
-#: src/mainwindow.cpp:2395 src/mainwindow.cpp:2578 src/mainwindow.cpp:2581
-#: src/mainwindow.cpp:2709 src/mainwindow.cpp:2712 src/mainwindow.cpp:2916
-#: src/mainwindow.cpp:2919 src/mainwindow.cpp:3040 src/mainwindow.cpp:3043
-#: src/mainwindow.cpp:3179 src/mainwindow.cpp:3302 src/mainwindow.cpp:3305
-#: src/mainwindow.cpp:3381
+#: src/mainwindow.cpp:1454 src/mainwindow.cpp:1509 src/mainwindow.cpp:1748
+#: src/mainwindow.cpp:1752 src/mainwindow.cpp:2172 src/mainwindow.cpp:2371
+#: src/mainwindow.cpp:2421 src/mainwindow.cpp:2604 src/mainwindow.cpp:2607
+#: src/mainwindow.cpp:2735 src/mainwindow.cpp:2738 src/mainwindow.cpp:2943
+#: src/mainwindow.cpp:2946 src/mainwindow.cpp:3067 src/mainwindow.cpp:3070
+#: src/mainwindow.cpp:3206 src/mainwindow.cpp:3329 src/mainwindow.cpp:3332
+#: src/mainwindow.cpp:3408
 msgid ""
 "Unable to start pkexec. Make sure polkit is installed and run this program "
 "from a graphical session."
@@ -752,23 +2367,23 @@ msgstr ""
 "installiert ist, und starten Sie dieses Programm aus einer grafischen "
 "Sitzung."
 
-#: src/mainwindow.cpp:1448
+#: src/mainwindow.cpp:1472
 msgid "Fixing…"
 msgstr "Wird behoben…"
 
-#: src/mainwindow.cpp:1467
+#: src/mainwindow.cpp:1491
 msgid ""
 "The detected problems have been fixed. Reboot for the changes to take full "
 "effect."
 msgstr ""
-"Die erkannten Probleme wurden behoben. Starten Sie neu, damit die Änderungen"
-" vollständig wirksam werden."
+"Die erkannten Probleme wurden behoben. Starten Sie neu, damit die Änderungen "
+"vollständig wirksam werden."
 
-#: src/mainwindow.cpp:1468
+#: src/mainwindow.cpp:1492
 msgid "Fix completed"
 msgstr "Behebung abgeschlossen"
 
-#: src/mainwindow.cpp:1472
+#: src/mainwindow.cpp:1496
 msgid ""
 "Failed to fix the detected problems.\n"
 "\n"
@@ -778,31 +2393,31 @@ msgstr ""
 "\n"
 "%1"
 
-#: src/mainwindow.cpp:1473 src/mainwindow.cpp:1486
+#: src/mainwindow.cpp:1497 src/mainwindow.cpp:1510
 msgid "Fix failed"
 msgstr "Behebung fehlgeschlagen"
 
-#: src/mainwindow.cpp:1534
+#: src/mainwindow.cpp:1558
 msgid "Project links"
 msgstr "Projektlinks"
 
-#: src/mainwindow.cpp:1547
+#: src/mainwindow.cpp:1571
 msgid "Miryu Toolkit (Project Repository)"
 msgstr "Miryu Toolkit (Projekt-Repository)"
 
-#: src/mainwindow.cpp:1592
+#: src/mainwindow.cpp:1616
 msgid "Status: installed"
 msgstr "Status: installiert"
 
-#: src/mainwindow.cpp:1594
+#: src/mainwindow.cpp:1618
 msgid "Status: partially installed (%1/%2)"
 msgstr "Status: teilweise installiert (%1/%2)"
 
-#: src/mainwindow.cpp:1596
+#: src/mainwindow.cpp:1620
 msgid "Status: not installed"
 msgstr "Status: nicht installiert"
 
-#: src/mainwindow.cpp:1622
+#: src/mainwindow.cpp:1646
 msgid ""
 "Do you want to %1 “%2”?\n"
 "\n"
@@ -810,246 +2425,242 @@ msgid ""
 msgstr ""
 "Möchten Sie „%2“ %1?\n"
 "\n"
-"Der Paket-Helfer führt aus: dnf5 %3 -y %4"
+"Das Hilfsprogramm für Paketoperationen führt Folgendes aus: dnf5 %3 -y %4"
 
-#: src/mainwindow.cpp:1630
+#: src/mainwindow.cpp:1654
 msgid "Confirm %1"
 msgstr "%1 bestätigen"
 
-#: src/mainwindow.cpp:1651
+#: src/mainwindow.cpp:1675
 msgid "DNF5 details: %1"
 msgstr "DNF5-Details: %1"
 
-#: src/mainwindow.cpp:1655
+#: src/mainwindow.cpp:1679
 msgid "Detailed dnf5 installation log:"
 msgstr "Detailliertes dnf5-Installationsprotokoll:"
 
-#: src/mainwindow.cpp:1661
+#: src/mainwindow.cpp:1685
 msgid "Starting privileged package helper..."
-msgstr "Privilegierten Paket-Helfer starten..."
+msgstr "Privilegiertes Hilfsprogramm für Paketoperationen wird gestartet..."
 
-#: src/mainwindow.cpp:1670 src/mainwindow.cpp:2504 src/mainwindow.cpp:2956
-#: src/mainwindow.cpp:3352
+#: src/mainwindow.cpp:1694 src/mainwindow.cpp:2530 src/mainwindow.cpp:2983
+#: src/mainwindow.cpp:3379
 msgid "No segfault entries found in the kernel log (dmesg)."
-msgstr "Keine Segfault-Einträge im Kernel-Protokoll (dmesg) gefunden."
+msgstr ""
+"Keine Einträge zu Speicherzugriffsfehlern im Kernel-Protokoll (dmesg) "
+"gefunden."
 
-#: src/mainwindow.cpp:1700 src/mainwindow.cpp:1703
+#: src/mainwindow.cpp:1724 src/mainwindow.cpp:1727
 msgid "%1 completed."
 msgstr "%1 abgeschlossen."
 
-#: src/mainwindow.cpp:1704
-msgid "Completed"
-msgstr "Abgeschlossen"
-
-#: src/mainwindow.cpp:1707
+#: src/mainwindow.cpp:1731
 msgid "%1 “%2” failed."
 msgstr "%1 „%2“ ist fehlgeschlagen."
 
-#: src/mainwindow.cpp:1710
+#: src/mainwindow.cpp:1734
 msgid "%1 “%2” failed. See the log window for details."
 msgstr "%1 „%2“ ist fehlgeschlagen. Details im Protokollfenster."
 
-#: src/mainwindow.cpp:1711 src/mainwindow.cpp:1729
+#: src/mainwindow.cpp:1735 src/mainwindow.cpp:1753
 msgid "Failed"
 msgstr "Fehlgeschlagen"
 
-#: src/mainwindow.cpp:1725
+#: src/mainwindow.cpp:1749
 msgid "%1 failed"
 msgstr "%1 fehlgeschlagen"
 
-#: src/mainwindow.cpp:1762
+#: src/mainwindow.cpp:1786
 msgid "Show boot menu"
 msgstr "Startmenü anzeigen"
 
-#: src/mainwindow.cpp:1763
+#: src/mainwindow.cpp:1787
 msgid "Show the GRUB menu before starting the default system."
 msgstr "Das GRUB-Menü anzeigen, bevor das Standardsystem gestartet wird."
 
-#: src/mainwindow.cpp:1768
+#: src/mainwindow.cpp:1792
 msgid "Delay before booting"
 msgstr "Verzögerung vor dem Start"
 
-#: src/mainwindow.cpp:1771
+#: src/mainwindow.cpp:1795
 msgid " seconds"
 msgstr " Sekunden"
 
-#: src/mainwindow.cpp:1772
+#: src/mainwindow.cpp:1796
 msgid "wait indefinitely"
 msgstr "unbegrenzt warten"
 
-#: src/mainwindow.cpp:1773
+#: src/mainwindow.cpp:1797
 msgid "Use -1 to wait until a menu entry is selected."
 msgstr "-1 verwenden, um bis zur Auswahl eines Menüeintrags zu warten."
 
-#: src/mainwindow.cpp:1780
+#: src/mainwindow.cpp:1804
 msgid "Remember last selected entry as the default"
 msgstr "Zuletzt ausgewählten Eintrag als Standard merken"
 
-#: src/mainwindow.cpp:1786
+#: src/mainwindow.cpp:1810
 msgid "Kernel Parameters"
 msgstr "Kernel-Parameter"
 
-#: src/mainwindow.cpp:1792
+#: src/mainwindow.cpp:1816
 msgid "Current kernel command line"
 msgstr "Aktuelle Kernel-Befehlszeile"
 
-#: src/mainwindow.cpp:1801
+#: src/mainwindow.cpp:1825
 msgid "Custom parameters written by this tool"
 msgstr "Von diesem Werkzeug geschriebene benutzerdefinierte Parameter"
 
-#: src/mainwindow.cpp:1817
+#: src/mainwindow.cpp:1841 src/uefibootpage.cpp:176
 msgid "Remove"
 msgstr "Entfernen"
 
-#: src/mainwindow.cpp:1819
+#: src/mainwindow.cpp:1843
 msgid "Up"
 msgstr "Nach oben"
 
-#: src/mainwindow.cpp:1820
+#: src/mainwindow.cpp:1844
 msgid "Down"
 msgstr "Nach unten"
 
-#: src/mainwindow.cpp:1837
+#: src/mainwindow.cpp:1861
 msgid "New parameter"
 msgstr "Neuer Parameter"
 
-#: src/mainwindow.cpp:1839
+#: src/mainwindow.cpp:1863
 msgid "Example: nomodeset"
 msgstr "Beispiel: nomodeset"
 
-#: src/mainwindow.cpp:1840
+#: src/mainwindow.cpp:1864
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: src/mainwindow.cpp:1860
+#: src/mainwindow.cpp:1884
 msgid "Save GRUB2 Settings"
 msgstr "GRUB2-Einstellungen speichern"
 
-#: src/mainwindow.cpp:1875
+#: src/mainwindow.cpp:1899
 msgid "Could not load the GRUB configuration."
 msgstr "Die GRUB-Konfiguration konnte nicht geladen werden."
 
-#: src/mainwindow.cpp:1921
+#: src/mainwindow.cpp:1945
 msgid "Empty Parameter"
 msgstr "Leerer Parameter"
 
-#: src/mainwindow.cpp:1921
+#: src/mainwindow.cpp:1945
 msgid "Enter one kernel parameter first."
 msgstr "Bitte zuerst einen Kernel-Parameter eingeben."
 
-#: src/mainwindow.cpp:1926 src/mainwindow.cpp:1933
+#: src/mainwindow.cpp:1950 src/mainwindow.cpp:1957
 msgid "Invalid Parameter"
 msgstr "Ungültiger Parameter"
 
-#: src/mainwindow.cpp:1927
+#: src/mainwindow.cpp:1951
 msgid "Add one parameter at a time. Spaces are not allowed."
 msgstr ""
-"Bitte jeweils nur einen Parameter hinzufügen. Leerzeichen sind nicht "
-"erlaubt."
+"Bitte jeweils nur einen Parameter hinzufügen. Leerzeichen sind nicht erlaubt."
 
-#: src/mainwindow.cpp:1934
+#: src/mainwindow.cpp:1958
 msgid "Use only letters, numbers, and these characters: _ . / : = , + @ % -"
 msgstr ""
 "Nur Buchstaben, Zahlen und folgende Zeichen verwenden: _ . / : = , + @ % -"
 
-#: src/mainwindow.cpp:1944
+#: src/mainwindow.cpp:1968
 msgid "Duplicate Parameter"
 msgstr "Doppelter Parameter"
 
-#: src/mainwindow.cpp:1945
+#: src/mainwindow.cpp:1969
 msgid "The parameter “%1” already exists."
-msgstr "Der Parameter “%1” existiert bereits."
+msgstr "Der Parameter „%1“ ist bereits vorhanden."
 
-#: src/mainwindow.cpp:1984
+#: src/mainwindow.cpp:2008
 msgid "Edit Parameter"
 msgstr "Parameter bearbeiten"
 
-#: src/mainwindow.cpp:1984
+#: src/mainwindow.cpp:2008
 msgid "Parameter"
 msgstr "Parameter"
 
-#: src/mainwindow.cpp:2049 src/mainwindow.cpp:2133 src/mainwindow.cpp:2136
+#: src/mainwindow.cpp:2073 src/mainwindow.cpp:2157 src/mainwindow.cpp:2160
 msgid "Save Failed"
 msgstr "Speichern fehlgeschlagen"
 
-#: src/mainwindow.cpp:2049
+#: src/mainwindow.cpp:2073
 msgid "Could not create a temporary configuration file."
 msgstr "Es konnte keine temporäre Konfigurationsdatei erstellt werden."
 
-#: src/mainwindow.cpp:2062
+#: src/mainwindow.cpp:2086
 msgid "Helper Not Found"
 msgstr "Hilfsprogramm nicht gefunden"
 
-#: src/mainwindow.cpp:2063
+#: src/mainwindow.cpp:2087
 msgid ""
 "The privileged helper was not found at:\n"
 "%1\n"
 "\n"
 "Install the project before saving GRUB2 settings."
 msgstr ""
-"Das privilegierte Hilfsprogramm wurde nicht gefunden unter:\n"
+"Das privilegierte Hilfsprogramm wurde nicht unter folgendem Pfad gefunden:\n"
 "%1\n"
 "\n"
 "Installieren Sie das Projekt, bevor Sie GRUB2-Einstellungen speichern."
 
-#: src/mainwindow.cpp:2072
+#: src/mainwindow.cpp:2096
 msgid "Applying GRUB2 Settings"
 msgstr "GRUB2-Einstellungen werden angewendet"
 
-#: src/mainwindow.cpp:2079 src/mainwindow.cpp:2155
+#: src/mainwindow.cpp:2103 src/mainwindow.cpp:2179
 msgid "Waiting for administrator authentication..."
 msgstr "Warten auf Administrator-Authentifizierung..."
 
-#: src/mainwindow.cpp:2120
+#: src/mainwindow.cpp:2144
 msgid "GRUB2 settings saved successfully."
 msgstr "GRUB2-Einstellungen wurden erfolgreich gespeichert."
 
-#: src/mainwindow.cpp:2122
+#: src/mainwindow.cpp:2146
 msgid "GRUB2 settings saved. Reboot to use the new boot menu."
 msgstr ""
-"GRUB2-Einstellungen gespeichert. Zur Verwendung des neuen Boot-Menüs neu "
-"starten."
+"GRUB2-Einstellungen gespeichert. Starten Sie den Computer neu, um das neue "
+"Startmenü zu verwenden."
 
-#: src/mainwindow.cpp:2123
+#: src/mainwindow.cpp:2147
 msgid "Saved"
 msgstr "Gespeichert"
 
-#: src/mainwindow.cpp:2124
+#: src/mainwindow.cpp:2148
 msgid "GRUB2 settings were saved and grub2-mkconfig completed successfully."
 msgstr ""
 "GRUB2-Einstellungen wurden gespeichert und grub2-mkconfig wurde erfolgreich "
 "ausgeführt."
 
-#: src/mainwindow.cpp:2128
+#: src/mainwindow.cpp:2152
 msgid "GRUB2 settings save failed."
 msgstr "Speichern der GRUB2-Einstellungen fehlgeschlagen."
 
-#: src/mainwindow.cpp:2130
+#: src/mainwindow.cpp:2154
 msgid "Save failed."
 msgstr "Speichern fehlgeschlagen."
 
-#: src/mainwindow.cpp:2134
+#: src/mainwindow.cpp:2158
 msgid ""
-"Could not start the privileged helper. Make sure polkit is installed and run"
-" this program from a graphical session."
+"Could not start the privileged helper. Make sure polkit is installed and run "
+"this program from a graphical session."
 msgstr ""
-"Der privilegierte Helfer konnte nicht gestartet werden. Stellen Sie sicher, "
-"dass polkit installiert ist und führen Sie dieses Programm aus einer "
+"Das privilegierte Hilfsprogramm konnte nicht gestartet werden. Stellen Sie "
+"sicher, dass polkit installiert ist, und führen Sie dieses Programm in einer "
 "grafischen Sitzung aus."
 
-#: src/mainwindow.cpp:2137
+#: src/mainwindow.cpp:2161
 msgid "Could not save and regenerate GRUB2 configuration."
-msgstr ""
-"GRUB2-Konfiguration konnte nicht gespeichert und neu generiert werden."
+msgstr "GRUB2-Konfiguration konnte nicht gespeichert und neu generiert werden."
 
-#: src/mainwindow.cpp:2214
+#: src/mainwindow.cpp:2240
 msgid ""
 "Unable to read /etc/environment. You can add variables and apply them later."
 msgstr ""
 "/etc/environment kann nicht gelesen werden. Sie können Variablen hinzufügen "
 "und später anwenden."
 
-#: src/mainwindow.cpp:2227
+#: src/mainwindow.cpp:2253
 msgid ""
 "/etc/environment has been loaded. Log out and log back in for changes to "
 "take effect."
@@ -1057,31 +2668,31 @@ msgstr ""
 "/etc/environment wurde geladen. Melden Sie sich ab und wieder an, damit "
 "Änderungen wirksam werden."
 
-#: src/mainwindow.cpp:2234
+#: src/mainwindow.cpp:2260
 msgid "Add environment variable"
 msgstr "Umgebungsvariable hinzufügen"
 
-#: src/mainwindow.cpp:2235 src/mainwindow.cpp:2264
+#: src/mainwindow.cpp:2261 src/mainwindow.cpp:2290
 msgid "Variable (NAME=VALUE):"
 msgstr "Variable (NAME=WERT):"
 
-#: src/mainwindow.cpp:2246 src/mainwindow.cpp:2275 src/mainwindow.cpp:2298
+#: src/mainwindow.cpp:2272 src/mainwindow.cpp:2301 src/mainwindow.cpp:2324
 msgid "Invalid format"
 msgstr "Ungültiges Format"
 
-#: src/mainwindow.cpp:2257
+#: src/mainwindow.cpp:2283
 msgid "Select an environment variable first."
 msgstr "Wählen Sie zuerst eine Umgebungsvariable aus."
 
-#: src/mainwindow.cpp:2257
+#: src/mainwindow.cpp:2283
 msgid "No item selected"
 msgstr "Kein Eintrag ausgewählt"
 
-#: src/mainwindow.cpp:2263
+#: src/mainwindow.cpp:2289
 msgid "Edit environment variable"
 msgstr "Umgebungsvariable bearbeiten"
 
-#: src/mainwindow.cpp:2330
+#: src/mainwindow.cpp:2356
 msgid ""
 "Saved to /etc/environment. Log out and log back in for changes to take "
 "effect."
@@ -1089,7 +2700,7 @@ msgstr ""
 "In /etc/environment gespeichert. Melden Sie sich ab und wieder an, damit "
 "Änderungen wirksam werden."
 
-#: src/mainwindow.cpp:2331
+#: src/mainwindow.cpp:2357
 msgid ""
 "System-wide environment variables have been saved. Log out and log back in "
 "for changes to take effect."
@@ -1097,22 +2708,22 @@ msgstr ""
 "Systemweite Umgebungsvariablen wurden gespeichert. Melden Sie sich ab und "
 "wieder an, damit Änderungen wirksam werden."
 
-#: src/mainwindow.cpp:2334
+#: src/mainwindow.cpp:2360
 msgid ""
 "Writing /etc/environment failed.\n"
 "\n"
 "%1"
 msgstr ""
-"Schreiben nach /etc/environment fehlgeschlagen.\n"
+"Schreiben in /etc/environment fehlgeschlagen.\n"
 "\n"
 "%1"
 
-#: src/mainwindow.cpp:2362
+#: src/mainwindow.cpp:2388
 msgid "Restore the default system-wide environment variables?"
 msgstr ""
 "Die Standardwerte der systemweiten Umgebungsvariablen wiederherstellen?"
 
-#: src/mainwindow.cpp:2381 src/mainwindow.cpp:2382
+#: src/mainwindow.cpp:2407 src/mainwindow.cpp:2408
 msgid ""
 "Default system-wide environment variables have been restored. Log out and "
 "log back in for changes to take effect."
@@ -1121,25 +2732,26 @@ msgstr ""
 "wiederhergestellt. Melden Sie sich ab und wieder an, damit Änderungen "
 "wirksam werden."
 
-#: src/mainwindow.cpp:2382
+#: src/mainwindow.cpp:2408
 msgid "Defaults restored"
 msgstr "Standardwerte wiederhergestellt"
 
-#: src/mainwindow.cpp:2385
+#: src/mainwindow.cpp:2411
 msgid ""
 "Restoring default system-wide environment variables failed.\n"
 "\n"
 "%1"
 msgstr ""
-"Wiederherstellen der Standardwerte der systemweiten Umgebungsvariablen fehlgeschlagen.\n"
+"Wiederherstellen der Standardwerte der systemweiten Umgebungsvariablen "
+"fehlgeschlagen.\n"
 "\n"
 "%1"
 
-#: src/mainwindow.cpp:2386 src/mainwindow.cpp:2396
+#: src/mainwindow.cpp:2412 src/mainwindow.cpp:2422
 msgid "Restore failed"
 msgstr "Wiederherstellen fehlgeschlagen"
 
-#: src/mainwindow.cpp:2426
+#: src/mainwindow.cpp:2452
 msgid ""
 "Environment variables must use the NAME=VALUE format. NAME may only contain "
 "letters, digits and underscores, and must not start with a digit."
@@ -1148,381 +2760,780 @@ msgstr ""
 "Buchstaben, Ziffern und Unterstriche enthalten und nicht mit einer Ziffer "
 "beginnen."
 
-#: src/mainwindow.cpp:2433
+#: src/mainwindow.cpp:2459
 msgid "A single environment variable must not contain line breaks."
 msgstr "Eine einzelne Umgebungsvariable darf keine Zeilenumbrüche enthalten."
 
-#: src/mainwindow.cpp:2465
+#: src/mainwindow.cpp:2491
 msgid ""
-"Remove previous kernel versions? This will run: dnf-3 -y remove "
-"--oldinstallonly"
+"Remove previous kernel versions? This will run: dnf5 -y remove --"
+"oldinstallonly"
 msgstr ""
-"Vorherige Kernel-Versionen entfernen? Dies führt aus: dnf-3 -y remove "
-"--oldinstallonly"
+"Vorherige Kernel-Versionen entfernen? Dabei wird folgender Befehl "
+"ausgeführt: dnf5 -y remove --oldinstallonly"
 
-#: src/mainwindow.cpp:2467
+#: src/mainwindow.cpp:2493
 msgid "Clean up"
 msgstr "Bereinigen"
 
-#: src/mainwindow.cpp:2478
+#: src/mainwindow.cpp:2504
 msgid "Cleaning up previous kernel..."
-msgstr "Vorherige Kernel-Version wird bereinigt..."
+msgstr "Vorherige Kernel-Versionen werden entfernt..."
 
-#: src/mainwindow.cpp:2484
+#: src/mainwindow.cpp:2510
 msgid "Kernel cleanup log"
 msgstr "Kernel-Bereinigungsprotokoll"
 
-#: src/mainwindow.cpp:2488
-msgid "Removing previous kernel versions via dnf-3..."
-msgstr "Vorherige Kernel-Versionen werden über dnf-3 entfernt..."
+#: src/mainwindow.cpp:2514
+msgid "Removing previous kernel versions via dnf5..."
+msgstr "Vorherige Kernel-Versionen werden über dnf5 entfernt..."
 
-#: src/mainwindow.cpp:2495
+#: src/mainwindow.cpp:2521
 msgid "Starting privileged kernel cleanup helper..."
-msgstr "Privilegierter Kernel-Bereinigungs-Helper wird gestartet..."
+msgstr "Privilegiertes Hilfsprogramm zur Kernel-Bereinigung wird gestartet..."
 
-#: src/mainwindow.cpp:2545 src/mainwindow.cpp:2548
+#: src/mainwindow.cpp:2571 src/mainwindow.cpp:2574
 msgid "Kernel cleanup completed."
 msgstr "Kernel-Bereinigung abgeschlossen."
 
-#: src/mainwindow.cpp:2551
+#: src/mainwindow.cpp:2577
 msgid "Previous kernel versions have been cleaned up."
-msgstr "Vorherige Kernel-Versionen wurden bereinigt."
+msgstr "Vorherige Kernel-Versionen wurden entfernt."
 
-#: src/mainwindow.cpp:2552 src/mainwindow.cpp:3276
+#: src/mainwindow.cpp:2578 src/mainwindow.cpp:3303
 msgid "Cleanup completed"
 msgstr "Bereinigung abgeschlossen"
 
-#: src/mainwindow.cpp:2555 src/mainwindow.cpp:2558 src/mainwindow.cpp:2575
+#: src/mainwindow.cpp:2581 src/mainwindow.cpp:2584 src/mainwindow.cpp:2601
 msgid "Kernel cleanup failed."
 msgstr "Kernel-Bereinigung fehlgeschlagen."
 
-#: src/mainwindow.cpp:2561
+#: src/mainwindow.cpp:2587
 msgid ""
 "Failed to clean up previous kernel versions. See the log window for details."
 msgstr ""
 "Bereinigung vorheriger Kernel-Versionen fehlgeschlagen. Details im "
 "Protokollfenster."
 
-#: src/mainwindow.cpp:2562 src/mainwindow.cpp:2582 src/mainwindow.cpp:3286
-#: src/mainwindow.cpp:3306
+#: src/mainwindow.cpp:2588 src/mainwindow.cpp:2608 src/mainwindow.cpp:3313
+#: src/mainwindow.cpp:3333
 msgid "Cleanup failed"
 msgstr "Bereinigung fehlgeschlagen"
 
-#: src/mainwindow.cpp:2609
+#: src/mainwindow.cpp:2635
 msgid "Collecting system logs..."
 msgstr "Systemprotokolle werden gesammelt..."
 
-#: src/mainwindow.cpp:2616
+#: src/mainwindow.cpp:2642
 msgid "Collecting system logs"
 msgstr "Systemprotokolle sammeln"
 
-#: src/mainwindow.cpp:2620
+#: src/mainwindow.cpp:2646
 msgid "Collecting system information and logs. This may take a moment..."
 msgstr ""
 "Systeminformationen und -protokolle werden gesammelt. Einen Moment bitte..."
 
-#: src/mainwindow.cpp:2627
+#: src/mainwindow.cpp:2653
 msgid "Starting privileged log collection helper..."
-msgstr "Privilegierter Protokollsammel-Helper wird gestartet..."
+msgstr "Privilegiertes Hilfsprogramm zur Protokollsammlung wird gestartet..."
 
-#: src/mainwindow.cpp:2676
+#: src/mainwindow.cpp:2702
 msgid "System logs collected: %1"
 msgstr "Systemprotokolle gesammelt: %1"
 
-#: src/mainwindow.cpp:2679
+#: src/mainwindow.cpp:2705
 msgid "Collection completed. Archive saved to: %1"
-msgstr "Sammlung abgeschlossen. Archiv gespeichert in: %1"
+msgstr "Sammlung abgeschlossen. Archiv gespeichert unter: %1"
 
-#: src/mainwindow.cpp:2682
+#: src/mainwindow.cpp:2708
 msgid ""
 "System logs have been collected and saved to:\n"
 "%1"
 msgstr ""
-"Systemprotokolle wurden gesammelt und gespeichert in:\n"
+"Systemprotokolle wurden gesammelt und unter folgendem Pfad gespeichert:\n"
 "%1"
 
-#: src/mainwindow.cpp:2683
+#: src/mainwindow.cpp:2709
 msgid "Collection completed"
 msgstr "Sammlung abgeschlossen"
 
-#: src/mainwindow.cpp:2686 src/mainwindow.cpp:2689 src/mainwindow.cpp:2706
+#: src/mainwindow.cpp:2712 src/mainwindow.cpp:2715 src/mainwindow.cpp:2732
 msgid "Log collection failed."
 msgstr "Protokollsammlung fehlgeschlagen."
 
-#: src/mainwindow.cpp:2692
+#: src/mainwindow.cpp:2718
 msgid "Failed to collect system logs. See the log window for details."
 msgstr ""
 "Sammlung der Systemprotokolle fehlgeschlagen. Details im Protokollfenster."
 
-#: src/mainwindow.cpp:2693 src/mainwindow.cpp:2713
+#: src/mainwindow.cpp:2719 src/mainwindow.cpp:2739
 msgid "Collection failed"
 msgstr "Sammlung fehlgeschlagen"
 
-#: src/mainwindow.cpp:2748
+#: src/mainwindow.cpp:2775
 msgid "Checking for available updates..."
-msgstr "Verfügbare Updates werden geprüft..."
+msgstr "Es wird nach verfügbaren Aktualisierungen gesucht..."
 
-#: src/mainwindow.cpp:2754
+#: src/mainwindow.cpp:2781
 msgid "System update"
 msgstr "Systemaktualisierung"
 
-#: src/mainwindow.cpp:2758
+#: src/mainwindow.cpp:2785
 msgid "Checking for available updates with dnf5. This may take a moment..."
-msgstr "Verfügbare Updates werden mit dnf5 geprüft. Einen Moment bitte..."
+msgstr ""
+"Mit dnf5 wird nach verfügbaren Aktualisierungen gesucht. Dies kann einen "
+"Moment dauern..."
 
-#: src/mainwindow.cpp:2765
+#: src/mainwindow.cpp:2792
 msgid "Running: dnf5 check-update --refresh"
 msgstr "Ausführung: dnf5 check-update --refresh"
 
-#: src/mainwindow.cpp:2768
+#: src/mainwindow.cpp:2795
 msgid "Cancel update"
 msgstr "Aktualisierung abbrechen"
 
-#: src/mainwindow.cpp:2779
+#: src/mainwindow.cpp:2806
 msgid "Cancelling..."
 msgstr "Wird abgebrochen..."
 
-#: src/mainwindow.cpp:2824 src/mainwindow.cpp:2827 src/mainwindow.cpp:2856
-#: src/mainwindow.cpp:2859 src/mainwindow.cpp:2994 src/mainwindow.cpp:2997
+#: src/mainwindow.cpp:2851 src/mainwindow.cpp:2854 src/mainwindow.cpp:2883
+#: src/mainwindow.cpp:2886 src/mainwindow.cpp:3021 src/mainwindow.cpp:3024
 msgid "Update cancelled."
 msgstr "Aktualisierung abgebrochen."
 
-#: src/mainwindow.cpp:2839
+#: src/mainwindow.cpp:2866
 msgid "Available updates detected."
-msgstr "Verfügbare Updates wurden erkannt."
+msgstr "Verfügbare Aktualisierungen wurden gefunden."
 
-#: src/mainwindow.cpp:2842
+#: src/mainwindow.cpp:2869
 msgid "Updates are available."
-msgstr "Updates sind verfügbar."
+msgstr "Aktualisierungen sind verfügbar."
 
-#: src/mainwindow.cpp:2845
+#: src/mainwindow.cpp:2872
 msgid "dnf5 detected available updates. Do you want to update the system now?"
 msgstr ""
-"dnf5 hat verfügbare Updates erkannt. Möchten Sie das System jetzt "
+"dnf5 hat verfügbare Aktualisierungen gefunden. Möchten Sie das System jetzt "
 "aktualisieren?"
 
-#: src/mainwindow.cpp:2847
+#: src/mainwindow.cpp:2874
 msgid "Update"
 msgstr "Aktualisieren"
 
-#: src/mainwindow.cpp:2851
+#: src/mainwindow.cpp:2878
 msgid "Updating the system with dnf5. Please wait..."
 msgstr "Das System wird mit dnf5 aktualisiert. Bitte warten..."
 
-#: src/mainwindow.cpp:2865 src/mainwindow.cpp:2868 src/mainwindow.cpp:2871
+#: src/mainwindow.cpp:2892 src/mainwindow.cpp:2895 src/mainwindow.cpp:2898
 msgid "Your system is already up to date."
 msgstr "Ihr System ist bereits auf dem neuesten Stand."
 
-#: src/mainwindow.cpp:2872
+#: src/mainwindow.cpp:2899
 msgid "No updates"
-msgstr "Keine Updates"
+msgstr "Keine Aktualisierungen"
 
-#: src/mainwindow.cpp:2876 src/mainwindow.cpp:2879
+#: src/mainwindow.cpp:2903 src/mainwindow.cpp:2906
 msgid "Authentication was canceled."
 msgstr "Authentifizierung wurde abgebrochen."
 
-#: src/mainwindow.cpp:2882
+#: src/mainwindow.cpp:2909
 msgid "Authentication was canceled. No updates were checked or installed."
 msgstr ""
-"Authentifizierung wurde abgebrochen. Es wurden keine Updates geprüft oder "
-"installiert."
+"Die Authentifizierung wurde abgebrochen. Es wurden keine Aktualisierungen "
+"gesucht oder installiert."
 
-#: src/mainwindow.cpp:2883
+#: src/mainwindow.cpp:2910
 msgid "Authentication canceled"
 msgstr "Authentifizierung abgebrochen"
 
-#: src/mainwindow.cpp:2887
+#: src/mainwindow.cpp:2914
 msgid "Failed to check for updates."
-msgstr "Prüfung auf Updates fehlgeschlagen."
+msgstr "Die Suche nach Aktualisierungen ist fehlgeschlagen."
 
-#: src/mainwindow.cpp:2890 src/mainwindow.cpp:2907
+#: src/mainwindow.cpp:2917 src/mainwindow.cpp:2934
 msgid "Update check failed."
-msgstr "Update-Prüfung fehlgeschlagen."
+msgstr "Suche nach Aktualisierungen fehlgeschlagen."
 
-#: src/mainwindow.cpp:2893
+#: src/mainwindow.cpp:2920
 msgid "Failed to check for available updates. See the log window for details."
 msgstr ""
-"Prüfung auf verfügbare Updates fehlgeschlagen. Details im Protokollfenster."
+"Die Suche nach verfügbaren Aktualisierungen ist fehlgeschlagen. Details "
+"finden Sie im Protokollfenster."
 
-#: src/mainwindow.cpp:2894 src/mainwindow.cpp:2920
+#: src/mainwindow.cpp:2921 src/mainwindow.cpp:2947
 msgid "Check failed"
 msgstr "Prüfung fehlgeschlagen"
 
-#: src/mainwindow.cpp:2947
+#: src/mainwindow.cpp:2974
 msgid "Starting privileged system update helper..."
-msgstr "Privilegierter Systemaktualisierungs-Helper wird gestartet..."
+msgstr ""
+"Privilegiertes Hilfsprogramm zur Systemaktualisierung wird gestartet..."
 
-#: src/mainwindow.cpp:2948
+#: src/mainwindow.cpp:2975
 msgid "Running: dnf5 update --refresh"
 msgstr "Ausführung: dnf5 update --refresh"
 
-#: src/mainwindow.cpp:3001 src/mainwindow.cpp:3004
+#: src/mainwindow.cpp:3028 src/mainwindow.cpp:3031
 msgid "System update completed."
 msgstr "Systemaktualisierung abgeschlossen."
 
-#: src/mainwindow.cpp:3007
+#: src/mainwindow.cpp:3034
 msgid "The system has been updated successfully."
 msgstr "Das System wurde erfolgreich aktualisiert."
 
-#: src/mainwindow.cpp:3008
+#: src/mainwindow.cpp:3035
 msgid "Update completed"
 msgstr "Aktualisierung abgeschlossen"
 
-#: src/mainwindow.cpp:3011 src/mainwindow.cpp:3014 src/mainwindow.cpp:3031
+#: src/mainwindow.cpp:3038 src/mainwindow.cpp:3041 src/mainwindow.cpp:3058
 msgid "System update failed."
 msgstr "Systemaktualisierung fehlgeschlagen."
 
-#: src/mainwindow.cpp:3017
+#: src/mainwindow.cpp:3044
 msgid "Failed to update the system. See the log window for details."
 msgstr ""
 "Aktualisierung des Systems fehlgeschlagen. Details im Protokollfenster."
 
-#: src/mainwindow.cpp:3018 src/mainwindow.cpp:3044
+#: src/mainwindow.cpp:3045 src/mainwindow.cpp:3071
 msgid "Update failed"
 msgstr "Aktualisierung fehlgeschlagen"
 
-#: src/mainwindow.cpp:3064
+#: src/mainwindow.cpp:3091
 msgid "Failed systemd service units"
-msgstr "Fehlgeschlagene systemd-Service-Units"
+msgstr "Fehlgeschlagene systemd-Dienste"
 
-#: src/mainwindow.cpp:3068
+#: src/mainwindow.cpp:3095
 msgid "Listing failed systemd service units..."
-msgstr "Fehlgeschlagene systemd-Service-Units werden aufgelistet..."
+msgstr "Fehlgeschlagene systemd-Dienste werden aufgelistet..."
 
-#: src/mainwindow.cpp:3075
+#: src/mainwindow.cpp:3102
 msgid "Running: systemctl --failed --no-pager"
 msgstr "Ausführung: systemctl --failed --no-pager"
 
-#: src/mainwindow.cpp:3078 src/mainwindow.cpp:3340
+#: src/mainwindow.cpp:3105 src/mainwindow.cpp:3367
 msgid "Close"
 msgstr "Schließen"
 
-#: src/mainwindow.cpp:3103 src/mainwindow.cpp:3368
+#: src/mainwindow.cpp:3130 src/mainwindow.cpp:3395
 msgid "Command completed."
 msgstr "Befehl abgeschlossen."
 
-#: src/mainwindow.cpp:3107
+#: src/mainwindow.cpp:3134
 msgid "Command failed (exit code %1)."
-msgstr "Befehl fehlgeschlagen (Exit-Code %1)."
+msgstr "Befehl fehlgeschlagen (Rückgabecode %1)."
 
-#: src/mainwindow.cpp:3116
+#: src/mainwindow.cpp:3143
 msgid "Unable to start systemctl."
 msgstr "systemctl konnte nicht gestartet werden."
 
-#: src/mainwindow.cpp:3132
+#: src/mainwindow.cpp:3159
 msgid ""
-"Before unlocking the RPM database, please check whether dnf5 and dnf5daemon-server have completed their transactions.\n"
+"Before unlocking the RPM database, please check whether dnf5 and dnf5daemon-"
+"server have completed their transactions.\n"
 "\n"
 "Are you sure you want to unlock the RPM database?"
 msgstr ""
-"Bevor Sie die RPM-Datenbank entsperren, überprüfen Sie bitte, ob dnf5 und dnf5daemon-server ihre Transaktionen abgeschlossen haben.\n"
+"Bevor Sie die RPM-Datenbank entsperren, überprüfen Sie bitte, ob dnf5 und "
+"dnf5daemon-server ihre Transaktionen abgeschlossen haben.\n"
 "\n"
 "Möchten Sie die RPM-Datenbank wirklich entsperren?"
 
-#: src/mainwindow.cpp:3134
+#: src/mainwindow.cpp:3161
 msgid "Unlock"
 msgstr "Entsperren"
 
-#: src/mainwindow.cpp:3145
+#: src/mainwindow.cpp:3172
 msgid "Unlocking RPM database..."
 msgstr "RPM-Datenbank wird entsperrt..."
 
-#: src/mainwindow.cpp:3155 src/mainwindow.cpp:3158
+#: src/mainwindow.cpp:3182 src/mainwindow.cpp:3185
 msgid "RPM database has been unlocked."
 msgstr "RPM-Datenbank wurde entsperrt."
 
-#: src/mainwindow.cpp:3159
+#: src/mainwindow.cpp:3186
 msgid "Unlock completed"
 msgstr "Entsperren abgeschlossen"
 
-#: src/mainwindow.cpp:3162 src/mainwindow.cpp:3176
+#: src/mainwindow.cpp:3189 src/mainwindow.cpp:3203
 msgid "Failed to unlock RPM database."
 msgstr "Entsperren der RPM-Datenbank fehlgeschlagen."
 
-#: src/mainwindow.cpp:3165
+#: src/mainwindow.cpp:3192
 msgid "Failed to unlock the RPM database."
 msgstr "Entsperren der RPM-Datenbank fehlgeschlagen."
 
-#: src/mainwindow.cpp:3166 src/mainwindow.cpp:3180
+#: src/mainwindow.cpp:3193 src/mainwindow.cpp:3207
 msgid "Unlock failed"
 msgstr "Entsperren fehlgeschlagen"
 
-#: src/mainwindow.cpp:3195
+#: src/mainwindow.cpp:3222
 msgid "The dnf5 log file does not exist at %1."
 msgstr "Die dnf5-Protokolldatei existiert nicht unter %1."
 
-#: src/mainwindow.cpp:3196
+#: src/mainwindow.cpp:3223
 msgid "File not found"
 msgstr "Datei nicht gefunden"
 
-#: src/mainwindow.cpp:3214
+#: src/mainwindow.cpp:3241
 msgid "Cleaning unused packages..."
 msgstr "Nicht verwendete Pakete werden bereinigt..."
 
-#: src/mainwindow.cpp:3220
+#: src/mainwindow.cpp:3247
 msgid "Clean unused packages"
 msgstr "Nicht verwendete Pakete bereinigen"
 
-#: src/mainwindow.cpp:3224
+#: src/mainwindow.cpp:3251
 msgid "Removing unused dependency packages with dnf5 autoremove..."
 msgstr ""
 "Nicht verwendete Abhängigkeitspakete werden mit dnf5 autoremove entfernt..."
 
-#: src/mainwindow.cpp:3231
+#: src/mainwindow.cpp:3258
 msgid "Starting privileged dnf5 autoremove helper..."
-msgstr "Privilegierter dnf5 autoremove-Helper wird gestartet..."
+msgstr "Privilegiertes Hilfsprogramm für dnf5 autoremove wird gestartet..."
 
-#: src/mainwindow.cpp:3232
+#: src/mainwindow.cpp:3259
 msgid "Running: dnf5 autoremove --assumeyes"
 msgstr "Ausführung: dnf5 autoremove --assumeyes"
 
-#: src/mainwindow.cpp:3269
+#: src/mainwindow.cpp:3296
 msgid "Cleanup completed."
 msgstr "Bereinigung abgeschlossen."
 
-#: src/mainwindow.cpp:3272
+#: src/mainwindow.cpp:3299
 msgid "Unused packages cleanup completed."
 msgstr "Bereinigung nicht verwendeter Pakete abgeschlossen."
 
-#: src/mainwindow.cpp:3275
+#: src/mainwindow.cpp:3302
 msgid "Unused packages have been cleaned up."
 msgstr "Nicht verwendete Pakete wurden bereinigt."
 
-#: src/mainwindow.cpp:3279
+#: src/mainwindow.cpp:3306
 msgid "Cleanup failed."
 msgstr "Bereinigung fehlgeschlagen."
 
-#: src/mainwindow.cpp:3282 src/mainwindow.cpp:3299
+#: src/mainwindow.cpp:3309 src/mainwindow.cpp:3326
 msgid "Unused packages cleanup failed."
 msgstr "Bereinigung nicht verwendeter Pakete fehlgeschlagen."
 
-#: src/mainwindow.cpp:3285
+#: src/mainwindow.cpp:3312
 msgid "Failed to clean up unused packages. See the log window for details."
 msgstr ""
 "Bereinigung nicht verwendeter Pakete fehlgeschlagen. Details siehe "
 "Protokollfenster."
 
-#: src/mainwindow.cpp:3326
+#: src/mainwindow.cpp:3353
 msgid "Software crash information"
 msgstr "Software-Absturzinformationen"
 
-#: src/mainwindow.cpp:3330
+#: src/mainwindow.cpp:3357
 msgid "Showing software crash information (dmesg | grep segfault)..."
 msgstr ""
 "Software-Absturzinformationen werden angezeigt (dmesg | grep segfault)..."
 
-#: src/mainwindow.cpp:3337
+#: src/mainwindow.cpp:3364
 msgid "Running: dmesg 2>&1 | grep -i segfault"
 msgstr "Ausführung: dmesg 2>&1 | grep -i segfault"
 
-#: src/mainwindow.cpp:3372
+#: src/mainwindow.cpp:3399
 msgid "Command completed (exit code %1)."
-msgstr "Befehl abgeschlossen (Exit-Code %1)."
+msgstr "Befehl abgeschlossen (Rückgabecode %1)."
+
+#: src/uefibootpage.cpp:79 src/uefibootpage.cpp:398
+msgid "Disabled"
+msgstr "Deaktiviert"
+
+#: src/uefibootpage.cpp:81 src/uefibootpage.cpp:398
+msgid "Enabled"
+msgstr "Aktiviert"
+
+#: src/uefibootpage.cpp:83
+msgid "Unsupported"
+msgstr "Nicht unterstützt"
+
+#: src/uefibootpage.cpp:109
+msgid "Unnamed certificate"
+msgstr "Unbenanntes Zertifikat"
+
+#: src/uefibootpage.cpp:123
+msgid "Waiting for the boot configuration scan…"
+msgstr "Warte auf die Analyse der Startkonfiguration…"
+
+#: src/uefibootpage.cpp:138
+msgid "UEFI firmware boot entries"
+msgstr "UEFI-Firmware-Starteinträge"
+
+#: src/uefibootpage.cpp:143
+msgid "Boot ID"
+msgstr "Start-ID"
+
+#: src/uefibootpage.cpp:143 src/uefibootpage.cpp:228
+msgid "Name"
+msgstr "Name"
+
+#: src/uefibootpage.cpp:144
+msgid "PARTUUID"
+msgstr "PARTUUID"
+
+#: src/uefibootpage.cpp:144
+msgid "State"
+msgstr "Zustand"
+
+#: src/uefibootpage.cpp:162
+msgid "Move up"
+msgstr "Nach oben"
+
+#: src/uefibootpage.cpp:164
+msgid "Move down"
+msgstr "Nach unten"
+
+#: src/uefibootpage.cpp:166
+msgid "Boot once"
+msgstr "Einmal starten"
+
+#: src/uefibootpage.cpp:168
+msgid "Clear next boot"
+msgstr "Nächsten Starteintrag löschen"
+
+#: src/uefibootpage.cpp:170
+msgid "Enable / Disable"
+msgstr "Aktivieren / Deaktivieren"
+
+#: src/uefibootpage.cpp:172
+msgid "Rename"
+msgstr "Umbenennen"
+
+#: src/uefibootpage.cpp:174
+msgid "Add EFI entry"
+msgstr "EFI-Eintrag hinzufügen"
+
+#: src/uefibootpage.cpp:195
+msgid "Save changes"
+msgstr "Änderungen speichern"
+
+#: src/uefibootpage.cpp:197
+msgid "Discard changes"
+msgstr "Änderungen verwerfen"
+
+#: src/uefibootpage.cpp:205
+msgid "Secure Boot and Machine Owner Keys"
+msgstr "Secure Boot und Machine-Owner-Schlüssel (MOK)"
+
+#: src/uefibootpage.cpp:214
+msgid "SecureBoot:"
+msgstr "Secure Boot:"
+
+#: src/uefibootpage.cpp:215
+msgid "SetupMode:"
+msgstr "Setup-Modus:"
+
+#: src/uefibootpage.cpp:216
+msgid "moduleSigEnforce:"
+msgstr "Modulsignatur erzwingen:"
+
+#: src/uefibootpage.cpp:228
+msgid "Issuer"
+msgstr "Aussteller"
+
+#: src/uefibootpage.cpp:229
+msgid "Expires"
+msgstr "Läuft ab"
+
+#: src/uefibootpage.cpp:229
+msgid "SHA1"
+msgstr "SHA1"
+
+#: src/uefibootpage.cpp:243
+msgid "Raw MOK output"
+msgstr "Rohausgabe von MOK"
+
+#: src/uefibootpage.cpp:259
+msgid "Request enrollment"
+msgstr "Registrierung anfordern"
+
+#: src/uefibootpage.cpp:261
+msgid "Cancel pending enrollment"
+msgstr "Ausstehende Registrierung abbrechen"
+
+#: src/uefibootpage.cpp:344
+msgid ""
+"This system was not booted in UEFI mode; firmware changes are unavailable."
+msgstr ""
+"Dieses System wurde nicht im UEFI-Modus gestartet; Firmware-Änderungen sind "
+"nicht verfügbar."
+
+#: src/uefibootpage.cpp:346
+msgid "efibootmgr is missing; install it to manage UEFI firmware entries."
+msgstr ""
+"efibootmgr fehlt; installieren Sie es, um UEFI-Firmware-Einträge zu "
+"verwalten."
+
+#: src/uefibootpage.cpp:348
+msgid "UEFI firmware and Secure Boot state loaded."
+msgstr "UEFI-Firmware und Secure-Boot-Status geladen."
+
+#: src/uefibootpage.cpp:400
+msgid "Current"
+msgstr "Aktuell"
+
+#: src/uefibootpage.cpp:402
+msgid "Next boot"
+msgstr "Nächster Start"
+
+#: src/uefibootpage.cpp:404
+msgid "Pending"
+msgstr "Ausstehend"
+
+#: src/uefibootpage.cpp:423
+msgid "Pending add"
+msgstr "Hinzufügen vorgemerkt"
+
+#: src/uefibootpage.cpp:436
+msgid "Enrolled MOK certificates (%1)"
+msgstr "Registrierte MOK-Zertifikate (%1)"
+
+#: src/uefibootpage.cpp:444
+msgid "Pending MOK confirmation (%1)"
+msgstr "Ausstehende MOK-Bestätigung (%1)"
+
+#: src/uefibootpage.cpp:457
+msgid "Enrolled MOK output:"
+msgstr "Ausgabe der registrierten MOK-Zertifikate:"
+
+#: src/uefibootpage.cpp:460
+msgid "Pending MOK output:"
+msgstr "Ausgabe der ausstehenden MOK-Zertifikate:"
+
+#: src/uefibootpage.cpp:463
+msgid "No raw MOK output was reported."
+msgstr "Es wurde keine MOK-Rohausgabe gemeldet."
+
+#: src/uefibootpage.cpp:468
+msgid "Missing tool: efibootmgr"
+msgstr "Fehlendes Werkzeug: efibootmgr"
+
+#: src/uefibootpage.cpp:470
+msgid "Missing tool: mokutil"
+msgstr "Fehlendes Werkzeug: mokutil"
+
+#: src/uefibootpage.cpp:472
+msgid "Secure Boot is disabled; MOK management is unavailable."
+msgstr "Secure Boot ist deaktiviert; die MOK-Verwaltung ist nicht verfügbar."
+
+#: src/uefibootpage.cpp:514
+msgid "Disable"
+msgstr "Deaktivieren"
+
+#: src/uefibootpage.cpp:514
+msgid "Enable"
+msgstr "Aktivieren"
+
+#: src/uefibootpage.cpp:524
+msgid "Unsaved changes: %1. Nothing is written to the firmware until you save."
+msgstr ""
+"Nicht gespeicherte Änderungen: %1. Bis zum Speichern wird nichts in die "
+"Firmware geschrieben."
+
+#: src/uefibootpage.cpp:598
+msgid "Clear the one-time next-boot entry"
+msgstr "Eintrag für den einmaligen nächsten Start löschen"
+
+#: src/uefibootpage.cpp:599
+msgid "Boot entry %1 once on the next startup"
+msgstr "Eintrag %1 beim nächsten Start einmalig starten"
+
+#: src/uefibootpage.cpp:610
+msgid "Rename entry %1: “%2” → “%3”"
+msgstr "Eintrag %1 umbenennen: „%2“ → „%3“"
+
+#: src/uefibootpage.cpp:622
+msgid "Enable entry %1 (%2)"
+msgstr "Eintrag %1 (%2) aktivieren"
+
+#: src/uefibootpage.cpp:623
+msgid "Disable entry %1 (%2)"
+msgstr "Eintrag %1 (%2) deaktivieren"
+
+#: src/uefibootpage.cpp:634
+msgid "Remove entry %1 (%2)"
+msgstr "Eintrag %1 (%2) entfernen"
+
+#: src/uefibootpage.cpp:648
+msgid "Change the boot order to %1"
+msgstr "Startreihenfolge in %1 ändern"
+
+#: src/uefibootpage.cpp:656
+msgid "Add “%1” for %2"
+msgstr "„%1“ für %2 hinzufügen"
+
+#: src/uefibootpage.cpp:661
+msgid "Apply these changes to the UEFI firmware now?"
+msgstr "Diese Änderungen jetzt in der UEFI-Firmware übernehmen?"
+
+#: src/uefibootpage.cpp:677
+msgid "Confirm Boot Changes"
+msgstr "Startänderungen bestätigen"
+
+#: src/uefibootpage.cpp:685
+msgid "Apply UEFI firmware boot entry changes"
+msgstr "Änderungen an UEFI-Firmware-Starteinträgen anwenden"
+
+#: src/uefibootpage.cpp:699
+msgid "Confirm Boot Change"
+msgstr "Startänderung bestätigen"
+
+#: src/uefibootpage.cpp:761
+msgid "Rename EFI Entry"
+msgstr "EFI-Eintrag umbenennen"
+
+#: src/uefibootpage.cpp:762
+msgid "New firmware entry label:"
+msgstr "Neue Bezeichnung des Firmware-Eintrags:"
+
+#: src/uefibootpage.cpp:768
+msgid "The label must contain 1 to 80 printable characters on a single line."
+msgstr ""
+"Die Bezeichnung muss 1 bis 80 druckbare Zeichen in einer einzigen Zeile "
+"enthalten."
+
+#: src/uefibootpage.cpp:769
+msgid "Invalid Label"
+msgstr "Ungültige Bezeichnung"
+
+#: src/uefibootpage.cpp:788
+msgid "Select an EFI Loader"
+msgstr "EFI-Loader auswählen"
+
+#: src/uefibootpage.cpp:789
+msgid "EFI programs (*.efi *.EFI);;All files (*)"
+msgstr "EFI-Programme (*.efi *.EFI);;Alle Dateien (*)"
+
+#: src/uefibootpage.cpp:795
+msgid "Fedora"
+msgstr "Fedora"
+
+#: src/uefibootpage.cpp:796
+msgid "Add EFI Entry"
+msgstr "EFI-Eintrag hinzufügen"
+
+#: src/uefibootpage.cpp:797
+msgid "Firmware entry label:"
+msgstr "Bezeichnung des Firmware-Eintrags:"
+
+#: src/uefibootpage.cpp:806
+msgid ""
+"The selected loader cannot be registered:\n"
+"%1"
+msgstr ""
+"Der ausgewählte EFI-Loader kann nicht registriert werden:\n"
+"%1"
+
+#: src/uefibootpage.cpp:807
+msgid "Cannot Add EFI Entry"
+msgstr "EFI-Eintrag kann nicht hinzugefügt werden"
+
+#: src/uefibootpage.cpp:835
+msgid "Select a DER Certificate"
+msgstr "DER-Zertifikat auswählen"
+
+#: src/uefibootpage.cpp:836
+msgid "DER certificates (*.der *.crt *.cer);;All files (*)"
+msgstr "DER-Zertifikate (*.der *.crt *.cer);;Alle Dateien (*)"
+
+#: src/uefibootpage.cpp:842
+msgid "Choose a regular DER certificate file between 64 bytes and 64 KiB."
+msgstr ""
+"Wählen Sie eine reguläre DER-Zertifikatsdatei zwischen 64 Byte und 64 KiB."
+
+#: src/uefibootpage.cpp:843 src/uefibootpage.cpp:860
+msgid "Invalid Certificate"
+msgstr "Ungültiges Zertifikat"
+
+#: src/uefibootpage.cpp:849
+msgid "Could not read the selected DER certificate."
+msgstr "Das ausgewählte DER-Zertifikat konnte nicht gelesen werden."
+
+#: src/uefibootpage.cpp:850
+msgid "Certificate Unavailable"
+msgstr "Zertifikat nicht verfügbar"
+
+#: src/uefibootpage.cpp:859
+msgid "The file is not a supported ASN.1 DER certificate."
+msgstr "Die Datei ist kein unterstütztes ASN.1-DER-Zertifikat."
+
+#: src/uefibootpage.cpp:865
+msgid "MOK Enrollment Password"
+msgstr "Passwort für die MOK-Registrierung"
+
+#: src/uefibootpage.cpp:876
+msgid "Password:"
+msgstr "Passwort:"
+
+#: src/uefibootpage.cpp:877
+msgid "Repeat password:"
+msgstr "Passwort wiederholen:"
+
+#: src/uefibootpage.cpp:880
+msgid ""
+"Use 1 to 256 printable characters. Firmware will ask for this password to "
+"confirm enrollment."
+msgstr ""
+"Verwenden Sie 1 bis 256 druckbare Zeichen. Die Firmware fragt dieses "
+"Passwort ab, um die Registrierung zu bestätigen."
+
+#: src/uefibootpage.cpp:884
+msgid "OK"
+msgstr "OK"
+
+#: src/uefibootpage.cpp:885
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: src/uefibootpage.cpp:901
+msgid "The two MOK passwords do not match."
+msgstr "Die beiden MOK-Passwörter stimmen nicht überein."
+
+#: src/uefibootpage.cpp:902
+msgid "Password Mismatch"
+msgstr "Passwörter stimmen nicht überein"
+
+#: src/uefibootpage.cpp:912
+msgid "Invalid Password"
+msgstr "Ungültiges Passwort"
+
+#: src/uefibootpage.cpp:921
+msgid "Request MOK certificate enrollment"
+msgstr "MOK-Zertifikatsregistrierung anfordern"
+
+#: src/uefibootpage.cpp:922
+msgid ""
+"Request enrollment of this certificate?\n"
+"%1\n"
+"\n"
+"After reboot, confirm the request in the MOK manager. The password is sent "
+"only to the privileged helper and is not shown in the log."
+msgstr ""
+"Registrierung dieses Zertifikats anfordern?\n"
+"%1\n"
+"\n"
+"Bestätigen Sie die Anforderung nach dem Neustart im MOK-Manager. Das "
+"Passwort wird nur an das privilegierte Hilfsprogramm übermittelt und nicht "
+"im Protokoll angezeigt."
+
+#: src/uefibootpage.cpp:929
+msgid "Cancel pending MOK enrollment"
+msgstr "Ausstehende MOK-Registrierung abbrechen"
+
+#: src/uefibootpage.cpp:930
+msgid ""
+"Cancel all pending MOK enrollment requests? Already enrolled certificates "
+"will not be removed."
+msgstr ""
+"Alle ausstehenden MOK-Registrierungsanforderungen abbrechen? Bereits "
+"registrierte Zertifikate werden nicht entfernt."
 
 #: kcm/kcm_miryu_toolkit.cpp:49
 msgid ""
-"Miryu Toolkit manages optional Miryu components (Wine, Steam, MIDI playback,"
-" extra fonts), system-wide environment variables, and collects system logs."
+"Miryu Toolkit manages optional Miryu components (Wine, Steam, MIDI playback, "
+"extra fonts), system-wide environment variables, and collects system logs."
 msgstr ""
 "Miryu Toolkit verwaltet optionale Miryu-Komponenten (Wine, Steam, MIDI-"
 "Wiedergabe, zusätzliche Schriften), systemweite Umgebungsvariablen und "
@@ -1530,12 +3541,11 @@ msgstr ""
 
 #: kcm/kcm_miryu_toolkit.cpp:61
 msgid "Relaunch Miryu Toolkit"
-msgstr "Miryu-Werkzeugkasten neu starten"
+msgstr "Miryu Toolkit neu starten"
 
 #: kcm/kcm_miryu_toolkit.cpp:98
 msgid ""
-"Miryu Toolkit is an external application and has been automatically "
-"launched."
+"Miryu Toolkit is an external application and has been automatically launched."
 msgstr ""
 "Miryu Toolkit ist eine externe Anwendung und wurde automatisch gestartet."
 
@@ -1545,19 +3555,97 @@ msgstr ""
 "Miryu Toolkit konnte nicht gestartet werden. Stellen Sie sicher, dass es "
 "installiert ist."
 
-#~ msgid ""
-#~ "The configured compressor %1 is not available, but %2 is. Select it in the "
-#~ "compressor list above."
+#~ msgid "Select an entry to view sbverify signature details."
 #~ msgstr ""
-#~ "Der konfigurierte Kompressor %1 ist nicht verfügbar, aber %2 schon. Wählen "
-#~ "Sie ihn in der Kompressorliste oben aus."
+#~ "Wählen Sie einen Eintrag aus, um die Signaturdetails von sbverify "
+#~ "anzuzeigen."
+
+#~ msgid "Missing tool: sbverify; EFI signature details may be unavailable."
+#~ msgstr ""
+#~ "Fehlendes Werkzeug: sbverify; EFI-Signaturdetails sind möglicherweise "
+#~ "nicht verfügbar."
+
+#~ msgid "Select a firmware entry to inspect its EFI signature."
+#~ msgstr ""
+#~ "Wählen Sie einen Firmware-Eintrag aus, um seine EFI-Signatur zu prüfen."
+
+#~ msgid "The EFI loader path could not be resolved for firmware entry %1."
+#~ msgstr ""
+#~ "Der EFI-Loader-Pfad für Firmware-Eintrag %1 konnte nicht aufgelöst werden."
+
+#~ msgid "Resolved loader: %1"
+#~ msgstr "Ermittelter EFI-Loader: %1"
+
+#~ msgid "No sbverify result is available for this resolved loader."
+#~ msgstr ""
+#~ "Für diesen ermittelten EFI-Loader ist kein sbverify-Ergebnis verfügbar."
+
+#~ msgid "sbverify returned no signature details for this loader."
+#~ msgstr ""
+#~ "sbverify hat keine Signaturdetails für diesen EFI-Loader zurückgegeben."
+
+#~ msgid "Boot Operation"
+#~ msgstr "Startvorgang"
+
+#~ msgid "Leave empty for the default subvolume"
+#~ msgstr "Leer lassen für das Standard-Subvolume"
+
+#~ msgid ""
+#~ "Signed EFI bootloader files are still missing after installing %1 and %2."
+#~ msgstr ""
+#~ "Signierte EFI-Bootloader-Dateien fehlen auch nach der Installation von %1 "
+#~ "und %2."
+
+#~ msgid "The target has no GRUB modules for %1."
+#~ msgstr "Für %1 sind keine GRUB-Module im Ziel vorhanden."
+
+#~ msgid "up"
+#~ msgstr "nach oben"
+
+#~ msgid "down"
+#~ msgstr "nach unten"
+
+#~ msgid "Move firmware entry %1 (%2) %3 in BootOrder?"
+#~ msgstr "Firmware-Eintrag %1 (%2) in der BootOrder %3 verschieben?"
+
+#~ msgid "Clear the one-time BootNext firmware setting?"
+#~ msgstr "Die einmalige Firmware-Einstellung BootNext löschen?"
+
+#~ msgid "Enable a UEFI firmware entry"
+#~ msgstr "Einen UEFI-Firmware-Eintrag aktivieren"
+
+#~ msgid "Disable a UEFI firmware entry"
+#~ msgstr "Einen UEFI-Firmware-Eintrag deaktivieren"
+
+#~ msgid "Add a UEFI firmware entry"
+#~ msgstr "Einen UEFI-Firmware-Eintrag hinzufügen"
+
+#~ msgid ""
+#~ "Create firmware entry “%1” for this EFI loader?\n"
+#~ "%2"
+#~ msgstr ""
+#~ "Firmware-Eintrag „%1“ für diesen EFI-Loader erstellen?\n"
+#~ "%2"
+
+#~ msgid "Remove a UEFI firmware entry"
+#~ msgstr "Einen UEFI-Firmware-Eintrag entfernen"
+
+#~ msgid "Permanently remove firmware entry %1 (%2) from UEFI NVRAM?"
+#~ msgstr "Firmware-Eintrag %1 (%2) dauerhaft aus dem UEFI-NVRAM entfernen?"
+
+#~ msgid ""
+#~ "The configured compressor %1 is not available, but %2 is. Select it in "
+#~ "the compressor list above."
+#~ msgstr ""
+#~ "Der konfigurierte Kompressor %1 ist nicht verfügbar, aber %2 schon. "
+#~ "Wählen Sie ihn in der Kompressorliste oben aus."
 
 #~ msgid ""
 #~ "The hibernation compressor %1 is not available in the kernel; hibernation "
 #~ "fails with \"Operation not supported\"."
 #~ msgstr ""
-#~ "Der Ruhezustand-Kompressor %1 ist im Kernel nicht verfügbar; der Ruhezustand"
-#~ " schlägt mit „Vorgang nicht unterstützt\" fehl."
+#~ "Der Ruhezustand-Kompressor %1 ist im Kernel nicht verfügbar; der "
+#~ "Ruhezustand schlägt mit „Vorgang nicht unterstützt\" fehl."
 
 #~ msgid ""
 #~ "Manage Miryu components, maintenance tasks and system-wide environment "

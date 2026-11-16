@@ -1,5 +1,9 @@
 #include "mainwindow.h"
 
+#include "bootrepairpage.h"
+#include "bootservice.h"
+#include "uefibootpage.h"
+
 #include <KGuiItem>
 #include <KLocalizedString>
 #include <KMessageBox>
@@ -25,6 +29,7 @@
 #include <QIcon>
 #include <QInputDialog>
 #include <QLineEdit>
+#include <QLocale>
 #include <QPalette>
 #include <QPixmap>
 #include <QPlainTextEdit>
@@ -92,6 +97,17 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_tabs->addTab(wrapScroll(buildSystemAssistantTab()), i18n("Miryu System Assistant"));
     m_tabs->addTab(wrapScroll(buildBootMenuTab()), i18n("Boot Menu"));
+    auto *bootService = new BootService(this);
+    m_uefiBootPage = wrapScroll(new UefiBootPage(bootService));
+    m_tabs->addTab(m_uefiBootPage, i18nd("miryu-toolkit", "UEFI Entries && Secure Boot"));
+    // The firmware entries only exist on UEFI systems; keep the tab hidden until
+    // the first scan confirms it, so legacy BIOS machines never show it.
+    m_tabs->setTabVisible(m_tabs->indexOf(m_uefiBootPage), false);
+    QObject::connect(bootService, &BootService::snapshotReady, this,
+                     [this](const BootSnapshot &snapshot) {
+                         m_tabs->setTabVisible(m_tabs->indexOf(m_uefiBootPage), snapshot.uefi);
+                     });
+    m_tabs->addTab(wrapScroll(new BootRepairPage(bootService)), i18n("Boot Repair"));
     m_tabs->addTab(wrapScroll(buildEnvironmentTab()), i18n("System-wide environment variables"));
     m_tabs->addTab(wrapScroll(buildSleepTab()), i18n("Sleep"));
     m_tabs->addTab(wrapScroll(buildExtrasTab()), i18n("Install additional components"));
@@ -113,6 +129,9 @@ MainWindow::MainWindow(QWidget *parent)
     loadEnvironmentVariables();
     loadSleepConfig();
     loadGrubConfig();
+#ifndef MIRYU_BOOT_PAGES_TEST
+    bootService->refresh();
+#endif
 }
 
 void MainWindow::setupComponents()
@@ -906,11 +925,11 @@ void MainWindow::refreshSleepChecks()
             }
         }
         if (locked) {
-            reports.append({0, i18n("Secure Boot"), i18n("Secure Boot is enabled and the kernel lockdown prevents hibernation.")});
+            reports.append({0, i18nd("miryu-toolkit", "Secure Boot"), i18nd("miryu-toolkit", "Secure Boot is enabled and the kernel lockdown prevents hibernation.")});
         } else if (secureBoot) {
-            reports.append({1, i18n("Secure Boot"), i18n("Secure Boot is enabled but the kernel lockdown is not active.")});
+            reports.append({1, i18nd("miryu-toolkit", "Secure Boot"), i18nd("miryu-toolkit", "Secure Boot is enabled but the kernel lockdown is not active.")});
         } else {
-            reports.append({1, i18n("Secure Boot"), i18n("Secure Boot is disabled.")});
+            reports.append({1, i18nd("miryu-toolkit", "Secure Boot"), i18nd("miryu-toolkit", "Secure Boot is disabled.")});
         }
 
         // Swap areas
@@ -2159,7 +2178,9 @@ void MainWindow::onSaveGrubClicked()
     setGrubBusy(true);
     m_grubStatusLabel->setText(i18n("Waiting for administrator authentication..."));
 
-    process->start(QStringLiteral("pkexec"), QStringList() << helperPath << QStringLiteral("--apply") << tempPath);
+    process->start(QStringLiteral("pkexec"), QStringList()
+        << helperPath << QStringLiteral("--apply") << tempPath
+        << QStringLiteral("--lang") << QLocale().name());
 
     logDialog->show();
 }
@@ -2467,7 +2488,7 @@ void MainWindow::cleanupOldKernel()
     }
 
     if (KMessageBox::questionTwoActions(this,
-                                        i18n("Remove previous kernel versions? This will run: dnf-3 -y remove --oldinstallonly"),
+                                        i18n("Remove previous kernel versions? This will run: dnf5 -y remove --oldinstallonly"),
                                         i18n("Clean up previous kernel"),
                                         KGuiItem(i18n("Clean up")),
                                         KStandardGuiItem::cancel())
@@ -2490,7 +2511,7 @@ void MainWindow::cleanupOldKernel()
     logDialog->resize(760, 460);
 
     auto *logLayout = new QVBoxLayout(logDialog);
-    auto *logHint = new QLabel(i18n("Removing previous kernel versions via dnf-3..."), logDialog);
+    auto *logHint = new QLabel(i18n("Removing previous kernel versions via dnf5..."), logDialog);
     logHint->setWordWrap(true);
     logLayout->addWidget(logHint);
 
@@ -2727,6 +2748,7 @@ void MainWindow::collectSystemLogs()
     if (!user.isEmpty()) {
         args << user;
     }
+    args << QStringLiteral("--lang") << QLocale().name();
 
     process->start(QStringLiteral("pkexec"), args);
     logDialog->show();

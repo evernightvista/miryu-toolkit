@@ -14,7 +14,7 @@
     <description xml:lang="de">Offizielle Fedora-Kernel-Pakete verwalten</description>
     <description xml:lang="ko">Fedora 공식 커널 패키지 관리</description>
     <description xml:lang="fr">Gérer les paquets du noyau officiel Fedora</description>
-    <message>安装 Fedora 官方内核需要认证</message>
+    <message>Authentication is required to install the official Fedora kernel.</message>
     <message xml:lang="zh_CN">安装 Fedora 官方内核需要认证</message>
     <message xml:lang="zh_TW">安裝 Fedora 官方核心需要認證</message>
     <message xml:lang="ja">Fedora 公式カーネルのインストールには認証が必要です</message>
@@ -39,7 +39,7 @@
     <description xml:lang="de">Wine-Unterstützungspakete verwalten</description>
     <description xml:lang="ko">Wine 지원 패키지 관리</description>
     <description xml:lang="fr">Gérer les paquets de prise en charge de Wine</description>
-    <message>安装Wine需要认证</message>
+    <message>Authentication is required to install Wine.</message>
     <message xml:lang="zh_CN">安装Wine需要认证</message>
     <message xml:lang="zh_TW">安裝 Wine 需要認證</message>
     <message xml:lang="ja">Wine のインストールには認証が必要です</message>
@@ -64,7 +64,7 @@
     <description xml:lang="de">Steam-Paket verwalten</description>
     <description xml:lang="ko">Steam 패키지 관리</description>
     <description xml:lang="fr">Gérer le paquet Steam</description>
-    <message>安装Steam需要认证</message>
+    <message>Authentication is required to install Steam.</message>
     <message xml:lang="zh_CN">安装Steam需要认证</message>
     <message xml:lang="zh_TW">安裝 Steam 需要認證</message>
     <message xml:lang="ja">Steam のインストールには認証が必要です</message>
@@ -89,7 +89,7 @@
     <description xml:lang="de">Paket für MIDI-Wiedergabeunterstützung verwalten</description>
     <description xml:lang="ko">MIDI 재생 지원 패키지 관리</description>
     <description xml:lang="fr">Gérer le paquet de prise en charge de la lecture MIDI</description>
-    <message>安装MIDI播放需要认证</message>
+    <message>Authentication is required to install MIDI playback support.</message>
     <message xml:lang="zh_CN">安装MIDI播放需要认证</message>
     <message xml:lang="zh_TW">安裝 MIDI 播放需要認證</message>
     <message xml:lang="ja">MIDI 再生サポートのインストールには認証が必要です</message>
@@ -114,7 +114,7 @@
     <description xml:lang="de">Zusätzliche Schriftpakete verwalten</description>
     <description xml:lang="ko">추가 글꼴 패키지 관리</description>
     <description xml:lang="fr">Gérer les paquets de polices supplémentaires</description>
-    <message>安装补充字体需要认证</message>
+    <message>Authentication is required to install additional fonts.</message>
     <message xml:lang="zh_CN">安装补充字体需要认证</message>
     <message xml:lang="zh_TW">安裝補充字型需要認證</message>
     <message xml:lang="ja">追加フォントのインストールには認証が必要です</message>
@@ -139,7 +139,7 @@
     <description xml:lang="de">Offizielle Fedora-Kernel-Pakete entfernen</description>
     <description xml:lang="ko">Fedora 공식 커널 패키지 제거</description>
     <description xml:lang="fr">Supprimer les paquets du noyau officiel Fedora</description>
-    <message>卸载 Fedora 官方内核需要认证</message>
+    <message>Authentication is required to remove the official Fedora kernel.</message>
     <message xml:lang="zh_CN">卸载 Fedora 官方内核需要认证</message>
     <message xml:lang="zh_TW">卸載 Fedora 官方核心需要認證</message>
     <message xml:lang="ja">Fedora 公式カーネルのアンインストールには認証が必要です</message>
@@ -164,7 +164,7 @@
     <description xml:lang="de">Wine-Unterstützungspakete entfernen</description>
     <description xml:lang="ko">Wine 지원 패키지 제거</description>
     <description xml:lang="fr">Supprimer les paquets de prise en charge de Wine</description>
-    <message>卸载Wine需要认证</message>
+    <message>Authentication is required to remove Wine.</message>
     <message xml:lang="zh_CN">卸载Wine需要认证</message>
     <message xml:lang="zh_TW">卸載 Wine 需要認證</message>
     <message xml:lang="ja">Wine のアンインストールには認証が必要です</message>
@@ -189,7 +189,7 @@
     <description xml:lang="de">Steam-Paket entfernen</description>
     <description xml:lang="ko">Steam 패키지 제거</description>
     <description xml:lang="fr">Supprimer le paquet Steam</description>
-    <message>卸载Steam需要认证</message>
+    <message>Authentication is required to remove Steam.</message>
     <message xml:lang="zh_CN">卸载Steam需要认证</message>
     <message xml:lang="zh_TW">卸載 Steam 需要認證</message>
     <message xml:lang="ja">Steam のアンインストールには認証が必要です</message>
@@ -214,7 +214,7 @@
     <description xml:lang="de">Paket für MIDI-Wiedergabeunterstützung entfernen</description>
     <description xml:lang="ko">MIDI 재생 지원 패키지 제거</description>
     <description xml:lang="fr">Supprimer le paquet de prise en charge de la lecture MIDI</description>
-    <message>卸载MIDI播放需要认证</message>
+    <message>Authentication is required to remove MIDI playback support.</message>
     <message xml:lang="zh_CN">卸载MIDI播放需要认证</message>
     <message xml:lang="zh_TW">卸載 MIDI 播放需要認證</message>
     <message xml:lang="ja">MIDI 再生サポートのアンインストールには認証が必要です</message>
@@ -239,7 +239,7 @@
     <description xml:lang="de">Zusätzliche Schriftpakete entfernen</description>
     <description xml:lang="ko">추가 글꼴 패키지 제거</description>
     <description xml:lang="fr">Supprimer les paquets de polices supplémentaires</description>
-    <message>卸载补充字体需要认证</message>
+    <message>Authentication is required to remove additional fonts.</message>
     <message xml:lang="zh_CN">卸载补充字体需要认证</message>
     <message xml:lang="zh_TW">卸載補充字型需要認證</message>
     <message xml:lang="ja">追加フォントのアンインストールには認証が必要です</message>
@@ -264,7 +264,7 @@
     <description xml:lang="de">Systemweite Umgebungsvariablen anwenden</description>
     <description xml:lang="ko">시스템 전체 환경 변수 적용</description>
     <description xml:lang="fr">Appliquer les variables d'environnement système</description>
-    <message>应用系统范围环境变量需要认证</message>
+    <message>Authentication is required to apply system-wide environment variables.</message>
     <message xml:lang="zh_CN">应用系统范围环境变量需要认证</message>
     <message xml:lang="zh_TW">套用系統範圍環境變數需要認證</message>
     <message xml:lang="ja">システム全体の環境変数の適用には認証が必要です</message>
@@ -289,7 +289,7 @@
     <description xml:lang="de">Standardwerte der systemweiten Umgebungsvariablen wiederherstellen</description>
     <description xml:lang="ko">기본 시스템 전체 환경 변수 복원</description>
     <description xml:lang="fr">Restaurer les variables d'environnement système par défaut</description>
-    <message>恢复默认系统范围环境变量需要认证</message>
+    <message>Authentication is required to restore default system-wide environment variables.</message>
     <message xml:lang="zh_CN">恢复默认系统范围环境变量需要认证</message>
     <message xml:lang="zh_TW">恢復預設系統範圍環境變數需要認證</message>
     <message xml:lang="ja">既定のシステム全体の環境変数の復元には認証が必要です</message>
@@ -314,7 +314,7 @@
     <description xml:lang="de">Energieverwaltungseinstellungen anwenden</description>
     <description xml:lang="ko">절전 설정 적용</description>
     <description xml:lang="fr">Appliquer les paramètres de veille</description>
-    <message>应用睡眠设置需要认证</message>
+    <message>Authentication is required to apply sleep settings.</message>
     <message xml:lang="zh_CN">应用睡眠设置需要认证</message>
     <message xml:lang="zh_TW">套用睡眠設定需要認證</message>
     <message xml:lang="ja">スリープ設定の適用には認証が必要です</message>
@@ -336,12 +336,14 @@
     <description xml:lang="zh_CN">修复睡眠模式问题</description>
     <description xml:lang="zh_TW">修復睡眠模式問題</description>
     <description xml:lang="ja">スリープモードの問題を修正</description>
+    <description xml:lang="de">Probleme mit dem Energiesparmodus beheben</description>
     <description xml:lang="ko">절전 모드 문제 해결</description>
     <description xml:lang="fr">Résoudre les problèmes de mode de veille</description>
     <message>Fixing sleep mode problems requires authentication</message>
     <message xml:lang="zh_CN">修复睡眠模式问题需要认证</message>
     <message xml:lang="zh_TW">修復睡眠模式問題需要認證</message>
     <message xml:lang="ja">スリープモードの問題修正には認証が必要です</message>
+    <message xml:lang="de">Für die Behebung von Problemen mit dem Energiesparmodus ist eine Authentifizierung erforderlich</message>
     <message xml:lang="ko">절전 모드 문제를 해결하려면 인증이 필요합니다</message>
     <message xml:lang="fr">La résolution des problèmes de mode de veille nécessite une authentification</message>
     <icon_name>preferences-system</icon_name>
@@ -362,7 +364,7 @@
     <description xml:lang="de">Vorherige Kernel-Versionen entfernen</description>
     <description xml:lang="ko">이전 커널 버전 제거</description>
     <description xml:lang="fr">Supprimer les versions précédentes du noyau</description>
-    <message>清理上一版本内核需要认证</message>
+    <message>Authentication is required to remove previous kernel versions.</message>
     <message xml:lang="zh_CN">清理上一版本内核需要认证</message>
     <message xml:lang="zh_TW">清理上一版本核心需要認證</message>
     <message xml:lang="ja">以前のカーネルバージョンのクリーンアップには認証が必要です</message>
@@ -387,7 +389,7 @@
     <description xml:lang="de">Betriebssystem aktualisieren</description>
     <description xml:lang="ko">운영 체제 업데이트</description>
     <description xml:lang="fr">Mettre à jour le système d'exploitation</description>
-    <message>更新操作系统需要认证</message>
+    <message>Authentication is required to update the operating system.</message>
     <message xml:lang="zh_CN">更新操作系统需要认证</message>
     <message xml:lang="zh_TW">更新作業系統需要認證</message>
     <message xml:lang="ja">オペレーティングシステムの更新には認証が必要です</message>
@@ -412,7 +414,7 @@
     <description xml:lang="de">Systemprotokolle sammeln</description>
     <description xml:lang="ko">시스템 로그 수집</description>
     <description xml:lang="fr">Collecter les journaux système</description>
-    <message>需要认证以收集系统日志</message>
+    <message>Authentication is required to collect system logs.</message>
     <message xml:lang="zh_CN">需要认证以收集系统日志</message>
     <message xml:lang="zh_TW">需要認證以收集系統日誌</message>
     <message xml:lang="ja">システムログの収集には認証が必要です</message>
@@ -437,7 +439,7 @@
     <description xml:lang="de">RPM-Datenbank entsperren</description>
     <description xml:lang="ko">RPM 데이터베이스 잠금 해제</description>
     <description xml:lang="fr">Déverrouiller la base de données RPM</description>
-    <message>解锁rpm数据库需要认证</message>
+    <message>Authentication is required to unlock the RPM database.</message>
     <message xml:lang="zh_CN">解锁rpm数据库需要认证</message>
     <message xml:lang="zh_TW">解鎖 RPM 資料庫需要認證</message>
     <message xml:lang="ja">RPM データベースのロック解除には認証が必要です</message>
@@ -462,7 +464,7 @@
     <description xml:lang="de">Nicht verwendete Pakete mit dnf5 autoremove bereinigen</description>
     <description xml:lang="ko">dnf5 autoremove로 불필요한 패키지 정리</description>
     <description xml:lang="fr">Nettoyer les paquets inutilisés avec dnf5 autoremove</description>
-    <message>清理dnf5无用的软件包需要认证</message>
+    <message>Authentication is required to remove unused packages with dnf5.</message>
     <message xml:lang="zh_CN">清理dnf5无用的软件包需要认证</message>
     <message xml:lang="zh_TW">清理 dnf5 無用的軟體包需要認證</message>
     <message xml:lang="ja">dnf5 の不要なパッケージのクリーンアップには認証が必要です</message>
@@ -487,7 +489,7 @@
     <description xml:lang="de">Absturzinformationen anzeigen</description>
     <description xml:lang="ko">소프트웨어 충돌 정보 보기</description>
     <description xml:lang="fr">Afficher les informations de plantage</description>
-    <message>查看软件崩溃信息</message>
+    <message>View software crash information.</message>
     <message xml:lang="zh_CN">查看软件崩溃信息</message>
     <message xml:lang="zh_TW">檢視軟體崩潰資訊</message>
     <message xml:lang="ja">ソフトウェアのクラッシュ情報を表示</message>
@@ -526,6 +528,56 @@
       <allow_active>auth_admin</allow_active>
     </defaults>
     <annotate key="org.freedesktop.policykit.exec.path">@CMAKE_INSTALL_FULL_LIBEXECDIR@/miryu-toolkit/miryu-toolkit-grub-config-helper</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
+  </action>
+
+  <action id="org.miryugaming.toolkit.manage-boot">
+    <description>Manage UEFI boot entries, Secure Boot keys and boot repair</description>
+    <description xml:lang="zh_CN">管理 UEFI 启动项、安全启动密钥和启动修复</description>
+    <description xml:lang="zh_TW">管理 UEFI 開機項目、安全開機金鑰和開機修復</description>
+    <description xml:lang="ja">UEFI ブートエントリー、セキュアブートキー、ブート修復を管理</description>
+    <description xml:lang="de">UEFI-Booteinträge, Secure-Boot-Schlüssel und Bootreparatur verwalten</description>
+    <description xml:lang="ko">UEFI 부팅 항목, 보안 부팅 키 및 부팅 복구 관리</description>
+    <description xml:lang="fr">Gérer les entrées UEFI, les clés Secure Boot et la réparation du démarrage</description>
+    <message>Authentication is required to change firmware boot settings, request MOK enrollment, repair GRUB2 or restore boot configuration.</message>
+    <message xml:lang="zh_CN">更改固件启动设置、请求 MOK 注册、修复 GRUB2 或恢复启动配置需要进行身份验证。</message>
+    <message xml:lang="zh_TW">變更韌體開機設定、請求 MOK 註冊、修復 GRUB2 或還原開機設定需要進行身分驗證。</message>
+    <message xml:lang="ja">ファームウェアの起動設定、MOK 登録、GRUB2 修復、起動設定の復元には認証が必要です。</message>
+    <message xml:lang="de">Firmware-Booteinstellungen, MOK-Registrierung, GRUB2-Reparatur und Wiederherstellung der Bootkonfiguration erfordern eine Authentifizierung.</message>
+    <message xml:lang="ko">펌웨어 부팅 설정, MOK 등록, GRUB2 복구 또는 부팅 구성 복원에는 인증이 필요합니다.</message>
+    <message xml:lang="fr">La modification du démarrage UEFI, l'inscription MOK, la réparation de GRUB2 et la restauration nécessitent une authentification.</message>
+    <icon_name>preferences-system</icon_name>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">@CMAKE_INSTALL_FULL_LIBEXECDIR@/miryu-toolkit/miryu-toolkit-boot-helper</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
+  </action>
+
+  <action id="org.miryugaming.toolkit.list-mok">
+    <description>List pending MOK enrollment requests</description>
+    <description xml:lang="zh_CN">列出待确认的 MOK 注册请求</description>
+    <description xml:lang="zh_TW">列出待確認的 MOK 註冊請求</description>
+    <description xml:lang="ja">保留中の MOK 登録要求を一覧表示</description>
+    <description xml:lang="de">Ausstehende MOK-Registrierungsanforderungen auflisten</description>
+    <description xml:lang="ko">보류 중인 MOK 등록 요청 나열</description>
+    <description xml:lang="fr">Lister les demandes d'inscription MOK en attente</description>
+    <message>Reading the pending MOK list requires authentication.</message>
+    <message xml:lang="zh_CN">读取待确认 MOK 列表需要认证。</message>
+    <message xml:lang="zh_TW">讀取待確認 MOK 列表需要認證。</message>
+    <message xml:lang="ja">保留中の MOK 一覧の読み取りには認証が必要です。</message>
+    <message xml:lang="de">Für das Lesen der Liste der ausstehenden MOK ist eine Authentifizierung erforderlich.</message>
+    <message xml:lang="ko">보류 중인 MOK 목록을 읽으려면 인증이 필요합니다.</message>
+    <message xml:lang="fr">La lecture de la liste des MOK en attente nécessite une authentification.</message>
+    <icon_name>preferences-system</icon_name>
+    <defaults>
+      <allow_any>yes</allow_any>
+      <allow_inactive>yes</allow_inactive>
+      <allow_active>yes</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">@CMAKE_INSTALL_FULL_LIBEXECDIR@/miryu-toolkit/miryu-toolkit-list-mok</annotate>
     <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
   </action>
 </policyconfig>

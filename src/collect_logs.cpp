@@ -19,12 +19,15 @@
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
+#include <QLocale>
 #include <QProcess>
 #include <QProcessEnvironment>
 #include <QRegularExpression>
 #include <QStandardPaths>
 #include <QTemporaryDir>
 #include <QTextStream>
+
+#include <KLocalizedString>
 
 #include <cstdio>
 #include <cstdlib>
@@ -48,14 +51,14 @@ static bool runCommand(const QString &outfile, QStringList args, const QString &
     if (!proc.waitForFinished(60000)) {
         proc.kill();
         proc.waitForFinished(5000);
-        logMsg(QStringLiteral("TIMEOUT: %1").arg(proc.program()));
+        logMsg(i18n("Command timed out: %1", proc.program()));
         return false;
     }
     if (proc.exitStatus() == QProcess::NormalExit && proc.exitCode() == 0) {
-        logMsg(QStringLiteral("OK: %1 -> %2").arg(proc.program(), QFileInfo(outfile).fileName()));
+        logMsg(i18n("Completed: %1 -> %2", proc.program(), QFileInfo(outfile).fileName()));
         return true;
     }
-    logMsg(QStringLiteral("FAILED: %1 (exit %2)").arg(proc.program()).arg(proc.exitCode()));
+    logMsg(i18n("Failed: %1 (exit status %2)", proc.program(), proc.exitCode()));
     return false;
 }
 
@@ -157,15 +160,22 @@ static bool isLiveCD()
 int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
+    KLocalizedString::setApplicationDomain("miryu-toolkit");
+    const QStringList arguments = app.arguments();
+    const int languageIndex = arguments.indexOf(QStringLiteral("--lang"));
+    if (languageIndex > 0 && languageIndex + 1 < arguments.size()) {
+        const QLocale locale(arguments.at(languageIndex + 1));
+        if (locale.language() != QLocale::C)
+            KLocalizedString::setLanguages({locale.name()});
+    }
 
     QString targetUser;
-    if (argc > 1) {
-        targetUser = QString::fromLocal8Bit(argv[1]);
-    }
+    if (arguments.size() > 1 && arguments.at(1) != QLatin1String("--lang"))
+        targetUser = arguments.at(1);
 
     QTemporaryDir tempDir(QStringLiteral("/tmp/collect-logs-XXXXXX"));
     if (!tempDir.isValid()) {
-        logMsg(QStringLiteral("Failed to create temporary directory."));
+        logMsg(i18n("Failed to create a temporary directory."));
         return 1;
     }
     QString tmp = tempDir.path();
@@ -176,8 +186,8 @@ int main(int argc, char *argv[])
     QString timestamp = QDateTime::currentDateTime().toString(QStringLiteral("yyyyMMdd_HHmmss"));
     QString outName = QStringLiteral("miryu-logs-%1.tar.zstd").arg(timestamp);
 
-    logMsg(QStringLiteral("Creating temporary workspace: %1").arg(tmp));
-    logMsg(QStringLiteral("TARGET_USER: %1").arg(targetUser.isEmpty() ? QStringLiteral("<none>") : targetUser));
+    logMsg(i18n("Creating temporary workspace: %1", tmp));
+    logMsg(i18n("Target user: %1", targetUser.isEmpty() ? i18n("none") : targetUser));
 
     // --- System information ---
     tryCmd(tmp, QStringLiteral("uname.txt"), {QStringLiteral("uname"), QStringLiteral("-a")});
@@ -228,35 +238,35 @@ int main(int argc, char *argv[])
     // dnf5 writes to /var/log/dnf5.log; older dnf uses /var/log/dnf.log
     if (QFile::exists(QStringLiteral("/var/log/dnf5.log"))) {
         if (copyFile(QStringLiteral("/var/log/dnf5.log"), tmp + QStringLiteral("/dnf5.log"))) {
-            logMsg(QStringLiteral("Copied /var/log/dnf5.log"));
+            logMsg(i18n("Copied %1", QStringLiteral("/var/log/dnf5.log")));
         } else {
-            logMsg(QStringLiteral("Failed to copy /var/log/dnf5.log"));
+            logMsg(i18n("Failed to copy %1", QStringLiteral("/var/log/dnf5.log")));
         }
     }
     if (QFile::exists(QStringLiteral("/var/log/dnf.log"))) {
         if (copyFile(QStringLiteral("/var/log/dnf.log"), tmp + QStringLiteral("/dnf.log"))) {
-            logMsg(QStringLiteral("Copied /var/log/dnf.log"));
+            logMsg(i18n("Copied %1", QStringLiteral("/var/log/dnf.log")));
         }
     }
 
     // --- Anaconda installer logs (only in LiveCD environment) ---
     if (isLiveCD()) {
-        logMsg(QStringLiteral("LiveCD environment detected, collecting Anaconda logs..."));
+        logMsg(i18n("Live CD environment detected; collecting Anaconda logs…"));
         if (QDir(QStringLiteral("/var/log/anaconda")).exists()) {
             if (copyDir(QStringLiteral("/var/log/anaconda"), tmp + QStringLiteral("/anaconda"))) {
-                logMsg(QStringLiteral("Copied /var/log/anaconda"));
+                logMsg(i18n("Copied %1", QStringLiteral("/var/log/anaconda")));
             } else {
-                logMsg(QStringLiteral("Failed to copy /var/log/anaconda"));
+                logMsg(i18n("Failed to copy %1", QStringLiteral("/var/log/anaconda")));
             }
         }
         // Also collect /root/anaconda-ks.cfg if present
         if (QFile::exists(QStringLiteral("/root/anaconda-ks.cfg"))) {
             if (copyFile(QStringLiteral("/root/anaconda-ks.cfg"), tmp + QStringLiteral("/anaconda-ks.cfg"))) {
-                logMsg(QStringLiteral("Copied /root/anaconda-ks.cfg"));
+                logMsg(i18n("Copied %1", QStringLiteral("/root/anaconda-ks.cfg")));
             }
         }
     } else {
-        logMsg(QStringLiteral("Not a LiveCD environment, skipping Anaconda logs."));
+        logMsg(i18n("Not a Live CD environment; skipping Anaconda logs."));
     }
 
     // --- Manifest ---
@@ -305,10 +315,10 @@ int main(int argc, char *argv[])
         tar.setWorkingDirectory(tmp);
         tar.start(QStringLiteral("tar"), {QStringLiteral("-czf"), archivePath, QStringLiteral(".")});
         if (tar.waitForFinished(120000) && tar.exitCode() == 0) {
-            logMsg(QStringLiteral("zstd not found; created gzip archive: %1").arg(archivePath));
+            logMsg(i18n("zstd was not found; created gzip archive: %1", archivePath));
             archived = true;
         } else {
-            logMsg(QStringLiteral("gzip archive failed"));
+            logMsg(i18n("Could not create the gzip archive."));
         }
     } else {
         // Pipe tar output through zstd: tar stdout → zstd stdin → file
@@ -325,11 +335,11 @@ int main(int argc, char *argv[])
         zstd.waitForFinished(120000);
 
         if (zstd.exitCode() == 0 && tar.exitCode() == 0) {
-            logMsg(QStringLiteral("Archive created: %1").arg(archivePath));
+            logMsg(i18n("Archive created: %1", archivePath));
             archived = true;
         } else {
-            logMsg(QStringLiteral("zstd archive failed (tar exit %1, zstd exit %2)")
-                       .arg(tar.exitCode()).arg(zstd.exitCode()));
+            logMsg(i18n("Could not create the zstd archive (tar exit status %1, zstd exit status %2).",
+                        tar.exitCode(), zstd.exitCode()));
         }
     }
 
@@ -340,7 +350,7 @@ int main(int argc, char *argv[])
                     {targetUser + QStringLiteral(":") + targetUser, archivePath});
         chown.waitForFinished(10000);
         if (chown.exitCode() != 0) {
-            logMsg(QStringLiteral("chown failed for %1").arg(archivePath));
+            logMsg(i18n("Could not change archive ownership: %1", archivePath));
         }
     }
 
@@ -350,6 +360,6 @@ int main(int argc, char *argv[])
         fflush(stdout);
     }
 
-    logMsg(QStringLiteral("Done."));
+    logMsg(i18n("Log collection finished."));
     return archived ? 0 : 1;
 }

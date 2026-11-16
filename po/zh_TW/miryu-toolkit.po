@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: miryu-toolkit 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-02 10:28+0800\n"
+"POT-Creation-Date: 2026-11-16 12:08+0800\n"
 "PO-Revision-Date: 2026-08-12 00:00+0800\n"
 "Last-Translator: Miryu Team <packager@miryu.local>\n"
 "Language-Team: Traditional Chinese\n"
@@ -12,94 +12,1567 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/grubconfighelper.cpp:70
+#: src/bootbackup.cpp:88
+msgid "The backup path contains a symbolic link or is not absolute."
+msgstr "備份路徑包含符號連結或不是絕對路徑。"
+
+#: src/bootbackup.cpp:91
+msgid "Cannot create a traversable backup directory."
+msgstr "無法建立可存取的備份目錄。"
+
+#: src/bootbackup.cpp:99
+msgid "Unsafe backup output path."
+msgstr "備份輸出路徑不安全。"
+
+#: src/bootbackup.cpp:102
+msgid "Cannot open a private backup file for writing."
+msgstr "無法開啟私有備份檔案以進行寫入。"
+
+#: src/bootbackup.cpp:104
+msgid "Cannot atomically write a backup file."
+msgstr "無法以原子方式寫入備份檔案。"
+
+#: src/bootbackup.cpp:111
+msgid "Unsafe backup metadata output path."
+msgstr "備份詮釋資料的輸出路徑不安全。"
+
+#: src/bootbackup.cpp:114
+msgid "Cannot open backup metadata for writing."
+msgstr "無法開啟備份詮釋資料以進行寫入。"
+
+#: src/bootbackup.cpp:116
+msgid "Cannot atomically write backup metadata."
+msgstr "無法以原子方式寫入備份詮釋資料。"
+
+#: src/bootbackup.cpp:194
+msgid "A restore destination contains a symbolic link: %1"
+msgstr "還原目的地包含符號連結：%1"
+
+#: src/bootbackup.cpp:197
+msgid "A restore destination is not a regular file: %1"
+msgstr "還原目的地不是一般檔案：%1"
+
+#: src/bootbackup.cpp:200
+msgid "A restore destination directory is unavailable: %1"
+msgstr "還原目的地目錄無法使用：%1"
+
+#: src/bootbackup.cpp:235
+msgid "The backup target has no block-device identity."
+msgstr "備份目標沒有區塊裝置識別資訊。"
+
+#: src/bootbackup.cpp:239
+msgid "The automatic backup target identity is inconsistent."
+msgstr "自動備份目標的識別資訊不一致。"
+
+#: src/bootbackup.cpp:244
+msgid "The mounted backup target does not match its recorded root."
+msgstr "已掛載的備份目標與記錄的根目錄不符。"
+
+#: src/bootbackup.cpp:252
+msgid "The target root is now backed by a different block device."
+msgstr "目標根目錄現在由不同的區塊裝置提供。"
+
+#: src/bootbackup.cpp:260
+msgid "The selected backup ID or root is invalid."
+msgstr "選取的備份 ID 或根目錄無效。"
+
+#: src/bootbackup.cpp:263
+msgid "The selected backup root is unavailable."
+msgstr "選取的備份根目錄無法使用。"
+
+#: src/bootbackup.cpp:266
+msgid "The selected backup is unavailable."
+msgstr "選取的備份無法使用。"
+
+#: src/bootbackup.cpp:271
+msgid "The selected backup manifest is unavailable."
+msgstr "選取備份的資訊清單無法使用。"
+
+#: src/bootbackup.cpp:275
+msgid "The selected backup manifest is too large."
+msgstr "選取備份的資訊清單過大。"
+
+#: src/bootbackup.cpp:280
+msgid "The selected backup manifest is damaged."
+msgstr "選取備份的資訊清單已損毀。"
+
+#: src/bootbackup.cpp:305
+msgid "The backup manifest ID does not match its directory."
+msgstr "備份資訊清單的 ID 與其目錄不符。"
+
+#: src/bootbackup.cpp:307
+msgid "The backup changed after it was reviewed. Refresh and try again."
+msgstr "備份在檢查後已變更。請重新整理後再試一次。"
+
+#: src/bootbackup.cpp:310
+msgid "The restore target root is unavailable or unsafe."
+msgstr "還原目標的根目錄無法使用或不安全。"
+
+#: src/bootbackup.cpp:318
+msgid "The selected backup belongs to a different target identity."
+msgstr "選取的備份屬於不同的目標識別資訊。"
+
+#: src/bootbackup.cpp:323
+msgid "This backup contains no restorable configuration files."
+msgstr "此備份不含可還原的設定檔。"
+
+#: src/bootbackup.cpp:328
+msgid "The backup contains an invalid file record."
+msgstr "備份包含無效的檔案記錄。"
+
+#: src/bootbackup.cpp:333
+msgid "The backup contains a disallowed or duplicate path."
+msgstr "備份包含不允許或重複的路徑。"
+
+#: src/bootbackup.cpp:338
+msgid "The backup contains invalid file permissions."
+msgstr "備份包含無效的檔案權限。"
+
+#: src/bootbackup.cpp:343
+msgid "A newly-created file record contains an unexpected original."
+msgstr "新建檔案的記錄含有非預期的原始檔案。"
+
+#: src/bootbackup.cpp:346
+msgid "A newly-created file has an invalid post-operation hash."
+msgstr "新建檔案的操作後雜湊值無效。"
+
+#: src/bootbackup.cpp:354
+msgid "The backup contains an invalid saved-file record."
+msgstr "備份包含無效的已儲存檔案記錄。"
+
+#: src/bootbackup.cpp:359
+msgid "A saved configuration file is damaged: %1"
+msgstr "已儲存的設定檔已損毀：%1"
+
+#: src/bootbackup.cpp:362
+msgid "The saved configuration exceeds the size limit."
+msgstr "已儲存的設定超過大小限制。"
+
+#: src/bootbackup.cpp:385
+msgid "An offline backup requires an explicit mounted restore target."
+msgstr "離線備份需要明確指定已掛載的還原目標。"
+
+#: src/bootbackup.cpp:486
+msgid "The backup contains a disallowed restore path."
+msgstr "備份包含不允許的還原路徑。"
+
+#: src/bootbackup.cpp:525
+msgid "The backup source root is unavailable or unsafe."
+msgstr "備份來源的根目錄無法使用或不安全。"
+
+#: src/bootbackup.cpp:527
+msgid "Too many configuration files were selected for backup."
+msgstr "選取要備份的設定檔過多。"
+
+#: src/bootbackup.cpp:538
+msgid "Cannot create a private transaction backup."
+msgstr "無法建立私有的交易備份。"
+
+#: src/bootbackup.cpp:547
+msgid "A configuration path is outside the backup whitelist or duplicated: %1"
+msgstr "設定路徑不在備份允許清單內或重複：%1"
+
+#: src/bootbackup.cpp:559
+msgid "An unsafe or oversized configuration backup source: %1"
+msgstr "設定備份來源不安全或過大：%1"
+
+#: src/bootbackup.cpp:562
+msgid "The configuration backup exceeds the total size limit."
+msgstr "設定備份超過總大小限制。"
+
+#: src/bootbackup.cpp:565
+msgid "Cannot read configuration for backup: %1"
+msgstr "無法讀取要備份的設定：%1"
+
+#: src/bootbackup.cpp:568
+msgid "Configuration changed or could not be read: %1"
+msgstr "設定已變更或無法讀取：%1"
+
+#: src/bootbackup.cpp:617
+msgid "The transaction backup directory is unsafe."
+msgstr "交易備份目錄不安全。"
+
+#: src/bootbackup.cpp:620
+msgid "The transaction manifest is too large."
+msgstr "交易資訊清單過大。"
+
+#: src/bootbackup.cpp:627 src/bootbackup.cpp:698
+msgid "The transaction backup is not initialized."
+msgstr "交易備份尚未初始化。"
+
+#: src/bootbackup.cpp:642
+msgid "A newly-created configuration path became unsafe."
+msgstr "新建的設定路徑變得不安全。"
+
+#: src/bootbackup.cpp:648
+msgid "A newly-created configuration is not a regular file."
+msgstr "新建的設定不是一般檔案。"
+
+#: src/bootbackup.cpp:652
+msgid "Cannot fingerprint a newly-created configuration file."
+msgstr "無法計算新建設定檔的指紋。"
+
+#: src/bootbackup.cpp:664
+msgid "Invalid operation record."
+msgstr "操作記錄無效。"
+
+#: src/bootbackup.cpp:681 src/bootbackup.cpp:685
+msgid "Cannot append to the operation log."
+msgstr "無法附加至操作日誌。"
+
+#: src/bootbackup.cpp:730
+msgid ""
+"Refusing to remove a configuration not fingerprinted by the transaction: %1"
+msgstr "拒絕移除其指紋未記錄於此次交易的設定：%1"
+
+#: src/bootbackup.cpp:734
+msgid "Cannot verify a configuration created by the transaction: %1"
+msgstr "無法驗證此次交易建立的設定：%1"
+
+#: src/bootbackup.cpp:736
+msgid "Refusing to remove a configuration changed after the transaction: %1"
+msgstr "拒絕移除在此次交易後已變更的設定：%1"
+
+#: src/bootbackup.cpp:738
+msgid "Cannot remove a file created by the transaction: %1"
+msgstr "無法移除此交易建立的檔案：%1"
+
+#: src/bootbackup.cpp:746
+msgid "Cannot reopen a saved configuration: %1"
+msgstr "無法重新開啟已儲存的設定：%1"
+
+#: src/bootbackup.cpp:750
+msgid "A saved configuration changed before restoration: %1"
+msgstr "已儲存的設定在還原前發生變更：%1"
+
+#: src/bootbackup.cpp:757
+msgid "Cannot atomically restore configuration: %1"
+msgstr "無法以原子方式還原設定：%1"
+
+#: src/bootbackup.cpp:761
+msgid "Cannot restore configuration permissions: %1"
+msgstr "無法還原設定權限：%1"
+
+#: src/bootdata.cpp:242
+msgid "Container and %1 wrappers are not read-only probes."
+msgstr "容器與 %1 包裝程式不是唯讀探測工具。"
+
+#: src/bootdata.cpp:274
+msgid "The command is not an allowed read-only boot probe."
+msgstr "此指令不是允許的唯讀開機探測指令。"
+
+#: src/bootdata.cpp:311
+msgid "Read-only command timed out."
+msgstr "唯讀指令逾時。"
+
+#: src/bootdata.cpp:677
+msgid "The EFI file or firmware label is invalid."
+msgstr "EFI 檔案或韌體標籤無效。"
+
+#: src/bootdata.cpp:693
+msgid "The EFI binary must be a regular file below %1 on a mounted ESP."
+msgstr "EFI 二進位檔必須是已掛載 ESP 上 %1 下的一般檔案。"
+
+#: src/bootdata.cpp:708
+msgid "The selected filesystem is not a mounted EFI system partition."
+msgstr "選取的檔案系統不是已掛載的 EFI 系統分割區。"
+
+#: src/bootdata.cpp:719
+msgid "The physical disk and EFI partition could not be identified."
+msgstr "無法識別實體磁碟與 EFI 分割區。"
+
+#: src/bootdata.cpp:726
+msgid "The EFI disk is unavailable."
+msgstr "EFI 磁碟無法使用。"
+
+#: src/bootdata.cpp:752
+msgid "The certificate must be a DER file between 64 bytes and 64 KiB."
+msgstr "憑證必須是大小介於 64 位元組至 64 KiB 之間的 DER 檔案。"
+
+#: src/bootdata.cpp:754
+msgid "The certificate is not an ASN.1 DER SEQUENCE."
+msgstr "憑證不是 ASN.1 DER SEQUENCE 結構。"
+
+#: src/bootdata.cpp:763
+msgid "The DER certificate has an invalid length."
+msgstr "DER 憑證的長度無效。"
+
+#: src/bootdata.cpp:767
+msgid "The DER certificate uses a non-minimal length encoding."
+msgstr "DER 憑證使用了非最短長度編碼。"
+
+#: src/bootdata.cpp:770
+msgid "The DER certificate is truncated or has trailing data."
+msgstr "DER 憑證遭到截斷或含有尾端多餘資料。"
+
+#: src/bootdata.cpp:832
+msgid "Root device is absent from the current disk inventory."
+msgstr "目前磁碟清單中沒有根裝置。"
+
+#: src/bootdata.cpp:837
+msgid "Automatic repair supports only btrfs, ext4, xfs and f2fs partitions."
+msgstr "自動修復僅支援 btrfs、ext4、xfs 和 f2fs 分割區。"
+
+#: src/bootdata.cpp:840
+msgid "The Btrfs subvolume name is invalid."
+msgstr "Btrfs 子磁碟區名稱無效。"
+
+#: src/bootdata.cpp:843
+msgid ""
+"Offline target: GRUB files and firmware paths will be checked after a "
+"controlled mount."
+msgstr "離線目標：將在受控掛載後檢查 GRUB 檔案與韌體路徑。"
+
+#: src/bootdata.cpp:847
+msgid "The target does not contain %1 and %2."
+msgstr "目標不含 %1 和 %2。"
+
+#: src/bootdata.cpp:853
+msgid "Missing GRUB tool: %1"
+msgstr "缺少 GRUB 工具：%1"
+
+#: src/bootdata.cpp:854
+msgid "GRUB tool found: %1"
+msgstr "找到 GRUB 工具：%1"
+
+#: src/bootdata.cpp:857
+msgid "GRUB defaults found: %1"
+msgstr "找到 GRUB 預設設定：%1"
+
+#: src/bootdata.cpp:858
+msgid "GRUB defaults missing: %1"
+msgstr "缺少 GRUB 預設設定：%1"
+
+#: src/bootdata.cpp:860
+msgid "Generated GRUB configuration found: %1"
+msgstr "找到產生的 GRUB 設定：%1"
+
+#: src/bootdata.cpp:861
+msgid "Generated GRUB configuration not found: %1"
+msgstr "找不到產生的 GRUB 設定：%1"
+
+#: src/bootdata.cpp:891
+msgid "No mounted EFI system partition was found inside the target."
+msgstr "目標內找不到已掛載的 EFI 系統分割區。"
+
+#: src/bootdata.cpp:893
+msgid "No EFI programs were found below %1 on the target ESP."
+msgstr "在目標 ESP 的 %1 下找不到 EFI 程式。"
+
+#: src/bootdata.cpp:896
+msgid ""
+"No resolvable UEFI firmware entry points to an EFI program on the target ESP."
+msgstr "沒有可解析的 UEFI 韌體開機項目指向目標 ESP 上的 EFI 程式。"
+
+#: src/bootdata.cpp:898
+msgid "A UEFI firmware entry resolves to an EFI program on the target ESP."
+msgstr "有一個 UEFI 韌體開機項目可解析至目標 ESP 上的 EFI 程式。"
+
+#: src/bootdata.cpp:902
+msgid "Legacy BIOS GRUB modules found: %1"
+msgstr "找到傳統 BIOS GRUB 模組：%1"
+
+#: src/bootdata.cpp:903
+msgid "Legacy BIOS GRUB modules missing: %1"
+msgstr "缺少傳統 BIOS GRUB 模組：%1"
+
+#: src/bootdata.cpp:916
+msgid ""
+"The disk that contains the target root partition could not be determined."
+msgstr "無法確定包含目標根分割區的磁碟。"
+
+#: src/bootdata.cpp:918
+msgid "GRUB will be written to the master boot record of %1."
+msgstr "GRUB 將寫入 %1 的主開機記錄。"
+
+#: src/bootdata.cpp:927
+msgid "The GPT disk has no BIOS boot partition; %1 will fail."
+msgstr "GPT 磁碟沒有 BIOS 開機分割區；%1 將會失敗。"
+
+#: src/bootdata.cpp:944
+msgid "Reading UEFI firmware state"
+msgstr "正在讀取 UEFI 韌體狀態"
+
+#: src/bootdata.cpp:957
+msgid "Could not read UEFI boot variables with %1."
+msgstr "無法使用 %1 讀取 UEFI 開機變數。"
+
+#: src/bootdata.cpp:963
+msgid "This system was not booted in UEFI mode."
+msgstr "此系統未以 UEFI 模式開機。"
+
+#: src/bootdata.cpp:974
+msgid ""
+"Device and command probing is performed only for the running root filesystem."
+msgstr "僅對目前正在執行的根檔案系統進行裝置與指令探測。"
+
+#: src/bootdata.cpp:978
+msgid "Finding EFI system partitions and Linux targets"
+msgstr "正在尋找 EFI 系統分割區與 Linux 目標"
+
+#: src/bootdata.cpp:984
+msgid "No mounted EFI system partition was detected."
+msgstr "未偵測到已掛載的 EFI 系統分割區。"
+
+#: src/bootdata.cpp:987
+msgid "Reading Secure Boot certificates"
+msgstr "正在讀取安全開機憑證"
+
+#: src/bootdata.cpp:995
+msgid "%1: %2"
+msgstr "%1：%2"
+
+#: src/bootdata.cpp:1032
+msgid "The EFI boot variable is not writable: %1"
+msgstr "EFI 開機變數不可寫入：%1"
+
+#: src/bootdata.cpp:1038
+msgid "The EFI boot variable could not be written: %1"
+msgstr "無法寫入 EFI 開機變數：%1"
+
+#: src/bootdata.cpp:1044
+msgid "The EFI boot variable could not be flushed: %1"
+msgstr "無法同步寫入 EFI 開機變數：%1"
+
+#: src/bootdata.cpp:1052
+msgid "The EFI boot variable could not be resized: %1"
+msgstr "無法調整 EFI 開機變數的大小：%1"
+
+#: src/bootdata.cpp:1076
+msgid "No EFI boot variable destination was provided."
+msgstr "未提供 EFI 開機變數目的地。"
+
+#: src/bootdata.cpp:1079
+msgid "The EFI boot variable could not be read: %1"
+msgstr "無法讀取 EFI 開機變數：%1"
+
+#: src/bootdata.cpp:1082
+msgid "The EFI boot variable is too short: %1"
+msgstr "EFI 開機變數過短：%1"
+
+#: src/bootdata.cpp:1101
+msgid "The EFI boot variable has no description terminator: %1"
+msgstr "EFI 開機變數沒有描述終止字元：%1"
+
+#: src/bootdata.cpp:1103
+msgid "The EFI boot variable device path is truncated: %1"
+msgstr "EFI 開機變數的裝置路徑遭到截斷：%1"
+
+#: src/bootdata.cpp:1121 src/bootdata.cpp:1148
+msgid "The EFI boot variable requires an authenticated update."
+msgstr "EFI 開機變數需要經驗證的更新。"
+
+#: src/bootdata.cpp:1124
+msgid "The EFI boot variable label is invalid."
+msgstr "EFI 開機變數標籤無效。"
+
+#: src/boothelper.cpp:72
+msgid "Could not start %1."
+msgstr "無法啟動 %1。"
+
+#: src/boothelper.cpp:80
+msgid "Could not provide standard input to a privileged operation."
+msgstr "無法為特權操作提供標準輸入。"
+
+#: src/boothelper.cpp:88
+msgid "%1 timed out."
+msgstr "%1 逾時。"
+
+#: src/boothelper.cpp:91
+msgid "%1 did not complete successfully."
+msgstr "%1 未成功完成。"
+
+#: src/boothelper.cpp:196
+msgid "Invalid mount point below the target root."
+msgstr "目標根目錄下的掛載點無效。"
+
+#: src/boothelper.cpp:199
+msgid "A mount point contains a symbolic link: %1"
+msgstr "掛載點包含符號連結：%1"
+
+#: src/boothelper.cpp:201
+msgid "Cannot create mount point: %1"
+msgstr "無法建立掛載點：%1"
+
+#: src/boothelper.cpp:204
+msgid "Mount point is not a directory: %1"
+msgstr "掛載點不是目錄：%1"
+
+#: src/boothelper.cpp:207
+msgid "Mount point escapes the selected target root."
+msgstr "掛載點超出選取的目標根目錄。"
+
+#: src/boothelper.cpp:219
+msgid "The target fstab is too large to validate."
+msgstr "目標的 fstab 過大，無法驗證。"
+
+#: src/boothelper.cpp:228
+msgid "The target has a separate /boot filesystem; mount it before repair."
+msgstr "目標使用獨立的 /boot 檔案系統；請在修復前掛載。"
+
+#: src/boothelper.cpp:260
+msgid "The target block device or subvolume is invalid."
+msgstr "目標區塊裝置或子磁碟區無效。"
+
+#: src/boothelper.cpp:269
+msgid ""
+"Automatic repair requires a supported Linux partition and Btrfs subvolume."
+msgstr "自動修復需要受支援的 Linux 分割區與 Btrfs 子磁碟區。"
+
+#: src/boothelper.cpp:273
+msgid ""
+"The selected automatic target is already mounted; select its mounted root "
+"instead."
+msgstr "選取的自動修復目標已掛載；請改選其已掛載的根目錄。"
+
+#: src/boothelper.cpp:280
+msgid "The mounted target root is invalid."
+msgstr "已掛載的目標根目錄無效。"
+
+#: src/boothelper.cpp:293
+msgid ""
+"The mounted Linux target is not in the allowed inventory or its mount source "
+"changed."
+msgstr "已掛載的 Linux 目標不在允許的清單中，或其掛載來源已變更。"
+
+#: src/boothelper.cpp:320
+msgid "The GRUB installation disk path is invalid."
+msgstr "GRUB 安裝磁碟路徑無效。"
+
+#: src/boothelper.cpp:323
+msgid "The GRUB installation target must be a whole disk."
+msgstr "GRUB 安裝目標必須是整顆磁碟。"
+
+#: src/boothelper.cpp:326
+msgid "The target root device is absent from the disk inventory."
+msgstr "磁碟清單中沒有目標根裝置。"
+
+#: src/boothelper.cpp:328
+msgid "The selected disk does not contain the target root partition."
+msgstr "選取的磁碟不包含目標根分割區。"
+
+#: src/boothelper.cpp:338
+msgid "Only GRUB2 boot repair is supported."
+msgstr "僅支援 GRUB2 開機修復。"
+
+#: src/boothelper.cpp:341
+msgid "Only GRUB2 UEFI or legacy BIOS repair is supported."
+msgstr "僅支援 GRUB2 UEFI 或傳統 BIOS 修復。"
+
+#: src/boothelper.cpp:354
+msgid "The disk inventory changed before repair was applied."
+msgstr "磁碟清單在套用修復前已變更。"
+
+#: src/boothelper.cpp:358
+msgid ""
+"Legacy BIOS repair does not register firmware entries or fallback loaders."
+msgstr "傳統 BIOS 修復不會註冊韌體開機項目或後備開機載入器。"
+
+#: src/boothelper.cpp:360
+msgid "Legacy BIOS repair does not use an EFI system partition."
+msgstr "傳統 BIOS 修復不使用 EFI 系統分割區。"
+
+#: src/boothelper.cpp:367 src/bootrepairpage.cpp:745
+msgid "Legacy BIOS repair is available on x86 systems only."
+msgstr "傳統 BIOS 修復僅適用於 x86 系統。"
+
+#: src/boothelper.cpp:371 src/boothelper.cpp:428
+msgid "mount and umount are required for automatic repair."
+msgstr "自動修復需要 mount 和 umount。"
+
+#: src/boothelper.cpp:388
+msgid ""
+"The ESP must be a vfat EFI-GUID partition distinct from the root partition."
+msgstr "ESP 必須是與根分割區不同的 vfat EFI-GUID 分割區。"
+
+#: src/boothelper.cpp:392
+msgid "The bootloader ID must be 1 to 80 safe ASCII characters."
+msgstr "開機載入器 ID 必須為 1 至 80 個安全的 ASCII 字元。"
+
+#: src/boothelper.cpp:396
+msgid "The requested GRUB EFI architecture does not match this host."
+msgstr "請求的 GRUB EFI 架構與此主機不符。"
+
+#: src/boothelper.cpp:399
+msgid "UEFI firmware registration is unavailable."
+msgstr "UEFI 韌體註冊無法使用。"
+
+#: src/boothelper.cpp:404
+msgid ""
+"A UEFI boot entry named %1 already exists. Remove it or use a different "
+"bootloader ID."
+msgstr ""
+"已存在名為 %1 的 UEFI 開機項目。請將其刪除，或使用其他開機載入程式 ID。"
+
+#: src/boothelper.cpp:412
+msgid "The ESP path is not canonical or contains a symbolic link."
+msgstr "ESP 路徑不是標準路徑，或包含符號連結。"
+
+#: src/boothelper.cpp:423
+msgid "The selected ESP mount is not active or its source changed."
+msgstr "選取的 ESP 掛載未啟用，或其來源已變更。"
+
+#: src/boothelper.cpp:434
+msgid "The mounted ESP must be at the selected path inside the target root."
+msgstr "已掛載的 ESP 必須位於目標根目錄內的選取路徑。"
+
+#: src/boothelper.cpp:455
+msgid "The mounted target is not a valid Linux root."
+msgstr "已掛載的目標不是有效的 Linux 根目錄。"
+
+#: src/boothelper.cpp:459
+msgid "Cannot create a private repair mount directory."
+msgstr "無法建立私有的修復掛載目錄。"
+
+#: src/boothelper.cpp:473
+msgid "The selected root or subvolume is not the expected Linux system."
+msgstr "選取的根目錄或子磁碟區不是預期的 Linux 系統。"
+
+#: src/boothelper.cpp:499
+msgid "chroot, mount and umount are required to repair another Linux root."
+msgstr "修復其他 Linux 根目錄需要 chroot、mount 和 umount。"
+
+#: src/boothelper.cpp:535
+msgid "A repair mount remains at %1"
+msgstr "修復掛載仍留在 %1"
+
+#: src/boothelper.cpp:547
+msgid "Temporary repair directory retained: %1"
+msgstr "已保留暫時修復目錄：%1"
+
+#: src/boothelper.cpp:550
+msgid "One or more temporary repair mounts could not be unmounted."
+msgstr "一個或多個暫時修復掛載無法卸載。"
+
+#: src/boothelper.cpp:654 src/boothelper.cpp:816
+msgid "The firmware boot order changed since it was reviewed."
+msgstr "韌體開機順序自檢查後已變更。"
+
+#: src/boothelper.cpp:662
+msgid "The current firmware BootOrder is invalid."
+msgstr "目前韌體的 BootOrder 無效。"
+
+#: src/boothelper.cpp:668
+msgid "Boot order numbers must be existing, unique four-digit firmware IDs."
+msgstr "開機順序編號必須是現有且不重複的四位數韌體 ID。"
+
+#: src/boothelper.cpp:672
+msgid ""
+"The requested order must contain exactly the entries already in BootOrder."
+msgstr "請求的順序必須恰好包含 BootOrder 中已有的所有項目。"
+
+#: src/boothelper.cpp:693
+msgid "EFI state backup: %1"
+msgstr "EFI 狀態備份：%1"
+
+#: src/boothelper.cpp:737
+msgid ""
+"Updated the EFI boot variable directly because the firmware ignored the "
+"efibootmgr change."
+msgstr "因韌體未套用 efibootmgr 的變更，已直接更新 EFI 開機變數。"
+
+#: src/boothelper.cpp:744
+msgid "unchanged"
+msgstr "未變更"
+
+#: src/boothelper.cpp:743
+msgid ""
+"The firmware did not apply the change to boot entry %1. Current value: %2"
+msgstr "韌體未套用對開機項目 %1 的變更。目前值：%2"
+
+#: src/boothelper.cpp:752
+msgid "UEFI firmware management is unavailable or its expected state changed."
+msgstr "UEFI 韌體管理無法使用，或其預期狀態已變更。"
+
+#: src/boothelper.cpp:766
+msgid "The next-boot state changed since it was reviewed."
+msgstr "下次開機狀態自檢查後已變更。"
+
+#: src/boothelper.cpp:774
+msgid "The requested next-boot entry does not exist."
+msgstr "請求的下次開機項目不存在。"
+
+#: src/boothelper.cpp:783
+msgid "The firmware entry changed since it was reviewed."
+msgstr "韌體開機項目自檢查後已變更。"
+
+#: src/boothelper.cpp:794
+msgid "The enabled state must be 0 or 1."
+msgstr "啟用狀態必須為 0 或 1。"
+
+#: src/boothelper.cpp:806
+msgid "The firmware label must be 1 to 80 printable characters."
+msgstr "韌體標籤必須為 1 至 80 個可列印字元。"
+
+#: src/boothelper.cpp:811
+msgid "BootCurrent cannot be removed."
+msgstr "無法移除 BootCurrent。"
+
+#: src/boothelper.cpp:824
+msgid "Unsupported EFI action."
+msgstr "不支援的 EFI 操作。"
+
+#: src/boothelper.cpp:849 src/boothelper.cpp:861
+msgid "empty"
+msgstr "空白"
+
+#: src/boothelper.cpp:848
+msgid "The firmware did not accept the new boot order. Current order: %1"
+msgstr "韌體未接受新的開機順序。目前順序：%1"
+
+#: src/boothelper.cpp:860
+msgid "The firmware did not accept the next-boot entry. Current value: %1"
+msgstr "韌體未接受下次開機項目。目前值：%1"
+
+#: src/boothelper.cpp:878
+msgid "The EFI change set is empty or too large."
+msgstr "EFI 變更集為空或過大。"
+
+#: src/boothelper.cpp:881
+msgid "UEFI firmware management is unavailable."
+msgstr "UEFI 韌體管理無法使用。"
+
+#: src/boothelper.cpp:892
+msgid "The EFI change set contains an unsupported action."
+msgstr "EFI 變更集包含不支援的操作。"
+
+#: src/boothelper.cpp:919
+msgid "Specify either certificate base64 or certificatePath, not both."
+msgstr "請指定 base64 編碼的憑證或 certificatePath，兩者不可同時指定。"
+
+#: src/boothelper.cpp:922
+msgid "The encoded certificate is too large."
+msgstr "編碼後的憑證過大。"
+
+#: src/boothelper.cpp:927
+msgid "The certificate path is not a regular DER file of allowed size."
+msgstr "憑證路徑不是符合允許大小的一般 DER 檔案。"
+
+#: src/boothelper.cpp:930
+msgid "Cannot read the DER certificate."
+msgstr "無法讀取 DER 憑證。"
+
+#: src/boothelper.cpp:940
+msgid "MOK management requires UEFI and mokutil."
+msgstr "管理機器擁有者金鑰（MOK）需要 UEFI 和 mokutil。"
+
+#: src/boothelper.cpp:955 src/uefibootpage.cpp:911
+msgid "The MOK password must contain 1 to 256 printable characters."
+msgstr "機器擁有者金鑰（MOK）密碼必須包含 1 至 256 個可列印字元。"
+
+#: src/boothelper.cpp:959
+msgid "Cannot prepare the temporary DER certificate."
+msgstr "無法準備暫時 DER 憑證。"
+
+#: src/boothelper.cpp:972
+msgid "Could not start mokutil."
+msgstr "無法啟動 mokutil。"
+
+#: src/boothelper.cpp:978
+msgid "Could not provide the MOK password to mokutil."
+msgstr "無法將機器擁有者金鑰（MOK）密碼提供給 mokutil。"
+
+#: src/boothelper.cpp:984
+msgid "mokutil timed out."
+msgstr "mokutil 逾時。"
+
+#: src/boothelper.cpp:990
+msgid "mokutil did not complete the request."
+msgstr "mokutil 未完成請求。"
+
+#: src/boothelper.cpp:1103
+msgid "Signed EFI bootloader files (shim and grub) could not be found for %1."
+msgstr "無法為 %1 找到已簽章的 EFI 開機載入程式檔案（shim 與 grub）。"
+
+#: src/boothelper.cpp:1138
+msgid "Could not determine the boot filesystem UUID for the EFI grub.cfg stub."
+msgstr "無法判斷用於產生 EFI grub.cfg 存根的開機檔案系統 UUID。"
+
+#: src/boothelper.cpp:1153
+msgid "Could not write the EFI grub.cfg stub for %1."
+msgstr "無法為 %1 寫入 EFI grub.cfg 存根。"
+
+#: src/boothelper.cpp:1182
+msgid "The ESP mount source changed before repair was applied."
+msgstr "ESP 掛載來源在套用修復前已變更。"
+
+#: src/boothelper.cpp:1193
+msgid "The target system is missing grub2-mkconfig."
+msgstr "目標系統缺少 grub2-mkconfig。"
+
+#: src/boothelper.cpp:1201
+msgid "GRUB repair requires grub2-install on the running system."
+msgstr "修復 GRUB 需要目前系統已安裝 grub2-install。"
+
+#: src/boothelper.cpp:1208
+msgid ""
+"No GRUB modules for %1 were found. Install the matching GRUB module package "
+"and try again."
+msgstr "找不到適用於 %1 的 GRUB 模組。請安裝對應的 GRUB 模組套件後再試。"
+
+#: src/boothelper.cpp:1221
+msgid "Repair configuration backup: %1"
+msgstr "修復設定備份：%1"
+
+#: src/boothelper.cpp:1262
+msgid "grub2-mkconfig did not produce %1."
+msgstr "grub2-mkconfig 未產生 %1。"
+
+#: src/boothelper.cpp:1270
+msgid "The generated %1 contains no boot entries."
+msgstr "產生的 %1 不包含任何開機項目。"
+
+#: src/boothelper.cpp:1281
+msgid "The EFI bootloader directory is missing %1."
+msgstr "EFI 開機載入程式目錄缺少 %1。"
+
+#: src/boothelper.cpp:1300
+msgid "The installed GRUB EFI binary could not be found for registration."
+msgstr "找不到用於註冊的已安裝 GRUB EFI 二進位檔。"
+
+#: src/boothelper.cpp:1349
+msgid "Pre-restore configuration backup: %1"
+msgstr "還原前設定備份：%1"
+
+#: src/boothelper.cpp:1365
+msgid ""
+"Configuration originals restored. Generated grub.cfg, EFI binaries and NVRAM "
+"were not restored; regenerate GRUB configuration when required."
+msgstr ""
+"已還原原始設定檔。未還原產生的 grub.cfg、EFI 二進位檔及 NVRAM；如有需要，請重"
+"新產生 GRUB 設定。"
+
+#: src/boothelper.cpp:1374
+msgid "Cannot read the request from standard input."
+msgstr "無法從標準輸入讀取請求。"
+
+#: src/boothelper.cpp:1379
+msgid "The request file is unavailable or exceeds 256 KiB."
+msgstr "請求檔案無法使用或超過 256 KiB。"
+
+#: src/boothelper.cpp:1384
+msgid "Could not read the request."
+msgstr "無法讀取請求。"
+
+#: src/boothelper.cpp:1387
+msgid "The request exceeds 256 KiB."
+msgstr "請求超過 256 KiB。"
+
+#: src/boothelper.cpp:1407
+msgid "Administrator authorization is required."
+msgstr "需要管理員授權。"
+
+#: src/boothelper.cpp:1417
+msgid "Usage: miryu-toolkit-list-mok --list-mok"
+msgstr "用法：miryu-toolkit-list-mok --list-mok"
+
+#: src/boothelper.cpp:1429
+msgid "mokutil is not installed."
+msgstr "mokutil 未安裝。"
+
+#: src/boothelper.cpp:1447
+msgid ""
+"Usage: boothelper --list-mok | --apply <action> <request-json-file> | --"
+"apply-stdin <action> [--lang <locale>]"
+msgstr ""
+"用法：boothelper --list-mok | --apply <操作> <請求 JSON 檔案> | --apply-"
+"stdin <操作> [--lang <語系>]"
+
+#: src/boothelper.cpp:1470
+msgid "Unsupported privileged action."
+msgstr "不支援的特權操作。"
+
+#: src/boothelper.cpp:1483
+msgid "The request is not a valid JSON object."
+msgstr "請求不是有效的 JSON 物件。"
+
+#: src/boothelper.cpp:1499
+msgid "The privileged operation failed."
+msgstr "特權操作失敗。"
+
+#: src/boothelper.cpp:1503
+msgid "Privileged operation completed."
+msgstr "特權操作已完成。"
+
+#: src/bootrepairpage.cpp:55
+msgid "Offline device: %1"
+msgstr "離線裝置：%1"
+
+#: src/bootrepairpage.cpp:56
+msgid "Offline device: %1 · %2"
+msgstr "離線裝置：%1 · %2"
+
+#: src/bootrepairpage.cpp:59
+msgid "Current system: %1 (%2)"
+msgstr "目前系統：%1（%2）"
+
+#: src/bootrepairpage.cpp:60
+msgid "Mounted system: %1 (%2)"
+msgstr "已掛載系統：%1（%2）"
+
+#: src/bootrepairpage.cpp:79 src/mainwindow.cpp:1728
+msgid "Completed"
+msgstr "完成"
+
+#: src/bootrepairpage.cpp:81
+msgid "Incomplete"
+msgstr "未完成"
+
+#: src/bootrepairpage.cpp:83
+msgid "Prepared"
+msgstr "已準備"
+
+#: src/bootrepairpage.cpp:85
+msgid "Applying"
+msgstr "正在套用"
+
+#: src/bootrepairpage.cpp:94
+msgid "Change EFI boot order"
+msgstr "變更 EFI 開機順序"
+
+#: src/bootrepairpage.cpp:96
+msgid "Set or clear the next EFI boot entry"
+msgstr "設定或清除下次 EFI 開機項目"
+
+#: src/bootrepairpage.cpp:98
+msgid "Enable or disable an EFI boot entry"
+msgstr "啟用或停用 EFI 開機項目"
+
+#: src/bootrepairpage.cpp:100
+msgid "Rename an EFI boot entry"
+msgstr "重新命名 EFI 開機項目"
+
+#: src/bootrepairpage.cpp:102
+msgid "Remove an EFI boot entry"
+msgstr "移除 EFI 開機項目"
+
+#: src/bootrepairpage.cpp:104
+msgid "Add an EFI boot entry"
+msgstr "新增 EFI 開機項目"
+
+#: src/bootrepairpage.cpp:106
+msgid "Apply EFI boot entry changes"
+msgstr "套用 EFI 開機項目變更"
+
+#: src/bootrepairpage.cpp:108
+msgid "Request Machine Owner Key (MOK) enrollment"
+msgstr "請求註冊機器擁有者金鑰（MOK）"
+
+#: src/bootrepairpage.cpp:110
+msgid "Cancel pending Machine Owner Key (MOK) enrollment"
+msgstr "取消待處理的機器擁有者金鑰（MOK）註冊"
+
+#: src/bootrepairpage.cpp:112
+msgid "Repair the bootloader"
+msgstr "修復開機載入器"
+
+#: src/bootrepairpage.cpp:114
+msgid "Restore boot configuration"
+msgstr "還原開機設定"
+
+#: src/bootrepairpage.cpp:116
+msgid "Write GRUB configuration"
+msgstr "寫入 GRUB 設定"
+
+#: src/bootrepairpage.cpp:118
+msgid "Install GRUB"
+msgstr "安裝 GRUB"
+
+#: src/bootrepairpage.cpp:120
+msgid "Regenerate GRUB configuration"
+msgstr "重新產生 GRUB 設定"
+
+#: src/bootrepairpage.cpp:122
+msgid "Register the bootloader in UEFI firmware"
+msgstr "在 UEFI 韌體中註冊開機載入器"
+
+#: src/bootrepairpage.cpp:123
+msgid "Other boot operation"
+msgstr "其他開機操作"
+
+#: src/bootrepairpage.cpp:134
+msgid " (succeeded)"
+msgstr " （成功）"
+
+#: src/bootrepairpage.cpp:134
+msgid " (failed)"
+msgstr " （失敗）"
+
+#: src/bootrepairpage.cpp:150
+msgid "Waiting for the repair target scan…"
+msgstr "正在等待修復目標掃描…"
+
+#: src/bootrepairpage.cpp:153 src/uefibootpage.cpp:126
+msgid "Refresh"
+msgstr "重新整理"
+
+#: src/bootrepairpage.cpp:159 src/bootrepairpage.cpp:395
+msgid "GRUB2 UEFI repair"
+msgstr "GRUB2 UEFI 修復"
+
+#: src/bootrepairpage.cpp:166
+msgid "UEFI"
+msgstr "UEFI"
+
+#: src/bootrepairpage.cpp:167
+msgid "BIOS / Legacy"
+msgstr "BIOS / 傳統"
+
+#: src/bootrepairpage.cpp:168
+msgid "Firmware mode:"
+msgstr "韌體模式："
+
+#: src/bootrepairpage.cpp:172
+msgid "Linux target:"
+msgstr "Linux 目標："
+
+#: src/bootrepairpage.cpp:174
+msgid "Btrfs subvolume:"
+msgstr "Btrfs 子磁碟區："
+
+#: src/bootrepairpage.cpp:178
+msgid "root"
+msgstr "root"
+
+#: src/bootrepairpage.cpp:183
+msgid "BIOS installation disk:"
+msgstr "BIOS 安裝磁碟："
+
+#: src/bootrepairpage.cpp:189
+msgid "EFI system partition:"
+msgstr "EFI 系統分割區："
+
+#: src/bootrepairpage.cpp:193
+msgid "/boot/efi"
+msgstr "/boot/efi"
+
+#: src/bootrepairpage.cpp:194
+msgid "/efi"
+msgstr "/efi"
+
+#: src/bootrepairpage.cpp:195
+msgid "/boot"
+msgstr "/boot"
+
+#: src/bootrepairpage.cpp:196
+msgid "Mount point in target:"
+msgstr "目標中的掛載點："
+
+#: src/bootrepairpage.cpp:201
+msgid "Bootloader ID:"
+msgstr "開機載入器 ID："
+
+#: src/bootrepairpage.cpp:203 src/bootrepairpage.cpp:434
+#: src/uefibootpage.cpp:87
+msgid "Unknown"
+msgstr "未知"
+
+#: src/bootrepairpage.cpp:205 src/bootrepairpage.cpp:397
+msgid "EFI architecture:"
+msgstr "EFI 架構："
+
+#: src/bootrepairpage.cpp:208
+msgid "Register the installed loader in UEFI firmware"
+msgstr "在 UEFI 韌體中註冊已安裝的開機載入器"
+
+#: src/bootrepairpage.cpp:212
+msgid "Also install the removable/fallback EFI loader"
+msgstr "同時安裝可移動/備用 EFI 開機載入器"
+
+#: src/bootrepairpage.cpp:227 src/bootrepairpage.cpp:396
+msgid "Repair GRUB2 UEFI Boot"
+msgstr "修復 GRUB2 UEFI 開機"
+
+#: src/bootrepairpage.cpp:232
+msgid "Configuration backups"
+msgstr "設定備份"
+
+#: src/bootrepairpage.cpp:237
+msgid "Time"
+msgstr "時間"
+
+#: src/bootrepairpage.cpp:237
+msgid "Result"
+msgstr "結果"
+
+#: src/bootrepairpage.cpp:238
+msgid "Target"
+msgstr "目標"
+
+#: src/bootrepairpage.cpp:238
+msgid "Changes"
+msgstr "變更"
+
+#: src/bootrepairpage.cpp:260
+msgid ""
+"Restore replaces only whitelisted configuration originals. It does not "
+"restore NVRAM, generated grub.cfg, or EFI binaries."
+msgstr ""
+"還原操作僅替換允許清單內的原始設定檔案，不會還原 NVRAM、產生的 grub.cfg 或 "
+"EFI 二進位檔案。"
+
+#: src/bootrepairpage.cpp:263
+msgid "Restore Selected Configuration"
+msgstr "還原所選設定"
+
+#: src/bootrepairpage.cpp:268 src/uefibootpage.cpp:269
+msgid "Operation log"
+msgstr "操作日誌"
+
+#: src/bootrepairpage.cpp:334 src/uefibootpage.cpp:312
+msgid "Please wait for the current boot task…"
+msgstr "請等待目前開機任務完成…"
+
+#: src/bootrepairpage.cpp:352 src/mainwindow.cpp:110 src/uefibootpage.cpp:332
+msgid "Boot Repair"
+msgstr "開機修復"
+
+#: src/bootrepairpage.cpp:354 src/uefibootpage.cpp:334
+msgid "Boot Repair Failed"
+msgstr "啟動修復失敗"
+
+#: src/bootrepairpage.cpp:385
+msgid "No supported Linux repair targets were found."
+msgstr "未找到受支援的 Linux 修復目標。"
+
+#: src/bootrepairpage.cpp:387
+msgid ""
+"Legacy BIOS mode: GRUB is written to the master boot record of the selected "
+"disk."
+msgstr "傳統 BIOS 模式：GRUB 將寫入所選磁碟的主開機記錄。"
+
+#: src/bootrepairpage.cpp:389
+msgid "Linux targets, EFI partitions and configuration backups loaded."
+msgstr "已載入 Linux 目標、EFI 分割區和設定備份。"
+
+#: src/bootrepairpage.cpp:395
+msgid "GRUB2 legacy BIOS repair"
+msgstr "GRUB2 傳統 BIOS 修復"
+
+#: src/bootrepairpage.cpp:396
+msgid "Repair GRUB2 BIOS Boot"
+msgstr "修復 GRUB2 BIOS 開機"
+
+#: src/bootrepairpage.cpp:397
+msgid "Architecture:"
+msgstr "架構："
+
+#: src/bootrepairpage.cpp:473 src/bootrepairpage.cpp:610
+msgid "%1 (%2)"
+msgstr "%1（%2）"
+
+#: src/bootrepairpage.cpp:530
+msgid "%1 · %2 (not mounted)"
+msgstr "%1 · %2（未掛載）"
+
+#: src/bootrepairpage.cpp:531
+msgid "%1 · %2 (mounted at %3)"
+msgstr "%1 · %2（掛載於 %3）"
+
+#: src/bootrepairpage.cpp:544
+msgid "%1 · %2"
+msgstr "%1 · %2"
+
+#: src/bootrepairpage.cpp:588
+msgid "Select a Linux target to view repair diagnostics."
+msgstr "選擇一個 Linux 目標以檢視修復診斷資訊。"
+
+#: src/bootrepairpage.cpp:612 src/uefibootpage.cpp:406
+msgid ", "
+msgstr "、"
+
+#: src/bootrepairpage.cpp:641
+msgid "Select a configuration backup to view its files and operations."
+msgstr "選擇一個設定備份以檢視其檔案和操作。"
+
+#: src/bootrepairpage.cpp:645
+msgid "Files:"
+msgstr "檔案："
+
+#: src/bootrepairpage.cpp:647
+msgid "  No restorable configuration files."
+msgstr "  沒有可還原的設定檔案。"
+
+#: src/bootrepairpage.cpp:652
+msgid "  %1 (original saved)"
+msgstr "  %1（已儲存原檔案）"
+
+#: src/bootrepairpage.cpp:653
+msgid "  %1 (created by the operation)"
+msgstr "  %1（由操作建立）"
+
+#: src/bootrepairpage.cpp:657
+msgid "Operations:"
+msgstr "操作："
+
+#: src/bootrepairpage.cpp:659
+msgid "  No operations were recorded."
+msgstr "  未記錄任何操作。"
+
+#: src/bootrepairpage.cpp:721
+msgid "Confirm Boot Repair"
+msgstr "確認啟動修復"
+
+#: src/bootrepairpage.cpp:722 src/bootrepairpage.cpp:821
+#: src/bootrepairpage.cpp:822 src/uefibootpage.cpp:678 src/uefibootpage.cpp:700
+msgid "Yes"
+msgstr "是"
+
+#: src/bootrepairpage.cpp:722 src/bootrepairpage.cpp:821
+#: src/bootrepairpage.cpp:822 src/uefibootpage.cpp:678 src/uefibootpage.cpp:700
+msgid "No"
+msgstr "否"
+
+#: src/bootrepairpage.cpp:737
+msgid "Enter a valid relative Btrfs subvolume name, or leave it empty."
+msgstr "請輸入有效的 Btrfs 子磁碟區相對路徑，或留空。"
+
+#: src/bootrepairpage.cpp:738
+msgid "Invalid Subvolume"
+msgstr "無效子磁碟區"
+
+#: src/bootrepairpage.cpp:746 src/bootrepairpage.cpp:783
+msgid "Unsupported Architecture"
+msgstr "不支援的架構"
+
+#: src/bootrepairpage.cpp:751
+msgid "Select the disk that contains the target root partition."
+msgstr "請選擇包含目標根分割區的磁碟。"
+
+#: src/bootrepairpage.cpp:752
+msgid "No Installation Disk"
+msgstr "沒有可用的安裝磁碟"
+
+#: src/bootrepairpage.cpp:764
+msgid ""
+"Repair GRUB2 legacy BIOS boot with these settings?\n"
+"\n"
+"Target: %1\n"
+"Installation disk: %2\n"
+"Architecture: %3\n"
+"\n"
+"This writes the GRUB2 boot image to the master boot record of the selected "
+"disk."
+msgstr ""
+"使用以下設定修復 GRUB2 傳統 BIOS 開機？\n"
+"\n"
+"目標：%1\n"
+"安裝磁碟：%2\n"
+"架構：%3\n"
+"\n"
+"這會將 GRUB2 開機映像寫入所選磁碟的主開機記錄。"
+
+#: src/bootrepairpage.cpp:767
+msgid "Repair the GRUB2 legacy BIOS boot configuration"
+msgstr "修復 GRUB2 傳統 BIOS 開機設定"
+
+#: src/bootrepairpage.cpp:775
+msgid ""
+"The bootloader ID must contain 1 to 80 safe ASCII letters, digits, dots, "
+"underscores, plus signs or hyphens."
+msgstr ""
+"開機載入器 ID 必須為 1 至 80 個安全的 ASCII 字母、數字、點、底線、加號或連字"
+"號。"
+
+#: src/bootrepairpage.cpp:776
+msgid "Invalid Bootloader ID"
+msgstr "無效的開機載入器 ID"
+
+#: src/bootrepairpage.cpp:782
+msgid "The host EFI architecture could not be determined for GRUB2 repair."
+msgstr "無法確定主機的 EFI 架構，因而不能修復 GRUB2。"
+
+#: src/bootrepairpage.cpp:788
+msgid ""
+"Disable firmware registration, or repair on a UEFI host with efibootmgr "
+"installed."
+msgstr "請停用韌體註冊，或在已安裝 efibootmgr 的 UEFI 主機上進行修復。"
+
+#: src/bootrepairpage.cpp:789
+msgid "Firmware Registration Unavailable"
+msgstr "韌體註冊無法使用"
+
+#: src/bootrepairpage.cpp:798
+msgid "Select a usable EFI system partition and target mount point."
+msgstr "請選擇可用的 EFI 系統分割區和目標掛載點。"
+
+#: src/bootrepairpage.cpp:799
+msgid "No EFI System Partition"
+msgstr "沒有 EFI 系統分割區"
+
+#: src/bootrepairpage.cpp:819
+msgid "None; mount the selected ESP"
+msgstr "無；掛載所選 ESP"
+
+#: src/bootrepairpage.cpp:817
+msgid ""
+"Repair GRUB2 UEFI boot with these settings?\n"
+"\n"
+"Target: %1\n"
+"ESP device: %2\n"
+"Existing ESP mount: %3\n"
+"Target mount point: %4\n"
+"Bootloader ID: %5\n"
+"Register firmware entry: %6\n"
+"Fallback loader: %7\n"
+"Architecture: %8"
+msgstr ""
+"要使用這些設定修復 GRUB2 UEFI 開機嗎？\n"
+"\n"
+"目標：%1\n"
+"ESP 裝置：%2\n"
+"現有 ESP 掛載點：%3\n"
+"目標掛載點：%4\n"
+"開機載入器 ID：%5\n"
+"註冊韌體開機項目：%6\n"
+"備用開機載入器：%7\n"
+"架構：%8"
+
+#: src/bootrepairpage.cpp:825
+msgid "Repair the GRUB2 UEFI boot configuration"
+msgstr "修復 GRUB2 UEFI 開機設定"
+
+#: src/bootrepairpage.cpp:843
+msgid ""
+"Restore configuration originals from backup %1 (%2) to %3?\n"
+"\n"
+"Only whitelisted configuration originals are restored. NVRAM, generated grub."
+"cfg and EFI binaries are not restored."
+msgstr ""
+"要將備份 %1（%2）中的原始設定檔案還原到 %3 嗎？\n"
+"\n"
+"僅還原允許清單內的原始設定檔案，不還原 NVRAM、產生的 grub.cfg 和 EFI 二進位檔"
+"案。"
+
+#: src/bootrepairpage.cpp:846
+msgid "Restore configuration originals from a backup"
+msgstr "從備份還原原始設定檔案"
+
+#: src/bootservice.cpp:96
+msgid "Scanning boot configuration"
+msgstr "正在掃描開機設定"
+
+#: src/bootservice.cpp:161
+msgid "The requested boot operation is not supported."
+msgstr "不支援請求的開機操作。"
+
+#: src/bootservice.cpp:163
+msgid "Another boot scan or operation is already in progress."
+msgstr "另一項開機掃描或操作已在進行中。"
+
+#: src/bootservice.cpp:169
+msgid "The privileged boot helper was not found or is not executable: %1"
+msgstr "未找到特權開機輔助程式，或該程式不可執行：%1"
+
+#: src/bootservice.cpp:174
+msgid "pkexec is required for privileged boot operations."
+msgstr "特權開機操作需要 pkexec。"
+
+#: src/bootservice.cpp:178
+msgid "Privileged boot operation"
+msgstr "特權開機操作"
+
+#: src/bootservice.cpp:192
+msgid "Could not send the operation request to the privileged helper."
+msgstr "無法向特權輔助程式傳送操作請求。"
+
+#: src/bootservice.cpp:219
+msgid "Could not start administrator authorization or the boot helper: %1"
+msgstr "無法啟動管理員授權或開機輔助程式：%1"
+
+#: src/bootservice.cpp:232
+msgid "%1 completed successfully."
+msgstr "%1 已成功完成。"
+
+#: src/bootservice.cpp:236
+msgid "%1 stopped abnormally."
+msgstr "%1 異常停止。"
+
+#: src/bootservice.cpp:238
+msgid "%1 failed with exit status %2."
+msgstr "%1 失敗，結束狀態為 %2。"
+
+#: src/collect_logs.cpp:54
+msgid "Command timed out: %1"
+msgstr "指令逾時：%1"
+
+#: src/collect_logs.cpp:58
+msgid "Completed: %1 -> %2"
+msgstr "已完成：%1 -> %2"
+
+#: src/collect_logs.cpp:61
+msgid "Failed: %1 (exit status %2)"
+msgstr "失敗：%1（結束狀態 %2）"
+
+#: src/collect_logs.cpp:178
+msgid "Failed to create a temporary directory."
+msgstr "無法建立暫時目錄。"
+
+#: src/collect_logs.cpp:189
+msgid "Creating temporary workspace: %1"
+msgstr "正在建立暫時工作區：%1"
+
+#: src/collect_logs.cpp:190
+msgid "none"
+msgstr "無"
+
+#: src/collect_logs.cpp:190
+msgid "Target user: %1"
+msgstr "目標使用者：%1"
+
+#: src/collect_logs.cpp:241 src/collect_logs.cpp:248 src/collect_logs.cpp:257
+#: src/collect_logs.cpp:265
+msgid "Copied %1"
+msgstr "已複製 %1"
+
+#: src/collect_logs.cpp:243 src/collect_logs.cpp:259
+msgid "Failed to copy %1"
+msgstr "複製 %1 失敗"
+
+#: src/collect_logs.cpp:254
+msgid "Live CD environment detected; collecting Anaconda logs…"
+msgstr "偵測到 Live CD 環境；正在收集 Anaconda 日誌…"
+
+#: src/collect_logs.cpp:269
+msgid "Not a Live CD environment; skipping Anaconda logs."
+msgstr "不是 Live CD 環境；略過 Anaconda 日誌。"
+
+#: src/collect_logs.cpp:318
+msgid "zstd was not found; created gzip archive: %1"
+msgstr "找不到 zstd；已建立 gzip 封存檔：%1"
+
+#: src/collect_logs.cpp:321
+msgid "Could not create the gzip archive."
+msgstr "無法建立 gzip 封存檔。"
+
+#: src/collect_logs.cpp:338
+msgid "Archive created: %1"
+msgstr "已建立封存檔：%1"
+
+#: src/collect_logs.cpp:341
+msgid ""
+"Could not create the zstd archive (tar exit status %1, zstd exit status %2)."
+msgstr "無法建立 zstd 封存檔（tar 結束狀態 %1，zstd 結束狀態 %2）。"
+
+#: src/collect_logs.cpp:353
+msgid "Could not change archive ownership: %1"
+msgstr "無法變更封存檔的擁有者：%1"
+
+#: src/collect_logs.cpp:363
+msgid "Log collection finished."
+msgstr "日誌收集完成。"
+
+#: src/grubconfighelper.cpp:74
 msgid "The input file was not generated by Miryu GRUB2 Boot Config."
 msgstr "輸入檔案不是由 Miryu GRUB2 Boot Config 產生的。"
 
-#: src/grubconfighelper.cpp:102
+#: src/grubconfighelper.cpp:106
 msgid "GRUB_TIMEOUT must be between -1 and 3600."
 msgstr "GRUB_TIMEOUT 必須在 -1 到 3600 之間。"
 
-#: src/grubconfighelper.cpp:131
+#: src/grubconfighelper.cpp:135
 msgid "Unsupported or unsafe configuration line: %1"
 msgstr "不支援或不安全的設定行：%1"
 
-#: src/grubconfighelper.cpp:136
+#: src/grubconfighelper.cpp:140
 msgid "The configuration is incomplete."
 msgstr "設定不完整。"
 
-#: src/grubconfighelper.cpp:212
+#: src/grubconfighelper.cpp:216
 msgid "Could not open %1 for writing."
 msgstr "無法開啟 %1 進行寫入。"
 
-#: src/grubconfighelper.cpp:218
+#: src/grubconfighelper.cpp:222
 msgid "Could not atomically replace %1."
 msgstr "無法原子替換 %1。"
 
-#: src/grubconfighelper.cpp:236
+#: src/grubconfighelper.cpp:240
 msgid "Warning: could not remove the old drop-in file %1."
 msgstr "警告：無法移除舊的 drop-in 檔案 %1。"
 
-#: src/grubconfighelper.cpp:282
+#: src/grubconfighelper.cpp:286
 msgid "Could not apply new kernel parameters to BLS entries."
 msgstr "無法將新核心參數套用至 BLS 條目。"
 
-#: src/grubconfighelper.cpp:293
+#: src/grubconfighelper.cpp:297
 msgid "Could not remove old kernel parameters from BLS entries."
 msgstr "無法從 BLS 條目中移除舊的核心參數。"
 
-#: src/grubconfighelper.cpp:329
+#: src/grubconfighelper.cpp:333
 msgid "grub2-mkconfig timed out."
 msgstr "grub2-mkconfig 逾時。"
 
-#: src/grubconfighelper.cpp:339
+#: src/grubconfighelper.cpp:343
 msgid "grub2-mkconfig failed."
 msgstr "grub2-mkconfig 失敗。"
 
 # Helper messages
-#: src/grubconfighelper.cpp:357
+#: src/grubconfighelper.cpp:368
 msgid ""
-"Usage: miryu-toolkit-grub-config-helper --apply <generated-config-file>"
-msgstr "用法：miryu-toolkit-grub-config-helper --apply <產生的設定檔>"
+"Usage: miryu-toolkit-grub-config-helper --apply <generated-config-file> [--"
+"lang <locale>]"
+msgstr ""
+"用法：miryu-toolkit-grub-config-helper --apply <產生的設定檔> [--lang <語系>]"
 
-#: src/grubconfighelper.cpp:362
+#: src/grubconfighelper.cpp:373
 msgid "This helper must run as root through polkit."
 msgstr "此輔助程式必須透過 polkit 以 root 身分執行。"
 
-#: src/grubconfighelper.cpp:368
+#: src/grubconfighelper.cpp:379
 msgid "Reading configuration file..."
 msgstr "正在讀取設定檔..."
 
-#: src/grubconfighelper.cpp:373
+#: src/grubconfighelper.cpp:384
 msgid "Could not read the generated configuration file."
 msgstr "無法讀取產生的設定檔。"
 
-#: src/grubconfighelper.cpp:377
+#: src/grubconfighelper.cpp:388
 msgid "Parsing configuration..."
 msgstr "正在解析設定..."
 
-#: src/grubconfighelper.cpp:386
+#: src/grubconfighelper.cpp:397
 msgid "Reading existing %1..."
 msgstr "正在讀取現有的 %1..."
 
-#: src/grubconfighelper.cpp:400
+#: src/grubconfighelper.cpp:411
 msgid "Writing %1..."
 msgstr "正在寫入 %1..."
 
-#: src/grubconfighelper.cpp:413
+#: src/grubconfighelper.cpp:426
+msgid ""
+"Could not identify the current root device; GRUB settings were not changed."
+msgstr "無法識別目前根裝置；GRUB 設定未變更。"
+
+#: src/grubconfighelper.cpp:434
+msgid "Could not create the pre-change configuration backup: %1"
+msgstr "無法建立變更前的設定備份：%1"
+
+#: src/grubconfighelper.cpp:437
+msgid "Configuration backup: %1"
+msgstr "設定備份：%1"
+
+#: src/grubconfighelper.cpp:445
+msgid "Warning: could not finish the configuration backup: %1"
+msgstr "警告：無法完成設定備份：%1"
+
+#: src/grubconfighelper.cpp:458
 msgid "Updating BLS entries..."
 msgstr "正在更新 BLS 條目..."
 
-#: src/grubconfighelper.cpp:422
+#: src/grubconfighelper.cpp:467
 msgid "Regenerating GRUB configuration..."
 msgstr "正在重新產生 GRUB 設定..."
 
-#: src/grubconfighelper.cpp:430
+#: src/grubconfighelper.cpp:479
+msgid "Could not finish the configuration backup: %1"
+msgstr "無法完成設定備份：%1"
+
+#: src/grubconfighelper.cpp:487
 msgid "GRUB2 configuration updated."
 msgstr "GRUB2 設定已更新。"
 
-#: src/main.cpp:14 src/mainwindow.cpp:70 src/mainwindow.cpp:108
-#: src/mainwindow.cpp:1519 kcm/kcm_miryu_toolkit.cpp:41
+#: src/main.cpp:14 src/mainwindow.cpp:77 src/mainwindow.cpp:126
+#: src/mainwindow.cpp:1543 kcm/kcm_miryu_toolkit.cpp:41
 msgid "Miryu Toolkit"
 msgstr "Miryu 工具箱"
 
@@ -111,547 +1584,562 @@ msgstr "Miryu 系統工具箱"
 msgid "(c) 2026 Miryu"
 msgstr "(c) 2026 Miryu"
 
-#: src/mainwindow.cpp:77
+#: src/mainwindow.cpp:84
 msgid ""
 "Manage Miryu components, maintenance tasks, system-wide environment "
 "variables and sleep settings in one place."
-msgstr "集中管理 Miryu 元件、維護任務、系統範圍環境變數和睡眠設定。"
+msgstr "集中管理 Miryu 元件、維護任務、系統層級環境變數和睡眠設定。"
 
-#: src/mainwindow.cpp:91 src/mainwindow.cpp:187
+#: src/mainwindow.cpp:98 src/mainwindow.cpp:208
 msgid "Miryu System Assistant"
 msgstr "Miryu 系統助手"
 
-#: src/mainwindow.cpp:92 src/mainwindow.cpp:1757
+#: src/mainwindow.cpp:99 src/mainwindow.cpp:1781
 msgid "Boot Menu"
 msgstr "開機選單"
 
-#: src/mainwindow.cpp:93
-msgid "System-wide environment variables"
-msgstr "系統範圍環境變數"
+#: src/mainwindow.cpp:102
+msgid "UEFI Entries && Secure Boot"
+msgstr "UEFI 開機項目 && 安全開機"
 
-#: src/mainwindow.cpp:94
+#: src/mainwindow.cpp:111
+msgid "System-wide environment variables"
+msgstr "系統層級環境變數"
+
+#: src/mainwindow.cpp:112
 msgid "Sleep"
 msgstr "睡眠"
 
-#: src/mainwindow.cpp:95
+#: src/mainwindow.cpp:113
 msgid "Install additional components"
 msgstr "安裝額外元件"
 
-#: src/mainwindow.cpp:96
+#: src/mainwindow.cpp:114
 msgid "About"
 msgstr "關於"
 
-#: src/mainwindow.cpp:100
+#: src/mainwindow.cpp:118
 msgid "Ready"
 msgstr "準備完成"
 
-#: src/mainwindow.cpp:121
+#: src/mainwindow.cpp:142
 msgid "Install Fedora official kernel"
 msgstr "安裝 Fedora 官方核心"
 
-#: src/mainwindow.cpp:122
+#: src/mainwindow.cpp:143
 msgid ""
 "If some games' anti-cheat systems use Epic EAC Linux v2 and cannot start, "
 "you can install the Fedora official kernel to solve the problem."
-msgstr "如果某些遊戲的反作弊系統使用了 Epic EAC Linux v2 而無法啟動，那麼可以安裝 Fedora 官方核心以解決該問題。"
+msgstr ""
+"如果某些遊戲的反作弊系統使用了 Epic EAC Linux v2 而無法啟動，那麼可以安裝 "
+"Fedora 官方核心以解決該問題。"
 
-#: src/mainwindow.cpp:135
+#: src/mainwindow.cpp:156
 msgid "Install Wine"
 msgstr "安裝 Wine"
 
-#: src/mainwindow.cpp:136
+#: src/mainwindow.cpp:157
 msgid ""
-"Install Wine, DXVK, Winetricks and WineASIO for running Windows programs and"
-" some audio workflows."
-msgstr "安裝 Wine、DXVK、Winetricks 和 WineASIO，用於執行 Windows 程式和部分音訊工作流程。"
+"Install Wine, DXVK, Winetricks and WineASIO for running Windows programs and "
+"some audio workflows."
+msgstr ""
+"安裝 Wine、DXVK、Winetricks 和 WineASIO，用於執行 Windows 程式和部分音訊工作"
+"流程。"
 
-#: src/mainwindow.cpp:149
+#: src/mainwindow.cpp:170
 msgid "Install Steam"
 msgstr "安裝 Steam"
 
-#: src/mainwindow.cpp:150
+#: src/mainwindow.cpp:171
 msgid ""
 "Install the Steam client. Steam will download update files on first launch."
 msgstr "安裝 Steam 用戶端。首次啟動時 Steam 會下載更新檔案。"
 
-#: src/mainwindow.cpp:157
+#: src/mainwindow.cpp:178
 msgid "Install MIDI playback support"
 msgstr "安裝 MIDI 播放支援"
 
-#: src/mainwindow.cpp:158
+#: src/mainwindow.cpp:179
 msgid ""
-"Install the FluidSynth GStreamer plugin to enable MIDI file playback "
-"support."
+"Install the FluidSynth GStreamer plugin to enable MIDI file playback support."
 msgstr "安裝 FluidSynth GStreamer 外掛程式，以啟用 MIDI 檔案播放支援。"
 
-#: src/mainwindow.cpp:165
+#: src/mainwindow.cpp:186
 msgid "Install additional fonts"
 msgstr "安裝補充字型"
 
-#: src/mainwindow.cpp:166
+#: src/mainwindow.cpp:187
 msgid ""
 "Install Noto Sans, Noto Serif, monospace and CJK supplemental fonts to "
 "improve multilingual display."
 msgstr "安裝 Noto Sans、Noto Serif、等寬和 CJK 補充字型，以改善多語言顯示。"
 
-#: src/mainwindow.cpp:191 src/mainwindow.cpp:2466
+#: src/mainwindow.cpp:212 src/mainwindow.cpp:2492
 msgid "Clean up previous kernel"
-msgstr "清理上一版本核心"
+msgstr "清理舊版核心"
 
-#: src/mainwindow.cpp:196 src/mainwindow.cpp:2846
+#: src/mainwindow.cpp:217 src/mainwindow.cpp:2873
 msgid "Update system"
 msgstr "更新系統"
 
-#: src/mainwindow.cpp:201
+#: src/mainwindow.cpp:222
 msgid "List failed systemd service units"
 msgstr "列出 systemd 失敗的服務單元"
 
-#: src/mainwindow.cpp:206 src/mainwindow.cpp:3133
+#: src/mainwindow.cpp:227 src/mainwindow.cpp:3160
 msgid "Unlock RPM database"
 msgstr "解鎖 RPM 資料庫"
 
-#: src/mainwindow.cpp:211
+#: src/mainwindow.cpp:232
 msgid "View dnf5 log"
 msgstr "檢視 dnf5 日誌"
 
-#: src/mainwindow.cpp:216
+#: src/mainwindow.cpp:237
 msgid "Clean unused packages (dnf5 autoremove)"
-msgstr "清理無用的軟體包（dnf5 autoremove）"
+msgstr "清理無用的套件（dnf5 autoremove）"
 
-#: src/mainwindow.cpp:221
+#: src/mainwindow.cpp:242
 msgid "View software crash information"
 msgstr "檢視軟體崩潰資訊"
 
-#: src/mainwindow.cpp:226
+#: src/mainwindow.cpp:247
 msgid "Collect system logs"
 msgstr "收集系統日誌"
 
-#: src/mainwindow.cpp:244
+#: src/mainwindow.cpp:265
 msgid "Additional components"
 msgstr "額外元件"
 
-#: src/mainwindow.cpp:252
+#: src/mainwindow.cpp:273
 msgid "Refresh status"
 msgstr "重新整理狀態"
 
-#: src/mainwindow.cpp:277
+#: src/mainwindow.cpp:298
 msgid "Status: checking"
 msgstr "狀態：檢查中"
 
-#: src/mainwindow.cpp:287
+#: src/mainwindow.cpp:308
 msgid "Packages: %1"
-msgstr "軟體包：%1"
+msgstr "套件：%1"
 
-#: src/mainwindow.cpp:294 src/mainwindow.cpp:1621
+#: src/mainwindow.cpp:315 src/mainwindow.cpp:1645
 msgid "Install"
 msgstr "安裝"
 
-#: src/mainwindow.cpp:295 src/mainwindow.cpp:1621
+#: src/mainwindow.cpp:316 src/mainwindow.cpp:1645
 msgid "Uninstall"
 msgstr "解除安裝"
 
-#: src/mainwindow.cpp:320
+#: src/mainwindow.cpp:341
 msgid "Environment variables"
 msgstr "環境變數"
 
-#: src/mainwindow.cpp:323
+#: src/mainwindow.cpp:344
 msgid ""
 "Set system-wide environment variables using the NAME=VALUE format. Changes "
 "are written to /etc/environment and take effect after logging in again."
-msgstr "使用 NAME=VALUE 格式設定系統範圍環境變數。變更會寫入 /etc/environment，並在重新登入後生效。"
+msgstr ""
+"使用 NAME=VALUE 格式設定系統層級環境變數。變更會寫入 /etc/environment，並在重"
+"新登入後生效。"
 
-#: src/mainwindow.cpp:333 src/mainwindow.cpp:1818
+#: src/mainwindow.cpp:354 src/mainwindow.cpp:1842
 msgid "Edit"
 msgstr "編輯"
 
-#: src/mainwindow.cpp:335
+#: src/mainwindow.cpp:356
 msgid "Reload"
 msgstr "重新讀取"
 
-#: src/mainwindow.cpp:336 src/mainwindow.cpp:2363 src/mainwindow.cpp:2364
+#: src/mainwindow.cpp:357 src/mainwindow.cpp:2389 src/mainwindow.cpp:2390
 msgid "Restore defaults"
-msgstr "恢復預設"
+msgstr "還原預設"
 
-#: src/mainwindow.cpp:337
+#: src/mainwindow.cpp:358
 msgid "Apply"
 msgstr "套用"
 
-#: src/mainwindow.cpp:347
+#: src/mainwindow.cpp:368
 msgid "Log out and log back in for changes to take effect."
 msgstr "登出並重新登入後變更才會生效。"
 
-#: src/mainwindow.cpp:431
+#: src/mainwindow.cpp:452
 msgid "Allowed sleep modes"
 msgstr "允許的睡眠模式"
 
-#: src/mainwindow.cpp:435
+#: src/mainwindow.cpp:456
 msgid "Choose the sleep modes you want to allow."
-msgstr "選擇你想要允許的睡眠模式。"
+msgstr "選擇您想要允許的睡眠模式。"
 
-#: src/mainwindow.cpp:460 src/mainwindow.cpp:850 src/mainwindow.cpp:860
-#: src/mainwindow.cpp:863 src/mainwindow.cpp:1346
+#: src/mainwindow.cpp:484 src/mainwindow.cpp:874 src/mainwindow.cpp:884
+#: src/mainwindow.cpp:887 src/mainwindow.cpp:1345 src/mainwindow.cpp:1370
 msgid "Suspend"
 msgstr "暫停"
 
-#: src/mainwindow.cpp:461
+#: src/mainwindow.cpp:485
 msgid ""
 "Keeps the session in memory (RAM). The computer is still running but uses "
 "only a bit of power."
 msgstr "將工作階段保留在記憶體（RAM）中。電腦仍在執行，但只消耗少量電力。"
 
-#: src/mainwindow.cpp:464 src/mainwindow.cpp:1349
+#: src/mainwindow.cpp:488 src/mainwindow.cpp:1346 src/mainwindow.cpp:1373
 msgid "Hibernate"
 msgstr "休眠"
 
-#: src/mainwindow.cpp:465
+#: src/mainwindow.cpp:489
 msgid "Saves the session to disk (Swap). Shuts down the computer."
 msgstr "將工作階段儲存到磁碟（交換分割區）。電腦會關機。"
 
-#: src/mainwindow.cpp:468
+#: src/mainwindow.cpp:492 src/mainwindow.cpp:1347
 msgid "Suspend then hibernate"
 msgstr "暫停後休眠"
 
-#: src/mainwindow.cpp:469
+#: src/mainwindow.cpp:493
 msgid ""
 "Suspends for a while (systemd decides how long, based on battery power), "
 "then hibernates."
 msgstr "暫停一段時間（systemd 根據電池電量決定時長），然後休眠。"
 
-#: src/mainwindow.cpp:472
+#: src/mainwindow.cpp:496 src/mainwindow.cpp:1348
 msgid "Hybrid sleep"
 msgstr "混合睡眠"
 
-#: src/mainwindow.cpp:473
+#: src/mainwindow.cpp:497
 msgid "Suspends but also saves the session to disk (Swap)."
 msgstr "暫停的同時也將工作階段儲存到磁碟（交換分割區）。"
 
-#: src/mainwindow.cpp:479
+#: src/mainwindow.cpp:503
 msgid "Suspend method"
 msgstr "暫停方法"
 
-#: src/mainwindow.cpp:482
+#: src/mainwindow.cpp:506
 msgid ""
-"This is the method used to suspend the computer. Only the methods offered by"
-" your BIOS/firmware can be chosen."
-msgstr "這是用於暫停電腦的方法。只能選擇你的 BIOS/韌體提供的方法。"
+"This is the method used to suspend the computer. Only the methods offered by "
+"your BIOS/firmware can be chosen."
+msgstr "這是用於暫停電腦的方法。只能選擇您的 BIOS/韌體提供的方法。"
 
-#: src/mainwindow.cpp:496
+#: src/mainwindow.cpp:520
 msgid "Hibernation method"
 msgstr "休眠方法"
 
-#: src/mainwindow.cpp:499
+#: src/mainwindow.cpp:523
 msgid "This is the method used to power off the computer during hibernation."
 msgstr "這是在休眠期間關閉電腦電源所使用的方法。"
 
-#: src/mainwindow.cpp:513
+#: src/mainwindow.cpp:537
 msgid "Hibernation image compressor"
 msgstr "休眠映像壓縮"
 
-#: src/mainwindow.cpp:516
+#: src/mainwindow.cpp:540
 msgid ""
 "The algorithm used to compress the hibernation image. The kernel must have "
 "the corresponding compression support built in; algorithms that are not "
 "available are greyed out."
-msgstr "用於壓縮休眠映像的演算法。核心必須內建對應的壓縮支援；無法使用的演算法將顯示為灰色。"
+msgstr ""
+"用於壓縮休眠映像的演算法。核心必須內建對應的壓縮支援；無法使用的演算法將顯示"
+"為灰色。"
 
-#: src/mainwindow.cpp:530
+#: src/mainwindow.cpp:554
 msgid "Detected problems"
 msgstr "偵測到的問題"
 
-#: src/mainwindow.cpp:532
+#: src/mainwindow.cpp:556
 msgid "Fix the detected problems to make your allowed sleep modes available."
-msgstr "修正偵測到的問題，使你允許的睡眠模式可用。"
+msgstr "修正偵測到的問題，使您允許的睡眠模式可用。"
 
-#: src/mainwindow.cpp:542 src/mainwindow.cpp:1461 src/mainwindow.cpp:1482
+#: src/mainwindow.cpp:566 src/mainwindow.cpp:1485 src/mainwindow.cpp:1506
 msgid "Fix detected problems"
 msgstr "修復偵測到的問題"
 
-#: src/mainwindow.cpp:551
+#: src/mainwindow.cpp:575
 msgid "Available sleep modes"
 msgstr "可用睡眠模式"
 
-#: src/mainwindow.cpp:553
+#: src/mainwindow.cpp:577
 msgid "These are the sleep modes systemd reports as available right now."
 msgstr "這些是 systemd 目前回報為可用的睡眠模式。"
 
-#: src/mainwindow.cpp:566 src/mainwindow.cpp:1857
+#: src/mainwindow.cpp:590 src/mainwindow.cpp:1881
 msgid "Saving requires administrator authentication through polkit."
 msgstr "儲存需要透過 polkit 進行管理員身分驗證。"
 
-#: src/mainwindow.cpp:568
+#: src/mainwindow.cpp:592
 msgid "Apply sleep settings"
 msgstr "套用睡眠設定"
 
-#: src/mainwindow.cpp:617 src/mainwindow.cpp:653
+#: src/mainwindow.cpp:641 src/mainwindow.cpp:677
 msgid "Default"
 msgstr "預設"
 
-#: src/mainwindow.cpp:628 src/mainwindow.cpp:854
+#: src/mainwindow.cpp:652 src/mainwindow.cpp:878
 msgid "Suspend-to-idle (s2idle)"
 msgstr "暫停到閒置（s2idle）"
 
-#: src/mainwindow.cpp:630 src/mainwindow.cpp:856
+#: src/mainwindow.cpp:654 src/mainwindow.cpp:880
 msgid "Suspend-to-RAM (S3)"
 msgstr "暫停到記憶體（S3）"
 
-#: src/mainwindow.cpp:632 src/mainwindow.cpp:858
+#: src/mainwindow.cpp:656 src/mainwindow.cpp:882
 msgid "Shallow (S1)"
 msgstr "淺度（S1）"
 
-#: src/mainwindow.cpp:641 src/mainwindow.cpp:675
+#: src/mainwindow.cpp:665 src/mainwindow.cpp:699
 msgid "Default — %1"
 msgstr "預設 — %1"
 
-#: src/mainwindow.cpp:664
+#: src/mainwindow.cpp:688
 msgid "Platform (the firmware powers off)"
 msgstr "平台（由韌體關機）"
 
-#: src/mainwindow.cpp:666
+#: src/mainwindow.cpp:690
 msgid "Shutdown (the kernel powers off)"
 msgstr "關機（由核心關機）"
 
-#: src/mainwindow.cpp:714
+#: src/mainwindow.cpp:738
 msgid "Default — LZ4"
 msgstr "預設 — LZ4"
 
-#: src/mainwindow.cpp:716
+#: src/mainwindow.cpp:740
 msgid "Default — LZO"
 msgstr "預設 — LZO"
 
-#: src/mainwindow.cpp:718
+#: src/mainwindow.cpp:742
 msgid "Default — none available"
 msgstr "預設 — 均無法使用"
 
-#: src/mainwindow.cpp:850
+#: src/mainwindow.cpp:874
 msgid "The kernel supports suspend."
 msgstr "核心支援暫停。"
 
-#: src/mainwindow.cpp:860
+#: src/mainwindow.cpp:884
 msgid "The kernel supports suspend. Method in use: %1."
 msgstr "核心支援暫停。目前使用的方法：%1。"
 
-#: src/mainwindow.cpp:863
+#: src/mainwindow.cpp:887
 msgid "The kernel does not support suspend."
 msgstr "核心不支援暫停。"
 
-#: src/mainwindow.cpp:872 src/mainwindow.cpp:874
+#: src/mainwindow.cpp:896 src/mainwindow.cpp:898
 msgid "Kernel support"
 msgstr "核心支援"
 
-#: src/mainwindow.cpp:872
+#: src/mainwindow.cpp:896
 msgid "The kernel supports hibernation."
 msgstr "核心支援休眠。"
 
-#: src/mainwindow.cpp:874
+#: src/mainwindow.cpp:898
 msgid "The kernel does not support hibernation."
 msgstr "核心不支援休眠。"
 
-#: src/mainwindow.cpp:904 src/mainwindow.cpp:906 src/mainwindow.cpp:908
+#: src/mainwindow.cpp:928 src/mainwindow.cpp:930 src/mainwindow.cpp:932
 msgid "Secure Boot"
 msgstr "安全開機"
 
-#: src/mainwindow.cpp:904
+#: src/mainwindow.cpp:928
 msgid "Secure Boot is enabled and the kernel lockdown prevents hibernation."
 msgstr "安全開機已啟用，核心鎖定會阻止休眠。"
 
-#: src/mainwindow.cpp:906
+#: src/mainwindow.cpp:930
 msgid "Secure Boot is enabled but the kernel lockdown is not active."
 msgstr "安全開機已啟用，但核心鎖定未啟用。"
 
-#: src/mainwindow.cpp:908
+#: src/mainwindow.cpp:932
 msgid "Secure Boot is disabled."
 msgstr "安全開機已停用。"
 
-#: src/mainwindow.cpp:986
+#: src/mainwindow.cpp:1010
 msgid "Swap"
 msgstr "交換"
 
-#: src/mainwindow.cpp:986
+#: src/mainwindow.cpp:1010
 msgid "No swap partition or swap file is in use."
 msgstr "目前沒有使用任何交換分割區或交換檔案。"
 
-#: src/mainwindow.cpp:990
+#: src/mainwindow.cpp:1014
 msgid "Swap area in %1"
 msgstr "%1 中的交換區域"
 
-#: src/mainwindow.cpp:994
+#: src/mainwindow.cpp:1018
 msgid "The swap area (%1) is smaller than the memory (%2)."
 msgstr "交換區域（%1）小於記憶體（%2）。"
 
-#: src/mainwindow.cpp:997
+#: src/mainwindow.cpp:1021
 msgid "The swap area (%1) is at least as large as the memory (%2)."
 msgstr "交換區域（%1）至少與記憶體（%2）一樣大。"
 
-#: src/mainwindow.cpp:1027 src/mainwindow.cpp:1032
+#: src/mainwindow.cpp:1051 src/mainwindow.cpp:1056
 msgid "Swap priority"
-msgstr "交換區優先級"
+msgstr "交換區優先順序"
 
-#: src/mainwindow.cpp:1028
+#: src/mainwindow.cpp:1052
 msgid ""
 "A zram device (priority %1) outranks the swap file (priority %2); "
 "hibernation may fail with \"device or resource busy\"."
-msgstr "zram 裝置（優先級 %1）高於交換檔案（優先級 %2）；休眠可能因「裝置或資源忙碌」而失敗。"
+msgstr ""
+"zram 裝置（優先順序 %1）高於交換檔案（優先順序 %2）；休眠可能因「裝置或資源忙"
+"碌」而失敗。"
 
-#: src/mainwindow.cpp:1033
+#: src/mainwindow.cpp:1057
 msgid "The swap file has the highest swap priority (%1)."
-msgstr "交換檔案具有最高交換優先級（%1）。"
+msgstr "交換檔案具有最高交換優先順序（%1）。"
 
-#: src/mainwindow.cpp:1071 src/mainwindow.cpp:1080 src/mainwindow.cpp:1083
+#: src/mainwindow.cpp:1095 src/mainwindow.cpp:1104 src/mainwindow.cpp:1107
 msgid "Hibernation compression"
 msgstr "休眠壓縮"
 
-#: src/mainwindow.cpp:1072
+#: src/mainwindow.cpp:1096
 msgid ""
 "Neither the lzo nor the lz4 hibernation compressor is available in the "
 "kernel; hibernation fails with \"Operation not supported\"."
-msgstr "核心中既沒有 lzo 也沒有 lz4 休眠壓縮演算法；休眠會因「不支援的操作」而失敗。"
+msgstr ""
+"核心中既沒有 lzo 也沒有 lz4 休眠壓縮演算法；休眠會因「不支援的操作」而失敗。"
 
-#: src/mainwindow.cpp:1081
+#: src/mainwindow.cpp:1105
 msgid "The hibernation compressor %1 is available."
 msgstr "休眠壓縮演算法 %1 可用。"
 
-#: src/mainwindow.cpp:1084
+#: src/mainwindow.cpp:1108
 msgid ""
 "The configured compressor %1 is not available; select %2 in the compressor "
 "list above."
 msgstr "設定的壓縮演算法 %1 無法使用；請在上方的壓縮演算法清單中選擇 %2。"
 
-#: src/mainwindow.cpp:1103 src/mainwindow.cpp:1108
+#: src/mainwindow.cpp:1127 src/mainwindow.cpp:1132
 msgid "Hyper-V devices"
 msgstr "Hyper-V 裝置"
 
-#: src/mainwindow.cpp:1104
+#: src/mainwindow.cpp:1128
 msgid ""
 "The uio_hv_generic driver is bound to %1 VMBus device(s) and has no suspend "
 "support, which aborts hibernation."
-msgstr "uio_hv_generic 驅動綁定了 %1 個 VMBus 裝置且不支援暫停，會導致休眠中止。"
+msgstr ""
+"uio_hv_generic 驅動程式綁定了 %1 個 VMBus 裝置且不支援暫停，會導致休眠中止。"
 
-#: src/mainwindow.cpp:1109
+#: src/mainwindow.cpp:1133
 msgid "No VMBus device is bound to uio_hv_generic."
 msgstr "沒有 VMBus 裝置綁定到 uio_hv_generic。"
 
-#: src/mainwindow.cpp:1128 src/mainwindow.cpp:1132
+#: src/mainwindow.cpp:1152 src/mainwindow.cpp:1156
 msgid "VMware graphics"
 msgstr "VMware 顯示卡"
 
-#: src/mainwindow.cpp:1129
+#: src/mainwindow.cpp:1153
 msgid ""
 "The vmwgfx driver refuses to freeze while a graphical session holds a DRM "
 "context, which aborts hibernation."
-msgstr "圖形工作階段持有 DRM 上下文時，vmwgfx 驅動會拒絕凍結，導致休眠中止。"
+msgstr "圖形工作階段持有 DRM 內容時，vmwgfx 驅動程式會拒絕凍結，導致休眠中止。"
 
-#: src/mainwindow.cpp:1133
+#: src/mainwindow.cpp:1157
 msgid "The vmwgfx driver will be released during hibernation."
-msgstr "休眠期間將釋放 vmwgfx 驅動。"
+msgstr "休眠期間將釋放 vmwgfx 驅動程式。"
 
-#: src/mainwindow.cpp:1153
+#: src/mainwindow.cpp:1177
 msgid "Hibernation drivers"
-msgstr "休眠驅動"
+msgstr "休眠驅動程式"
 
-#: src/mainwindow.cpp:1154
+#: src/mainwindow.cpp:1178
 msgid ""
 "%1 driver(s) abort the freezer and are detached while the image is written: "
 "%2"
-msgstr "%1 個驅動會中止凍結，寫入映像期間將被解除綁定：%2"
+msgstr "%1 個驅動程式會中止凍結，寫入映像期間將被解除綁定：%2"
 
-#: src/mainwindow.cpp:1162
+#: src/mainwindow.cpp:1186
 msgid "Last hibernation"
 msgstr "上次休眠"
 
-#: src/mainwindow.cpp:1163
+#: src/mainwindow.cpp:1187
 msgid ""
 "The previous hibernation attempt failed; the failing driver can be released "
 "automatically."
-msgstr "上次休眠失敗；導致失敗的驅動可被自動釋放。"
+msgstr "上次休眠失敗；導致失敗的驅動程式可被自動釋放。"
 
-#: src/mainwindow.cpp:1181 src/mainwindow.cpp:1199 src/mainwindow.cpp:1204
+#: src/mainwindow.cpp:1205 src/mainwindow.cpp:1223 src/mainwindow.cpp:1228
 msgid "Resume device"
 msgstr "恢復裝置"
 
-#: src/mainwindow.cpp:1181
+#: src/mainwindow.cpp:1205
 msgid "No resume device is set."
 msgstr "未設定恢復裝置。"
 
-#: src/mainwindow.cpp:1200
+#: src/mainwindow.cpp:1224
 msgid ""
 "The resume device (%1:%2) does not match any swap partition or swap file in "
 "use."
 msgstr "恢復裝置（%1:%2）與目前使用的任何交換分割區或交換檔案都不相符。"
 
-#: src/mainwindow.cpp:1205
+#: src/mainwindow.cpp:1229
 msgid "The resume device is set to %1."
 msgstr "恢復裝置已設定為 %1。"
 
-#: src/mainwindow.cpp:1228 src/mainwindow.cpp:1233 src/mainwindow.cpp:1251
-#: src/mainwindow.cpp:1256 src/mainwindow.cpp:1270 src/mainwindow.cpp:1274
+#: src/mainwindow.cpp:1252 src/mainwindow.cpp:1257 src/mainwindow.cpp:1275
+#: src/mainwindow.cpp:1280 src/mainwindow.cpp:1294 src/mainwindow.cpp:1298
 msgid "SELinux"
 msgstr "SELinux"
 
-#: src/mainwindow.cpp:1229
+#: src/mainwindow.cpp:1253
 msgid ""
 "The swap file %1 is not labeled with swapfile_t; hibernation may be denied "
 "under SELinux enforcing mode."
 msgstr "交換檔案 %1 未標記為 swapfile_t；在 SELinux 強制模式下休眠可能被拒絕。"
 
-#: src/mainwindow.cpp:1234
+#: src/mainwindow.cpp:1258
 msgid "The swap file %1 is correctly labeled with swapfile_t."
 msgstr "交換檔案 %1 已正確標記為 swapfile_t。"
 
-#: src/mainwindow.cpp:1252
+#: src/mainwindow.cpp:1276
 msgid ""
 "The swap directory %1 has an SELinux context that systemd-logind cannot "
 "search."
-msgstr "交換目錄 %1 的 SELinux 上下文不允許 systemd-logind 搜尋。"
+msgstr "交換目錄 %1 的 SELinux 內容不允許 systemd-logind 搜尋。"
 
-#: src/mainwindow.cpp:1257
+#: src/mainwindow.cpp:1281
 msgid "The swap directory %1 has a searchable SELinux context."
-msgstr "交換目錄 %1 具有可搜尋的 SELinux 上下文。"
+msgstr "交換目錄 %1 具有可搜尋的 SELinux 內容。"
 
-#: src/mainwindow.cpp:1271
+#: src/mainwindow.cpp:1295
 msgid ""
 "The SELinux boolean domain_kernel_dump is off; hibernation to swap is not "
 "permitted."
 msgstr "SELinux 布林值 domain_kernel_dump 未開啟；不允許向交換區執行休眠。"
 
-#: src/mainwindow.cpp:1275
+#: src/mainwindow.cpp:1299
 msgid "The SELinux boolean domain_kernel_dump is on."
 msgstr "SELinux 布林值 domain_kernel_dump 已開啟。"
 
-#: src/mainwindow.cpp:1288
+#: src/mainwindow.cpp:1312
 msgid "No problems detected"
 msgstr "未偵測到問題"
 
-#: src/mainwindow.cpp:1288
+#: src/mainwindow.cpp:1312
 msgid "This computer looks ready for the sleep modes above."
 msgstr "這台電腦看起來已為上述睡眠模式做好準備。"
 
-#: src/mainwindow.cpp:1353
+#: src/mainwindow.cpp:1377
 msgid "None"
 msgstr "無"
 
-#: src/mainwindow.cpp:1393 src/mainwindow.cpp:2307
+#: src/mainwindow.cpp:1417 src/mainwindow.cpp:2333
 msgid "Unable to create a temporary file."
 msgstr "無法建立暫存檔。"
 
-#: src/mainwindow.cpp:1393 src/mainwindow.cpp:1420 src/mainwindow.cpp:1431
-#: src/mainwindow.cpp:2307 src/mainwindow.cpp:2335 src/mainwindow.cpp:2346
+#: src/mainwindow.cpp:1417 src/mainwindow.cpp:1444 src/mainwindow.cpp:1455
+#: src/mainwindow.cpp:2333 src/mainwindow.cpp:2361 src/mainwindow.cpp:2372
 msgid "Apply failed"
 msgstr "套用失敗"
 
-#: src/mainwindow.cpp:1413
+#: src/mainwindow.cpp:1437
 msgid "Sleep settings saved. Reboot for the changes to take full effect."
 msgstr "睡眠設定已儲存。重新開機後變更將完全生效。"
 
-#: src/mainwindow.cpp:1415
+#: src/mainwindow.cpp:1439
 msgid ""
 "Sleep settings have been saved. Reboot for the changes to take full effect."
 msgstr "睡眠設定已儲存。重新開機後變更將完全生效。"
 
-#: src/mainwindow.cpp:1416 src/mainwindow.cpp:2331
+#: src/mainwindow.cpp:1440 src/mainwindow.cpp:2357
 msgid "Apply completed"
 msgstr "套用完成"
 
-#: src/mainwindow.cpp:1419
+#: src/mainwindow.cpp:1443
 msgid ""
 "Saving sleep settings failed.\n"
 "\n"
@@ -661,33 +2149,33 @@ msgstr ""
 "\n"
 "%1"
 
-#: src/mainwindow.cpp:1430 src/mainwindow.cpp:1485 src/mainwindow.cpp:1724
-#: src/mainwindow.cpp:1728 src/mainwindow.cpp:2148 src/mainwindow.cpp:2345
-#: src/mainwindow.cpp:2395 src/mainwindow.cpp:2578 src/mainwindow.cpp:2581
-#: src/mainwindow.cpp:2709 src/mainwindow.cpp:2712 src/mainwindow.cpp:2916
-#: src/mainwindow.cpp:2919 src/mainwindow.cpp:3040 src/mainwindow.cpp:3043
-#: src/mainwindow.cpp:3179 src/mainwindow.cpp:3302 src/mainwindow.cpp:3305
-#: src/mainwindow.cpp:3381
+#: src/mainwindow.cpp:1454 src/mainwindow.cpp:1509 src/mainwindow.cpp:1748
+#: src/mainwindow.cpp:1752 src/mainwindow.cpp:2172 src/mainwindow.cpp:2371
+#: src/mainwindow.cpp:2421 src/mainwindow.cpp:2604 src/mainwindow.cpp:2607
+#: src/mainwindow.cpp:2735 src/mainwindow.cpp:2738 src/mainwindow.cpp:2943
+#: src/mainwindow.cpp:2946 src/mainwindow.cpp:3067 src/mainwindow.cpp:3070
+#: src/mainwindow.cpp:3206 src/mainwindow.cpp:3329 src/mainwindow.cpp:3332
+#: src/mainwindow.cpp:3408
 msgid ""
 "Unable to start pkexec. Make sure polkit is installed and run this program "
 "from a graphical session."
 msgstr "無法啟動 pkexec。請確認系統已安裝 polkit，並從圖形工作階段執行本程式。"
 
-#: src/mainwindow.cpp:1448
+#: src/mainwindow.cpp:1472
 msgid "Fixing…"
 msgstr "正在修復…"
 
-#: src/mainwindow.cpp:1467
+#: src/mainwindow.cpp:1491
 msgid ""
 "The detected problems have been fixed. Reboot for the changes to take full "
 "effect."
 msgstr "偵測到的問題已修復。重新開機後變更將完全生效。"
 
-#: src/mainwindow.cpp:1468
+#: src/mainwindow.cpp:1492
 msgid "Fix completed"
 msgstr "修復完成"
 
-#: src/mainwindow.cpp:1472
+#: src/mainwindow.cpp:1496
 msgid ""
 "Failed to fix the detected problems.\n"
 "\n"
@@ -697,31 +2185,31 @@ msgstr ""
 "\n"
 "%1"
 
-#: src/mainwindow.cpp:1473 src/mainwindow.cpp:1486
+#: src/mainwindow.cpp:1497 src/mainwindow.cpp:1510
 msgid "Fix failed"
 msgstr "修復失敗"
 
-#: src/mainwindow.cpp:1534
+#: src/mainwindow.cpp:1558
 msgid "Project links"
 msgstr "專案連結"
 
-#: src/mainwindow.cpp:1547
+#: src/mainwindow.cpp:1571
 msgid "Miryu Toolkit (Project Repository)"
-msgstr "Miryu Toolkit（專案倉庫）"
+msgstr "Miryu 工具箱（專案儲存庫）"
 
-#: src/mainwindow.cpp:1592
+#: src/mainwindow.cpp:1616
 msgid "Status: installed"
 msgstr "狀態：已安裝"
 
-#: src/mainwindow.cpp:1594
+#: src/mainwindow.cpp:1618
 msgid "Status: partially installed (%1/%2)"
 msgstr "狀態：部分安裝（%1/%2）"
 
-#: src/mainwindow.cpp:1596
+#: src/mainwindow.cpp:1620
 msgid "Status: not installed"
 msgstr "狀態：未安裝"
 
-#: src/mainwindow.cpp:1622
+#: src/mainwindow.cpp:1646
 msgid ""
 "Do you want to %1 “%2”?\n"
 "\n"
@@ -729,174 +2217,170 @@ msgid ""
 msgstr ""
 "確定要%1「%2」嗎？\n"
 "\n"
-"軟體包 helper 將執行：dnf5 %3 -y %4"
+"套件輔助程式將執行：dnf5 %3 -y %4"
 
-#: src/mainwindow.cpp:1630
+#: src/mainwindow.cpp:1654
 msgid "Confirm %1"
 msgstr "確認%1"
 
-#: src/mainwindow.cpp:1651
+#: src/mainwindow.cpp:1675
 msgid "DNF5 details: %1"
 msgstr "DNF5 詳細資訊：%1"
 
-#: src/mainwindow.cpp:1655
+#: src/mainwindow.cpp:1679
 msgid "Detailed dnf5 installation log:"
-msgstr "dnf5 安裝詳細紀錄："
+msgstr "dnf5 安裝詳細日誌："
 
-#: src/mainwindow.cpp:1661
+#: src/mainwindow.cpp:1685
 msgid "Starting privileged package helper..."
-msgstr "正在啟動提權軟體包 helper..."
+msgstr "正在啟動特權套件輔助程式..."
 
-#: src/mainwindow.cpp:1670 src/mainwindow.cpp:2504 src/mainwindow.cpp:2956
-#: src/mainwindow.cpp:3352
+#: src/mainwindow.cpp:1694 src/mainwindow.cpp:2530 src/mainwindow.cpp:2983
+#: src/mainwindow.cpp:3379
 msgid "No segfault entries found in the kernel log (dmesg)."
-msgstr "核心日誌（dmesg）中未發現 segfault（段錯誤）記錄。"
+msgstr "核心日誌（dmesg）中未發現 segfault（記憶體區段錯誤）項目。"
 
-#: src/mainwindow.cpp:1700 src/mainwindow.cpp:1703
+#: src/mainwindow.cpp:1724 src/mainwindow.cpp:1727
 msgid "%1 completed."
-msgstr "%1完成。"
+msgstr "%1 完成。"
 
-#: src/mainwindow.cpp:1704
-msgid "Completed"
-msgstr "完成"
-
-#: src/mainwindow.cpp:1707
+#: src/mainwindow.cpp:1731
 msgid "%1 “%2” failed."
 msgstr "%1「%2」失敗。"
 
-#: src/mainwindow.cpp:1710
+#: src/mainwindow.cpp:1734
 msgid "%1 “%2” failed. See the log window for details."
-msgstr "%1「%2」失敗。詳情請查看日誌視窗。"
+msgstr "%1「%2」失敗。詳細資訊請檢視日誌視窗。"
 
-#: src/mainwindow.cpp:1711 src/mainwindow.cpp:1729
+#: src/mainwindow.cpp:1735 src/mainwindow.cpp:1753
 msgid "Failed"
 msgstr "失敗"
 
-#: src/mainwindow.cpp:1725
+#: src/mainwindow.cpp:1749
 msgid "%1 failed"
-msgstr "%1失敗"
+msgstr "%1 失敗"
 
-#: src/mainwindow.cpp:1762
+#: src/mainwindow.cpp:1786
 msgid "Show boot menu"
 msgstr "顯示開機選單"
 
-#: src/mainwindow.cpp:1763
+#: src/mainwindow.cpp:1787
 msgid "Show the GRUB menu before starting the default system."
-msgstr "啟動預設系統前顯示 GRUB 選單。"
+msgstr "開機進入預設系統前顯示 GRUB 選單。"
 
-#: src/mainwindow.cpp:1768
+#: src/mainwindow.cpp:1792
 msgid "Delay before booting"
 msgstr "開機前等待時間"
 
-#: src/mainwindow.cpp:1771
+#: src/mainwindow.cpp:1795
 msgid " seconds"
 msgstr " 秒"
 
-#: src/mainwindow.cpp:1772
+#: src/mainwindow.cpp:1796
 msgid "wait indefinitely"
 msgstr "無限等待"
 
-#: src/mainwindow.cpp:1773
+#: src/mainwindow.cpp:1797
 msgid "Use -1 to wait until a menu entry is selected."
 msgstr "使用 -1 表示一直等待，直到選擇選單項目。"
 
-#: src/mainwindow.cpp:1780
+#: src/mainwindow.cpp:1804
 msgid "Remember last selected entry as the default"
 msgstr "記住上次選取的項目作為預設值"
 
-#: src/mainwindow.cpp:1786
+#: src/mainwindow.cpp:1810
 msgid "Kernel Parameters"
 msgstr "核心參數"
 
-#: src/mainwindow.cpp:1792
+#: src/mainwindow.cpp:1816
 msgid "Current kernel command line"
 msgstr "目前核心命令列"
 
-#: src/mainwindow.cpp:1801
+#: src/mainwindow.cpp:1825
 msgid "Custom parameters written by this tool"
 msgstr "由此工具寫入的自訂參數"
 
-#: src/mainwindow.cpp:1817
+#: src/mainwindow.cpp:1841 src/uefibootpage.cpp:176
 msgid "Remove"
 msgstr "移除"
 
-#: src/mainwindow.cpp:1819
+#: src/mainwindow.cpp:1843
 msgid "Up"
 msgstr "上移"
 
-#: src/mainwindow.cpp:1820
+#: src/mainwindow.cpp:1844
 msgid "Down"
 msgstr "下移"
 
-#: src/mainwindow.cpp:1837
+#: src/mainwindow.cpp:1861
 msgid "New parameter"
 msgstr "新參數"
 
-#: src/mainwindow.cpp:1839
+#: src/mainwindow.cpp:1863
 msgid "Example: nomodeset"
 msgstr "範例：nomodeset"
 
-#: src/mainwindow.cpp:1840
+#: src/mainwindow.cpp:1864
 msgid "Add"
 msgstr "新增"
 
-#: src/mainwindow.cpp:1860
+#: src/mainwindow.cpp:1884
 msgid "Save GRUB2 Settings"
 msgstr "儲存 GRUB2 設定"
 
-#: src/mainwindow.cpp:1875
+#: src/mainwindow.cpp:1899
 msgid "Could not load the GRUB configuration."
 msgstr "無法載入 GRUB 設定。"
 
-#: src/mainwindow.cpp:1921
+#: src/mainwindow.cpp:1945
 msgid "Empty Parameter"
 msgstr "參數為空"
 
-#: src/mainwindow.cpp:1921
+#: src/mainwindow.cpp:1945
 msgid "Enter one kernel parameter first."
 msgstr "請先輸入一個核心參數。"
 
-#: src/mainwindow.cpp:1926 src/mainwindow.cpp:1933
+#: src/mainwindow.cpp:1950 src/mainwindow.cpp:1957
 msgid "Invalid Parameter"
 msgstr "無效參數"
 
-#: src/mainwindow.cpp:1927
+#: src/mainwindow.cpp:1951
 msgid "Add one parameter at a time. Spaces are not allowed."
 msgstr "每次只能新增一個參數，不允許包含空格。"
 
-#: src/mainwindow.cpp:1934
+#: src/mainwindow.cpp:1958
 msgid "Use only letters, numbers, and these characters: _ . / : = , + @ % -"
 msgstr "只能使用字母、數字和這些字元：_ . / : = , + @ % -"
 
-#: src/mainwindow.cpp:1944
+#: src/mainwindow.cpp:1968
 msgid "Duplicate Parameter"
 msgstr "參數重複"
 
-#: src/mainwindow.cpp:1945
+#: src/mainwindow.cpp:1969
 msgid "The parameter “%1” already exists."
 msgstr "參數“%1”已存在。"
 
-#: src/mainwindow.cpp:1984
+#: src/mainwindow.cpp:2008
 msgid "Edit Parameter"
 msgstr "編輯參數"
 
-#: src/mainwindow.cpp:1984
+#: src/mainwindow.cpp:2008
 msgid "Parameter"
 msgstr "參數"
 
-#: src/mainwindow.cpp:2049 src/mainwindow.cpp:2133 src/mainwindow.cpp:2136
+#: src/mainwindow.cpp:2073 src/mainwindow.cpp:2157 src/mainwindow.cpp:2160
 msgid "Save Failed"
 msgstr "儲存失敗"
 
-#: src/mainwindow.cpp:2049
+#: src/mainwindow.cpp:2073
 msgid "Could not create a temporary configuration file."
 msgstr "無法建立暫存設定檔。"
 
-#: src/mainwindow.cpp:2062
+#: src/mainwindow.cpp:2086
 msgid "Helper Not Found"
 msgstr "找不到輔助程式"
 
-#: src/mainwindow.cpp:2063
+#: src/mainwindow.cpp:2087
 msgid ""
 "The privileged helper was not found at:\n"
 "%1\n"
@@ -908,96 +2392,97 @@ msgstr ""
 "\n"
 "請先安裝專案，再儲存 GRUB2 設定。"
 
-#: src/mainwindow.cpp:2072
+#: src/mainwindow.cpp:2096
 msgid "Applying GRUB2 Settings"
 msgstr "正在套用 GRUB2 設定"
 
-#: src/mainwindow.cpp:2079 src/mainwindow.cpp:2155
+#: src/mainwindow.cpp:2103 src/mainwindow.cpp:2179
 msgid "Waiting for administrator authentication..."
 msgstr "等待管理員身分驗證..."
 
-#: src/mainwindow.cpp:2120
+#: src/mainwindow.cpp:2144
 msgid "GRUB2 settings saved successfully."
 msgstr "GRUB2 設定儲存成功。"
 
-#: src/mainwindow.cpp:2122
+#: src/mainwindow.cpp:2146
 msgid "GRUB2 settings saved. Reboot to use the new boot menu."
 msgstr "GRUB2 設定已儲存。重新開機後使用新的開機選單。"
 
-#: src/mainwindow.cpp:2123
+#: src/mainwindow.cpp:2147
 msgid "Saved"
 msgstr "已儲存"
 
-#: src/mainwindow.cpp:2124
+#: src/mainwindow.cpp:2148
 msgid "GRUB2 settings were saved and grub2-mkconfig completed successfully."
 msgstr "GRUB2 設定已儲存，grub2-mkconfig 已成功完成。"
 
-#: src/mainwindow.cpp:2128
+#: src/mainwindow.cpp:2152
 msgid "GRUB2 settings save failed."
 msgstr "GRUB2 設定儲存失敗。"
 
-#: src/mainwindow.cpp:2130
+#: src/mainwindow.cpp:2154
 msgid "Save failed."
 msgstr "儲存失敗。"
 
-#: src/mainwindow.cpp:2134
+#: src/mainwindow.cpp:2158
 msgid ""
-"Could not start the privileged helper. Make sure polkit is installed and run"
-" this program from a graphical session."
-msgstr "無法啟動特權輔助程式。請確保已安裝 polkit 並在圖形工作階段中執行此程式。"
+"Could not start the privileged helper. Make sure polkit is installed and run "
+"this program from a graphical session."
+msgstr ""
+"無法啟動特權輔助程式。請確認已安裝 polkit 並在圖形工作階段中執行此程式。"
 
-#: src/mainwindow.cpp:2137
+#: src/mainwindow.cpp:2161
 msgid "Could not save and regenerate GRUB2 configuration."
 msgstr "無法儲存並重新產生 GRUB2 設定。"
 
-#: src/mainwindow.cpp:2214
+#: src/mainwindow.cpp:2240
 msgid ""
 "Unable to read /etc/environment. You can add variables and apply them later."
 msgstr "無法讀取 /etc/environment。可以新增變數後再套用。"
 
-#: src/mainwindow.cpp:2227
+#: src/mainwindow.cpp:2253
 msgid ""
 "/etc/environment has been loaded. Log out and log back in for changes to "
 "take effect."
 msgstr "已讀取 /etc/environment。登出並重新登入後變更才會生效。"
 
-#: src/mainwindow.cpp:2234
+#: src/mainwindow.cpp:2260
 msgid "Add environment variable"
 msgstr "新增環境變數"
 
-#: src/mainwindow.cpp:2235 src/mainwindow.cpp:2264
+#: src/mainwindow.cpp:2261 src/mainwindow.cpp:2290
 msgid "Variable (NAME=VALUE):"
 msgstr "變數（NAME=VALUE）："
 
-#: src/mainwindow.cpp:2246 src/mainwindow.cpp:2275 src/mainwindow.cpp:2298
+#: src/mainwindow.cpp:2272 src/mainwindow.cpp:2301 src/mainwindow.cpp:2324
 msgid "Invalid format"
 msgstr "格式錯誤"
 
-#: src/mainwindow.cpp:2257
+#: src/mainwindow.cpp:2283
 msgid "Select an environment variable first."
 msgstr "請先選擇一個環境變數。"
 
-#: src/mainwindow.cpp:2257
+#: src/mainwindow.cpp:2283
 msgid "No item selected"
 msgstr "未選擇項目"
 
-#: src/mainwindow.cpp:2263
+#: src/mainwindow.cpp:2289
 msgid "Edit environment variable"
 msgstr "編輯環境變數"
 
-#: src/mainwindow.cpp:2330
+#: src/mainwindow.cpp:2356
 msgid ""
 "Saved to /etc/environment. Log out and log back in for changes to take "
 "effect."
 msgstr "已儲存到 /etc/environment。登出並重新登入後變更才會生效。"
 
-#: src/mainwindow.cpp:2331
+#: src/mainwindow.cpp:2357
 msgid ""
 "System-wide environment variables have been saved. Log out and log back in "
 "for changes to take effect."
-msgstr "系統範圍環境變數已儲存。登出並重新登入後變更才會生效。"
+msgstr "系統層級環境變數已儲存。登出並重新登入後變更才會生效。"
 
-#: src/mainwindow.cpp:2334
+#: src/mainwindow.cpp:2360
 msgid ""
 "Writing /etc/environment failed.\n"
 "\n"
@@ -1007,121 +2492,123 @@ msgstr ""
 "\n"
 "%1"
 
-#: src/mainwindow.cpp:2362
+#: src/mainwindow.cpp:2388
 msgid "Restore the default system-wide environment variables?"
-msgstr "要恢復預設系統範圍環境變數嗎？"
+msgstr "要還原預設系統層級環境變數嗎？"
 
-#: src/mainwindow.cpp:2381 src/mainwindow.cpp:2382
+#: src/mainwindow.cpp:2407 src/mainwindow.cpp:2408
 msgid ""
 "Default system-wide environment variables have been restored. Log out and "
 "log back in for changes to take effect."
-msgstr "預設系統範圍環境變數已恢復。登出並重新登入後變更才會生效。"
+msgstr "預設系統層級環境變數已還原。登出並重新登入後變更才會生效。"
 
-#: src/mainwindow.cpp:2382
+#: src/mainwindow.cpp:2408
 msgid "Defaults restored"
-msgstr "已恢復預設"
+msgstr "已還原預設"
 
-#: src/mainwindow.cpp:2385
+#: src/mainwindow.cpp:2411
 msgid ""
 "Restoring default system-wide environment variables failed.\n"
 "\n"
 "%1"
 msgstr ""
-"恢復預設系統範圍環境變數失敗。\n"
+"還原預設系統層級環境變數失敗。\n"
 "\n"
 "%1"
 
-#: src/mainwindow.cpp:2386 src/mainwindow.cpp:2396
+#: src/mainwindow.cpp:2412 src/mainwindow.cpp:2422
 msgid "Restore failed"
-msgstr "恢復失敗"
+msgstr "還原失敗"
 
-#: src/mainwindow.cpp:2426
+#: src/mainwindow.cpp:2452
 msgid ""
 "Environment variables must use the NAME=VALUE format. NAME may only contain "
 "letters, digits and underscores, and must not start with a digit."
-msgstr "環境變數必須使用 NAME=VALUE 格式。NAME 只能包含字母、數字和底線，且不能以數字開頭。"
+msgstr ""
+"環境變數必須使用 NAME=VALUE 格式。NAME 只能包含字母、數字和底線，且不能以數字"
+"開頭。"
 
-#: src/mainwindow.cpp:2433
+#: src/mainwindow.cpp:2459
 msgid "A single environment variable must not contain line breaks."
-msgstr "單個環境變數不能包含換行符。"
+msgstr "單一環境變數不能包含換行字元。"
 
-#: src/mainwindow.cpp:2465
+#: src/mainwindow.cpp:2491
 msgid ""
-"Remove previous kernel versions? This will run: dnf-3 -y remove "
-"--oldinstallonly"
-msgstr "移除上一版本核心？將執行：dnf-3 -y remove --oldinstallonly"
+"Remove previous kernel versions? This will run: dnf5 -y remove --"
+"oldinstallonly"
+msgstr "移除舊版核心？將執行：dnf5 -y remove --oldinstallonly"
 
-#: src/mainwindow.cpp:2467
+#: src/mainwindow.cpp:2493
 msgid "Clean up"
 msgstr "清理"
 
-#: src/mainwindow.cpp:2478
+#: src/mainwindow.cpp:2504
 msgid "Cleaning up previous kernel..."
-msgstr "正在清理上一版本核心..."
+msgstr "正在清理舊版核心..."
 
-#: src/mainwindow.cpp:2484
+#: src/mainwindow.cpp:2510
 msgid "Kernel cleanup log"
-msgstr "核心清理紀錄"
+msgstr "核心清理日誌"
 
-#: src/mainwindow.cpp:2488
-msgid "Removing previous kernel versions via dnf-3..."
-msgstr "正在透過 dnf-3 移除上一版本核心..."
+#: src/mainwindow.cpp:2514
+msgid "Removing previous kernel versions via dnf5..."
+msgstr "正在透過 dnf5 移除舊版核心..."
 
-#: src/mainwindow.cpp:2495
+#: src/mainwindow.cpp:2521
 msgid "Starting privileged kernel cleanup helper..."
-msgstr "正在啟動提權核心清理 helper..."
+msgstr "正在啟動特權核心清理輔助程式..."
 
-#: src/mainwindow.cpp:2545 src/mainwindow.cpp:2548
+#: src/mainwindow.cpp:2571 src/mainwindow.cpp:2574
 msgid "Kernel cleanup completed."
 msgstr "核心清理完成。"
 
-#: src/mainwindow.cpp:2551
+#: src/mainwindow.cpp:2577
 msgid "Previous kernel versions have been cleaned up."
-msgstr "上一版本核心已清理。"
+msgstr "舊版核心已清理。"
 
-#: src/mainwindow.cpp:2552 src/mainwindow.cpp:3276
+#: src/mainwindow.cpp:2578 src/mainwindow.cpp:3303
 msgid "Cleanup completed"
 msgstr "清理完成"
 
-#: src/mainwindow.cpp:2555 src/mainwindow.cpp:2558 src/mainwindow.cpp:2575
+#: src/mainwindow.cpp:2581 src/mainwindow.cpp:2584 src/mainwindow.cpp:2601
 msgid "Kernel cleanup failed."
 msgstr "核心清理失敗。"
 
-#: src/mainwindow.cpp:2561
+#: src/mainwindow.cpp:2587
 msgid ""
 "Failed to clean up previous kernel versions. See the log window for details."
-msgstr "清理上一版本核心失敗。詳情請查看紀錄視窗。"
+msgstr "清理舊版核心失敗。詳細資訊請檢視日誌視窗。"
 
-#: src/mainwindow.cpp:2562 src/mainwindow.cpp:2582 src/mainwindow.cpp:3286
-#: src/mainwindow.cpp:3306
+#: src/mainwindow.cpp:2588 src/mainwindow.cpp:2608 src/mainwindow.cpp:3313
+#: src/mainwindow.cpp:3333
 msgid "Cleanup failed"
 msgstr "清理失敗"
 
-#: src/mainwindow.cpp:2609
+#: src/mainwindow.cpp:2635
 msgid "Collecting system logs..."
 msgstr "正在收集系統日誌..."
 
-#: src/mainwindow.cpp:2616
+#: src/mainwindow.cpp:2642
 msgid "Collecting system logs"
 msgstr "收集系統日誌"
 
-#: src/mainwindow.cpp:2620
+#: src/mainwindow.cpp:2646
 msgid "Collecting system information and logs. This may take a moment..."
 msgstr "正在收集系統資訊和日誌。這可能需要一些時間..."
 
-#: src/mainwindow.cpp:2627
+#: src/mainwindow.cpp:2653
 msgid "Starting privileged log collection helper..."
-msgstr "正在啟動提權日誌收集 helper..."
+msgstr "正在啟動特權日誌收集輔助程式..."
 
-#: src/mainwindow.cpp:2676
+#: src/mainwindow.cpp:2702
 msgid "System logs collected: %1"
 msgstr "系統日誌已收集：%1"
 
-#: src/mainwindow.cpp:2679
+#: src/mainwindow.cpp:2705
 msgid "Collection completed. Archive saved to: %1"
 msgstr "收集完成。封存已儲存到：%1"
 
-#: src/mainwindow.cpp:2682
+#: src/mainwindow.cpp:2708
 msgid ""
 "System logs have been collected and saved to:\n"
 "%1"
@@ -1129,297 +2616,756 @@ msgstr ""
 "系統日誌已收集並儲存到：\n"
 "%1"
 
-#: src/mainwindow.cpp:2683
+#: src/mainwindow.cpp:2709
 msgid "Collection completed"
 msgstr "收集完成"
 
-#: src/mainwindow.cpp:2686 src/mainwindow.cpp:2689 src/mainwindow.cpp:2706
+#: src/mainwindow.cpp:2712 src/mainwindow.cpp:2715 src/mainwindow.cpp:2732
 msgid "Log collection failed."
 msgstr "日誌收集失敗。"
 
-#: src/mainwindow.cpp:2692
+#: src/mainwindow.cpp:2718
 msgid "Failed to collect system logs. See the log window for details."
-msgstr "收集系統日誌失敗。詳情請查看日誌視窗。"
+msgstr "收集系統日誌失敗。詳細資訊請檢視日誌視窗。"
 
-#: src/mainwindow.cpp:2693 src/mainwindow.cpp:2713
+#: src/mainwindow.cpp:2719 src/mainwindow.cpp:2739
 msgid "Collection failed"
 msgstr "收集失敗"
 
-#: src/mainwindow.cpp:2748
+#: src/mainwindow.cpp:2775
 msgid "Checking for available updates..."
 msgstr "正在檢查可用更新..."
 
-#: src/mainwindow.cpp:2754
+#: src/mainwindow.cpp:2781
 msgid "System update"
 msgstr "系統更新"
 
-#: src/mainwindow.cpp:2758
+#: src/mainwindow.cpp:2785
 msgid "Checking for available updates with dnf5. This may take a moment..."
 msgstr "正在使用 dnf5 檢查可用更新。這可能需要一些時間..."
 
-#: src/mainwindow.cpp:2765
+#: src/mainwindow.cpp:2792
 msgid "Running: dnf5 check-update --refresh"
 msgstr "執行：dnf5 check-update --refresh"
 
-#: src/mainwindow.cpp:2768
+#: src/mainwindow.cpp:2795
 msgid "Cancel update"
 msgstr "取消更新"
 
-#: src/mainwindow.cpp:2779
+#: src/mainwindow.cpp:2806
 msgid "Cancelling..."
 msgstr "正在取消..."
 
-#: src/mainwindow.cpp:2824 src/mainwindow.cpp:2827 src/mainwindow.cpp:2856
-#: src/mainwindow.cpp:2859 src/mainwindow.cpp:2994 src/mainwindow.cpp:2997
+#: src/mainwindow.cpp:2851 src/mainwindow.cpp:2854 src/mainwindow.cpp:2883
+#: src/mainwindow.cpp:2886 src/mainwindow.cpp:3021 src/mainwindow.cpp:3024
 msgid "Update cancelled."
 msgstr "已取消更新。"
 
-#: src/mainwindow.cpp:2839
+#: src/mainwindow.cpp:2866
 msgid "Available updates detected."
 msgstr "偵測到可用更新。"
 
-#: src/mainwindow.cpp:2842
+#: src/mainwindow.cpp:2869
 msgid "Updates are available."
 msgstr "有可用更新。"
 
-#: src/mainwindow.cpp:2845
+#: src/mainwindow.cpp:2872
 msgid "dnf5 detected available updates. Do you want to update the system now?"
 msgstr "dnf5 偵測到可用更新。是否要現在更新系統？"
 
-#: src/mainwindow.cpp:2847
+#: src/mainwindow.cpp:2874
 msgid "Update"
 msgstr "更新"
 
-#: src/mainwindow.cpp:2851
+#: src/mainwindow.cpp:2878
 msgid "Updating the system with dnf5. Please wait..."
 msgstr "正在使用 dnf5 更新系統。請稍候..."
 
-#: src/mainwindow.cpp:2865 src/mainwindow.cpp:2868 src/mainwindow.cpp:2871
+#: src/mainwindow.cpp:2892 src/mainwindow.cpp:2895 src/mainwindow.cpp:2898
 msgid "Your system is already up to date."
 msgstr "您的系統已是最新版本。"
 
-#: src/mainwindow.cpp:2872
+#: src/mainwindow.cpp:2899
 msgid "No updates"
 msgstr "無可用更新"
 
-#: src/mainwindow.cpp:2876 src/mainwindow.cpp:2879
+#: src/mainwindow.cpp:2903 src/mainwindow.cpp:2906
 msgid "Authentication was canceled."
 msgstr "認證已取消。"
 
-#: src/mainwindow.cpp:2882
+#: src/mainwindow.cpp:2909
 msgid "Authentication was canceled. No updates were checked or installed."
 msgstr "認證已取消。未檢查或安裝任何更新。"
 
-#: src/mainwindow.cpp:2883
+#: src/mainwindow.cpp:2910
 msgid "Authentication canceled"
 msgstr "認證已取消"
 
-#: src/mainwindow.cpp:2887
+#: src/mainwindow.cpp:2914
 msgid "Failed to check for updates."
 msgstr "檢查更新失敗。"
 
-#: src/mainwindow.cpp:2890 src/mainwindow.cpp:2907
+#: src/mainwindow.cpp:2917 src/mainwindow.cpp:2934
 msgid "Update check failed."
 msgstr "更新檢查失敗。"
 
-#: src/mainwindow.cpp:2893
+#: src/mainwindow.cpp:2920
 msgid "Failed to check for available updates. See the log window for details."
-msgstr "檢查可用更新失敗。詳情請查看日誌視窗。"
+msgstr "檢查可用更新失敗。詳細資訊請檢視日誌視窗。"
 
-#: src/mainwindow.cpp:2894 src/mainwindow.cpp:2920
+#: src/mainwindow.cpp:2921 src/mainwindow.cpp:2947
 msgid "Check failed"
 msgstr "檢查失敗"
 
-#: src/mainwindow.cpp:2947
+#: src/mainwindow.cpp:2974
 msgid "Starting privileged system update helper..."
-msgstr "正在啟動提權系統更新 helper..."
+msgstr "正在啟動特權系統更新輔助程式..."
 
-#: src/mainwindow.cpp:2948
+#: src/mainwindow.cpp:2975
 msgid "Running: dnf5 update --refresh"
 msgstr "執行：dnf5 update --refresh"
 
-#: src/mainwindow.cpp:3001 src/mainwindow.cpp:3004
+#: src/mainwindow.cpp:3028 src/mainwindow.cpp:3031
 msgid "System update completed."
 msgstr "系統更新完成。"
 
-#: src/mainwindow.cpp:3007
+#: src/mainwindow.cpp:3034
 msgid "The system has been updated successfully."
 msgstr "系統已成功更新。"
 
-#: src/mainwindow.cpp:3008
+#: src/mainwindow.cpp:3035
 msgid "Update completed"
 msgstr "更新完成"
 
-#: src/mainwindow.cpp:3011 src/mainwindow.cpp:3014 src/mainwindow.cpp:3031
+#: src/mainwindow.cpp:3038 src/mainwindow.cpp:3041 src/mainwindow.cpp:3058
 msgid "System update failed."
 msgstr "系統更新失敗。"
 
-#: src/mainwindow.cpp:3017
+#: src/mainwindow.cpp:3044
 msgid "Failed to update the system. See the log window for details."
-msgstr "更新系統失敗。詳情請查看日誌視窗。"
+msgstr "更新系統失敗。詳細資訊請檢視日誌視窗。"
 
-#: src/mainwindow.cpp:3018 src/mainwindow.cpp:3044
+#: src/mainwindow.cpp:3045 src/mainwindow.cpp:3071
 msgid "Update failed"
 msgstr "更新失敗"
 
-#: src/mainwindow.cpp:3064
+#: src/mainwindow.cpp:3091
 msgid "Failed systemd service units"
 msgstr "systemd 失敗的服務單元"
 
-#: src/mainwindow.cpp:3068
+#: src/mainwindow.cpp:3095
 msgid "Listing failed systemd service units..."
 msgstr "正在列出 systemd 失敗的服務單元..."
 
-#: src/mainwindow.cpp:3075
+#: src/mainwindow.cpp:3102
 msgid "Running: systemctl --failed --no-pager"
 msgstr "執行：systemctl --failed --no-pager"
 
-#: src/mainwindow.cpp:3078 src/mainwindow.cpp:3340
+#: src/mainwindow.cpp:3105 src/mainwindow.cpp:3367
 msgid "Close"
 msgstr "關閉"
 
-#: src/mainwindow.cpp:3103 src/mainwindow.cpp:3368
+#: src/mainwindow.cpp:3130 src/mainwindow.cpp:3395
 msgid "Command completed."
 msgstr "指令已完成。"
 
-#: src/mainwindow.cpp:3107
+#: src/mainwindow.cpp:3134
 msgid "Command failed (exit code %1)."
-msgstr "指令失敗（退出碼 %1）。"
+msgstr "指令失敗（結束代碼 %1）。"
 
-#: src/mainwindow.cpp:3116
+#: src/mainwindow.cpp:3143
 msgid "Unable to start systemctl."
 msgstr "無法啟動 systemctl。"
 
-#: src/mainwindow.cpp:3132
+#: src/mainwindow.cpp:3159
 msgid ""
-"Before unlocking the RPM database, please check whether dnf5 and dnf5daemon-server have completed their transactions.\n"
+"Before unlocking the RPM database, please check whether dnf5 and dnf5daemon-"
+"server have completed their transactions.\n"
 "\n"
 "Are you sure you want to unlock the RPM database?"
 msgstr ""
 "在解鎖 RPM 資料庫前，請檢查 dnf5 和 dnf5daemon-server 是否已完成交易。\n"
 "\n"
-"你確定要解鎖 RPM 資料庫嗎？"
+"您確定要解鎖 RPM 資料庫嗎？"
 
-#: src/mainwindow.cpp:3134
+#: src/mainwindow.cpp:3161
 msgid "Unlock"
 msgstr "解鎖"
 
-#: src/mainwindow.cpp:3145
+#: src/mainwindow.cpp:3172
 msgid "Unlocking RPM database..."
 msgstr "正在解鎖 RPM 資料庫..."
 
-#: src/mainwindow.cpp:3155 src/mainwindow.cpp:3158
+#: src/mainwindow.cpp:3182 src/mainwindow.cpp:3185
 msgid "RPM database has been unlocked."
 msgstr "RPM 資料庫已解鎖。"
 
-#: src/mainwindow.cpp:3159
+#: src/mainwindow.cpp:3186
 msgid "Unlock completed"
 msgstr "解鎖完成"
 
-#: src/mainwindow.cpp:3162 src/mainwindow.cpp:3176
+#: src/mainwindow.cpp:3189 src/mainwindow.cpp:3203
 msgid "Failed to unlock RPM database."
 msgstr "解鎖 RPM 資料庫失敗。"
 
-#: src/mainwindow.cpp:3165
+#: src/mainwindow.cpp:3192
 msgid "Failed to unlock the RPM database."
 msgstr "解鎖 RPM 資料庫失敗。"
 
-#: src/mainwindow.cpp:3166 src/mainwindow.cpp:3180
+#: src/mainwindow.cpp:3193 src/mainwindow.cpp:3207
 msgid "Unlock failed"
 msgstr "解鎖失敗"
 
-#: src/mainwindow.cpp:3195
+#: src/mainwindow.cpp:3222
 msgid "The dnf5 log file does not exist at %1."
 msgstr "dnf5 日誌檔案不存在於 %1。"
 
-#: src/mainwindow.cpp:3196
+#: src/mainwindow.cpp:3223
 msgid "File not found"
-msgstr "檔案未找到"
+msgstr "找不到檔案"
 
-#: src/mainwindow.cpp:3214
+#: src/mainwindow.cpp:3241
 msgid "Cleaning unused packages..."
-msgstr "正在清理無用的軟體包..."
+msgstr "正在清理無用的套件..."
 
-#: src/mainwindow.cpp:3220
+#: src/mainwindow.cpp:3247
 msgid "Clean unused packages"
-msgstr "清理無用的軟體包"
+msgstr "清理無用的套件"
 
-#: src/mainwindow.cpp:3224
+#: src/mainwindow.cpp:3251
 msgid "Removing unused dependency packages with dnf5 autoremove..."
-msgstr "正在使用 dnf5 autoremove 移除無用的依賴軟體包..."
+msgstr "正在使用 dnf5 autoremove 移除無用的依賴套件..."
 
-#: src/mainwindow.cpp:3231
+#: src/mainwindow.cpp:3258
 msgid "Starting privileged dnf5 autoremove helper..."
-msgstr "正在啟動提權 dnf5 autoremove helper..."
+msgstr "正在啟動特權 dnf5 autoremove 輔助程式..."
 
-#: src/mainwindow.cpp:3232
+#: src/mainwindow.cpp:3259
 msgid "Running: dnf5 autoremove --assumeyes"
 msgstr "執行：dnf5 autoremove --assumeyes"
 
-#: src/mainwindow.cpp:3269
+#: src/mainwindow.cpp:3296
 msgid "Cleanup completed."
 msgstr "清理完成。"
 
-#: src/mainwindow.cpp:3272
+#: src/mainwindow.cpp:3299
 msgid "Unused packages cleanup completed."
-msgstr "無用軟體包清理完成。"
+msgstr "無用套件清理完成。"
 
-#: src/mainwindow.cpp:3275
+#: src/mainwindow.cpp:3302
 msgid "Unused packages have been cleaned up."
-msgstr "無用軟體包已清理。"
+msgstr "無用套件已清理。"
 
-#: src/mainwindow.cpp:3279
+#: src/mainwindow.cpp:3306
 msgid "Cleanup failed."
 msgstr "清理失敗。"
 
-#: src/mainwindow.cpp:3282 src/mainwindow.cpp:3299
+#: src/mainwindow.cpp:3309 src/mainwindow.cpp:3326
 msgid "Unused packages cleanup failed."
-msgstr "無用軟體包清理失敗。"
+msgstr "無用套件清理失敗。"
 
-#: src/mainwindow.cpp:3285
+#: src/mainwindow.cpp:3312
 msgid "Failed to clean up unused packages. See the log window for details."
-msgstr "清理無用軟體包失敗。詳情請查看日誌視窗。"
+msgstr "清理無用套件失敗。詳細資訊請檢視日誌視窗。"
 
-#: src/mainwindow.cpp:3326
+#: src/mainwindow.cpp:3353
 msgid "Software crash information"
 msgstr "軟體崩潰資訊"
 
-#: src/mainwindow.cpp:3330
+#: src/mainwindow.cpp:3357
 msgid "Showing software crash information (dmesg | grep segfault)..."
 msgstr "正在顯示軟體崩潰資訊（dmesg | grep segfault）..."
 
-#: src/mainwindow.cpp:3337
+#: src/mainwindow.cpp:3364
 msgid "Running: dmesg 2>&1 | grep -i segfault"
 msgstr "執行：dmesg 2>&1 | grep -i segfault"
 
-#: src/mainwindow.cpp:3372
+#: src/mainwindow.cpp:3399
 msgid "Command completed (exit code %1)."
-msgstr "指令已完成（退出碼 %1）。"
+msgstr "指令已完成（結束代碼 %1）。"
+
+#: src/uefibootpage.cpp:79 src/uefibootpage.cpp:398
+msgid "Disabled"
+msgstr "已停用"
+
+#: src/uefibootpage.cpp:81 src/uefibootpage.cpp:398
+msgid "Enabled"
+msgstr "已啟用"
+
+#: src/uefibootpage.cpp:83
+msgid "Unsupported"
+msgstr "不支援"
+
+#: src/uefibootpage.cpp:109
+msgid "Unnamed certificate"
+msgstr "未命名憑證"
+
+#: src/uefibootpage.cpp:123
+msgid "Waiting for the boot configuration scan…"
+msgstr "正在等待開機設定掃描…"
+
+#: src/uefibootpage.cpp:138
+msgid "UEFI firmware boot entries"
+msgstr "UEFI 韌體開機項目"
+
+#: src/uefibootpage.cpp:143
+msgid "Boot ID"
+msgstr "開機 ID"
+
+#: src/uefibootpage.cpp:143 src/uefibootpage.cpp:228
+msgid "Name"
+msgstr "名稱"
+
+#: src/uefibootpage.cpp:144
+msgid "PARTUUID"
+msgstr "PARTUUID"
+
+#: src/uefibootpage.cpp:144
+msgid "State"
+msgstr "狀態"
+
+#: src/uefibootpage.cpp:162
+msgid "Move up"
+msgstr "上移"
+
+#: src/uefibootpage.cpp:164
+msgid "Move down"
+msgstr "下移"
+
+#: src/uefibootpage.cpp:166
+msgid "Boot once"
+msgstr "單次開機"
+
+#: src/uefibootpage.cpp:168
+msgid "Clear next boot"
+msgstr "清除下次開機項目"
+
+#: src/uefibootpage.cpp:170
+msgid "Enable / Disable"
+msgstr "啟用 / 停用"
+
+#: src/uefibootpage.cpp:172
+msgid "Rename"
+msgstr "重新命名"
+
+#: src/uefibootpage.cpp:174
+msgid "Add EFI entry"
+msgstr "新增 EFI 開機項目"
+
+#: src/uefibootpage.cpp:195
+msgid "Save changes"
+msgstr "儲存修改"
+
+#: src/uefibootpage.cpp:197
+msgid "Discard changes"
+msgstr "放棄修改"
+
+#: src/uefibootpage.cpp:205
+msgid "Secure Boot and Machine Owner Keys"
+msgstr "安全開機與機器擁有者金鑰（MOK）"
+
+#: src/uefibootpage.cpp:214
+msgid "SecureBoot:"
+msgstr "安全開機："
+
+#: src/uefibootpage.cpp:215
+msgid "SetupMode:"
+msgstr "設定模式："
+
+#: src/uefibootpage.cpp:216
+msgid "moduleSigEnforce:"
+msgstr "強制模組簽章："
+
+#: src/uefibootpage.cpp:228
+msgid "Issuer"
+msgstr "頒發者"
+
+#: src/uefibootpage.cpp:229
+msgid "Expires"
+msgstr "到期時間"
+
+#: src/uefibootpage.cpp:229
+msgid "SHA1"
+msgstr "SHA1"
+
+#: src/uefibootpage.cpp:243
+msgid "Raw MOK output"
+msgstr "機器擁有者金鑰（MOK）原始輸出"
+
+#: src/uefibootpage.cpp:259
+msgid "Request enrollment"
+msgstr "請求註冊"
+
+#: src/uefibootpage.cpp:261
+msgid "Cancel pending enrollment"
+msgstr "取消待註冊請求"
+
+#: src/uefibootpage.cpp:344
+msgid ""
+"This system was not booted in UEFI mode; firmware changes are unavailable."
+msgstr "本系統未以 UEFI 模式開機，無法變更韌體。"
+
+#: src/uefibootpage.cpp:346
+msgid "efibootmgr is missing; install it to manage UEFI firmware entries."
+msgstr "缺少 efibootmgr；請安裝後再管理 UEFI 韌體開機項目。"
+
+#: src/uefibootpage.cpp:348
+msgid "UEFI firmware and Secure Boot state loaded."
+msgstr "已載入韌體開機項目和安全開機狀態。"
+
+#: src/uefibootpage.cpp:400
+msgid "Current"
+msgstr "目前"
+
+#: src/uefibootpage.cpp:402
+msgid "Next boot"
+msgstr "下次開機"
+
+#: src/uefibootpage.cpp:404
+msgid "Pending"
+msgstr "待儲存"
+
+#: src/uefibootpage.cpp:423
+msgid "Pending add"
+msgstr "待新增"
+
+#: src/uefibootpage.cpp:436
+msgid "Enrolled MOK certificates (%1)"
+msgstr "已註冊的機器擁有者金鑰（MOK）憑證（%1）"
+
+#: src/uefibootpage.cpp:444
+msgid "Pending MOK confirmation (%1)"
+msgstr "待確認的機器擁有者金鑰（MOK）憑證（%1）"
+
+#: src/uefibootpage.cpp:457
+msgid "Enrolled MOK output:"
+msgstr "已註冊機器擁有者金鑰（MOK）的輸出："
+
+#: src/uefibootpage.cpp:460
+msgid "Pending MOK output:"
+msgstr "待確認機器擁有者金鑰（MOK）的輸出："
+
+#: src/uefibootpage.cpp:463
+msgid "No raw MOK output was reported."
+msgstr "未報告機器擁有者金鑰（MOK）原始輸出。"
+
+#: src/uefibootpage.cpp:468
+msgid "Missing tool: efibootmgr"
+msgstr "缺少工具：efibootmgr"
+
+#: src/uefibootpage.cpp:470
+msgid "Missing tool: mokutil"
+msgstr "缺少工具：mokutil"
+
+#: src/uefibootpage.cpp:472
+msgid "Secure Boot is disabled; MOK management is unavailable."
+msgstr "安全開機已關閉，無法管理機器擁有者金鑰（MOK）。"
+
+#: src/uefibootpage.cpp:514
+msgid "Disable"
+msgstr "停用"
+
+#: src/uefibootpage.cpp:514
+msgid "Enable"
+msgstr "啟用"
+
+#: src/uefibootpage.cpp:524
+msgid "Unsaved changes: %1. Nothing is written to the firmware until you save."
+msgstr "未儲存的修改：%1 項。儲存之前不會寫入韌體。"
+
+#: src/uefibootpage.cpp:598
+msgid "Clear the one-time next-boot entry"
+msgstr "清除一次性的下次開機項目"
+
+#: src/uefibootpage.cpp:599
+msgid "Boot entry %1 once on the next startup"
+msgstr "下次開機時一次性啟動開機項目 %1"
+
+#: src/uefibootpage.cpp:610
+msgid "Rename entry %1: “%2” → “%3”"
+msgstr "重新命名開機項目 %1：「%2」→「%3」"
+
+#: src/uefibootpage.cpp:622
+msgid "Enable entry %1 (%2)"
+msgstr "啟用開機項目 %1（%2）"
+
+#: src/uefibootpage.cpp:623
+msgid "Disable entry %1 (%2)"
+msgstr "停用開機項目 %1（%2）"
+
+#: src/uefibootpage.cpp:634
+msgid "Remove entry %1 (%2)"
+msgstr "移除開機項目 %1（%2）"
+
+#: src/uefibootpage.cpp:648
+msgid "Change the boot order to %1"
+msgstr "將開機順序變更為 %1"
+
+#: src/uefibootpage.cpp:656
+msgid "Add “%1” for %2"
+msgstr "為 %2 新增「%1」"
+
+#: src/uefibootpage.cpp:661
+msgid "Apply these changes to the UEFI firmware now?"
+msgstr "現在將這些變更套用到 UEFI 韌體嗎？"
+
+#: src/uefibootpage.cpp:677
+msgid "Confirm Boot Changes"
+msgstr "確認開機變更"
+
+#: src/uefibootpage.cpp:685
+msgid "Apply UEFI firmware boot entry changes"
+msgstr "套用 UEFI 韌體開機項目變更"
+
+#: src/uefibootpage.cpp:699
+msgid "Confirm Boot Change"
+msgstr "確認開機變更"
+
+#: src/uefibootpage.cpp:761
+msgid "Rename EFI Entry"
+msgstr "重新命名 EFI 開機項目"
+
+#: src/uefibootpage.cpp:762
+msgid "New firmware entry label:"
+msgstr "新韌體開機項目標籤："
+
+#: src/uefibootpage.cpp:768
+msgid "The label must contain 1 to 80 printable characters on a single line."
+msgstr "標籤必須為 1 至 80 個可列印字元，且只能佔一行。"
+
+#: src/uefibootpage.cpp:769
+msgid "Invalid Label"
+msgstr "無效標籤"
+
+#: src/uefibootpage.cpp:788
+msgid "Select an EFI Loader"
+msgstr "選擇 EFI 開機載入器"
+
+#: src/uefibootpage.cpp:789
+msgid "EFI programs (*.efi *.EFI);;All files (*)"
+msgstr "EFI 程式 (*.efi *.EFI);;所有檔案 (*)"
+
+#: src/uefibootpage.cpp:795
+msgid "Fedora"
+msgstr "Fedora"
+
+#: src/uefibootpage.cpp:796
+msgid "Add EFI Entry"
+msgstr "新增 EFI 開機項目"
+
+#: src/uefibootpage.cpp:797
+msgid "Firmware entry label:"
+msgstr "韌體開機項目標籤："
+
+#: src/uefibootpage.cpp:806
+msgid ""
+"The selected loader cannot be registered:\n"
+"%1"
+msgstr ""
+"無法註冊所選的開機載入器：\n"
+"%1"
+
+#: src/uefibootpage.cpp:807
+msgid "Cannot Add EFI Entry"
+msgstr "無法新增 EFI 開機項目"
+
+#: src/uefibootpage.cpp:835
+msgid "Select a DER Certificate"
+msgstr "選擇 DER 憑證"
+
+#: src/uefibootpage.cpp:836
+msgid "DER certificates (*.der *.crt *.cer);;All files (*)"
+msgstr "DER 憑證 (*.der *.crt *.cer);;所有檔案 (*)"
+
+#: src/uefibootpage.cpp:842
+msgid "Choose a regular DER certificate file between 64 bytes and 64 KiB."
+msgstr "請選擇大小在 64 位元組至 64 KiB 之間的一般 DER 憑證檔案。"
+
+#: src/uefibootpage.cpp:843 src/uefibootpage.cpp:860
+msgid "Invalid Certificate"
+msgstr "無效憑證"
+
+#: src/uefibootpage.cpp:849
+msgid "Could not read the selected DER certificate."
+msgstr "無法讀取所選的 DER 憑證。"
+
+#: src/uefibootpage.cpp:850
+msgid "Certificate Unavailable"
+msgstr "憑證無法使用"
+
+#: src/uefibootpage.cpp:859
+msgid "The file is not a supported ASN.1 DER certificate."
+msgstr "該檔案不是受支援的 ASN.1 DER 憑證。"
+
+#: src/uefibootpage.cpp:865
+msgid "MOK Enrollment Password"
+msgstr "機器擁有者金鑰（MOK）註冊密碼"
+
+#: src/uefibootpage.cpp:876
+msgid "Password:"
+msgstr "密碼："
+
+#: src/uefibootpage.cpp:877
+msgid "Repeat password:"
+msgstr "重複密碼："
+
+#: src/uefibootpage.cpp:880
+msgid ""
+"Use 1 to 256 printable characters. Firmware will ask for this password to "
+"confirm enrollment."
+msgstr "請使用 1 至 256 個可列印字元。韌體將要求輸入此密碼以確認註冊。"
+
+#: src/uefibootpage.cpp:884
+msgid "OK"
+msgstr "確定"
+
+#: src/uefibootpage.cpp:885
+msgid "Cancel"
+msgstr "取消"
+
+#: src/uefibootpage.cpp:901
+msgid "The two MOK passwords do not match."
+msgstr "兩次輸入的機器擁有者金鑰（MOK）密碼不一致。"
+
+#: src/uefibootpage.cpp:902
+msgid "Password Mismatch"
+msgstr "密碼不符"
+
+#: src/uefibootpage.cpp:912
+msgid "Invalid Password"
+msgstr "無效密碼"
+
+#: src/uefibootpage.cpp:921
+msgid "Request MOK certificate enrollment"
+msgstr "請求註冊機器擁有者金鑰（MOK）憑證"
+
+#: src/uefibootpage.cpp:922
+msgid ""
+"Request enrollment of this certificate?\n"
+"%1\n"
+"\n"
+"After reboot, confirm the request in the MOK manager. The password is sent "
+"only to the privileged helper and is not shown in the log."
+msgstr ""
+"要請求註冊此憑證嗎？\n"
+"%1\n"
+"\n"
+"重新開機後，請在機器擁有者金鑰（MOK）管理程式中確認該請求。密碼僅傳送給特權輔"
+"助程式，不會顯示在日誌中。"
+
+#: src/uefibootpage.cpp:929
+msgid "Cancel pending MOK enrollment"
+msgstr "取消待處理的機器擁有者金鑰（MOK）註冊"
+
+#: src/uefibootpage.cpp:930
+msgid ""
+"Cancel all pending MOK enrollment requests? Already enrolled certificates "
+"will not be removed."
+msgstr ""
+"要取消所有待處理的機器擁有者金鑰（MOK）註冊請求嗎？已註冊的憑證不會被移除。"
 
 #: kcm/kcm_miryu_toolkit.cpp:49
 msgid ""
-"Miryu Toolkit manages optional Miryu components (Wine, Steam, MIDI playback,"
-" extra fonts), system-wide environment variables, and collects system logs."
-msgstr "Miryu 工具包管理選擇性的 Miryu 元件（Wine、Steam、MIDI 播放、額外字型）、系統層級環境變數，並收集系統記錄。"
+"Miryu Toolkit manages optional Miryu components (Wine, Steam, MIDI playback, "
+"extra fonts), system-wide environment variables, and collects system logs."
+msgstr ""
+"Miryu 工具箱管理 Miryu 選用元件（Wine、Steam、MIDI 播放、額外字型）、系統層級"
+"環境變數，並收集系統日誌。"
 
 #: kcm/kcm_miryu_toolkit.cpp:61
 msgid "Relaunch Miryu Toolkit"
-msgstr "重新啟動 Miryu 工具包"
+msgstr "重新啟動 Miryu 工具箱"
 
 #: kcm/kcm_miryu_toolkit.cpp:98
 msgid ""
-"Miryu Toolkit is an external application and has been automatically "
-"launched."
-msgstr "Miryu 工具包是一個外部應用程式，已自動啟動。"
+"Miryu Toolkit is an external application and has been automatically launched."
+msgstr "Miryu 工具箱是一個外部應用程式，已自動啟動。"
 
 #: kcm/kcm_miryu_toolkit.cpp:103
 msgid "Could not launch Miryu Toolkit. Make sure it is installed."
-msgstr "無法啟動 Miryu 工具包。請確認已安裝。"
+msgstr "無法啟動 Miryu 工具箱。請確認已安裝。"
+
+#~ msgid "Select an entry to view sbverify signature details."
+#~ msgstr "選擇一個開機項目以檢視 sbverify 簽章詳細資訊。"
+
+#~ msgid "Missing tool: sbverify; EFI signature details may be unavailable."
+#~ msgstr "缺少工具：sbverify；可能無法提供 EFI 簽章詳細資訊。"
+
+#~ msgid "Select a firmware entry to inspect its EFI signature."
+#~ msgstr "選擇一個韌體開機項目以檢查其 EFI 簽章。"
+
+#~ msgid "The EFI loader path could not be resolved for firmware entry %1."
+#~ msgstr "無法解析韌體開機項目 %1 的 EFI 開機載入器路徑。"
+
+#~ msgid "Resolved loader: %1"
+#~ msgstr "解析後的開機載入器：%1"
+
+#~ msgid "No sbverify result is available for this resolved loader."
+#~ msgstr "此解析後的開機載入器沒有可用的 sbverify 結果。"
+
+#~ msgid "sbverify returned no signature details for this loader."
+#~ msgstr "sbverify 未傳回此開機載入器的簽章詳細資訊。"
+
+#~ msgid "Boot Operation"
+#~ msgstr "開機操作"
+
+#~ msgid "Leave empty for the default subvolume"
+#~ msgstr "留空則使用預設子磁碟區"
 
 #~ msgid ""
-#~ "The configured compressor %1 is not available, but %2 is. Select it in the "
-#~ "compressor list above."
-#~ msgstr "設定的壓縮演算法 %1 無法使用，但 %2 可以使用。請在上方的壓縮演算法清單中選擇它。"
+#~ "Signed EFI bootloader files are still missing after installing %1 and %2."
+#~ msgstr "安裝 %1 與 %2 後，已簽章的 EFI 開機載入程式檔案仍然缺失。"
+
+#~ msgid "The target has no GRUB modules for %1."
+#~ msgstr "目標沒有適用於 %1 的 GRUB 模組。"
+
+#~ msgid "up"
+#~ msgstr "上移"
+
+#~ msgid "down"
+#~ msgstr "下移"
+
+#~ msgid "Move firmware entry %1 (%2) %3 in BootOrder?"
+#~ msgstr "要在 BootOrder 中將韌體開機項目 %1（%2）%3嗎？"
+
+#~ msgid "Clear the one-time BootNext firmware setting?"
+#~ msgstr "要清除一次性的 BootNext 韌體設定嗎？"
+
+#~ msgid "Enable a UEFI firmware entry"
+#~ msgstr "啟用 UEFI 韌體開機項目"
+
+#~ msgid "Disable a UEFI firmware entry"
+#~ msgstr "停用 UEFI 韌體開機項目"
+
+#~ msgid "Add a UEFI firmware entry"
+#~ msgstr "新增 UEFI 韌體開機項目"
+
+#~ msgid ""
+#~ "Create firmware entry「%1」 for this EFI loader?\n"
+#~ "%2"
+#~ msgstr ""
+#~ "要為此 EFI 開機載入器建立韌體開機項目「%1」嗎？\n"
+#~ "%2"
+
+#~ msgid "Remove a UEFI firmware entry"
+#~ msgstr "移除 UEFI 韌體開機項目"
+
+#~ msgid "Permanently remove firmware entry %1 (%2) from UEFI NVRAM?"
+#~ msgstr "要從 UEFI NVRAM 中永久移除韌體開機項目 %1（%2）嗎？"
+
+#~ msgid "EFI loader"
+#~ msgstr "EFI 開機載入器"
+
+#~ msgid ""
+#~ "The host is not in UEFI mode; disable firmware registration before repair."
+#~ msgstr "主機未處於 UEFI 模式；修復前請停用韌體註冊。"
+
+#~ msgid ""
+#~ "The configured compressor %1 is not available, but %2 is. Select it in "
+#~ "the compressor list above."
+#~ msgstr ""
+#~ "設定的壓縮演算法 %1 無法使用，但 %2 可以使用。請在上方的壓縮演算法清單中選"
+#~ "擇它。"
 
 #~ msgid ""
 #~ "The hibernation compressor %1 is not available in the kernel; hibernation "
@@ -1429,4 +3375,4 @@ msgstr "無法啟動 Miryu 工具包。請確認已安裝。"
 #~ msgid ""
 #~ "Manage Miryu components, maintenance tasks and system-wide environment "
 #~ "variables in one place."
-#~ msgstr "集中管理 Miryu 元件、維護工作和系統範圍環境變數。"
+#~ msgstr "集中管理 Miryu 元件、維護工作和系統層級環境變數。"

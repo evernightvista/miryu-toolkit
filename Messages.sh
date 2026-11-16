@@ -22,5 +22,6 @@ fi
     --keyword=i18ndc:2c,3 \
     --keyword=i18ndp:2,3 \
     --keyword=i18ndcp:2c,3,4 \
+    --keyword=QT_TRANSLATE_NOOP:2 \
     src/*.cpp src/*.h kcm/*.cpp "$rcfile" \
     -o "$podir/miryu-toolkit.pot"

@@ -4,22 +4,52 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
   <name>Miryu Toolkit</name>
+  <name xml:lang="zh_CN">Miryu 工具箱</name>
+  <name xml:lang="zh_TW">Miryu 工具箱</name>
+  <name xml:lang="de">Miryu Werkzeugkasten</name>
+  <name xml:lang="fr">Boîte à outils Miryu</name>
+  <name xml:lang="ja">Miryu ツールキット</name>
+  <name xml:lang="ko">Miryu 도구 상자</name>
   <summary>Manage Miryu components and system-wide environment variables</summary>
+  <summary xml:lang="zh_CN">管理 Miryu 组件和系统范围环境变量</summary>
+  <summary xml:lang="zh_TW">管理 Miryu 元件和系統範圍環境變數</summary>
+  <summary xml:lang="de">Miryu-Komponenten und systemweite Umgebungsvariablen verwalten</summary>
+  <summary xml:lang="fr">Gérer les composants Miryu et les variables d'environnement système</summary>
+  <summary xml:lang="ja">Miryu コンポーネントとシステム全体の環境変数を管理</summary>
+  <summary xml:lang="ko">Miryu 구성 요소와 시스템 전체 환경 변수 관리</summary>
   <description>
     <p>
       Miryu Toolkit provides package helpers for optional components such as Wine,
       Steam, MIDI playback support and additional fonts, plus a system-wide environment
       variable editor for /etc/environment.
     </p>
+    <p xml:lang="zh_CN">Miryu 工具箱为 Wine、Steam、MIDI 播放支持和额外字体等可选组件提供软件包辅助功能，并提供用于编辑 /etc/environment 的系统范围环境变量编辑器。</p>
+    <p xml:lang="zh_TW">Miryu 工具箱為 Wine、Steam、MIDI 播放支援和額外字型等可選元件提供軟體包輔助功能，並提供用於編輯 /etc/environment 的系統範圍環境變數編輯器。</p>
+    <p xml:lang="de">Miryu Toolkit stellt Paket-Hilfsprogramme für optionale Komponenten wie Wine, Steam, MIDI-Wiedergabeunterstützung und zusätzliche Schriften sowie einen Editor für systemweite Umgebungsvariablen in /etc/environment bereit.</p>
+    <p xml:lang="fr">Miryu Toolkit fournit des assistants de paquets pour des composants optionnels tels que Wine, Steam, la prise en charge MIDI et des polices supplémentaires, ainsi qu'un éditeur des variables d'environnement système dans /etc/environment.</p>
+    <p xml:lang="ja">Miryu Toolkit は、Wine、Steam、MIDI 再生サポート、追加フォントなどのオプションコンポーネント用パッケージヘルパーと、/etc/environment のシステム全体の環境変数エディターを提供します。</p>
+    <p xml:lang="ko">Miryu Toolkit은 Wine, Steam, MIDI 재생 지원, 추가 글꼴과 같은 선택적 구성 요소의 패키지 도우미와 /etc/environment를 편집하는 시스템 전체 환경 변수 편집기를 제공합니다.</p>
     <p>
       It also includes a system log collection tool that gathers system information,
       dnf5 logs and Anaconda installer logs into a compressed archive.
     </p>
+    <p xml:lang="zh_CN">它还包含系统日志收集工具，可将系统信息、dnf5 日志和 Anaconda 安装程序日志汇总到压缩归档中。</p>
+    <p xml:lang="zh_TW">它還包含系統日誌收集工具，可將系統資訊、dnf5 日誌和 Anaconda 安裝程式日誌彙整到壓縮封存檔中。</p>
+    <p xml:lang="de">Außerdem enthält es ein Werkzeug zum Sammeln von Systemprotokollen, das Systeminformationen sowie dnf5- und Anaconda-Installationsprotokolle in einem komprimierten Archiv zusammenfasst.</p>
+    <p xml:lang="fr">Il comprend également un outil de collecte des journaux système qui rassemble les informations système, les journaux dnf5 et ceux de l'installateur Anaconda dans une archive compressée.</p>
+    <p xml:lang="ja">また、システム情報、dnf5 ログ、Anaconda インストーラーログを圧縮アーカイブにまとめるシステムログ収集ツールも含まれています。</p>
+    <p xml:lang="ko">또한 시스템 정보, dnf5 로그, Anaconda 설치 프로그램 로그를 압축 아카이브로 수집하는 시스템 로그 수집 도구도 포함합니다.</p>
     <p>
       A GRUB2 boot menu configuration tool is integrated, allowing users to toggle
       the boot menu visibility, set the boot timeout, remember the last selected
       entry, and manage custom kernel parameters with polkit-protected saving.
     </p>
+    <p xml:lang="zh_CN">集成的 GRUB2 启动菜单配置工具可切换启动菜单可见性、设置启动超时、记住上次选择的条目，并通过 polkit 保护保存自定义内核参数。</p>
+    <p xml:lang="zh_TW">整合的 GRUB2 開機選單設定工具可切換開機選單可見性、設定開機逾時、記住上次選擇的項目，並透過 polkit 保護儲存自訂核心參數。</p>
+    <p xml:lang="de">Das integrierte GRUB2-Bootmenü-Werkzeug kann die Sichtbarkeit des Bootmenüs umschalten, die Zeitüberschreitung festlegen, den zuletzt ausgewählten Eintrag merken und benutzerdefinierte Kernel-Parameter mit polkit-geschütztem Speichern verwalten.</p>
+    <p xml:lang="fr">L'outil de configuration du menu de démarrage GRUB2 intégré permet d'afficher ou masquer le menu, de définir le délai de démarrage, de mémoriser la dernière entrée sélectionnée et de gérer les paramètres personnalisés du noyau avec un enregistrement protégé par polkit.</p>
+    <p xml:lang="ja">統合された GRUB2 ブートメニュー設定ツールでは、ブートメニューの表示切り替え、起動タイムアウトの設定、最後に選択したエントリーの記憶、polkit で保護された保存によるカスタムカーネルパラメーターの管理ができます。</p>
+    <p xml:lang="ko">통합된 GRUB2 부팅 메뉴 구성 도구를 사용하여 부팅 메뉴 표시 여부 전환, 부팅 제한 시간 설정, 마지막으로 선택한 항목 기억, polkit으로 보호되는 저장을 통한 사용자 정의 커널 매개변수 관리를 할 수 있습니다.</p>
   </description>
   <launchable type="desktop-id">miryu-toolkit.desktop</launchable>
   <releases>
@@ -27,11 +57,47 @@
       <description>
         <ul>
           <li>Merge GRUB2 boot menu configuration as a separate Boot Menu tab</li>
+          <li xml:lang="zh_CN">将 GRUB2 启动菜单配置合并为独立的“启动菜单”页签</li>
+          <li xml:lang="zh_TW">將 GRUB2 開機選單設定合併為獨立的「開機選單」頁籤</li>
+          <li xml:lang="de">GRUB2-Bootmenü-Konfiguration als separaten Bootmenü-Reiter integriert</li>
+          <li xml:lang="fr">Fusion de la configuration du menu de démarrage GRUB2 dans un onglet Menu de démarrage distinct</li>
+          <li xml:lang="ja">GRUB2 ブートメニュー設定を独立した「ブートメニュー」タブとして統合</li>
+          <li xml:lang="ko">GRUB2 부팅 메뉴 구성을 별도의 부팅 메뉴 탭으로 통합</li>
           <li>Add kernel parameter management with add, edit, remove, and reorder</li>
+          <li xml:lang="zh_CN">新增内核参数管理，支持添加、编辑、移除和重新排序</li>
+          <li xml:lang="zh_TW">新增核心參數管理，支援新增、編輯、移除和重新排序</li>
+          <li xml:lang="de">Kernel-Parameter-Verwaltung mit Hinzufügen, Bearbeiten, Entfernen und Neuanordnen hinzugefügt</li>
+          <li xml:lang="fr">Ajout de la gestion des paramètres du noyau avec ajout, modification, suppression et réorganisation</li>
+          <li xml:lang="ja">カーネルパラメーターの追加、編集、削除、並べ替え管理機能を追加</li>
+          <li xml:lang="ko">커널 매개변수 추가, 편집, 제거 및 재정렬 관리 기능 추가</li>
           <li>Rename polkit action IDs from org.miryu.toolkit to org.miryugaming.toolkit</li>
+          <li xml:lang="zh_CN">将 polkit 操作 ID 从 org.miryu.toolkit 重命名为 org.miryugaming.toolkit</li>
+          <li xml:lang="zh_TW">將 polkit 操作 ID 從 org.miryu.toolkit 重新命名為 org.miryugaming.toolkit</li>
+          <li xml:lang="de">Polkit-Aktions-IDs von org.miryu.toolkit in org.miryugaming.toolkit umbenannt</li>
+          <li xml:lang="fr">Renommage des identifiants d'action polkit de org.miryu.toolkit en org.miryugaming.toolkit</li>
+          <li xml:lang="ja">polkit アクション ID を org.miryu.toolkit から org.miryugaming.toolkit に変更</li>
+          <li xml:lang="ko">polkit 작업 ID를 org.miryu.toolkit에서 org.miryugaming.toolkit으로 변경</li>
           <li>Fix window expanding after maximize/restore cycle</li>
+          <li xml:lang="zh_CN">修复窗口在最大化/还原循环后不断扩大的问题</li>
+          <li xml:lang="zh_TW">修復視窗在最大化/還原循環後不斷擴大的問題</li>
+          <li xml:lang="de">Fenstervergrößerung nach einem Maximieren/Wiederherstellen-Zyklus behoben</li>
+          <li xml:lang="fr">Correction de l'agrandissement de la fenêtre après un cycle agrandissement/restauration</li>
+          <li xml:lang="ja">最大化/復元を繰り返した後にウィンドウが拡大する問題を修正</li>
+          <li xml:lang="ko">최대화/복원 후 창이 커지는 문제 수정</li>
           <li>Async GRUB2 save with real-time visual log dialog</li>
+          <li xml:lang="zh_CN">GRUB2 改为异步保存，并提供实时可视化日志对话框</li>
+          <li xml:lang="zh_TW">GRUB2 改為非同步儲存，並提供即時視覺化日誌對話框</li>
+          <li xml:lang="de">Asynchrones Speichern von GRUB2 mit Echtzeit-Protokolldialog</li>
+          <li xml:lang="fr">Enregistrement asynchrone de GRUB2 avec boîte de dialogue de journal en temps réel</li>
+          <li xml:lang="ja">リアルタイムログダイアログ付きの非同期 GRUB2 保存</li>
+          <li xml:lang="ko">실시간 로그 대화 상자를 제공하는 비동기 GRUB2 저장</li>
           <li>Unify all polkit operations: remove close button, close log with result dialog</li>
+          <li xml:lang="zh_CN">统一所有 polkit 操作：移除关闭按钮，通过结果对话框关闭日志</li>
+          <li xml:lang="zh_TW">統一所有 polkit 操作：移除關閉按鈕，透過結果對話框關閉日誌</li>
+          <li xml:lang="de">Alle Polkit-Vorgänge vereinheitlicht: Schließen-Knopf entfernt, Protokoll über Ergebnisdialog schließen</li>
+          <li xml:lang="fr">Unification de toutes les opérations polkit : suppression du bouton Fermer et fermeture du journal par la boîte de dialogue de résultat</li>
+          <li xml:lang="ja">すべての polkit 操作を統一：閉じるボタンを削除し、結果ダイアログでログを閉じるように変更</li>
+          <li xml:lang="ko">모든 polkit 작업 통합: 닫기 버튼을 제거하고 결과 대화 상자로 로그를 닫도록 변경</li>
         </ul>
       </description>
     </release>

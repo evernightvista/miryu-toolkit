@@ -113,6 +113,7 @@ private:
     void setGrubBusy(bool busy);
 
     QTabWidget *m_tabs = nullptr;
+    QWidget *m_uefiBootPage = nullptr;
     QVector<ExtraComponent> m_components;
     QMap<QString, ComponentWidgets> m_componentWidgets;
     QProcess *m_runningProcess = nullptr;

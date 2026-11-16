@@ -1,6 +1,6 @@
 Name:           miryu-toolkit
 Version:        45.0.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Miryu Toolkit
 
 License:        GPL-3.0-or-later
@@ -18,7 +18,6 @@ BuildRequires:  kf6-kwidgetsaddons-devel
 BuildRequires:  kf6-kcmutils-devel
 
 Requires:       dnf5
-Requires:       /usr/bin/dnf-3
 Requires:       polkit
 Requires:       rpm
 Requires:       tar
@@ -27,7 +26,13 @@ Requires:       inxi
 Requires:       lshw
 Requires:       grub2-tools
 Requires:       grubby
+Requires:       efibootmgr
+Requires:       mokutil
+Requires:       util-linux
+Requires:       coreutils
 Requires:       systemd
+Requires:       grub2-efi-x64-modules
+Requires:       grub2-pc-modules
 Obsoletes:      evernight-vista-tools
 Obsoletes:      miryu-grub-config < %{version}-%{release}
 
@@ -37,7 +42,9 @@ optional Miryu components and system-wide environment variables.
 
 It provides polkit-protected helpers for Wine, Steam, MIDI playback support and
 additional fonts, plus a system log collection tool. It also integrates a GRUB2
-boot menu configuration tool with kernel parameter management.
+boot menu configuration tool with kernel parameter management, UEFI firmware
+entry and Secure Boot MOK management, GRUB2 UEFI repair, and configuration
+backup and restoration.
 
 %prep
 %autosetup -n %{name}-main
@@ -78,6 +85,8 @@ boot menu configuration tool with kernel parameter management.
 %{_libexecdir}/miryu-toolkit/miryu-toolkit-collect-logs
 %{_libexecdir}/miryu-toolkit/miryu-toolkit-view-crash
 %{_libexecdir}/miryu-toolkit/miryu-toolkit-grub-config-helper
+%{_libexecdir}/miryu-toolkit/miryu-toolkit-boot-helper
+%{_libexecdir}/miryu-toolkit/miryu-toolkit-list-mok
 %{_libexecdir}/miryu-toolkit/miryu-toolkit-fedora-kernel
 %{_libexecdir}/miryu-toolkit/miryu-toolkit-remove-fedora-kernel
 %{_libexecdir}/miryu-toolkit/miryu-toolkit-apply-sleep
@@ -86,6 +95,13 @@ boot menu configuration tool with kernel parameter management.
 
 
 %changelog
+* Mon Nov 16 2026 KairikiFedora <13278297951@sina.cn> - 45.0.1-6
+- Add UEFI firmware entry and Secure Boot MOK management
+- Add GRUB2 UEFI repair for running, mounted and offline Linux systems
+- Add integrity-checked configuration backups and restoration
+- Add the miryu-toolkit-boot-helper polkit helper and required boot tools
+- Clean Old Kernel only use DNF5 to clean it
+
 * Wed Nov 11 2026 KairikiFedora <13278297951@sina.cn> - 45.0.1-5
 - Fix BUG
 
