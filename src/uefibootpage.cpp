@@ -528,7 +528,8 @@ void UefiBootPage::updateControls()
     m_discardButton->setEnabled(changes > 0);
 
     const bool mokAvailable = idle && snapshot.uefi
-        && snapshot.secureBoot != BootSecurityState::Disabled;
+        && snapshot.secureBoot != BootSecurityState::Disabled
+        && snapshot.secureBoot != BootSecurityState::Unsupported;
     m_mokArea->setEnabled(mokAvailable);
     m_requestMokButton->setEnabled(mokAvailable && m_hasMokUtil);
     m_cancelMokButton->setEnabled(mokAvailable && m_hasMokUtil

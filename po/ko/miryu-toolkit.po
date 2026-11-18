@@ -425,6 +425,10 @@ msgstr "보안 부팅 인증서 읽는 중"
 msgid "%1: %2"
 msgstr "%1: %2"
 
+#: src/bootdata.cpp:999
+msgid "UEFI firmware does not support Secure Boot."
+msgstr "UEFI 펌웨어는 보안 부팅을 지원하지 않습니다."
+
 #: src/bootdata.cpp:1032
 msgid "The EFI boot variable is not writable: %1"
 msgstr "EFI 부팅 변수에 쓸 수 없습니다: %1"

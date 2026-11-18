@@ -427,6 +427,10 @@ msgstr ""
 msgid "%1: %2"
 msgstr ""
 
+#: src/bootdata.cpp:999
+msgid "UEFI firmware does not support Secure Boot."
+msgstr ""
+
 #: src/bootdata.cpp:1032
 msgid "The EFI boot variable is not writable: %1"
 msgstr ""

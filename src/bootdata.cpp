@@ -988,7 +988,16 @@ BootSnapshot BootProbe::inspect(const QString &root, const Progress &progress)
     if (snapshot.uefi) {
         const CommandResult enrolled = readCommand(QStringLiteral("mokutil"),
                                                    {QStringLiteral("--list-enrolled")});
-        if (enrolled.completed && (enrolled.exitCode == 0 || !enrolled.output.isEmpty())) {
+        // Firmware without Secure Boot support exposes no SecureBoot variable;
+        // mokutil reports that as "This system doesn't support Secure Boot".
+        // Surface the firmware limitation instead of the raw mokutil output.
+        const bool secureBootUnsupported = (enrolled.output + QLatin1Char('\n') + enrolled.error)
+            .contains(QStringLiteral("doesn't support Secure Boot"), Qt::CaseInsensitive);
+        if (secureBootUnsupported) {
+            snapshot.secureBoot = BootSecurityState::Unsupported;
+            snapshot.setupMode = BootSecurityState::Unsupported;
+            snapshot.securityMessages.append(i18nd("miryu-toolkit", "UEFI firmware does not support Secure Boot."));
+        } else if (enrolled.completed && (enrolled.exitCode == 0 || !enrolled.output.isEmpty())) {
             snapshot.enrolledMok = enrolled.output;
             snapshot.enrolledCertificates = parseMokCertificates(enrolled.output);
         } else if (!enrolled.error.trimmed().isEmpty()) {
@@ -999,9 +1008,12 @@ BootSnapshot BootProbe::inspect(const QString &root, const Progress &progress)
         // EFI variable directly from efivarfs, and if that is not readable by
         // the current user, falls back to the privileged boot helper invoked
         // through the silent org.miryugaming.toolkit.list-mok polkit action.
-        QString pendingOutput = readPendingMokFromEfivarfs();
-        if (pendingOutput.isEmpty())
-            pendingOutput = readPendingMokViaHelper();
+        QString pendingOutput;
+        if (!secureBootUnsupported) {
+            pendingOutput = readPendingMokFromEfivarfs();
+            if (pendingOutput.isEmpty())
+                pendingOutput = readPendingMokViaHelper();
+        }
         if (!pendingOutput.isEmpty()) {
             snapshot.pendingMok = pendingOutput;
             snapshot.pendingCertificates = parseMokCertificates(pendingOutput);

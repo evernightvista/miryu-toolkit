@@ -475,6 +475,10 @@ msgstr "Lecture des certificats Secure Boot"
 msgid "%1: %2"
 msgstr "%1 : %2"
 
+#: src/bootdata.cpp:999
+msgid "UEFI firmware does not support Secure Boot."
+msgstr "Le micrologiciel UEFI ne prend pas en charge le démarrage sécurisé."
+
 #: src/bootdata.cpp:1032
 msgid "The EFI boot variable is not writable: %1"
 msgstr "La variable de démarrage EFI n'est pas accessible en écriture : %1"

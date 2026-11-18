@@ -422,6 +422,10 @@ msgstr "正在读取安全启动证书"
 msgid "%1: %2"
 msgstr "%1：%2"
 
+#: src/bootdata.cpp:999
+msgid "UEFI firmware does not support Secure Boot."
+msgstr "UEFI 固件不支持安全启动。"
+
 #: src/bootdata.cpp:1032
 msgid "The EFI boot variable is not writable: %1"
 msgstr "EFI 启动变量不可写：%1"

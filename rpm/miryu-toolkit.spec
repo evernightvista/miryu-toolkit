@@ -1,6 +1,6 @@
 Name:           miryu-toolkit
 Version:        45.0.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Miryu Toolkit
 
 License:        GPL-3.0-or-later
@@ -95,6 +95,9 @@ backup and restoration.
 
 
 %changelog
+* Wed Nov 18 2026 KairikiFedora <13278297951@sina.cn> - 45.0.1-7
+- Fix UEFI Not Support Secure Boot display mokutil info
+
 * Mon Nov 16 2026 KairikiFedora <13278297951@sina.cn> - 45.0.1-6
 - Add UEFI firmware entry and Secure Boot MOK management
 - Add GRUB2 UEFI repair for running, mounted and offline Linux systems

@@ -445,6 +445,10 @@ msgstr "セキュアブート証明書を読み込み中"
 msgid "%1: %2"
 msgstr "%1: %2"
 
+#: src/bootdata.cpp:999
+msgid "UEFI firmware does not support Secure Boot."
+msgstr "UEFI ファームウェアはセキュアブートに対応していません。"
+
 #: src/bootdata.cpp:1032
 msgid "The EFI boot variable is not writable: %1"
 msgstr "EFI ブート変数が書き込み可能ではありません: %1"
