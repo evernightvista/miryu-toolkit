@@ -991,8 +991,10 @@ BootSnapshot BootProbe::inspect(const QString &root, const Progress &progress)
         // Firmware without Secure Boot support exposes no SecureBoot variable;
         // mokutil reports that as "This system doesn't support Secure Boot".
         // Surface the firmware limitation instead of the raw mokutil output.
-        const bool secureBootUnsupported = (enrolled.output + QLatin1Char('\n') + enrolled.error)
-            .contains(QStringLiteral("doesn't support Secure Boot"), Qt::CaseInsensitive);
+        const QString enrolledDiagnostics = enrolled.output + QLatin1Char('\n')
+            + enrolled.error;
+        const bool secureBootUnsupported = enrolledDiagnostics.contains(
+            QStringLiteral("doesn't support Secure Boot"), Qt::CaseInsensitive);
         if (secureBootUnsupported) {
             snapshot.secureBoot = BootSecurityState::Unsupported;
             snapshot.setupMode = BootSecurityState::Unsupported;
