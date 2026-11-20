@@ -2662,11 +2662,11 @@ msgstr "1 つの環境変数に改行を含めることはできません。"
 
 #: src/mainwindow.cpp:2491
 msgid ""
-"Remove previous kernel versions? This will run: dnf5 -y remove --"
-"oldinstallonly"
+"Remove previous kernel versions? This will run: dnf5 -y remove $(dnf5 "
+"repoquery --installonly --latest-limit=-1)"
 msgstr ""
-"以前のカーネルバージョンを削除しますか？次を実行します：dnf5 -y remove --"
-"oldinstallonly"
+"以前のカーネルバージョンを削除しますか？次を実行します：dnf5 -y remove "
+"$(dnf5 repoquery --installonly --latest-limit=-1)"
 
 #: src/mainwindow.cpp:2493
 msgid "Clean up"

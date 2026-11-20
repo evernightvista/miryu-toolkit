@@ -2766,11 +2766,11 @@ msgstr "Une variable d'environnement ne doit pas contenir de sauts de ligne."
 
 #: src/mainwindow.cpp:2491
 msgid ""
-"Remove previous kernel versions? This will run: dnf5 -y remove --"
-"oldinstallonly"
+"Remove previous kernel versions? This will run: dnf5 -y remove $(dnf5 "
+"repoquery --installonly --latest-limit=-1)"
 msgstr ""
 "Supprimer les versions précédentes du noyau ? Cela exécutera : dnf5 -y "
-"remove --oldinstallonly"
+"remove $(dnf5 repoquery --installonly --latest-limit=-1)"
 
 #: src/mainwindow.cpp:2493
 msgid "Clean up"

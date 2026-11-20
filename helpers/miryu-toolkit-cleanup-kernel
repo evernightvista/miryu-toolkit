@@ -2,7 +2,13 @@
 set -eu
 
 # Remove old installonly packages (previous kernel versions) using dnf5.
-# --oldinstallonly honors installonly_limit and never removes the running kernel.
+#
+# `dnf5 remove --oldinstallonly` only removes installonly packages that
+# exceed installonly_limit (which defaults to 3), so it does nothing when
+# only two or three kernels are installed. To actually clean up every
+# previous kernel, list all installed installonly packages except the latest
+# one and remove them explicitly. dnf5 never removes the kernel that is
+# currently running, so the booted kernel is always kept.
 
 if command -v /usr/bin/dnf5 >/dev/null 2>&1; then
     DNF=/usr/bin/dnf5
@@ -13,4 +19,16 @@ else
     exit 1
 fi
 
-exec "$DNF" -y remove --oldinstallonly
+# List installed installonly packages (kernels and their subpackages) except
+# the latest one. -q silences the "Last metadata expiration check" banner so
+# the output is a clean NEVRA list.
+old_kernels="$("$DNF" repoquery --installonly --latest-limit=-1 -q)"
+
+if [ -z "$old_kernels" ]; then
+    echo "Nothing to do: no previous kernel versions to remove."
+    exit 0
+fi
+
+# Kernel package NEVRAs never contain spaces, so word-splitting is intended.
+# shellcheck disable=SC2086
+exec "$DNF" -y remove $old_kernels

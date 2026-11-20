@@ -2477,8 +2477,8 @@ msgstr ""
 
 #: src/mainwindow.cpp:2491
 msgid ""
-"Remove previous kernel versions? This will run: dnf5 -y remove --"
-"oldinstallonly"
+"Remove previous kernel versions? This will run: dnf5 -y remove $(dnf5 "
+"repoquery --installonly --latest-limit=-1)"
 msgstr ""
 
 #: src/mainwindow.cpp:2493

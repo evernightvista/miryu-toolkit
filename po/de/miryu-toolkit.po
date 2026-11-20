@@ -2770,11 +2770,12 @@ msgstr "Eine einzelne Umgebungsvariable darf keine Zeilenumbrüche enthalten."
 
 #: src/mainwindow.cpp:2491
 msgid ""
-"Remove previous kernel versions? This will run: dnf5 -y remove --"
-"oldinstallonly"
+"Remove previous kernel versions? This will run: dnf5 -y remove $(dnf5 "
+"repoquery --installonly --latest-limit=-1)"
 msgstr ""
 "Vorherige Kernel-Versionen entfernen? Dabei wird folgender Befehl "
-"ausgeführt: dnf5 -y remove --oldinstallonly"
+"ausgeführt: dnf5 -y remove $(dnf5 repoquery --installonly "
+"--latest-limit=-1)"
 
 #: src/mainwindow.cpp:2493
 msgid "Clean up"
